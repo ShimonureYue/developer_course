@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: Taco Clicker 🌮 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">⚡ Nivel 5: JavaScript</a> › Lección 5
+    </p>
+    <span class="etiqueta-leccion">NIVEL 5 · LECCIÓN 5 · 👑 JEFE</span>
+    <h1>Jefe final: Taco Clicker 🌮👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Construir tu <strong>primer juego web completo</strong>: un taco gigante que suma tacos
+        con cada clic, <strong>mejoras que cuestan tacos</strong> (🌶️ salsa y 👵 abuelita taquera)
+        y <strong>rangos de taquero</strong>. Todo con lo que YA sabes: variables, funciones,
+        eventos, DOM e <code>if</code>. ¡A darle, que es taco de verdad! 🌮</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Los juegos "clicker" (como Cookie Clicker 🍪, que millones juegan) tienen una receta
+        sorprendentemente simple. Es el mismo patrón de tu contador de aplausos… pero con
+        premios que hacen crecer el negocio:</p>
+      <div class="analogia">
+        Un clicker es como <strong>tu propio puesto de tacos</strong> 🌮: cada clic es un taco que
+        vendes. Con las ganancias compras <strong>mejoras</strong>: salsa secreta para vender más
+        por clic, o contratas a la <strong>abuelita taquera</strong> que hace tacos solita aunque
+        tú no toques nada. Invertir para ganar más… ¡economía de taquero! 📈
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- El taco -->
+          <g class="anim-pulso">
+            <circle cx="110" cy="110" r="52" fill="#1c1a10" stroke="#ffe95c" stroke-width="3"/>
+            <text x="110" y="128" text-anchor="middle" font-size="46">🌮</text>
+          </g>
+          <text x="110" y="195" text-anchor="middle" font-size="12" fill="#a3a3c8">clic = evento</text>
+          <!-- +1 que viaja al contador -->
+          <g class="anim-valor-entra" style="--dx: 130px;">
+            <text x="185" y="90" font-size="22" fill="#39ff8e">+1</text>
+          </g>
+          <!-- Flecha -->
+          <path class="anim-recorrido" d="M 170 110 L 330 110" fill="none" stroke="#ffe95c" stroke-width="3"/>
+          <!-- Contador (estado) -->
+          <rect x="335" y="70" width="190" height="80" rx="12" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <text class="mono" x="430" y="100" text-anchor="middle" font-size="14" fill="#00e5ff">let tacos = …</text>
+          <!-- Barra que crece -->
+          <rect x="355" y="115" width="150" height="14" rx="7" fill="#1d1d3f"/>
+          <rect class="anim-crecer" x="355" y="115" width="150" height="14" rx="7" fill="#39ff8e"/>
+          <text x="430" y="180" text-anchor="middle" font-size="12" fill="#a3a3c8">variable + pantalla actualizada</text>
+          <text class="anim-parpadeo" x="430" y="205" text-anchor="middle" font-size="13" fill="#ff4dd8">¡eso es TODO el juego! 🤯</text>
+        </svg>
+        <p class="pie">El corazón del Taco Clicker: <strong>clic → la variable sube → la pantalla se
+          actualiza</strong>. Las mejoras solo cambian QUÉ tanto sube por clic… o hacen que suba sola. 👵</p>
+      </div>
+
+      <h2>⏰ La pieza nueva: <code>setInterval</code></h2>
+      <p>Para que la abuelita haga tacos solita necesitas un <strong>despertador que suena una y
+        otra vez</strong>. Eso es <code>setInterval</code>:</p>
+      <pre class="bloque-codigo"><code>setInterval(function () {
+  tacos = tacos + 1;   // esto corre solo…
+  pintar();
+}, 1000);              // …cada 1000 milisegundos (1 segundo) ⏰</code></pre>
+      <p>Se lee: "cada 1000 milisegundos, corre esta función". Es el mismo truco de la función
+        sin paréntesis de los eventos: no corre YA, corre cada vez que "suena el despertador".</p>
+
+      <h2>🗺️ El plan de batalla (5 partes)</h2>
+      <ol class="pasos">
+        <li><strong>El HTML:</strong> un botón gigante 🌮, el contador de tacos y los botones de mejora.</li>
+        <li><strong>El estado:</strong> variables <code>tacos</code> y <code>porClic</code>, y una
+          función <code>pintar()</code> que actualiza la pantalla.</li>
+        <li><strong>El evento:</strong> clic al taco → sube <code>tacos</code> → <code>pintar()</code>.</li>
+        <li><strong>Las mejoras:</strong> 🌶️ salsa (+2 por clic, cuesta 20) y 👵 abuelita
+          (+1 taco/segundo con <code>setInterval</code>, cuesta 50). ¡Con <code>if</code> para
+          checar que te alcance!</li>
+        <li><strong>Los rangos:</strong> con <code>if/else if</code>: 🧢 aprendiz → 🔥 taquero →
+          👑 leyenda del pastor.</li>
+      </ol>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR (¡juégalo primero!)</p>
+      <p>Así se ve el jefe ya vencido 😎. <strong>Juégalo</strong>: haz muchos clics, compra la
+        salsa cuando tengas 20 tacos y contrata a la abuelita a los 50. Luego lee el código
+        con calma: reconocerás CADA pieza:</p>
+
+      <div class="playground" data-mode="html" data-titulo="taco_clicker_demo.html" data-alto="420">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #1a0f08; color: #ffe95c; font-family: sans-serif; text-align: center; }
+    #contador { font-size: 2rem; margin: 10px 0 0; }
+    #rango { font-size: 1.1rem; color: #ffb86c; margin: 4px 0; }
+    #taco { font-size: 5rem; background: none; border: none; cursor: pointer; transition: transform 0.05s; }
+    #taco:active { transform: scale(0.85); }
+    .mejora { display: block; margin: 8px auto; padding: 10px 16px; font-size: 1rem;
+              border-radius: 10px; border: 2px solid #ffb86c; background: #2b1a10;
+              color: #ffe95c; cursor: pointer; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="contador"&gt;0 tacos&lt;/h1&gt;
+  &lt;p id="rango"&gt;🧢 Aprendiz de taquero&lt;/p&gt;
+  &lt;button id="taco"&gt;🌮&lt;/button&gt;
+  &lt;button id="salsa" class="mejora"&gt;🌶️ Salsa secreta (+2 por clic) — cuesta 20 tacos&lt;/button&gt;
+  &lt;button id="abuelita" class="mejora"&gt;👵 Abuelita taquera (+1 taco/seg) — cuesta 50 tacos&lt;/button&gt;
+
+  &lt;script&gt;
+    // ===== PARTE 2: el estado =====
+    let tacos = 0;
+    let porClic = 1;
+
+    function pintar() {
+      document.getElementById("contador").textContent = tacos + " tacos";
+      let rango = "🧢 Aprendiz de taquero";
+      if (tacos &gt;= 500) {
+        rango = "👑 Leyenda del pastor";
+      } else if (tacos &gt;= 100) {
+        rango = "🔥 Taquero de verdad";
+      }
+      document.getElementById("rango").textContent = rango;
+    }
+
+    // ===== PARTE 3: el evento del taco =====
+    document.getElementById("taco").addEventListener("click", function () {
+      tacos = tacos + porClic;
+      pintar();
+    });
+
+    // ===== PARTE 4a: mejora salsa 🌶️ =====
+    document.getElementById("salsa").addEventListener("click", function () {
+      if (tacos &gt;= 20) {
+        tacos = tacos - 20;      // pagas la mejora
+        porClic = porClic + 2;   // ¡ahora cada clic vale más!
+        pintar();
+      } else {
+        alert("Te faltan tacos 😅 La salsa cuesta 20.");
+      }
+    });
+
+    // ===== PARTE 4b: mejora abuelita 👵 =====
+    document.getElementById("abuelita").addEventListener("click", function () {
+      if (tacos &gt;= 50) {
+        tacos = tacos - 50;
+        setInterval(function () {  // el despertador ⏰
+          tacos = tacos + 1;
+          pintar();
+        }, 1000);
+      } else {
+        alert("Te faltan tacos 😅 La abuelita cuesta 50.");
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p>¿Ya viste? El juego completo son como 50 líneas y <strong>conoces todas</strong>:
+        variables, funciones, eventos, DOM, <code>if</code> y el nuevo <code>setInterval</code>.
+        Los videojuegos no son magia: son piezas simples bien acomodadas. 🧩</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: CONSTRÚYELO TÚ</p>
+      <p>Ahora te toca a ti, SIN copiar el de arriba (esa es la pelea con el jefe 🥊).
+        Te dejamos el HTML y el CSS listos; tú escribe el JavaScript siguiendo el plan de
+        5 partes. Ve probando con ▶ Ejecutar después de CADA parte:</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_taco_clicker.html" data-alto="420">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #1a0f08; color: #ffe95c; font-family: sans-serif; text-align: center; }
+    #contador { font-size: 2rem; margin: 10px 0 0; }
+    #rango { font-size: 1.1rem; color: #ffb86c; margin: 4px 0; }
+    #taco { font-size: 5rem; background: none; border: none; cursor: pointer; transition: transform 0.05s; }
+    #taco:active { transform: scale(0.85); }
+    .mejora { display: block; margin: 8px auto; padding: 10px 16px; font-size: 1rem;
+              border-radius: 10px; border: 2px solid #ffb86c; background: #2b1a10;
+              color: #ffe95c; cursor: pointer; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- PARTE 1: el HTML ya está listo 🏗️ --&gt;
+  &lt;h1 id="contador"&gt;0 tacos&lt;/h1&gt;
+  &lt;p id="rango"&gt;🧢 Aprendiz de taquero&lt;/p&gt;
+  &lt;button id="taco"&gt;🌮&lt;/button&gt;
+  &lt;button id="salsa" class="mejora"&gt;🌶️ Salsa secreta (+2 por clic) — cuesta 20 tacos&lt;/button&gt;
+  &lt;button id="abuelita" class="mejora"&gt;👵 Abuelita taquera (+1 taco/seg) — cuesta 50 tacos&lt;/button&gt;
+
+  &lt;script&gt;
+    // PARTE 2: crea las variables tacos (0) y porClic (1),
+    //          y la función pintar() que ponga el número de tacos
+    //          en el elemento "contador" con textContent.
+
+    // PARTE 3: escucha el clic del botón "taco":
+    //          suma porClic a tacos y llama pintar().
+
+    // PARTE 4a: escucha el clic de "salsa":
+    //          si tacos &gt;= 20 → resta 20 y súmale 2 a porClic.
+
+    // PARTE 4b: escucha el clic de "abuelita":
+    //          si tacos &gt;= 50 → resta 50 y arranca un setInterval
+    //          que sume 1 taco y pinte, cada 1000 ms.
+
+    // PARTE 5: dentro de pintar(), usa if / else if para cambiar
+    //          el texto de "rango": 🧢 normal, 🔥 desde 100, 👑 desde 500.
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Empieza SOLO con las partes 2 y 3: que el taco cuente clics (es tu contador de
+          aplausos 👏 disfrazado de taco). Cuando eso funcione, sigue con las mejoras.
+          Los jefes se vencen por partes.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Cada mejora es un <code>addEventListener</code> con un <code>if</code> adentro:
+          <code>if (tacos &gt;= 20) { tacos = tacos - 20; porClic = porClic + 2; pintar(); }</code>.
+          Y el despertador de la abuelita: <code>setInterval(function () { … }, 1000);</code>
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN COMPLETA EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// PARTE 2: el estado del juego
+let tacos = 0;      // cuántos tacos llevas
+let porClic = 1;    // cuánto vale cada clic
+
+function pintar() {
+  document.getElementById("contador").textContent = tacos + " tacos";
+  // PARTE 5: los rangos (de mayor a menor para que gane el más alto)
+  let rango = "🧢 Aprendiz de taquero";
+  if (tacos &gt;= 500) {
+    rango = "👑 Leyenda del pastor";
+  } else if (tacos &gt;= 100) {
+    rango = "🔥 Taquero de verdad";
+  }
+  document.getElementById("rango").textContent = rango;
+}
+
+// PARTE 3: el clic principal
+document.getElementById("taco").addEventListener("click", function () {
+  tacos = tacos + porClic;
+  pintar();
+});
+
+// PARTE 4a: salsa 🌶️ — pagas 20, ganas +2 por clic
+document.getElementById("salsa").addEventListener("click", function () {
+  if (tacos &gt;= 20) {
+    tacos = tacos - 20;
+    porClic = porClic + 2;
+    pintar();
+  }
+});
+
+// PARTE 4b: abuelita 👵 — pagas 50, +1 taco cada segundo
+document.getElementById("abuelita").addEventListener("click", function () {
+  if (tacos &gt;= 50) {
+    tacos = tacos - 50;
+    setInterval(function () {
+      tacos = tacos + 1;
+      pintar();
+    }, 1000);
+  }
+});</code></pre>
+          Lo más importante: <strong><code>pintar()</code> es la única que toca la pantalla</strong>.
+          Todos los demás solo cambian variables y luego llaman a <code>pintar()</code>.
+          Ese patrón (estado + una función que dibuja) es EXACTAMENTE cómo funcionan los
+          videojuegos del Nivel 6. 🎮
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Ve por partes: ¿la parte 2+3 funciona sola? Si no, arregla eso antes de seguir. 🧩</li>
+        <li>Compara con el <strong>demo jugable</strong> de arriba: encuentra la pieza que te falta.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n5l5">Tengo 13 años y estoy construyendo un juego clicker en JavaScript (tipo Cookie Clicker pero de tacos): tengo un botón que suma tacos, mejoras que cuestan tacos y setInterval para producir tacos automáticos. Voy a pegarte mi código: ayúdame a encontrar por qué no funciona, pero guíame con preguntas paso a paso en lugar de darme el código corregido completo. Si te pido ideas de mejoras nuevas para el juego, dame opciones con su dificultad.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DE JEFE (OPCIONALES)</p>
+      <ul>
+        <li><strong>🛒 Nueva mejora:</strong> inventa la tuya. ¿Un 🚚 "food truck" que dé +5 por
+          segundo y cueste 200? Copia el patrón de la abuelita y cámbiale los números.</li>
+        <li><strong>🔊 Sonido:</strong> ponle audio al clic con
+          <code>new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg").play()</code>
+          adentro del evento del taco. ¡Pop! por cada taco.</li>
+        <li><strong>🎨 Guarda tu diseño:</strong> personaliza el CSS (colores, fuentes, ¿modo
+          neón?) y guarda tu archivo en tu carpeta de proyectos como
+          <code>taco-clicker.html</code> — ábrelo con doble clic y preséntalo. Es TU primer
+          juego publicable. 🏆</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n5-l5" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace <code>setInterval(miFuncion, 1000)</code>?</p>
+          <button class="opcion">Corre miFuncion una sola vez después de 1000 segundos</button>
+          <button class="opcion" data-ok>Corre miFuncion una y otra vez, cada 1000 milisegundos (1 segundo)</button>
+          <button class="opcion">Detiene el programa por 1000 milisegundos</button>
+          <div class="explicacion">Es un despertador que suena repetido ⏰: cada 1000 ms ejecuta
+            la función. Así la abuelita 👵 hace tacos aunque nadie haga clic.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Por qué la mejora de salsa lleva un <code>if (tacos &gt;= 20)</code>?</p>
+          <button class="opcion" data-ok>Para comprobar que te alcanza antes de cobrar: si no, ¡tendrías tacos negativos!</button>
+          <button class="opcion">Porque todos los botones necesitan un if</button>
+          <button class="opcion">Para que el botón se vea más bonito</button>
+          <div class="explicacion">Las reglas del juego se escriben con <code>if</code>:
+            "¿puede pagar? → cobra y mejora; ¿no puede? → no pasa nada". Sin esa regla, el
+            jugador compraría gratis. 🕵️</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. En el juego, ¿cuál es el trabajo de la función <code>pintar()</code>?</p>
+          <button class="opcion">Sumar tacos cada segundo</button>
+          <button class="opcion">Escuchar los clics del jugador</button>
+          <button class="opcion" data-ok>Tomar el estado (las variables) y actualizar lo que se ve en pantalla</button>
+          <div class="explicacion">Estado por un lado, pantalla por el otro, y <code>pintar()</code>
+            de puente 🌉. Ese patrón te lo vas a encontrar en el Gato, en Snake… y en juegos
+            profesionales.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n5-l5">👑 ¡Jefe vencido! Lección completada (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-4.html">◀ Anterior: Decisiones y ciclos en JS</a>
+      <a href="../nivel-6/index.html">Siguiente nivel: 🎮 Tu primer videojuego ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

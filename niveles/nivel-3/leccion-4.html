@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decisiones avanzadas + programas que conversan — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 4</span>
+    <h1>Decisiones avanzadas + programas que conversan 🗣️</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Manejar decisiones con <strong>varios caminos</strong> (<code>elif</code>),
+        combinar condiciones con <code>and</code>, <code>or</code> y <code>not</code>,
+        y hacer programas que <strong>conversan contigo</strong> usando <code>input()</code>.
+        Al final construyes tu propio quiz de personalidad. 🎮</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+
+      <h3>🍽️ Parte 1: elif — cuando hay más de dos caminos</h3>
+      <p>El <code>if/else</code> solo tiene dos caminos. Pero la vida tiene más opciones…</p>
+      <div class="analogia">
+        <code>elif</code> es el <strong>menú de la fonda</strong> 🍽️: la señora te pregunta
+        "¿Sopa o consomé?" y tú vas descartando: ¿quieres mole? no… ¿milanesa? no…
+        ¿enchiladas? ¡SÍ! → te sirve enchiladas y <strong>ya no te pregunta más</strong>.
+        Python revisa las condiciones en orden y ejecuta <strong>solo la primera</strong> que sea cierta.
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="230" viewBox="0 0 540 230">
+          <!-- Entrada -->
+          <line class="anim-recorrido" x1="60" y1="115" x2="130" y2="115" stroke="#00e5ff" stroke-width="4"/>
+          <text x="60" y="100" font-size="12" fill="#a3a3c8">tu elección</text>
+          <!-- La fonda (rombo) -->
+          <g class="anim-pulso">
+            <polygon points="200,55 280,115 200,175 120,115" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="200" y="110" text-anchor="middle" font-size="22">🍽️</text>
+            <text x="200" y="132" text-anchor="middle" font-size="11" fill="#ffe95c">¿qué pediste?</text>
+          </g>
+          <!-- Camino if (arriba) -->
+          <g class="anim-camino-a">
+            <line x1="255" y1="75" x2="360" y2="40" stroke="#39ff8e" stroke-width="4"/>
+            <rect x="365" y="18" width="165" height="42" rx="9" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text class="mono" x="447" y="36" text-anchor="middle" font-size="11" fill="#39ff8e">if pediste == "mole"</text>
+            <text x="447" y="52" text-anchor="middle" font-size="13">🍗 sale mole</text>
+          </g>
+          <!-- Camino elif (en medio) -->
+          <g class="anim-camino-b">
+            <line x1="280" y1="115" x2="360" y2="115" stroke="#ff4dd8" stroke-width="4"/>
+            <rect x="365" y="93" width="165" height="42" rx="9" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text class="mono" x="447" y="111" text-anchor="middle" font-size="11" fill="#ff4dd8">elif pediste == "mila"</text>
+            <text x="447" y="127" text-anchor="middle" font-size="13">🥩 sale milanesa</text>
+          </g>
+          <!-- Camino else (abajo) -->
+          <g class="anim-parpadeo">
+            <line x1="255" y1="155" x2="360" y2="190" stroke="#a78bfa" stroke-width="4" stroke-dasharray="6 6"/>
+            <rect x="365" y="168" width="165" height="42" rx="9" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <text class="mono" x="447" y="186" text-anchor="middle" font-size="11" fill="#a78bfa">else</text>
+            <text x="447" y="202" text-anchor="middle" font-size="13">🫘 frijolitos de la casa</text>
+          </g>
+        </svg>
+        <p class="pie">La fonda revisa el menú en orden: <code>if</code>… <code>elif</code>… <code>elif</code>…
+          y si nada coincide, el <code>else</code> es "lo que hay" 😄. Solo UN platillo sale por cliente.</p>
+      </div>
+
+      <pre class="bloque-codigo"><code>if pediste == "mole":
+    print("🍗 Sale un mole")
+elif pediste == "milanesa":
+    print("🥩 Sale una milanesa")
+elif pediste == "enchiladas":
+    print("🌶️ Salen enchiladas")
+else:
+    print("🫘 Te tocan frijolitos de la casa")</code></pre>
+
+      <h3>🔗 Parte 2: and, or, not — combinar preguntas</h3>
+      <p>¿Recuerdas la montaña rusa con un if adentro de otro? Te prometí algo más elegante:</p>
+      <ul>
+        <li><code>and</code> = <strong>Y</strong>: las DOS condiciones deben ser ciertas.
+          <code>edad &gt;= 12 and estatura &gt;= 140</code> → pasas solo si cumples ambas.</li>
+        <li><code>or</code> = <strong>O</strong>: basta con que UNA sea cierta.
+          <code>dia == "sábado" or dia == "domingo"</code> → ¡es fin de semana! 🎉</li>
+        <li><code>not</code> = <strong>NO</strong>: voltea el resultado.
+          <code>not lloviendo</code> → cierto cuando NO está lloviendo. ☀️</li>
+      </ul>
+
+      <h3>🗣️ Parte 3: input() — tu programa por fin te escucha</h3>
+      <p>Hasta ahora, tus programas hablaban pero no escuchaban.
+        <code>input("pregunta")</code> detiene el programa, te hace la pregunta
+        (aquí en la página aparece como un cuadrito del navegador 💬), espera tu respuesta
+        y te la entrega para guardarla en una variable:</p>
+      <pre class="bloque-codigo"><code>nombre = input("¿Cómo te llamas? ")
+print("¡Qué onda,", nombre, "!")</code></pre>
+      <p>🚨 <strong>DATO CLAVE</strong>: <code>input()</code> SIEMPRE te entrega
+        <strong>texto</strong> (str), aunque escribas un número. Si escribes 13,
+        te entrega <code>"13"</code> (¡con comillas invisibles!).
+        Para convertirlo a número de verdad usa <code>int()</code>:</p>
+      <pre class="bloque-codigo"><code>edad = int(input("¿Cuántos años tienes? "))  # ahora sí es un int</code></pre>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Un programa que conversa Y decide. Ejecútalo: te va a preguntar tu nombre y tu edad
+        con un cuadrito del navegador (escribe tu respuesta y dale OK):</p>
+
+      <div class="py-runner" data-titulo="conversacion.py">
+<script type="text/plain">
+nombre = input("¿Cómo te llamas? ")
+print("¡Qué onda,", nombre, "! 👋")
+
+edad = int(input("¿Cuántos años tienes? "))
+
+if edad >= 18:
+    print("Ya eres mayor de edad 😲")
+elif edad >= 13:
+    print("¡Estás en la mejor edad para aprender a programar! 🚀")
+else:
+    print("¡Empezaste súper joven, futuro genio! 🧠")
+</script>
+      </div>
+
+      <p>Y ahora la montaña rusa 🎢 de la lección pasada, pero en versión pro con <code>and</code> —
+        compara: dos filtros en UNA sola línea:</p>
+
+      <div class="py-runner" data-titulo="montana_rusa_pro.py">
+<script type="text/plain">
+edad = 13
+estatura = 145
+
+if edad >= 12 and estatura >= 140:
+    print("🎢 ¡Súbete! ¡Wooo!")
+else:
+    print("🚫 Aún no cumples los requisitos, ¡pero ya merito!")
+
+# Bonus con or: ¿hoy es fin de semana?
+dia = "sábado"
+if dia == "sábado" or dia == "domingo":
+    print("🎉 ¡Es fin de semana! A jugar se ha dicho")
+else:
+    print("📚 Día de escuela... ánimo")
+</script>
+      </div>
+
+      <h3>🧟 El error clásico: comparar texto con número</h3>
+      <p>Ahora rompamos algo a propósito 😈. Este programa olvidó el <code>int()</code>.
+        Ejecútalo, escribe un número cuando te pregunte, y mira el error:</p>
+
+      <div class="py-runner" data-titulo="error_clasico.py">
+<script type="text/plain">
+# ERROR A PROPÓSITO: falta int() alrededor del input
+edad = input("¿Cuántos años tienes? ")
+
+if edad >= 12:
+    print("Pasas")
+</script>
+      </div>
+
+      <p>La última línea del error dice algo como:</p>
+      <pre class="bloque-codigo"><code>TypeError: '&gt;=' not supported between instances of 'str' and 'int'</code></pre>
+      <p>Traducción del detective 🕵️: <code>TypeError</code> = "error de tipos".
+        Python dice: <em>"me pides comparar un <code>str</code> (el texto <code>"13"</code> que dio input)
+        con un <code>int</code> (el 12)… y no sé comparar peras con boletos del metro"</em>.
+        La cura: envolver el input → <code>edad = int(input("¿Cuántos años tienes? "))</code>.
+        Arréglalo arriba y ejecútalo de nuevo. ✅</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: ¿QUÉ PERSONAJE DE VIDEOJUEGO ERES? 🎮</p>
+      <p>Construye un <strong>quiz de personalidad</strong>. El programa pregunta
+        "¿Qué superpoder eliges: velocidad, fuerza o magia?" y según la respuesta
+        revela qué tipo de personaje eres. Completa los TODO:</p>
+
+      <div class="py-runner" data-titulo="quiz_personalidad.py">
+<script type="text/plain">
+print("🎮 ¿QUÉ PERSONAJE DE VIDEOJUEGO ERES? 🎮")
+
+poder = input("Elige tu superpoder (velocidad / fuerza / magia): ")
+
+# TODO 1: si poder == "velocidad" → print("⚡ Eres EL RAYO: corres antes de que carguen el nivel")
+# TODO 2: elif poder == "fuerza" → print("💪 Eres EL TITÁN: rompes paredes... y controles")
+# TODO 3: elif poder == "magia" → print("🔮 Eres ARCANIX: hechizas hasta al jefe final")
+# TODO 4: else → print("👾 Eres EL GLITCH: nadie sabe qué haces, pero funciona")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Es la estructura de la fonda 🍽️: un <code>if</code>, dos <code>elif</code> y un
+          <code>else</code> al final. Cada comparación usa <code>==</code> con el texto
+          <strong>entre comillas</strong>: <code>poder == "velocidad"</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          No olvides los dos puntos <code>:</code> al final de cada línea con condición,
+          y el <code>print()</code> de cada camino va recorrido 4 espacios a la derecha.
+          El <code>else:</code> no lleva condición: es "todo lo demás".
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>print("🎮 ¿QUÉ PERSONAJE DE VIDEOJUEGO ERES? 🎮")
+
+poder = input("Elige tu superpoder (velocidad / fuerza / magia): ")
+
+if poder == "velocidad":
+    print("⚡ Eres EL RAYO: corres antes de que carguen el nivel")
+elif poder == "fuerza":
+    print("💪 Eres EL TITÁN: rompes paredes... y controles")
+elif poder == "magia":
+    print("🔮 Eres ARCANIX: hechizas hasta al jefe final")
+else:
+    print("👾 Eres EL GLITCH: nadie sabe qué haces, pero funciona")</code></pre>
+          Python prueba cada condición en orden y se queda con la <strong>primera</strong> cierta.
+          El <code>else</code> atrapa cualquier otra respuesta (hasta "tacos" 🌮).
+          ¡Órale, hiciste tu primer quiz interactivo! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿<code>TypeError</code> con str e int? Te faltó <code>int()</code> alrededor de un
+          <code>input()</code> que esperaba número.</li>
+        <li>¿Tu elif nunca gana? Revisa que escribas la respuesta EXACTA:
+          para Python, <code>"Magia"</code> y <code>"magia"</code> son diferentes (mayúsculas importan).</li>
+        <li>¿<code>SyntaxError</code>? Busca dos puntos <code>:</code> faltantes o un <code>=</code>
+          donde iba <code>==</code>.</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l4">Tengo 13 años y estoy aprendiendo Python: elif, and/or/not e input(). Explícame: 1) cómo decide Python cuál camino tomar cuando hay if/elif/else (con la analogía de un menú de comida), 2) por qué input() siempre devuelve texto y qué hace int(input()), 3) qué significa el error TypeError: '>=' not supported between instances of 'str' and 'int'. Luego ayúdame a mejorar mi quiz de personalidad con una pregunta extra, dándome pistas paso a paso sin escribirme todo el código.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Hazle una <strong>segunda pregunta</strong> a tu quiz de personalidad
+        (por ejemplo: "¿prefieres día o noche?") y combina las respuestas con <code>and</code>
+        para dar resultados más específicos: velocidad + noche = 🦇 EL MURCIÉLAGO VELOZ…
+        <strong>Jefe secreto:</strong> pide la edad con <code>int(input())</code> y usa <code>not</code>
+        en alguna condición, por ejemplo: <code>if not edad &lt; 13:</code> —
+        ¿qué edades pasan esa prueba? Descúbrelo probando.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n3-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En un <code>if/elif/elif/else</code>, ¿cuántos caminos se ejecutan?</p>
+          <button class="opcion">Todos los que sean ciertos</button>
+          <button class="opcion" data-ok>Solo UNO: el primero cuya condición sea cierta</button>
+          <button class="opcion">Siempre el else, porque va al final</button>
+          <div class="explicacion">Como en la fonda 🍽️: en cuanto dices que sí a un platillo,
+            ya no te ofrecen los demás. Python revisa en orden y ejecuta solo el primer camino cierto.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué te entrega <code>input()</code> si el usuario escribe 13?</p>
+          <button class="opcion">El número 13 (int), obvio</button>
+          <button class="opcion" data-ok>El texto "13" (str) — para usarlo como número necesitas int()</button>
+          <button class="opcion">True, porque sí escribió algo</button>
+          <div class="explicacion"><code>input()</code> SIEMPRE devuelve texto.
+            Si lo comparas con un número sin convertirlo: <code>TypeError</code>.
+            La cura: <code>edad = int(input("..."))</code>.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Cuándo es cierta la condición <code>edad &gt;= 12 and estatura &gt;= 140</code>?</p>
+          <button class="opcion">Cuando al menos una de las dos se cumple</button>
+          <button class="opcion" data-ok>Solo cuando LAS DOS se cumplen a la vez</button>
+          <button class="opcion">Cuando ninguna se cumple</button>
+          <div class="explicacion"><code>and</code> es exigente: pide TODO.
+            Si con una sola te basta, esa es <code>or</code>. Y <code>not</code> voltea el resultado.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l4">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Matemáticas y decisiones</a>
+      <a href="leccion-5.html">Siguiente: Ciclos: el poder de repetir ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

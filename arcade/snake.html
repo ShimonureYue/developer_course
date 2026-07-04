@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake 🐍 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+
+  <!-- ============================================================
+       ESTILOS DEL JUEGO (solo de esta página)
+       ============================================================ -->
+  <style>
+    /* Marcador arriba del lienzo */
+    .hud {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-family: var(--fuente-pixel);
+      font-size: 0.65rem;
+      margin: 18px 0 12px;
+    }
+    .hud .puntos { color: var(--verde); }
+    .hud .record { color: var(--amarillo); }
+
+    /* El lienzo donde vive el juego */
+    #lienzo {
+      background: #0d0d22;
+      border: 3px solid var(--panel-borde);
+      border-radius: 12px;
+      box-shadow: 0 0 30px #39ff8e22;
+      max-width: 100%;
+      cursor: pointer;
+    }
+
+    .botonera {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 22px 0 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor centrado" style="padding-top: 30px;">
+    <div style="font-size: 3.4rem;">🐍</div>
+    <h1>SNAKE</h1>
+    <p class="suave" style="max-width: 560px; margin: 8px auto 0;">
+      Come manzanas 🍎, crece… y no te muerdas a ti mismo.
+      Cada 3 manzanas el juego se pone más rápido 🔥
+    </p>
+
+    <!-- Puntos y récord (el récord se guarda con localStorage 💾) -->
+    <div class="hud">
+      <span class="puntos">🍎 PUNTOS: <span id="hud-puntos">0</span></span>
+      <span class="record">🏆 RÉCORD: <span id="hud-record">0</span></span>
+    </div>
+
+    <!-- El lienzo: 440 ÷ 20 = 22 celdas de ancho y 22 de alto -->
+    <canvas id="lienzo" width="440" height="440"></canvas>
+
+    <p class="suave" style="font-size: 0.9rem; margin-top: 12px;">
+      ⌨️ Flechas ⬅️⬆️⬇️➡️ para moverte · ESPACIO para reintentar<br>
+      💡 Si el teclado no responde, <strong>haz clic en el juego</strong> primero.
+    </p>
+
+    <div class="botonera">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER AL ARCADE</a>
+    </div>
+
+    <p class="suave" style="font-size: 0.9rem;">
+      🔍 Clic derecho → <strong>"Ver código fuente de la página"</strong> para estudiar el juego.
+      Tú lo construyes en el <a href="../niveles/nivel-8/index.html">Nivel 8</a>.
+    </p>
+  </main>
+
+  <!-- ============================================================
+       LA LÓGICA DEL JUEGO
+       Un juego de canvas tiene 3 partes: el ESTADO (variables),
+       el GAME LOOP (un ciclo que actualiza y dibuja muchas veces
+       por segundo) y los CONTROLES (eventos de teclado).
+       ============================================================ -->
+  <script>
+    "use strict";
+
+    // ---------- 1. EL LIENZO Y LA CUADRÍCULA ----------
+    const lienzo = document.getElementById("lienzo");
+    const ctx = lienzo.getContext("2d"); // el "pincel" para dibujar
+
+    const CELDA = 20;                          // cada celda mide 20 × 20 píxeles
+    const COLUMNAS = lienzo.width / CELDA;     // 440 ÷ 20 = 22 columnas
+    const FILAS = lienzo.height / CELDA;       // 440 ÷ 20 = 22 filas
+
+    // ---------- 2. EL ESTADO DEL JUEGO ----------
+    // La serpiente es un ARREGLO de segmentos. Cada segmento es un objeto
+    // {x, y} con su posición EN CELDAS (no en píxeles). El primero es la cabeza.
+    let serpiente = [];
+    let direccion = null;         // hacia dónde va AHORA: {x, y}
+    let proximaDireccion = null;  // hacia dónde irá en el SIGUIENTE paso
+    let manzana = { x: 15, y: 11 };
+    let puntos = 0;
+    let manzanasComidas = 0;
+    let velocidad = 150;          // milisegundos entre paso y paso (menos = más rápido)
+    let intervalo = null;         // guardamos el setInterval para poder DETENERLO
+    let estado = "inicio";        // "inicio" → "jugando" → "gameover"
+
+    // El récord se lee de localStorage. Si nunca has jugado, empieza en 0.
+    const CLAVE_RECORD = "arcade-snake-record";
+    let record = parseInt(localStorage.getItem(CLAVE_RECORD) || "0", 10);
+
+    // Las 4 direcciones posibles, como vectores {x, y}.
+    // OJO: en canvas la Y CRECE HACIA ABAJO (por eso arriba es y: -1).
+    const DIRECCIONES = {
+      ArrowUp:    { x: 0,  y: -1 },
+      ArrowDown:  { x: 0,  y: 1 },
+      ArrowLeft:  { x: -1, y: 0 },
+      ArrowRight: { x: 1,  y: 0 }
+    };
+
+    // ---------- 3. PREPARAR UNA PARTIDA NUEVA ----------
+    function prepararPartida() {
+      // La serpiente nace con 3 segmentos en medio del tablero, mirando a la derecha
+      serpiente = [
+        { x: 10, y: 11 },  // cabeza
+        { x: 9,  y: 11 },
+        { x: 8,  y: 11 }   // cola
+      ];
+      // Aunque todavía no se mueve, la serpiente "mira" a la derecha
+      // (su cuerpo está a su izquierda). Así podemos prohibir que la
+      // primera flecha sea ⬅️ y muera al instante contra su propio cuerpo.
+      direccion = DIRECCIONES.ArrowRight;
+      proximaDireccion = direccion;
+      puntos = 0;
+      manzanasComidas = 0;
+      velocidad = 150;
+      colocarManzana();
+      estado = "inicio";
+      pintarHUD();
+      dibujar(); // dibuja la pantalla de inicio
+    }
+
+    // ---------- 4. COLOCAR LA MANZANA 🍎 ----------
+    // Elegimos celdas al azar hasta encontrar una que NO esté ocupada
+    // por la serpiente (¡sería trampa que apareciera dentro de ella!).
+    function colocarManzana() {
+      let libre = false;
+      while (!libre) {
+        manzana = {
+          x: Math.floor(Math.random() * COLUMNAS),
+          y: Math.floor(Math.random() * FILAS)
+        };
+        // .some() pregunta: ¿ALGÚN segmento está en esa celda?
+        libre = !serpiente.some(function (seg) {
+          return seg.x === manzana.x && seg.y === manzana.y;
+        });
+      }
+    }
+
+    // ---------- 5. UN PASO DEL JUEGO (se ejecuta cada "tick") ----------
+    function paso() {
+      // Aplicamos la dirección que pidió el jugador. Usamos DOS variables
+      // (direccion y proximaDireccion) para que no puedas darte la vuelta
+      // en un solo instante y morderte el cuello.
+      direccion = proximaDireccion;
+
+      // La nueva cabeza = cabeza actual + dirección
+      const cabeza = {
+        x: serpiente[0].x + direccion.x,
+        y: serpiente[0].y + direccion.y
+      };
+
+      // ¿Chocó con el borde del tablero? 💀
+      if (cabeza.x < 0 || cabeza.x >= COLUMNAS || cabeza.y < 0 || cabeza.y >= FILAS) {
+        morir();
+        return;
+      }
+
+      // ¿Se comió la manzana en este paso?
+      const comio = (cabeza.x === manzana.x && cabeza.y === manzana.y);
+
+      // Si NO comió, la cola avanza (quitamos el último segmento).
+      // Si SÍ comió, la cola se queda: así es como la serpiente CRECE.
+      if (!comio) {
+        serpiente.pop();
+      }
+
+      // ¿Chocó consigo misma? (revisamos DESPUÉS de mover la cola,
+      // porque perseguir tu propia cola sí es legal 😉)
+      const seMordio = serpiente.some(function (seg) {
+        return seg.x === cabeza.x && seg.y === cabeza.y;
+      });
+      if (seMordio) {
+        morir();
+        return;
+      }
+
+      // Todo bien: la cabeza nueva entra al principio del arreglo
+      serpiente.unshift(cabeza);
+
+      if (comio) {
+        puntos += 10;
+        manzanasComidas++;
+        colocarManzana();
+        // Cada 3 manzanas, ¡acelera! (con un límite para que sea jugable)
+        if (manzanasComidas % 3 === 0) {
+          acelerar();
+        }
+        pintarHUD();
+      }
+
+      dibujar();
+    }
+
+    // ---------- 6. ACELERAR EL JUEGO 🔥 ----------
+    function acelerar() {
+      velocidad = Math.max(60, velocidad - 12); // nunca más rápido que 60 ms
+      // Para cambiar la velocidad de un setInterval hay que
+      // DETENER el viejo y ARRANCAR uno nuevo:
+      clearInterval(intervalo);
+      intervalo = setInterval(paso, velocidad);
+    }
+
+    // ---------- 7. GAME OVER 💀 ----------
+    function morir() {
+      clearInterval(intervalo); // ¡detener el game loop es clave!
+      intervalo = null;
+      estado = "gameover";
+      // ¿Nuevo récord? Lo guardamos en la memoria del navegador.
+      if (puntos > record) {
+        record = puntos;
+        localStorage.setItem(CLAVE_RECORD, String(record));
+        pintarHUD();
+      }
+      dibujar(); // dibuja la pantalla de game over
+    }
+
+    // ---------- 8. DIBUJAR TODO 🖌️ ----------
+    function dibujar() {
+      // Primero borramos TODO el lienzo (si no, quedan "fantasmas")
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, lienzo.width, lienzo.height);
+
+      // Una cuadrícula muy tenue, para que se sientan las celdas
+      ctx.strokeStyle = "#16163a";
+      ctx.lineWidth = 1;
+      for (let i = 1; i < COLUMNAS; i++) {
+        ctx.beginPath();
+        ctx.moveTo(i * CELDA, 0);
+        ctx.lineTo(i * CELDA, lienzo.height);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i * CELDA);
+        ctx.lineTo(lienzo.width, i * CELDA);
+        ctx.stroke();
+      }
+
+      // --- La manzana, con brillo (shadowBlur = resplandor neón) ---
+      ctx.shadowColor = "#ff5c7a";
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = "#ff5c7a";
+      ctx.beginPath(); // un círculo centrado en su celda
+      ctx.arc(manzana.x * CELDA + CELDA / 2, manzana.y * CELDA + CELDA / 2, CELDA / 2 - 3, 0, Math.PI * 2);
+      ctx.fill();
+      // Su hojita verde 🌱
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#39ff8e";
+      ctx.fillRect(manzana.x * CELDA + CELDA / 2 - 1, manzana.y * CELDA + 2, 3, 5);
+
+      // --- La serpiente, verde neón ---
+      ctx.shadowColor = "#39ff8e";
+      ctx.shadowBlur = 12;
+      for (let i = serpiente.length - 1; i >= 0; i--) {
+        const seg = serpiente[i];
+        // La cabeza (índice 0) es más brillante que el cuerpo
+        ctx.fillStyle = (i === 0) ? "#c8ffe3" : "#39ff8e";
+        // Dibujamos cada segmento un pelín más chico que la celda
+        // para que se vean las "escamas" separadas
+        ctx.fillRect(seg.x * CELDA + 1, seg.y * CELDA + 1, CELDA - 2, CELDA - 2);
+      }
+      // Los ojos de la cabeza 👀
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#0a0a1a";
+      const cabeza = serpiente[0];
+      ctx.fillRect(cabeza.x * CELDA + 5,  cabeza.y * CELDA + 5, 4, 4);
+      ctx.fillRect(cabeza.x * CELDA + 12, cabeza.y * CELDA + 5, 4, 4);
+
+      // --- Pantallas de texto encima del juego ---
+      if (estado === "inicio") {
+        dibujarPantallaInicio();
+      } else if (estado === "gameover") {
+        dibujarPantallaGameOver();
+      }
+    }
+
+    // Pantalla de inicio: el juego espera tu primera flecha
+    function dibujarPantallaInicio() {
+      sombrearFondo();
+      ctx.textAlign = "center";
+      ctx.shadowColor = "#39ff8e";
+      ctx.shadowBlur = 14;
+      ctx.fillStyle = "#39ff8e";
+      ctx.font = '26px "Press Start 2P", monospace';
+      ctx.fillText("SNAKE", lienzo.width / 2, 180);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = '12px "Press Start 2P", monospace';
+      ctx.fillText("PRESIONA UNA FLECHA", lienzo.width / 2, 240);
+      ctx.fillText("PARA EMPEZAR", lienzo.width / 2, 264);
+    }
+
+    // Pantalla de game over: puntaje, récord y cómo reintentar
+    function dibujarPantallaGameOver() {
+      sombrearFondo();
+      ctx.textAlign = "center";
+      ctx.shadowColor = "#ff5c7a";
+      ctx.shadowBlur = 14;
+      ctx.fillStyle = "#ff5c7a";
+      ctx.font = '22px "Press Start 2P", monospace';
+      ctx.fillText("GAME OVER", lienzo.width / 2, 160);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = '12px "Press Start 2P", monospace';
+      ctx.fillText("PUNTOS: " + puntos, lienzo.width / 2, 215);
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillText("RECORD: " + record, lienzo.width / 2, 245);
+      if (puntos > 0 && puntos === record) {
+        ctx.fillStyle = "#39ff8e";
+        ctx.fillText("¡NUEVO RECORD! 🏆", lienzo.width / 2, 285);
+      }
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = '10px "Press Start 2P", monospace';
+      ctx.fillText("ESPACIO PARA REINTENTAR", lienzo.width / 2, 330);
+    }
+
+    // Capa oscura semitransparente para que el texto se lea bien
+    function sombrearFondo() {
+      ctx.fillStyle = "rgba(10, 10, 26, 0.75)";
+      ctx.fillRect(0, 0, lienzo.width, lienzo.height);
+    }
+
+    // ---------- 9. EL HUD (puntos y récord en la página) ----------
+    function pintarHUD() {
+      document.getElementById("hud-puntos").textContent = puntos;
+      document.getElementById("hud-record").textContent = record;
+    }
+
+    // ---------- 10. LOS CONTROLES ⌨️ ----------
+    // Un ÚNICO listener para toda la vida de la página (registrarlo
+    // dentro de "reintentar" duplicaría los controles: ¡bug clásico!).
+    document.addEventListener("keydown", function (evento) {
+      const esFlecha = evento.key in DIRECCIONES;
+
+      // Evitamos que las flechas y el espacio hagan scroll en la página
+      if (esFlecha || evento.key === " ") {
+        evento.preventDefault();
+      }
+
+      // En la pantalla de inicio, la primera flecha ARRANCA el juego
+      if (estado === "inicio" && esFlecha) {
+        const inicial = DIRECCIONES[evento.key];
+        // La serpiente nace mirando a la derecha, así que ⬅️ sería
+        // reversa instantánea (moriría contra su propio cuerpo): la ignoramos.
+        if (inicial.x + direccion.x === 0 && inicial.y + direccion.y === 0) return;
+        direccion = inicial;
+        proximaDireccion = inicial;
+        estado = "jugando";
+        clearInterval(intervalo); // por si acaso hubiera uno vivo
+        intervalo = setInterval(paso, velocidad);
+        return;
+      }
+
+      // Durante el juego, las flechas cambian la dirección…
+      if (estado === "jugando" && esFlecha) {
+        const nueva = DIRECCIONES[evento.key];
+        // …PERO está prohibida la reversa instantánea: si vas a la
+        // derecha no puedes ir a la izquierda en el mismo instante.
+        // Dos direcciones opuestas suman cero (1 + -1 = 0).
+        const esReversa = (nueva.x + direccion.x === 0 && nueva.y + direccion.y === 0);
+        if (!esReversa) {
+          proximaDireccion = nueva;
+        }
+        return;
+      }
+
+      // En game over, ESPACIO prepara otra partida
+      if (estado === "gameover" && evento.key === " ") {
+        prepararPartida();
+      }
+    });
+
+    // Si el teclado "no responde", suele ser que la página perdió el foco.
+    // Hacer clic en el lienzo lo recupera.
+    lienzo.addEventListener("click", function () {
+      window.focus();
+    });
+
+    // ---------- 11. ARRANQUE ----------
+    prepararPartida();
+  </script>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

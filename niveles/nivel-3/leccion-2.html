@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variables y constantes: cajas con etiqueta — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 2</span>
+    <h1>Variables y constantes: cajas con etiqueta 📦</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Guardar información en <strong>variables</strong> (cajas que puedes cambiar)
+        y <strong>constantes</strong> (cajas selladas 🔒), ponerles buenos nombres,
+        y distinguir los <strong>4 tipos de dato</strong> básicos de Python.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>En la lección pasada, tus programas mostraban cosas… pero no <strong>recordaban</strong> nada.
+        Imagina un videojuego que no recuerda tus vidas ni tus puntos: sería un desastre.
+        Para recordar, los programas usan <strong>variables</strong>.</p>
+      <div class="analogia">
+        Una <strong>variable</strong> es una <strong>caja con etiqueta</strong>:
+        le pones un nombre, guardas algo adentro, y puedes cambiarlo cuando quieras.
+      </div>
+
+      <div class="diagrama">
+        <svg width="480" height="180" viewBox="0 0 480 180">
+          <!-- El valor que viaja hacia la caja -->
+          <g class="anim-valor-entra" style="--dx: 150px;">
+            <rect x="20" y="70" width="90" height="40" rx="8" fill="#ffe95c"/>
+            <text x="65" y="96" text-anchor="middle" fill="#0a0a1a" font-size="18">3</text>
+          </g>
+          <!-- La caja (variable) -->
+          <g class="anim-pulso">
+            <rect x="200" y="50" width="130" height="85" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <rect x="215" y="36" width="100" height="26" rx="6" fill="#39ff8e"/>
+            <text x="265" y="54" text-anchor="middle" fill="#0a0a1a" font-size="14">vidas</text>
+          </g>
+          <!-- El valor ya guardado adentro -->
+          <text class="anim-valor-aparece" x="265" y="105" text-anchor="middle" font-size="30" fill="#ffe95c">3</text>
+          <!-- Código equivalente -->
+          <text class="mono" x="360" y="95" font-size="16" fill="#a3a3c8">vidas = 3</text>
+        </svg>
+        <p class="pie">El valor <code>3</code> entra a la caja llamada <code>vidas</code>.
+          Desde ese momento, escribir <code>vidas</code> es como abrir la caja y ver qué hay adentro.</p>
+      </div>
+
+      <p>Con las variables puedes hacer 3 cosas:</p>
+      <ol>
+        <li><strong>Crearlas</strong>: <code>vidas = 3</code> → nace la caja con un 3 adentro.</li>
+        <li><strong>Leerlas</strong>: <code>print(vidas)</code> → abres la caja y muestras el 3.</li>
+        <li><strong>Cambiarlas</strong>: <code>vidas = 2</code> → tiras el 3 y guardas un 2.
+          Por eso se llaman VARIA-bles: ¡su contenido varía!</li>
+      </ol>
+      <p>⚠️ Ojo con el signo <code>=</code>. En programación <strong>NO</strong> significa "es igual a";
+        significa <strong>"guarda esto en la caja"</strong>. La flecha va de derecha a izquierda:
+        <code>vidas = 3</code> se lee "guarda 3 en vidas".</p>
+
+      <h3>📛 Las reglas para nombrar tus cajas</h3>
+      <p>Python es estricto con los nombres de variables. Las reglas:</p>
+      <ul>
+        <li>❌ <strong>Sin espacios</strong>: <code>puntos maximos</code> truena.
+          ✅ Usa guion bajo: <code>puntos_maximos</code>. A este estilo se le llama
+          <strong>snake_case</strong> 🐍 (estilo serpiente, ¿coincidencia? no creo).</li>
+        <li>❌ <strong>No pueden empezar con número</strong>: <code>2jugador</code> truena.
+          ✅ <code>jugador2</code> sí funciona.</li>
+        <li>❌ Sin acentos ni "ñ" (mejor evitarlos): usa <code>anio</code> en vez de <code>año</code>.</li>
+        <li>✅ Que el nombre <strong>diga qué guarda</strong>: <code>vidas</code> es mil veces mejor
+          que <code>x</code>. Tu yo del futuro te lo va a agradecer. 🙏</li>
+      </ul>
+
+      <h3>🔒 Constantes: la caja sellada</h3>
+      <p>Y una <strong>constante</strong> es una caja <strong>sellada con candado 🔒</strong>:
+        se guarda una vez y <strong>no debe cambiar</strong> durante el programa.
+        En Python se escriben en MAYÚSCULAS: <code>VIDAS_MAXIMAS = 3</code>.
+        Las mayúsculas son una señal entre programadores: "esta no se toca".</p>
+
+      <div class="diagrama">
+        <svg width="480" height="170" viewBox="0 0 480 170">
+          <!-- Valor intruso que intenta entrar -->
+          <g class="anim-valor-entra" style="--dx: 120px;">
+            <rect x="30" y="65" width="90" height="40" rx="8" fill="#ff5c7a"/>
+            <text x="75" y="91" text-anchor="middle" fill="#0a0a1a" font-size="16">99</text>
+          </g>
+          <!-- Caja sellada -->
+          <g>
+            <rect x="210" y="45" width="160" height="90" rx="10" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <rect x="222" y="31" width="136" height="26" rx="6" fill="#ffe95c"/>
+            <text x="290" y="49" text-anchor="middle" fill="#0a0a1a" font-size="11">VIDAS_MAXIMAS</text>
+            <text x="290" y="105" text-anchor="middle" font-size="26" fill="#ffe95c">3</text>
+          </g>
+          <!-- Candado que se sacude -->
+          <text class="anim-sacudida" x="385" y="100" font-size="34">🔒</text>
+          <text class="mono" x="290" y="160" text-anchor="middle" font-size="13" fill="#a3a3c8">VIDAS_MAXIMAS = 3   # ¡sellada!</text>
+        </svg>
+        <p class="pie">El <code>99</code> quiere colarse, pero el candado se sacude: "¡aquí no!".
+          Python no te va a detener a la fuerza (el candado es un <strong>acuerdo entre programadores</strong>),
+          pero cambiar una constante es romper una promesa. 🤝</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Este programa usa variables y una constante. Presiona <strong>▶ Ejecutar</strong> y observa.
+        Luego cambia el <code>nombre</code> por el tuyo y ejecútalo otra vez:</p>
+
+      <div class="py-runner" data-titulo="mi_personaje.py">
+<script type="text/plain">
+# Mi primer personaje de videojuego
+nombre = "Kai"
+vidas = 3
+VELOCIDAD_MAXIMA = 10   # constante: ¡no la cambies!
+
+print("Personaje:", nombre)
+print("Vidas:", vidas)
+
+# El personaje recibe un golpe... ¡la variable cambia!
+vidas = vidas - 1
+print("¡Ouch! Ahora tiene", vidas, "vidas")
+
+# Otro golpe...
+vidas = vidas - 1
+print("¡Ouch otra vez! Ahora tiene", vidas, "vidas")
+</script>
+      </div>
+
+      <p>Fíjate en el truco estrella: <code>vidas = vidas - 1</code>. Se lee así:
+        "abre la caja <code>vidas</code>, réstale 1 a lo que haya, y guarda el resultado
+        de vuelta en la caja". Así cambian los marcadores de TODOS los videojuegos. 🎮</p>
+      <p>💡 ¿Notaste el <code>print("Vidas:", vidas)</code>? Con comas puedes mezclar
+        texto y variables en un mismo print. Python los separa con un espacio automáticamente.</p>
+
+      <h3>🧪 Los 4 tipos de dato (¿qué hay en la caja?)</h3>
+      <p>No todas las cajas guardan lo mismo. Python distingue 4 tipos básicos,
+        y tiene una función espía, <code>type()</code>, que te dice de qué tipo es cualquier cosa:</p>
+
+      <div class="py-runner" data-titulo="tipos_de_dato.py">
+<script type="text/plain">
+# Los 4 tipos de dato básicos de Python:
+
+nombre = "Kai"          # str  (string): texto, siempre entre comillas
+vidas = 3               # int  (integer): número entero
+velocidad = 7.5         # float: número con punto decimal
+tiene_espada = True     # bool (booleano): True o False, sí o no
+
+print(type(nombre))
+print(type(vidas))
+print(type(velocidad))
+print(type(tiene_espada))
+
+# OJO: ¿"3" es lo mismo que 3? ¡NO! Uno es texto y otro es número:
+print(type("3"))
+print(type(3))
+</script>
+      </div>
+
+      <ul>
+        <li><code>str</code> → texto: <code>"hola"</code>, <code>"3"</code> (¡con comillas es texto aunque parezca número!)</li>
+        <li><code>int</code> → entero: <code>3</code>, <code>-10</code>, <code>2026</code></li>
+        <li><code>float</code> → decimal: <code>7.5</code>, <code>3.14</code> (con punto, no coma)</li>
+        <li><code>bool</code> → <code>True</code> o <code>False</code> (con mayúscula al inicio):
+          perfecto para cosas de sí/no, como <code>tiene_espada</code> o <code>nivel_terminado</code></li>
+      </ul>
+
+      <h3>🧟 Rompamos nombres a propósito</h3>
+      <p>Como ya sabes leer errores 🕵️, provoca estos dos y estudia la última línea de cada uno.
+        Ejecuta, lee el error, y luego corrige el nombre para que funcione:</p>
+
+      <div class="py-runner" data-titulo="nombres_prohibidos.py">
+<script type="text/plain">
+# ERROR A PROPÓSITO #1: nombre con espacio (descoméntalo para probar)
+# puntos maximos = 100
+
+# ERROR A PROPÓSITO #2: empieza con número (descoméntalo para probar)
+# 2jugador = "Luigi"
+
+# Quita el # de UNA línea, ejecuta y lee el error.
+# SyntaxError = "error de escritura": Python ni siquiera entendió la línea.
+# Luego arréglalos: puntos_maximos = 100  y  jugador2 = "Luigi"
+print("Cuando arregles los nombres, este mensaje tendrá compañía 😄")
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Completa el programa: crea una variable <code>puntos</code> que empiece en 0,
+        súmale 50 (como si hubieras derrotado a un enemigo), y muéstrala con <code>print()</code>.</p>
+
+      <div class="py-runner" data-titulo="reto_puntos.py">
+<script type="text/plain">
+# TODO 1: crea la variable puntos con valor 0
+
+# TODO 2: súmale 50 a puntos
+
+# TODO 3: muestra los puntos con print()
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Recuerda el diagrama: crear una caja es <code>nombre = valor</code>.
+          ¿Cómo se llamaría tu caja y qué guardas adentro?
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para sumar sobre lo que ya hay en la caja: <code>puntos = puntos + 50</code>.
+          Es el mismo truco de <code>vidas = vidas - 1</code>, pero sumando.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>puntos = 0            # 1) caja nueva con un 0 adentro
+puntos = puntos + 50  # 2) abre la caja, suma 50, guarda el resultado
+print(puntos)         # 3) muestra lo que hay en la caja: 50</code></pre>
+          Línea por línea: primero existe la caja, luego cambia su contenido, y al final la lees.
+          Si te salió, ¡órale, ya piensas como programador! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve a ver el <strong>diagrama de la caja</strong> de arriba. 📦</li>
+        <li>¿<code>NameError</code>? Seguro escribiste el nombre de la variable diferente en dos lugares
+          (<code>puntos</code> y <code>Puntos</code> son cajas DISTINTAS: mayúsculas importan).</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l2">Tengo 13 años y estoy aprendiendo Python. Explícame con ejemplos de videojuegos: 1) qué es una variable y qué es una constante, 2) por qué vidas = vidas - 1 no es una locura matemática sino una instrucción, 3) la diferencia entre los tipos str, int, float y bool. Después ponme un mini-juego de adivinar el tipo de dato de 5 valores. No me des código resuelto de tareas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Crea la ficha de TU personaje ideal con al menos 4 variables de tipos distintos:
+        <code>nombre</code> (str), <code>vidas</code> (int), <code>velocidad</code> (float)
+        y <code>es_legendario</code> (bool). Muestra su ficha completa con prints,
+        y comprueba cada tipo con <code>type()</code>.
+        Haz que reciba 2 golpes y muestre sus vidas después de cada uno.
+        <strong>Jefe secreto:</strong> agrega la constante <code>NIVEL_MAXIMO = 99</code>
+        y muestra cuántos niveles le faltan a tu personaje si va en el nivel 12.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ: ¿QUÉ TIPO ES? 🧪</p>
+      <div class="quiz" data-quiz="n3-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace la línea <code>vidas = 3</code>?</p>
+          <button class="opcion" data-ok>Guarda el valor 3 en una caja llamada "vidas"</button>
+          <button class="opcion">Pregunta si vidas es igual a 3</button>
+          <button class="opcion">Imprime el número 3 en la pantalla</button>
+          <div class="explicacion">El signo <code>=</code> en programación significa "guarda esto aquí",
+            no "es igual a". Para comparar se usa <code>==</code> (doble), como verás en la próxima lección.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Juego rápido: ¿qué tipo de dato es <code>"25"</code> (así, con comillas)?</p>
+          <button class="opcion">int, porque es un número</button>
+          <button class="opcion" data-ok>str, porque tiene comillas: es texto disfrazado de número</button>
+          <button class="opcion">float, porque podría tener decimales</button>
+          <div class="explicacion">¡Las comillas mandan! <code>"25"</code> es texto (str) y
+            <code>25</code> es número (int). Compruébalo con <code>type("25")</code>.
+            Esta diferencia va a ser IMPORTANTÍSIMA en la lección 4. 👀</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Cuál de estos nombres de variable es válido y con buen estilo?</p>
+          <button class="opcion">puntos maximos</button>
+          <button class="opcion" data-ok>puntos_maximos</button>
+          <button class="opcion">2puntos</button>
+          <div class="explicacion">Sin espacios y sin empezar con número. El guion bajo une palabras:
+            snake_case 🐍, el estilo oficial de Python.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">4. ¿Cómo se escribe una constante en Python, por convención?</p>
+          <button class="opcion">en minúsculas, como cualquier variable</button>
+          <button class="opcion" data-ok>EN MAYÚSCULAS, como VIDAS_MAXIMAS</button>
+          <button class="opcion">con el símbolo # adelante</button>
+          <div class="explicacion">Las MAYÚSCULAS son una señal entre programadores:
+            "esta caja está sellada 🔒, no la cambies". El <code>#</code> es para comentarios.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Hola, Python</a>
+      <a href="leccion-3.html">Siguiente: Matemáticas y decisiones ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

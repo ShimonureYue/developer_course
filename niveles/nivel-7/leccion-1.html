@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objetos: fichas de personaje — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff5c7a;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">💾 Nivel 7: Datos</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 7 · LECCIÓN 1</span>
+    <h1>Objetos: fichas de personaje 🃏</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Guardar TODOS los datos de un personaje en un solo <strong>objeto</strong>
+        (una ficha con datos etiquetados), leerlos y cambiarlos con el punto <code>.</code>,
+        y armar tu <strong>primera base de datos</strong>: una lista de objetos con jugadores y puntajes.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Hasta hoy, para guardar los datos de un personaje usabas variables sueltas:
+        <code>nombre</code>, <code>vidas</code>, <code>poder</code>… Funciona con UN personaje.
+        Pero, ¿y si tu juego tiene 8 jugadores? ¿Vas a crear <code>nombre1</code>,
+        <code>nombre2</code>, <code>vidas1</code>, <code>vidas2</code>…? 😵 Se vuelve un relajo.
+        Para eso existen los <strong>objetos</strong>.</p>
+      <div class="analogia">
+        Un <strong>objeto</strong> es como una <strong>carta de colección</strong> (tipo lotería o cartas TCG):
+        una sola tarjeta que trae TODOS los datos de tu personaje, y cada dato tiene su
+        <strong>etiqueta</strong>: nombre, vidas, poder…
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="250" viewBox="0 0 540 250">
+          <!-- La carta -->
+          <rect x="35" y="15" width="190" height="220" rx="14" fill="#14142e" stroke="#ff5c7a" stroke-width="3"/>
+          <rect x="50" y="28" width="160" height="34" rx="8" fill="#ff5c7a"/>
+          <text x="130" y="51" text-anchor="middle" fill="#0a0a1a" font-size="16">⚡ KAI</text>
+          <!-- Campo: nombre -->
+          <g class="anim-parpadeo">
+            <rect x="50" y="76" width="160" height="34" rx="6" fill="#1d1d3f" stroke="#00e5ff" stroke-width="2"/>
+            <text class="mono" x="60" y="98" font-size="13" fill="#00e5ff">nombre:</text>
+            <text class="mono" x="132" y="98" font-size="13" fill="#eaeaf5">"Kai"</text>
+          </g>
+          <!-- Campo: vidas -->
+          <g class="anim-parpadeo" style="animation-delay: 0.4s;">
+            <rect x="50" y="120" width="160" height="34" rx="6" fill="#1d1d3f" stroke="#39ff8e" stroke-width="2"/>
+            <text class="mono" x="60" y="142" font-size="13" fill="#39ff8e">vidas:</text>
+            <text class="mono" x="132" y="142" font-size="13" fill="#eaeaf5">3</text>
+          </g>
+          <!-- Campo: poder -->
+          <g class="anim-parpadeo" style="animation-delay: 0.8s;">
+            <rect x="50" y="164" width="160" height="34" rx="6" fill="#1d1d3f" stroke="#ffe95c" stroke-width="2"/>
+            <text class="mono" x="60" y="186" font-size="13" fill="#ffe95c">poder:</text>
+            <text class="mono" x="122" y="186" font-size="13" fill="#eaeaf5">"fuego"</text>
+          </g>
+          <!-- Código equivalente -->
+          <text class="mono" x="265" y="80" font-size="14" fill="#a3a3c8">let jugador = {</text>
+          <text class="mono" x="285" y="104" font-size="14" fill="#00e5ff">nombre: "Kai",</text>
+          <text class="mono" x="285" y="128" font-size="14" fill="#39ff8e">vidas: 3,</text>
+          <text class="mono" x="285" y="152" font-size="14" fill="#ffe95c">poder: "fuego"</text>
+          <text class="mono" x="265" y="176" font-size="14" fill="#a3a3c8">};</text>
+          <text class="mono" x="265" y="215" font-size="14" fill="#ff4dd8">jugador.vidas  →  3</text>
+        </svg>
+        <p class="pie">La carta se llama <code>jugador</code> y cada campo tiene su etiqueta.
+          Para leer un campo usas el punto: <code>jugador.vidas</code> te da el <code>3</code>. ✨</p>
+      </div>
+
+      <p>Las reglas del juego son 3, ¡y ya!:</p>
+      <ul>
+        <li><strong>Crear la ficha:</strong> llaves <code>{ }</code> y adentro pares
+          <code>etiqueta: valor</code> separados por comas.</li>
+        <li><strong>Leer un dato:</strong> nombre de la ficha + punto + etiqueta →
+          <code>jugador.poder</code>.</li>
+        <li><strong>Cambiar un dato:</strong> igual que una variable →
+          <code>jugador.vidas = 2</code>. Incluso puedes agregar etiquetas nuevas cuando quieras.</li>
+      </ul>
+      <p>Y aquí viene lo bueno 😏: si metes varias fichas dentro de una <strong>lista</strong>
+        (un arreglo, como los que ya conoces), acabas de inventar…
+        ¡tu primera <strong>base de datos</strong>! Una colección ordenada de fichas que puedes
+        recorrer con <code>for</code>. Así guarda TikTok a sus usuarios y Roblox a sus jugadores
+        (bueno, con unos truquitos extra que verás en la lección 3 😉).</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Presiona <strong>▶ Ejecutar</strong>. Luego cambia el poder por
+        <code>"hielo"</code> o inventa una etiqueta nueva (¿<code>skin</code>? ¿<code>mascota</code>?)
+        y vuelve a ejecutar:</p>
+
+      <div class="playground" data-mode="js" data-titulo="ficha.js">
+<script type="text/plain">
+// Una ficha de personaje: tu primer OBJETO
+let jugador = {
+  nombre: "Kai",
+  vidas: 3,
+  poder: "fuego"
+};
+
+// Leer un dato: ficha + punto + etiqueta
+console.log("Personaje:", jugador.nombre);
+console.log("Vidas:", jugador.vidas);
+console.log("Poder:", jugador.poder);
+
+// Cambiar un dato: igual que una variable
+jugador.vidas = jugador.vidas - 1;
+console.log("¡Recibió un golpe! Vidas:", jugador.vidas);
+
+// Agregar un dato NUEVO cuando quieras
+jugador.nivel = 2;
+console.log("¡Subió de nivel!", jugador.nombre, "es nivel", jugador.nivel);
+
+// Y así se ve la ficha completa:
+console.log(jugador);
+</script>
+      </div>
+
+      <p>Ahora el truco maestro: una <strong>lista de objetos</strong>. Fíjate cómo el
+        <code>for</code> que ya dominas recorre las fichas, y <code>jugadores[i].nombre</code>
+        combina lo que sabes de listas con lo nuevo de objetos:</p>
+
+      <div class="playground" data-mode="js" data-titulo="mi_base_de_datos.js">
+<script type="text/plain">
+// ¡Tu primera base de datos! Una LISTA de fichas 🗃️
+let jugadores = [
+  { nombre: "Ximena", puntos: 480 },
+  { nombre: "Diego", puntos: 1250 },
+  { nombre: "Renata", puntos: 2100 },
+  { nombre: "Santiago", puntos: 890 }
+];
+
+console.log("🏆 TABLA DE PUNTAJES 🏆");
+
+// jugadores[i] es UNA ficha; jugadores[i].nombre es un dato de esa ficha
+for (let i = 0; i < jugadores.length; i++) {
+  console.log(jugadores[i].nombre + " → " + jugadores[i].puntos + " puntos");
+}
+
+// Renata jugó otra partida y ganó puntos:
+jugadores[2].puntos = jugadores[2].puntos + 300;
+console.log("Renata ahora tiene:", jugadores[2].puntos);
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Arma tu equipo de esports 🎮. Sigue los TODO en orden y ejecuta después de cada uno
+        para ver que va funcionando:</p>
+
+      <div class="playground" data-mode="js" data-titulo="mi_equipo.js">
+<script type="text/plain">
+// 🎮 Mi equipo de esports
+
+// TODO 1: crea un objeto llamado "capitan" con estas etiquetas:
+//         nombre, juego y puntos (inventa los valores)
+
+// TODO 2: muestra en consola: "(nombre) juega (juego)"
+//         usando capitan.nombre y capitan.juego
+
+// TODO 3: el capitán ganó un torneo: súmale 100 a sus puntos
+//         y muéstralos en consola
+
+// TODO 4 (el bueno 😎): crea un arreglo "equipo" con 3 objetos
+//         {nombre, puntos} y recórrelo con for mostrando
+//         "nombre: puntos" de cada quien
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Mira el diagrama de la carta 🃏: un objeto se crea con llaves y pares
+          <code>etiqueta: valor</code> separados por comas:
+          <code>let capitan = { nombre: "Luna", juego: "Snake", puntos: 500 };</code>
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para el TODO 4: el arreglo se hace con corchetes y adentro van las fichas:
+          <code>let equipo = [ {…}, {…}, {…} ];</code> — y dentro del for,
+          cada ficha es <code>equipo[i]</code>, así que su nombre es <code>equipo[i].nombre</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>let capitan = { nombre: "Luna", juego: "Snake", puntos: 500 };
+
+console.log(capitan.nombre + " juega " + capitan.juego);
+
+capitan.puntos = capitan.puntos + 100;   // ganó el torneo 🏆
+console.log("Puntos del capi:", capitan.puntos);
+
+let equipo = [
+  { nombre: "Luna", puntos: 600 },
+  { nombre: "Mateo", puntos: 450 },
+  { nombre: "Sofi", puntos: 720 }
+];
+
+for (let i = 0; i &lt; equipo.length; i++) {
+  console.log(equipo[i].nombre + ": " + equipo[i].puntos);
+}</code></pre>
+          Fíjate en el patrón estrella: <code>equipo[i].puntos</code> se lee de izquierda a derecha:
+          "de la lista <code>equipo</code>, toma la ficha <code>i</code>, y de esa ficha, el dato
+          <code>puntos</code>". Ese patrón lo vas a usar TODO el resto del curso. 💪
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama de la carta</strong> 🃏: llaves, etiquetas, punto.</li>
+        <li>¿Error rojo en la consola? Revisa <strong>comas entre los pares</strong> y que no
+          te falte una llave <code>}</code>.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes XP).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n7l1">Tengo 13 años y estoy aprendiendo JavaScript. Ya sé variables, if, ciclos for, listas y funciones. Hoy aprendí objetos como {nombre: "Kai", vidas: 3} y arreglos de objetos. Explícame con ejemplos de videojuegos: 1) cómo leer y cambiar propiedades con el punto, 2) cómo recorrer un arreglo de objetos con for. Después hazme 2 preguntas para ver si entendí. No me resuelvas mis ejercicios completos.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Crea la base de datos de <strong>tus juegos favoritos</strong>: un arreglo de objetos
+        <code>{ titulo, horasJugadas, favorito }</code> (favorito es <code>true</code> o <code>false</code>).
+        Recórrelo y muestra SOLO los favoritos (un <code>if</code> dentro del <code>for</code> 😉).
+        <strong>Jefe secreto:</strong> recorre tu arreglo <code>equipo</code> y encuentra al jugador
+        con MÁS puntos sin usar nada nuevo: una variable <code>mejor</code> que empiece con la
+        primera ficha, y un <code>if</code> que la cambie cuando encuentres a alguien mejor. 🏅</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n7-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Tienes <code>let jugador = { nombre: "Kai", vidas: 3 }</code>.
+            ¿Cómo lees sus vidas?</p>
+          <button class="opcion">vidas.jugador</button>
+          <button class="opcion" data-ok>jugador.vidas</button>
+          <button class="opcion">jugador(vidas)</button>
+          <div class="explicacion">Primero la ficha, luego el punto, luego la etiqueta:
+            <code>jugador.vidas</code>. El punto significa "de esta ficha, dame este dato".</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué obtienes con <code>jugadores[0].nombre</code>?</p>
+          <button class="opcion">Los nombres de todos los jugadores</button>
+          <button class="opcion">Un error: no se pueden mezclar listas y objetos</button>
+          <button class="opcion" data-ok>El nombre de la PRIMERA ficha de la lista</button>
+          <div class="explicacion">Se lee por partes: <code>jugadores[0]</code> es la primera ficha
+            (¡las listas empiezan en 0!) y <code>.nombre</code> saca su dato "nombre".
+            Mezclar listas y objetos no solo se puede: es la base de las bases de datos. 🗃️</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Por qué un arreglo de objetos es "tu primera base de datos"?</p>
+          <button class="opcion" data-ok>Porque es una colección de fichas con datos etiquetados que puedes recorrer y modificar</button>
+          <button class="opcion">Porque se guarda solo en internet automáticamente</button>
+          <button class="opcion">Porque solo acepta números</button>
+          <div class="explicacion">Eso es exactamente una base de datos: muchas fichas (registros)
+            con los mismos campos. Ojo: todavía vive en la memoria y se borra al recargar…
+            ese problemón lo resolvemos en la siguiente lección. 😱</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n7-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Volver al Nivel 7</a>
+      <a href="leccion-2.html">Siguiente: JSON y localStorage ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

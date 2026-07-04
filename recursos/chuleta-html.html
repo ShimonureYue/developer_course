@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuleta de HTML 🧱 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .tabla td:first-child { white-space: nowrap; }
+    .tabla code { white-space: nowrap; }
+
+    /* Al imprimir: fondo blanco, texto negro y sin decoraciones 🖨️ */
+    @media print {
+      body { background: #fff !important; color: #000; font-size: 12px; }
+      .estrellas, .cq-header, .cq-toast, .no-imprimir, footer { display: none !important; }
+      h1, h2, h3, strong, em, a { color: #000 !important; text-shadow: none !important; }
+      p, li, td { color: #000 !important; }
+      .tabla th { color: #000 !important; border-bottom-color: #999; }
+      .tabla td { border-bottom-color: #ccc; }
+      code { background: #f2f2f2; color: #000; border-color: #ccc; }
+      .panel { background: #fff; border-color: #ccc; }
+      pre.bloque-codigo { background: #f7f7f7; border-color: #ccc; color: #000; }
+      pre.bloque-codigo code { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">🧱</div>
+      <h1>CHULETA DE HTML</h1>
+      <p class="suave">Todo lo que aprendes en el <a href="../niveles/nivel-1/index.html">Nivel 1</a>, en una sola hoja.</p>
+      <button class="btn fantasma no-imprimir" onclick="window.print()">🖨️ IMPRIMIR ESTA CHULETA</button>
+    </section>
+
+    <h2>🦴 El esqueleto de toda página</h2>
+    <p>Cópialo, guárdalo como <code>algo.html</code> y ya tienes una página web:</p>
+<pre class="bloque-codigo"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;El título de la pestaña&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Aquí va TODO lo que se ve en la página
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    <table class="tabla">
+      <tr><th>Etiqueta</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Avisa al navegador: "esto es HTML moderno"</td><td>Siempre va en la línea 1</td></tr>
+      <tr><td><code>&lt;html&gt;</code></td><td>Envuelve toda la página</td><td><code>&lt;html lang="es"&gt;</code></td></tr>
+      <tr><td><code>&lt;head&gt;</code></td><td>Info que NO se ve (título, estilos)</td><td><code>&lt;head&gt;…&lt;/head&gt;</code></td></tr>
+      <tr><td><code>&lt;body&gt;</code></td><td>Todo lo que SÍ se ve</td><td><code>&lt;body&gt;…&lt;/body&gt;</code></td></tr>
+      <tr><td><code>&lt;title&gt;</code></td><td>El texto de la pestaña del navegador</td><td><code>&lt;title&gt;Mi juego&lt;/title&gt;</code></td></tr>
+    </table>
+
+    <h2>✍️ Textos</h2>
+    <table class="tabla">
+      <tr><th>Etiqueta</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>&lt;h1&gt;</code> … <code>&lt;h6&gt;</code></td><td>Títulos: h1 el más grande, h6 el más chico</td><td><code>&lt;h1&gt;Mi página&lt;/h1&gt;</code></td></tr>
+      <tr><td><code>&lt;p&gt;</code></td><td>Un párrafo de texto</td><td><code>&lt;p&gt;Hola mundo&lt;/p&gt;</code></td></tr>
+      <tr><td><code>&lt;strong&gt;</code></td><td>Texto importante (se ve en <strong>negritas</strong>)</td><td><code>&lt;strong&gt;¡ojo!&lt;/strong&gt;</code></td></tr>
+      <tr><td><code>&lt;em&gt;</code></td><td>Texto con énfasis (se ve en <em>cursivas</em>)</td><td><code>&lt;em&gt;wow&lt;/em&gt;</code></td></tr>
+      <tr><td><code>&lt;!-- … --&gt;</code></td><td>Comentario: nota para ti, el navegador lo ignora</td><td><code>&lt;!-- arreglar luego --&gt;</code></td></tr>
+    </table>
+
+    <h2>📋 Listas</h2>
+    <table class="tabla">
+      <tr><th>Etiqueta</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>&lt;ul&gt;</code></td><td>Lista con viñetas (sin orden)</td><td><code>&lt;ul&gt;&lt;li&gt;tacos&lt;/li&gt;&lt;/ul&gt;</code></td></tr>
+      <tr><td><code>&lt;ol&gt;</code></td><td>Lista numerada 1, 2, 3…</td><td><code>&lt;ol&gt;&lt;li&gt;primero&lt;/li&gt;&lt;/ol&gt;</code></td></tr>
+      <tr><td><code>&lt;li&gt;</code></td><td>Cada elemento de la lista</td><td><code>&lt;li&gt;pastor&lt;/li&gt;</code></td></tr>
+    </table>
+
+    <h2>🔗 Enlaces e imágenes</h2>
+    <table class="tabla">
+      <tr><th>Etiqueta</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>&lt;a href="…"&gt;</code></td><td>Enlace a otra página (el <code>href</code> dice a dónde)</td><td><code>&lt;a href="juego.html"&gt;Jugar&lt;/a&gt;</code></td></tr>
+      <tr><td><code>&lt;img src="…" alt="…"&gt;</code></td><td>Muestra una imagen. <code>src</code> = de dónde, <code>alt</code> = descripción. No se cierra</td><td><code>&lt;img src="gato.png" alt="mi gato"&gt;</code></td></tr>
+    </table>
+
+    <div class="panel">
+      <h3 style="margin-top: 0;">🚑 Si algo se ve raro…</h3>
+      <ul>
+        <li>¿Cerraste la etiqueta? Casi todas van en pares: <code>&lt;p&gt;</code> … <code>&lt;/p&gt;</code>.</li>
+        <li>¿Guardaste el archivo (<code>Cmd + S</code>) y recargaste el navegador (<code>Cmd + R</code>)?</li>
+        <li>¿El nombre del archivo va sin espacios ni acentos? <code>mi-pagina.html</code> ✅ · <code>mi página.html</code> ❌</li>
+      </ul>
+    </div>
+
+    <p class="centrado no-imprimir">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

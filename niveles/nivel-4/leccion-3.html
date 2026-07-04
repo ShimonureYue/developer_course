@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Return: el platillo que te devuelve — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧩 Nivel 4: Python II</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 4 · LECCIÓN 3</span>
+    <h1>Return: el platillo que te devuelve 🎁</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Crear funciones que te <strong>ENTREGAN</strong> un resultado con <code>return</code>,
+        guardarlo en una variable y seguirlo usando. Y de paso vas a derrotar al
+        <strong>ERROR #1 de todos los principiantes del planeta</strong>:
+        confundir <code>print</code> con <code>return</code>. Hoy lo matas de frente. ⚔️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Tus funciones ya reciben ingredientes… pero hasta ahora solo GRITAN cosas a la pantalla
+        con <code>print</code>. ¿Y si quieres que la función calcule algo y te lo dé
+        <strong>para seguirlo usando</strong>? Sumarle, compararlo, guardarlo…
+        Para eso <code>print</code> no sirve. Necesitas <code>return</code>.</p>
+
+      <div class="analogia">
+        <strong>print</strong> es cuando el cocinero te <strong>ENSEÑA el platillo por la
+        ventanilla</strong> 🪟: lo ves… y ya, se queda en la cocina. No te lo puedes comer.<br>
+        <strong>return</strong> es cuando te lo <strong>ENTREGA en la mano</strong> 🤲:
+        ahora es tuyo — te lo comes, lo guardas en un táper (una variable 📦)
+        o lo usas de ingrediente en OTRA receta.
+      </div>
+
+      <div class="diagrama">
+        <svg width="640" height="250" viewBox="0 0 640 250">
+          <text class="mono" x="300" y="24" text-anchor="middle" font-size="14" fill="#a3a3c8">resultado = sumar(2, 3)</text>
+          <!-- ingredientes 2 y 3 entran -->
+          <g class="anim-ingrediente" style="--dx: 130px;">
+            <rect x="20" y="70" width="55" height="38" rx="8" fill="#ffe95c"/>
+            <text x="47" y="95" text-anchor="middle" fill="#0a0a1a" font-size="17">2</text>
+          </g>
+          <g class="anim-ingrediente" style="--dx: 130px;">
+            <rect x="20" y="135" width="55" height="38" rx="8" fill="#00e5ff"/>
+            <text x="47" y="160" text-anchor="middle" fill="#0a0a1a" font-size="17">3</text>
+          </g>
+          <!-- la máquina -->
+          <g class="anim-maquina">
+            <rect x="185" y="55" width="185" height="135" rx="12" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <rect x="197" y="42" width="161" height="26" rx="6" fill="#a78bfa"/>
+            <text x="277" y="60" text-anchor="middle" fill="#0a0a1a" font-size="12">def sumar(a, b):</text>
+            <text x="277" y="112" text-anchor="middle" font-size="28">⚙️</text>
+            <text class="mono" x="277" y="160" text-anchor="middle" font-size="13" fill="#39ff8e">return a + b</text>
+          </g>
+          <!-- el platillo (5) viaja hasta la caja resultado -->
+          <g class="anim-platillo" style="--dx: 105px;">
+            <rect x="390" y="100" width="55" height="44" rx="8" fill="#39ff8e"/>
+            <text x="417" y="128" text-anchor="middle" fill="#0a0a1a" font-size="20">5</text>
+          </g>
+          <!-- la caja resultado -->
+          <g>
+            <rect x="500" y="85" width="120" height="80" rx="10" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <rect x="512" y="72" width="96" height="24" rx="6" fill="#ffe95c"/>
+            <text x="560" y="89" text-anchor="middle" fill="#0a0a1a" font-size="12">resultado</text>
+          </g>
+        </svg>
+        <p class="pie">Los ingredientes <code>2</code> y <code>3</code> entran, la máquina trabaja,
+          y <code>return</code> ENTREGA el <code>5</code>… que viaja directito a la caja
+          <code>resultado</code> 📦. Eso <code>print</code> jamás podría hacerlo:
+          solo lo habría enseñado por la ventanilla.</p>
+      </div>
+
+      <h3>📝 Cómo se escribe (y se aprovecha)</h3>
+      <pre class="bloque-codigo"><code>def sumar(a, b):
+    return a + b            # ENTREGA el resultado y termina
+
+resultado = sumar(2, 3)     # el 5 entregado cae en la caja
+print(resultado)            # 5
+print(resultado * 10)       # 50 — ¡puedes seguirlo usando! 💪</code></pre>
+      <ul>
+        <li><code>return</code> <strong>entrega el valor</strong> a quien llamó la función.
+          La llamada <code>sumar(2, 3)</code> literalmente "se convierte" en <code>5</code>.</li>
+        <li><code>return</code> también <strong>termina la función ahí mismo</strong>:
+          si hay líneas después del return, ya no corren. 🚪</li>
+        <li>OJO: <code>return</code> entrega <strong>en silencio</strong>: no imprime nada.
+          Si quieres VER el valor, tú lo imprimes: <code>print(sumar(2, 3))</code>.</li>
+      </ul>
+
+      <h3>💀 EL ERROR CLÁSICO #1: guardar un print</h3>
+      <p>Todos, TODOS los principiantes hacen esto alguna vez — hoy te toca verlo venir:</p>
+      <pre class="bloque-codigo"><code>def sumar_mal(a, b):
+    print(a + b)            # solo lo ENSEÑA por la ventanilla 🪟
+
+resultado = sumar_mal(2, 3) # intentas guardar el "platillo"...
+print(resultado)            # None 😱 ¡la caja quedó VACÍA!</code></pre>
+      <p><code>None</code> significa "nada". La función mostró el 5 en pantalla, sí…
+        pero <strong>nunca lo entregó</strong>, así que en la caja <code>resultado</code>
+        no cayó nada. Ver un platillo por la ventanilla no lo pone en tu táper. 🪟🙅
+        Cuando veas <code>None</code> donde esperabas un valor: a tu función le falta
+        su <code>return</code>. Es EL diagnóstico clásico.</p>
+
+      <h3>🔗 Combinar funciones: el resultado de una entra a otra</h3>
+      <p>Aquí es donde <code>return</code> se pone épico: como la función entrega un valor,
+        puedes usar ese valor <strong>como ingrediente de otra función</strong>:</p>
+      <pre class="bloque-codigo"><code>def doble(numero):
+    return numero * 2
+
+print(doble(doble(5)))      # doble(5)→10, doble(10)→20 🤯
+combo = sumar(doble(4), 1)  # doble(4)→8, sumar(8, 1)→9</code></pre>
+      <p>Con <code>print</code> esto sería imposible: no puedes hacer
+        <code>doble(</code>un-grito-en-la-pantalla<code>)</code>. 😄</p>
+
+      <h3>🏠 Variables locales: lo que pasa en la función, se queda en la función</h3>
+      <p>Última regla del día: las variables que creas ADENTRO de una función son
+        <strong>locales</strong> — son los trastes del cocinero 🍳: viven en su cocina
+        y NO salen por la ventanilla. Afuera no existen:</p>
+      <pre class="bloque-codigo"><code>def preparar_pocion():
+    ingrediente_secreto = "pata de rana 🐸"   # nace ADENTRO...
+    return "Poción lista ✨"
+
+print(preparar_pocion())      # Poción lista ✨
+print(ingrediente_secreto)    # 💥 NameError: no existe aquí afuera</code></pre>
+      <p>¿Por qué Python es así de "envidioso"? ¡Es un favor! Cada función es su propia
+        cocina cerrada: sus variables no chocan con las tuyas ni con las de otras funciones.
+        Lo ÚNICO que sale de la cocina es lo que la función decide entregar con
+        <code>return</code>. 🚪🎁</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El duelo del siglo: <code>print</code> contra <code>return</code>.
+        Ejecuta y compara qué quedó guardado en cada caja:</p>
+
+      <div class="py-runner" data-titulo="print_vs_return.py">
+<script type="text/plain">
+def sumar_mal(a, b):
+    print(a + b)        # solo lo ENSEÑA 🪟
+
+def sumar_bien(a, b):
+    return a + b        # lo ENTREGA 🤲
+
+resultado_mal = sumar_mal(2, 3)     # (aquí se imprime el 5 de sumar_mal)
+resultado_bien = sumar_bien(2, 3)   # (aquí se entrega el 5 en silencio)
+
+print("Lo que guardó sumar_mal:", resultado_mal)    # None 😱
+print("Lo que guardó sumar_bien:", resultado_bien)  # 5 😎
+
+# La prueba definitiva: seguir usando el valor
+print("El doble del bueno:", resultado_bien * 2)    # 10 ✅
+# print("El doble del malo:", resultado_mal * 2)    # 💥 descomenta: TypeError
+</script>
+      </div>
+
+      <p>Ahora el poder de combinar: funciones que se pasan resultados entre ellas,
+        como una línea de ensamblaje 🏭:</p>
+
+      <div class="py-runner" data-titulo="combinar_funciones.py">
+<script type="text/plain">
+def doble(numero):
+    return numero * 2
+
+def sumar(a, b):
+    return a + b
+
+print(doble(7))                  # 14
+print(doble(doble(doble(2))))    # 2 → 4 → 8 → 16 🤯
+
+# El daño de tu ataque: (ataque + bono) y luego crítico x2
+danio = doble(sumar(5, 3))       # sumar(5,3)→8, doble(8)→16
+print("Daño del golpe crítico:", danio, "⚔️")
+</script>
+      </div>
+
+      <p>Y el experimento de la cocina cerrada — conoce al <code>NameError</code> de frente:</p>
+
+      <div class="py-runner" data-titulo="cocina_cerrada.py">
+<script type="text/plain">
+def preparar_pocion():
+    ingrediente_secreto = "pata de rana 🐸"   # variable LOCAL
+    return "Poción lista ✨"
+
+print(preparar_pocion())
+
+# 💥 ERROR A PROPÓSITO: descomenta la línea y ejecuta
+# print(ingrediente_secreto)
+# "NameError: name 'ingrediente_secreto' is not defined"
+# = esa variable vive ADENTRO de la función; aquí afuera no existe.
+# Lo único que salió de la cocina fue lo que entregó el return. 🚪
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: LA CALCULADORA DE XP ⚡</p>
+      <p>En tu juego, cada enemigo derrotado da 25 XP. Crea la función
+        <code>calcular_xp(enemigos)</code> que <strong>RETORNE</strong> (no imprima 👀)
+        los puntos ganados, y úsala:</p>
+
+      <div class="py-runner" data-titulo="calculadora_xp.py">
+<script type="text/plain">
+# CALCULADORA DE XP ⚡ — cada enemigo derrotado da 25 XP
+
+# TODO 1: define calcular_xp(enemigos) que RETORNE enemigos * 25
+
+# TODO 2: guarda el resultado:  xp = calcular_xp(4)
+
+# TODO 3: imprime:  "Ganaste", xp, "XP"
+
+# TODO 4 (combo): imprime calcular_xp(2) + calcular_xp(3)
+#                 ¿puedes predecir el número ANTES de ejecutar? 🔮
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La receta es cortita: <code>def calcular_xp(enemigos):</code> y adentro UNA línea
+          que empieza con <code>return</code>. Nada de <code>print</code> adentro —
+          esta función ENTREGA, no grita. 🤫
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para el TODO 2, la llamada va del lado derecho del <code>=</code>:
+          <code>xp = calcular_xp(4)</code> — la llamada "se convierte" en 100 y cae en la caja.
+          Para el combo: cada llamada entrega su número, y los números entregados se suman
+          como cualquier suma: <code>50 + 75</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>def calcular_xp(enemigos):
+    return enemigos * 25            # ENTREGA el cálculo 🎁
+
+xp = calcular_xp(4)                 # la llamada se convierte en 100
+print("Ganaste", xp, "XP")          # Ganaste 100 XP
+
+print(calcular_xp(2) + calcular_xp(3))   # 50 + 75 = 125 ✅</code></pre>
+          El combo es la magia de <code>return</code>: cada llamada se convierte en su valor
+          entregado, y esos valores se pueden sumar, comparar, guardar… Si tu función usara
+          <code>print</code>, el combo daría el famoso error de sumar <code>None</code>. 💀
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Te salió <code>None</code>? Diagnóstico instantáneo: tu función hace
+          <code>print</code> pero no <code>return</code>. Enseñó el platillo…
+          y no lo entregó. 🪟</li>
+        <li>¿No se imprime nada de nada? Al revés: tu función SÍ retorna, pero recuerda que
+          <code>return</code> entrega en silencio. Envuélvela en un print:
+          <code>print(calcular_xp(4))</code>.</li>
+        <li>¿<code>NameError</code> al usar una variable afuera? Es local: nació adentro de la
+          función y ahí se quedó. Lo que necesites afuera, sácalo con <code>return</code>.</li>
+        <li>¿Pusiste código después del <code>return</code> y no corre? Así es la regla:
+          <code>return</code> entrega y CIERRA la función en ese instante. 🚪</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n4l3">Tengo 13 años y estoy aprendiendo la diferencia entre print y return en funciones de Python. Explícame con la analogía de una cocina (print = enseñar el platillo por la ventanilla, return = entregarlo en la mano): 1) por qué si guardo el resultado de una función que solo hace print me sale None, 2) cómo puedo usar el valor que retorna una función dentro de otra función, 3) qué son las variables locales y por qué me sale NameError si las uso afuera. Después ponme 3 mini-ejercicios de funciones con return, del más fácil al más difícil, y dame pistas si me atoro en vez de la solución.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n4l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p><strong>El juez</strong> ⚖️: crea <code>mayor(a, b)</code> que retorne el número
+        más grande de los dos (te va a hacer falta un <code>if/else</code>… ¡con un return en
+        cada camino!). Pruébala con <code>mayor(mayor(4, 9), 7)</code> — ¿da 9?
+        <strong>Jefe secreto:</strong> crea <code>es_par(numero)</code> que retorne
+        <code>True</code> o <code>False</code> usando <code>numero % 2 == 0</code>
+        (¿te acuerdas del <code>%</code>? Da el residuo de la división), y úsala en un
+        <code>if es_par(10):</code>. Acabas de inventar tus propias preguntas de
+        <code>if</code>. 🤯</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n4-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuál es LA diferencia entre <code>print</code> y <code>return</code>?</p>
+          <button class="opcion">Son lo mismo, solo cambia el nombre</button>
+          <button class="opcion" data-ok><code>print</code> MUESTRA el valor en pantalla; <code>return</code> lo ENTREGA para guardarlo y seguirlo usando</button>
+          <button class="opcion"><code>return</code> imprime más bonito que <code>print</code></button>
+          <div class="explicacion">La ventanilla 🪟 contra la entrega en mano 🤲.
+            <code>print</code> es para que lo vea un humano; <code>return</code> es para que
+            lo use el resto de tu programa. Los juegos calculan mil cosas con return
+            y solo imprimen unas cuantas.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. La función <code>mostrar_suma(a, b)</code> solo hace
+            <code>print(a + b)</code>. ¿Qué guarda
+            <code>resultado = mostrar_suma(2, 3)</code>?</p>
+          <button class="opcion">5, porque la suma se hizo bien</button>
+          <button class="opcion">El texto "5"</button>
+          <button class="opcion" data-ok><code>None</code>: la función mostró el 5 pero nunca lo entregó</button>
+          <div class="explicacion">El error clásico #1 💀: sin <code>return</code>,
+            la caja queda vacía (<code>None</code> = "nada"). Ver el platillo por la
+            ventanilla no lo mete a tu táper. Cuando veas None: falta un return.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Una variable creada ADENTRO de una función, ¿se puede usar afuera?</p>
+          <button class="opcion">Sí, las variables funcionan igual en todos lados</button>
+          <button class="opcion">Solo si la escribes en mayúsculas</button>
+          <button class="opcion" data-ok>No: es local, afuera da <code>NameError</code>; lo que necesites afuera se saca con <code>return</code></button>
+          <div class="explicacion">Lo que pasa en la función se queda en la función 🍳.
+            Cada función es una cocina cerrada, y su única puerta de salida es el
+            <code>return</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n4-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: Parámetros: los ingredientes</a>
+      <a href="leccion-4.html">Siguiente: Jefe: dos juegos de consola 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

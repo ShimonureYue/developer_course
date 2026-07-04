@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué es programar? — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🌮 Nivel 0: prepara tu equipo</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 0 · LECCIÓN 2</span>
+    <h1>¿Qué es programar? 🤖🌮</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Entender qué es un <strong>programa</strong>, qué es un <strong>algoritmo</strong>, y por
+        qué a la computadora hay que hablarle con instrucciones <strong>precisas y en orden</strong>
+        — todo SIN escribir una sola línea de código todavía.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Un <strong>programa</strong> es una lista de instrucciones que la computadora sigue,
+        una por una, en orden. Nada más… y nada menos. 😄</p>
+      <div class="analogia">
+        Un programa es como una <strong>receta de cocina</strong> 🧑‍🍳: pasos precisos, en orden.
+        Y la computadora es el cocinero más <strong>obediente</strong> del mundo… pero también el
+        más <strong>"tonto"</strong>: hace EXACTAMENTE lo que dices, no lo que querías decir.
+      </div>
+
+      <p>Mira lo que pasa si le das a una computadora tu receta de quesadillas 🫓 tal como se
+        la dirías a un amigo:</p>
+      <table class="tabla">
+        <tr><th>Tu instrucción</th><th>Lo que entiende la compu 🤖</th></tr>
+        <tr><td>"Pon el queso en la tortilla"</td>
+            <td>Pone el <strong>paquete entero</strong> de queso, con todo y plástico, encima de la tortilla. 😂</td></tr>
+        <tr><td>"Caliéntala en el sartén"</td>
+            <td>¿Calentar QUÉ? ¿La tortilla? ¿El paquete? ¿El sartén vacío? <strong>ERROR: no sé a qué te refieres.</strong></td></tr>
+        <tr><td>"Espera a que se derrita"</td>
+            <td>Se queda esperando… ¿derretirse el queso? ¿el plástico? ¿cuánto tiempo? <strong>Se queda esperando para siempre.</strong> ⏳</td></tr>
+      </table>
+      <p>A un humano no hay que explicarle todo: adivina lo que falta. La computadora
+        <strong>no adivina NADA</strong>. Por eso los programadores escriben instrucciones así:
+        <em>"abre el paquete de queso"</em>, <em>"toma 2 rebanadas"</em>, <em>"colócalas al centro
+        de la tortilla"</em>… Cada. Pequeño. Paso. 🐜</p>
+
+      <p>Y aquí entra la palabra estrella del día: un <strong>algoritmo</strong> es justamente eso —
+        una <strong>lista de pasos precisos, ordenados y sin ambigüedad</strong> para lograr algo.
+        Las recetas, los instructivos de LEGO y los tutoriales de peinados son algoritmos. Cuando un
+        algoritmo se escribe en un idioma que la computadora entiende, se convierte en un
+        <strong>programa</strong>. ✨</p>
+
+      <div class="diagrama">
+        <svg width="620" height="200" viewBox="0 0 620 200">
+          <!-- Entrada -->
+          <rect x="20" y="60" width="140" height="80" rx="12" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <text x="90" y="45" text-anchor="middle" font-size="14" fill="#00e5ff">ENTRADA</text>
+          <text x="90" y="95" text-anchor="middle" font-size="26">🧀🫓</text>
+          <text x="90" y="125" text-anchor="middle" font-size="13" fill="#a3a3c8">ingredientes</text>
+          <!-- Flecha 1 -->
+          <path class="anim-recorrido" d="M 165 100 L 235 100" fill="none" stroke="#ffe95c" stroke-width="4"/>
+          <!-- Instrucciones -->
+          <g class="anim-pulso">
+            <rect x="240" y="50" width="160" height="100" rx="12" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="320" y="40" text-anchor="middle" font-size="14" fill="#ff4dd8">INSTRUCCIONES</text>
+            <text x="320" y="85" text-anchor="middle" font-size="13" fill="#eaeaf5">1. abre el paquete</text>
+            <text x="320" y="107" text-anchor="middle" font-size="13" fill="#eaeaf5">2. toma 2 rebanadas</text>
+            <text x="320" y="129" text-anchor="middle" font-size="13" fill="#eaeaf5">3. ponlas en la tortilla</text>
+          </g>
+          <!-- Flecha 2 -->
+          <path class="anim-recorrido" d="M 405 100 L 475 100" fill="none" stroke="#ffe95c" stroke-width="4"/>
+          <!-- Salida -->
+          <rect x="480" y="60" width="120" height="80" rx="12" fill="none" stroke="#39ff8e" stroke-width="3"/>
+          <text x="540" y="45" text-anchor="middle" font-size="14" fill="#39ff8e">SALIDA</text>
+          <text class="anim-valor-aparece" x="540" y="105" text-anchor="middle" font-size="30">😋</text>
+          <text x="540" y="130" text-anchor="middle" font-size="13" fill="#a3a3c8">¡quesadilla!</text>
+          <text x="310" y="185" text-anchor="middle" font-size="14" fill="#a3a3c8">Así funciona TODO programa del mundo</text>
+        </svg>
+        <p class="pie">Todo programa es esto: algo <strong>entra</strong> (datos, ingredientes,
+          el clic de un jugador…), las <strong>instrucciones</strong> lo procesan paso a paso,
+          y algo <strong>sale</strong> (una quesadilla, una página web, un ¡GAME OVER!).</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Este es un programa DE VERDAD que simula al robot quesadillero 🤖. No necesitas entender
+        el código todavía (¡para eso es el resto del curso!). Solo presiona
+        <strong>▶ Ejecutar</strong> y mira cómo obedece cada instrucción, en orden, sin saltarse
+        ninguna:</p>
+      <div class="playground" data-mode="js" data-titulo="robot_quesadillero.js" data-alto="240">
+<script type="text/plain">// Instrucciones para el robot quesadillero 🤖
+// (cada console.log es un paso que el robot "hace")
+
+console.log("🤖 Robot quesadillero encendido...");
+console.log("Paso 1: abro el paquete de queso");
+console.log("Paso 2: tomo 2 rebanadas de queso");
+console.log("Paso 3: las coloco al centro de la tortilla");
+console.log("Paso 4: doblo la tortilla a la mitad");
+console.log("Paso 5: la caliento 2 minutos por cada lado");
+console.log("✅ ¡Quesadilla lista! 😋");
+</script>
+      </div>
+      <p><strong>Experimento:</strong> cambia el orden de dos líneas (por ejemplo, pon el paso 5
+        antes que el paso 1) y ejecuta otra vez. El robot obedece feliz… ¡y calienta una tortilla
+        vacía! 😂 La computadora <strong>no se da cuenta</strong> de que el orden está mal.
+        <strong>Tú</strong> eres quien piensa; ella solo obedece.</p>
+
+      <p>Y para ir calentando motores, así se ve un algoritmo escrito en "pseudocódigo"
+        (español disfrazado de programa 🥸) para levantarse e ir a la escuela:</p>
+      <pre class="bloque-codigo"><code>ALGORITMO: sobrevivir a la mañana 🌅
+1. SUENA la alarma
+2. SI es sábado o domingo:
+      apagar alarma y seguir durmiendo 😴  (FIN)
+3. SI NO:
+      posponer alarma 5 minutos (repetir máximo 3 veces 😅)
+4. LEVANTARSE de la cama
+5. REPETIR hasta estar presentable:
+      lavarse, vestirse, peinarse
+6. SI hay tiempo:  desayunar bien 🥚
+   SI NO:          agarrar una barrita 🏃
+7. SALIR de casa con mochila
+8. FIN (nivel "escuela" iniciado 🎒)</code></pre>
+      <p>¿Ves los "SI… SI NO…" y los "REPETIR"? Son <strong>decisiones</strong> y
+        <strong>ciclos</strong>: los vas a usar TODO el curso. Ya piensas como programador
+        sin darte cuenta. 😎</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: EL COMPAÑERO-ROBOT 🤖</p>
+      <p>Esta actividad es <strong>sin computadora</strong> y es de las más divertidas del curso.
+        Necesitas: papel, lápiz y un compañero (o alguien de tu familia).</p>
+      <ol class="pasos">
+        <li>En tu papel, escribe instrucciones para <strong>dibujar una casita</strong> 🏠
+          (cuadrado + techo triangular + puerta). PERO ojo: tu compañero será un
+          <strong>robot</strong>: seguirá tus instrucciones AL PIE DE LA LETRA, sin adivinar nada.</li>
+        <li>Dale el papel a tu compañero-robot <strong>sin decirle qué van a dibujar</strong>.
+          El robot solo puede hacer lo que esté escrito. Si una instrucción es ambigua
+          (por ejemplo, "dibuja un triángulo" — ¿dónde?, ¿de qué tamaño?), el robot elige
+          la interpretación MÁS chistosa posible. 😈</li>
+        <li>Compara el dibujo con la casita que tenías en mente. ¿Salió casita… o salió arte
+          abstracto? 🎨</li>
+        <li>Corrige tus instrucciones y prueba con otra persona. ¿Mejoró el resultado?</li>
+      </ol>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Las instrucciones ambiguas son el enemigo. "Dibuja un cuadrado" deja mil preguntas:
+          ¿de qué tamaño? ¿en qué parte de la hoja? Intenta dar <strong>medidas y posiciones</strong>:
+          "en el centro de la hoja, dibuja un cuadrado de 5 cm por lado".
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El orden importa tanto como la precisión. Si dices "dibuja la puerta" antes de dibujar
+          la casa… ¿puerta flotante? 👻 Numera tus pasos y pregúntate en cada uno:
+          "¿el robot ya tiene TODO lo que necesita para hacer esto?"
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA (un ejemplo posible)</span>
+          <pre class="bloque-codigo"><code>1. Pon la hoja en vertical.
+2. En el centro de la hoja, dibuja un cuadrado de 6 cm por lado.
+3. Sobre el lado DE ARRIBA del cuadrado, dibuja un triángulo:
+   sus dos esquinas de abajo son las esquinas de arriba del cuadrado,
+   y su punta está 4 cm por encima del centro del cuadrado.
+4. Dentro del cuadrado, pegado al lado DE ABAJO y al centro,
+   dibuja un rectángulo de 2 cm de ancho por 3 cm de alto (la puerta).
+5. Dibuja un punto pequeño a media altura del rectángulo,
+   pegado a su lado derecho (la perilla).</code></pre>
+          Fíjate: cada paso dice <strong>qué</strong>, <strong>dónde</strong> y
+          <strong>de qué tamaño</strong>. Así piensan los programadores. No existe UNA única
+          solución correcta: si tu robot dibujó una casita, ¡tu algoritmo funciona! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve a ver el <strong>diagrama entrada → instrucciones → salida</strong>. 📊</li>
+        <li>Usa las <strong>💡 pistas</strong> de la actividad (no pierdes nada por pedirlas).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n0l2">Tengo 13 años y estoy empezando a aprender programación. Explícame qué es un algoritmo y por qué las computadoras necesitan instrucciones exactas, usando ejemplos de comida mexicana o videojuegos. Luego dame una tarea divertida: pídeme escribir un algoritmo de la vida diaria y revísalo señalando cada instrucción ambigua que encuentres, como si fueras un robot que obedece todo al pie de la letra. No uses palabras técnicas sin explicarlas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n0l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Escribe el algoritmo de <strong>meter un gol de tiro libre</strong> ⚽ o de
+        <strong>hacer el movimiento especial de tu luchador favorito</strong> 🤼. Reglas: mínimo
+        8 pasos, cero ambigüedad, y debe incluir al menos un "SI… SI NO…" (por ejemplo:
+        "SI el portero se lanza a la izquierda, tira a la derecha").
+        <strong>Jefe secreto:</strong> agrégale un "REPETIR hasta que…" bien colocado.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n0-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué es un algoritmo?</p>
+          <button class="opcion">Un tipo de computadora muy avanzada</button>
+          <button class="opcion" data-ok>Una lista de pasos precisos y en orden para lograr algo</button>
+          <button class="opcion">Un error que aparece cuando el programa falla</button>
+          <div class="explicacion">¡Exacto! Una receta de cocina, un instructivo de LEGO y un
+            programa de computadora son algoritmos: pasos precisos, ordenados y sin ambigüedad. 🧑‍🍳</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Le dices a la computadora: "pon el queso en la tortilla". ¿Qué hace?</p>
+          <button class="opcion">Adivina que te refieres a unas rebanadas y prepara la quesadilla</button>
+          <button class="opcion">Te pregunta amablemente cuánto queso quieres</button>
+          <button class="opcion" data-ok>Obedece AL PIE DE LA LETRA: capaz pone el paquete entero con todo y plástico 😂</button>
+          <div class="explicacion">La computadora es obediente pero no adivina NADA. Por eso los
+            programadores escriben cada pequeño paso sin dejar huecos. 🤖</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. En un programa, ¿importa el orden de las instrucciones?</p>
+          <button class="opcion">No, la computadora las acomoda solita en el orden correcto</button>
+          <button class="opcion" data-ok>Sí, muchísimo: se ejecutan una por una, en el orden exacto en que las escribas</button>
+          <button class="opcion">Solo importa en los programas muy grandes</button>
+          <div class="explicacion">Como en una receta: si calientas la tortilla ANTES de ponerle
+            queso… tortilla vacía calientita. 😅 El orden lo decides TÚ.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n0-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Prepara tu Mac</a>
+      <a href="leccion-3.html">Siguiente: Tu partida guardada ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

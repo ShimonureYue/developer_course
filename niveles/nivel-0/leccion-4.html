@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: Conoce tu base — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🌮 Nivel 0: prepara tu equipo</a> › Lección 4 · JEFE
+    </p>
+    <span class="etiqueta-leccion">NIVEL 0 · LECCIÓN 4 · JEFE 👑</span>
+    <h1>Conoce tu base 👑👾</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Explorar el <strong>Arcade</strong> 👾 (los juegos que TÚ vas a construir), y vencer a tu
+        primer jefe: escribir un <strong>algoritmo humano perfecto</strong>, sin ninguna ambigüedad.
+        Al completar esta lección ganas <strong>100 XP</strong> y tu primera medalla:
+        <strong>🛠️ Equipo listo</strong>. 🏅</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Todo héroe necesita conocer su base de operaciones. La tuya es el
+        <strong><a href="../../arcade/index.html">👾 Arcade</a></strong>: una sala de maquinitas
+        con tres juegos completos… que al final de este curso <strong>sabrás construir línea por
+        línea</strong>. No es promesa de comercial: es literalmente el plan del curso. 📋</p>
+      <div class="analogia">
+        Entrar al Arcade hoy es como ver el <strong>tráiler de tu propia película</strong> 🎬:
+        todavía no sabes actuar, dirigir ni editar… pero ya sabes exactamente qué vas a estrenar.
+        Cada nivel del curso te da una de las herramientas para lograrlo.
+      </div>
+
+      <div class="diagrama">
+        <svg width="620" height="230" viewBox="0 0 620 230">
+          <!-- Maquinita 1: Gato -->
+          <g>
+            <rect x="60" y="40" width="120" height="150" rx="10" fill="#14142e" stroke="#00e5ff" stroke-width="3"/>
+            <rect x="75" y="55" width="90" height="70" rx="6" fill="#050510"/>
+            <text class="anim-parpadeo" x="120" y="100" text-anchor="middle" font-size="30">😼</text>
+            <rect x="90" y="140" width="60" height="10" rx="5" fill="#2b2b55"/>
+            <circle cx="105" cy="168" r="8" fill="#ff5c7a"/>
+            <circle cx="135" cy="168" r="8" fill="#ffe95c"/>
+          </g>
+          <text x="120" y="215" text-anchor="middle" font-size="12" fill="#00e5ff">GATO · Nivel 6</text>
+          <!-- Maquinita 2: Snake -->
+          <g>
+            <rect x="250" y="40" width="120" height="150" rx="10" fill="#14142e" stroke="#39ff8e" stroke-width="3"/>
+            <rect x="265" y="55" width="90" height="70" rx="6" fill="#050510"/>
+            <text class="anim-parpadeo" x="310" y="100" text-anchor="middle" font-size="30" style="animation-delay: 0.4s;">🐍</text>
+            <rect x="280" y="140" width="60" height="10" rx="5" fill="#2b2b55"/>
+            <circle cx="295" cy="168" r="8" fill="#39ff8e"/>
+            <circle cx="325" cy="168" r="8" fill="#00e5ff"/>
+          </g>
+          <text x="310" y="215" text-anchor="middle" font-size="12" fill="#39ff8e">SNAKE · Nivel 8</text>
+          <!-- Maquinita 3: Space Invaders -->
+          <g class="anim-pulso">
+            <rect x="440" y="40" width="120" height="150" rx="10" fill="#14142e" stroke="#ff4dd8" stroke-width="3"/>
+            <rect x="455" y="55" width="90" height="70" rx="6" fill="#050510"/>
+            <text class="anim-parpadeo" x="500" y="100" text-anchor="middle" font-size="30" style="animation-delay: 0.8s;">👾</text>
+            <rect x="470" y="140" width="60" height="10" rx="5" fill="#2b2b55"/>
+            <circle cx="485" cy="168" r="8" fill="#ff4dd8"/>
+            <circle cx="515" cy="168" r="8" fill="#a78bfa"/>
+          </g>
+          <text x="500" y="215" text-anchor="middle" font-size="12" fill="#ff4dd8">SPACE INVADERS · Nivel 9</text>
+        </svg>
+        <p class="pie">Tus tres maquinitas 🕹️. Hoy las juegas como visitante…
+          al final del curso las firmas como <strong>su creador</strong>.</p>
+      </div>
+
+      <p>Y como es pelea de jefe, también pondremos a prueba lo aprendido en la lección 2:
+        que un algoritmo de verdad <strong>no deja NADA a la imaginación</strong>. 🥊</p>
+    </div>
+
+    <!-- ============ 👀 VISITA GUIADA ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 VISITA GUIADA AL ARCADE</p>
+      <p>Abre el <a href="../../arcade/index.html" target="_blank" rel="noopener">👾 Arcade en una
+        pestaña nueva ↗</a> y juega los tres juegos. Pero no juegues nomás por jugar: juega
+        <strong>con ojos de programador</strong> 🕵️. En cada juego, responde mentalmente estas
+        preguntas (son las mismas que te harás cuando los construyas):</p>
+      <ol class="pasos">
+        <li><strong>😼 Gato (Nivel 6):</strong> juega una partida contra alguien.
+          ¿Cómo "sabe" el juego cuándo alguien ganó? ¿Qué revisa: filas, columnas…
+          se te olvida alguna dirección? 🤔</li>
+        <li><strong>🐍 Snake (Nivel 8):</strong> juega hasta perder (rápido, ¿no? 😄).
+          ¿Qué cosas cambian mientras juegas (puntos, largo de la serpiente, posición de la
+          comida)? ¿Y qué hace que pierdas exactamente?</li>
+        <li><strong>👾 Space Invaders (Nivel 9):</strong> tu proyecto final. Cuenta cuántas cosas
+          pasan AL MISMO TIEMPO: tú te mueves, disparas, los aliens bajan, marchan en grupo,
+          las balas vuelan, hay explosiones… Cada una de esas cosas será código tuyo. 🤯</li>
+      </ol>
+      <p>¿Ya los jugaste los tres? Entonces ya viste tu futuro. Ahora sí:
+        <strong>¡A LA PELEA DE JEFE!</strong> 🔔</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO: PELEA DE JEFE ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ PELEA DE JEFE: EL ALGORITMO PERFECTO 🥪</p>
+      <p>El jefe de este nivel no es un monstruo… es la <strong>ambigüedad</strong> 👻, el enemigo
+        número 1 de todo programador. Lo vences así:</p>
+      <ol class="pasos">
+        <li>Escribe en papel (o en TextEdit) el algoritmo para preparar <strong>tu sándwich o torta
+          favorita</strong> 🥪. Mínimo <strong>10 pasos</strong>. Recuerda: quien lo lea será un
+          ROBOT que obedece al pie de la letra: nada de "ponle jamón" — ¿cuántas rebanadas?
+          ¿dónde? ¿el paquete se abre solo? 🤖</li>
+        <li>Pásale tu algoritmo a un compañero (o a alguien de tu casa) con la instrucción:
+          <em>"eres un robot: haz SOLO lo que dice el papel, con la interpretación más literal
+          y chistosa posible"</em>. Si tienen los ingredientes de verdad, ¡mejor todavía! 😂</li>
+        <li>Anota cada punto donde tu robot se atoró o hizo algo absurdo. Cada uno es un
+          <strong>bug</strong> (así se le dice a los errores de los programas 🐛).</li>
+        <li>Corrige tu algoritmo y pruébalo otra vez, con OTRA persona si puedes. Le ganas al jefe
+          cuando un robot lo sigue de principio a fin <strong>sin preguntar nada y sin hacer nada
+          raro</strong>. 🏆</li>
+      </ol>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Caza estas palabras traidoras en tu algoritmo: <em>"un poco", "algo de", "normal",
+          "como siempre", "lo necesario"</em>. Un robot no sabe cuánto es "un poco de mayonesa" 😅.
+          Cámbialas por cantidades: "1 cucharada", "2 rebanadas", "hasta cubrir todo el pan".
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Revisa tus supuestos ocultos: ¿dijiste "abre el frasco" antes de "unta"? ¿"lava el
+          cuchillo" o el robot unta mayonesa con un cuchillo lleno de mermelada? 🤢 Lee tu
+          algoritmo imaginando que TODO empieza cerrado, guardado y sin preparar.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA (fragmento de ejemplo)</span>
+          <pre class="bloque-codigo"><code>ALGORITMO: torta de jamón nivel dios 🥖
+ 1. Toma UN bolillo de la bolsa de pan.
+ 2. Córtalo a la mitad a lo largo con un cuchillo, sin separar del todo.
+ 3. Abre el frasco de mayonesa girando la tapa a la izquierda.
+ 4. Toma un cuchillo LIMPIO y saca 1 cucharada de mayonesa.
+ 5. Úntala en la cara interna DE ARRIBA del bolillo, cubriéndola completa.
+ 6. Abre el paquete de jamón jalando la pestaña de la esquina.
+ 7. Saca 2 rebanadas de jamón y colócalas extendidas sobre la mitad de abajo.
+ 8. SI quieres aguacate: parte 1 aguacate, saca la pulpa con cuchara
+    y únta la mitad sobre el jamón.  SI NO: salta al paso 9.
+ 9. Cierra el bolillo juntando las dos mitades.
+10. Pártelo a la mitad a lo ancho y sírvelo en un plato.</code></pre>
+          Fíjate en los detalles: cantidades exactas, "cara interna DE ARRIBA", cuchillo LIMPIO,
+          y hasta un "SI… SI NO…" para el aguacate 🥑. TU sándwich será distinto — lo que importa
+          es que un robot pueda seguirlo sin dudar ni una vez. Si lo logró: <strong>JEFE
+          DERROTADO</strong>. 👑💥
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Repasa la <a href="leccion-2.html">lección 2</a>: la actividad de la casita es el
+          entrenamiento exacto para este jefe. 🏠</li>
+        <li>Usa las <strong>💡 pistas</strong> de arriba (pedirlas es de pros).</li>
+        <li>Pídele a una IA que sea tu robot de pruebas: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje, pégalo ahí, y abajo del mensaje pega TU algoritmo:</p>
+        <div class="prompt-ia" id="prompt-ia-n0l4">Tengo 13 años y estoy aprendiendo a pensar como programador. Actúa como un robot que sigue instrucciones AL PIE DE LA LETRA, sin adivinar nada y sin usar sentido común. Te voy a dar mi algoritmo para preparar un sándwich: ejecútalo paso a paso narrando lo que haces, y cuando una instrucción sea ambigua o le falte información, detente, interprétala de la forma más literal y chistosa posible, y márcala como BUG. Al final dame la lista de todos los bugs que encontraste, pero NO me des tú la versión corregida: yo la quiero arreglar. Aquí va mi algoritmo:</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n0l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        los jefes se vencen mejor en equipo.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Nivel leyenda 🌟: escribe el algoritmo de <strong>una jugada completa de Gato</strong> 😼
+        — desde "el jugador 1 elige una casilla" hasta "el juego decide si alguien ganó, si hay
+        empate, o si sigue el otro jugador". Guárdalo bien: cuando llegues al Nivel 6 y programes
+        el Gato de verdad, compara tu algoritmo de hoy con tu código de ese día.
+        Te vas a sorprender de cuánto le atinaste. 🔮</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n0-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Los juegos del Arcade (Gato, Snake, Space Invaders)…</p>
+          <button class="opcion">Son solo de adorno, para descansar entre lecciones</button>
+          <button class="opcion" data-ok>Son los proyectos que YO voy a construir durante el curso</button>
+          <button class="opcion">Los hizo una empresa y nadie sabe cómo funcionan</button>
+          <div class="explicacion">¡Ese es el plan completo! 🗺️ Gato en el Nivel 6, Snake en el 8
+            y Space Invaders como proyecto final en el 9. Hoy los jugaste; pronto los firmarás.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Tu compañero-robot leyó "ponle mayonesa al pan" e untó el frasco
+            cerrado contra el bolillo. ¿Qué aprendiste?</p>
+          <button class="opcion">Que tu compañero no sabe hacer sándwiches</button>
+          <button class="opcion" data-ok>Que mi instrucción era ambigua: le faltaron pasos (abrir el frasco, cuánta, con qué)</button>
+          <button class="opcion">Que los algoritmos no sirven para cocinar</button>
+          <div class="explicacion">El robot hizo su trabajo: obedecer 😄. El "bug" 🐛 estaba en la
+            instrucción. Detectar y corregir esos huecos es EXACTAMENTE lo que hacen los
+            programadores todos los días.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué gana quien completa TODAS las lecciones de un nivel?</p>
+          <button class="opcion" data-ok>La medalla del nivel 🏅 (la de este nivel es 🛠️ Equipo listo)</button>
+          <button class="opcion">Una computadora nueva</button>
+          <button class="opcion">Nada, solo la satisfacción</button>
+          <div class="explicacion">¡Tu primera medalla está a UN clic! 🏅 Completa esta lección con
+            el botón verde de abajo y revisa tu colección en 💾 Mi progreso.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n0-l4">✅ ¡Lección completada! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Tu partida guardada</a>
+      <a href="../nivel-1/index.html">Siguiente: Nivel 1 — HTML 🧱 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+</body>
+</html>

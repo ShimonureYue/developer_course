@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuleta de Python 🐍 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .tabla td:first-child { white-space: nowrap; }
+
+    /* Al imprimir: fondo blanco, texto negro y sin decoraciones 🖨️ */
+    @media print {
+      body { background: #fff !important; color: #000; font-size: 12px; }
+      .estrellas, .cq-header, .cq-toast, .no-imprimir, footer { display: none !important; }
+      h1, h2, h3, strong, em, a { color: #000 !important; text-shadow: none !important; }
+      p, li, td { color: #000 !important; }
+      .tabla th { color: #000 !important; border-bottom-color: #999; }
+      .tabla td { border-bottom-color: #ccc; }
+      code { background: #f2f2f2; color: #000; border-color: #ccc; }
+      .panel { background: #fff; border-color: #ccc; }
+      pre.bloque-codigo { background: #f7f7f7; border-color: #ccc; color: #000; }
+      pre.bloque-codigo code { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">🐍</div>
+      <h1>CHULETA DE PYTHON</h1>
+      <p class="suave">Todo lo que aprendes en los <a href="../niveles/nivel-3/index.html">Niveles 3</a> y <a href="../niveles/nivel-4/index.html">4</a>, en una sola hoja.</p>
+      <button class="btn fantasma no-imprimir" onclick="window.print()">🖨️ IMPRIMIR ESTA CHULETA</button>
+    </section>
+
+    <h2>🖨️ Mostrar cosas y guardar cosas</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>print(...)</code></td><td>Escribe en la consola</td><td><code>print("¡Hola!")</code></td></tr>
+      <tr><td><code>nombre = valor</code></td><td>Variable: una caja con nombre que guarda un valor</td><td><code>vidas = 3</code></td></tr>
+      <tr><td><code>NOMBRE = valor</code></td><td>Constante: no debe cambiar (por convención va en MAYÚSCULAS)</td><td><code>VIDAS_MAXIMAS = 5</code></td></tr>
+      <tr><td><code>input("...")</code></td><td>Pregunta al usuario y devuelve SU RESPUESTA (¡siempre como texto!)</td><td><code>nombre = input("¿Tu nombre? ")</code></td></tr>
+      <tr><td><code>int(...)</code></td><td>Convierte texto a número entero</td><td><code>edad = int(input("¿Edad? "))</code></td></tr>
+      <tr><td><code># nota</code></td><td>Comentario: Python lo ignora</td><td><code># esto es para mí</code></td></tr>
+    </table>
+
+    <h2>🎒 Tipos de datos</h2>
+    <table class="tabla">
+      <tr><th>Tipo</th><th>¿Qué es?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>str</code> (string)</td><td>Texto, siempre entre comillas</td><td><code>"hola"</code> · <code>'tacos'</code></td></tr>
+      <tr><td><code>int</code></td><td>Número entero</td><td><code>42</code> · <code>-3</code></td></tr>
+      <tr><td><code>float</code></td><td>Número con decimales (con punto)</td><td><code>3.14</code></td></tr>
+      <tr><td><code>bool</code></td><td>Booleano: solo <code>True</code> o <code>False</code></td><td><code>vivo = True</code></td></tr>
+    </table>
+
+    <h2>➕ Operadores y comparaciones</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>+ - * /</code></td><td>Suma, resta, multiplicación, división</td><td><code>10 / 4</code> → <code>2.5</code></td></tr>
+      <tr><td><code>//</code></td><td>División SIN decimales</td><td><code>10 // 4</code> → <code>2</code></td></tr>
+      <tr><td><code>%</code></td><td>Módulo: el RESIDUO de la división</td><td><code>10 % 4</code> → <code>2</code></td></tr>
+      <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code> → <code>8</code></td></tr>
+      <tr><td><code>==</code> / <code>!=</code></td><td>¿Es igual? / ¿Es diferente? (OJO: <code>=</code> es guardar, <code>==</code> es comparar)</td><td><code>vidas == 0</code></td></tr>
+      <tr><td><code>&lt; &gt; &lt;= &gt;=</code></td><td>Menor, mayor, menor o igual, mayor o igual</td><td><code>puntos &gt;= 100</code></td></tr>
+      <tr><td><code>and</code> / <code>or</code> / <code>not</code></td><td>Y / O / NO (para combinar condiciones)</td><td><code>vivo and puntos &gt; 0</code></td></tr>
+    </table>
+
+    <h2>🚦 Decisiones: if / elif / else</h2>
+<pre class="bloque-codigo"><code>if puntos &gt;= 100:
+    print("¡Nivel oro! 🥇")      # ojo: los 4 espacios de INDENTACIÓN
+elif puntos &gt;= 50:               # elif = "si no, pero si..."
+    print("Nivel plata 🥈")
+else:                            # else = "en cualquier otro caso"
+    print("Sigue intentando 💪")</code></pre>
+
+    <h2>🔁 Ciclos: repetir sin copiar y pegar</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>while condición:</code></td><td>Repite MIENTRAS la condición sea verdadera</td><td><code>while vidas &gt; 0:</code></td></tr>
+      <tr><td><code>for i in range(5):</code></td><td>Repite 5 veces (i vale 0, 1, 2, 3, 4)</td><td><code>for i in range(5): print(i)</code></td></tr>
+      <tr><td><code>range(2, 6)</code></td><td>Del 2 al 5 (el final NO se incluye)</td><td><code>for n in range(2, 6):</code></td></tr>
+      <tr><td><code>for cosa in lista:</code></td><td>Recorre una lista, elemento por elemento</td><td><code>for arma in inventario:</code></td></tr>
+    </table>
+
+    <h2>📋 Listas e índices</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>lista = [a, b, c]</code></td><td>Crea una lista</td><td><code>equipo = ["Ana", "Beto"]</code></td></tr>
+      <tr><td><code>lista[0]</code></td><td>El PRIMER elemento (¡se cuenta desde 0!)</td><td><code>equipo[0]</code> → <code>"Ana"</code></td></tr>
+      <tr><td><code>lista[-1]</code></td><td>El ÚLTIMO elemento</td><td><code>equipo[-1]</code> → <code>"Beto"</code></td></tr>
+      <tr><td><code>len(lista)</code></td><td>Cuántos elementos tiene</td><td><code>len(equipo)</code> → <code>2</code></td></tr>
+      <tr><td><code>lista.append(x)</code></td><td>Agrega al final</td><td><code>equipo.append("Cleo")</code></td></tr>
+    </table>
+
+    <h2>🧩 Funciones: tu superpoder</h2>
+<pre class="bloque-codigo"><code>def saludar(nombre):             # def crea la función; nombre es el PARÁMETRO
+    return "¡Hola, " + nombre + "!"   # return DEVUELVE el resultado
+
+mensaje = saludar("Dana")        # la llamas con un ARGUMENTO
+print(mensaje)                   # → ¡Hola, Dana!</code></pre>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>def nombre():</code></td><td>Define (crea) una función</td><td><code>def girar():</code></td></tr>
+      <tr><td><code>def nombre(a, b):</code></td><td>Con parámetros: los "ingredientes" que recibe</td><td><code>def sumar(a, b):</code></td></tr>
+      <tr><td><code>return valor</code></td><td>Devuelve el resultado y TERMINA la función</td><td><code>return a + b</code></td></tr>
+      <tr><td><code>nombre(1, 2)</code></td><td>LLAMA (ejecuta) la función</td><td><code>total = sumar(1, 2)</code></td></tr>
+    </table>
+
+    <h2>🎲 Azar con random</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>import random</code></td><td>Trae la "caja de herramientas" del azar (va al inicio del archivo)</td><td><code>import random</code></td></tr>
+      <tr><td><code>random.randint(1, 6)</code></td><td>Entero al azar entre 1 y 6 (ambos incluidos) 🎲</td><td><code>dado = random.randint(1, 6)</code></td></tr>
+      <tr><td><code>random.choice(lista)</code></td><td>Elige un elemento al azar de una lista</td><td><code>random.choice(["piedra", "papel"])</code></td></tr>
+    </table>
+
+    <div class="panel">
+      <h3 style="margin-top: 0;">🚑 Si Python se queja…</h3>
+      <ul>
+        <li>Lee la <strong>última línea</strong> del error: ahí dice qué pasó y en qué línea.</li>
+        <li><code>IndentationError</code> → revisa los espacios al inicio de la línea (van de 4 en 4).</li>
+        <li><code>NameError</code> → usaste una variable que no existe (¿la escribiste igual?).</li>
+        <li><code>TypeError</code> con <code>input()</code> → te faltó <code>int(...)</code>: input siempre da texto.</li>
+      </ul>
+    </div>
+
+    <p class="centrado no-imprimir">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+      <a class="btn fantasma" href="chuleta-js.html">⚡ VER LA TABLA PYTHON ↔ JS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

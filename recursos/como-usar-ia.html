@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La IA: tu tutor personal 🤖 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* Tarjetas de "sí" y "no" */
+    .si-no {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin: 20px 0;
+    }
+    .si-no .panel { margin: 0; }
+    .panel.bien { border-color: var(--verde); }
+    .panel.mal  { border-color: var(--rojo); }
+
+    /* Plantillas de prompts */
+    .plantilla {
+      background: var(--panel);
+      border: 2px solid var(--morado);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+    .plantilla h3 { margin: 0 0 10px; }
+    .plantilla pre {
+      background: #0d0d22;
+      border: 2px solid var(--panel-borde);
+      border-radius: 10px;
+      padding: 14px 18px;
+      white-space: pre-wrap;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--texto);
+      margin: 0 0 14px;
+    }
+    .plantilla .hueco { color: var(--amarillo); font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="max-width: 880px; padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">🤖</div>
+      <h1>LA IA: TU TUTOR PERSONAL</h1>
+      <p class="pixel" style="font-size: 0.65rem; color: var(--magenta);">(NO TU MACHETERO)</p>
+    </section>
+
+    <div class="panel">
+      <p style="margin-top: 0;">
+        Vives en la mejor época de la historia para aprender a programar:
+        tienes un <strong>tutor experto disponible 24/7, gratis</strong>.
+        <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> y
+        <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a> pueden explicarte
+        cualquier concepto las veces que haga falta, sin regañarte y a las 11 de la noche.
+      </p>
+      <p style="margin-bottom: 0;">
+        Pero hay una trampa 🪤: la misma herramienta que te puede hacer
+        <em>imparable</em>… también puede hacerte la tarea y dejarte
+        <em>igual de perdido que antes</em>. La diferencia está en CÓMO le pides las cosas.
+      </p>
+    </div>
+
+    <h2>⚖️ La regla de oro</h2>
+    <div class="si-no">
+      <div class="panel bien">
+        <h3 style="color: var(--verde); margin-top: 0;">✅ Pídele que te ENSEÑE</h3>
+        <ul style="margin-bottom: 0;">
+          <li>Explicaciones con tus palabras y tu edad</li>
+          <li>Ejemplos DIFERENTES a los del curso</li>
+          <li>Que te explique TU error, no que lo borre</li>
+          <li>Pistas cuando estés atorado</li>
+          <li>Preguntas para comprobar que entendiste</li>
+        </ul>
+      </div>
+      <div class="panel mal">
+        <h3 style="color: var(--rojo); margin-top: 0;">❌ NO le pidas que lo haga por ti</h3>
+        <ul style="margin-bottom: 0;">
+          <li>"Hazme el juego de Snake completo"</li>
+          <li>"Resuelve el reto del Nivel 4"</li>
+          <li>Copiar código que no entiendes</li>
+          <li>Pegar su respuesta sin probarla</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel" style="border-color: var(--amarillo);">
+      <p style="margin: 0;">
+        🎮 <strong>Piénsalo como gamer:</strong> si alguien pasa el nivel por ti,
+        el juego avanza… pero TÚ sigues sin saber jugar. Copiar código sin entenderlo
+        es exactamente eso: <strong>pierdes XP de la vida real</strong>. En el examen,
+        en la entrevista de trabajo o en tu propio proyecto, la IA no va a estar
+        sentada por ti.
+      </p>
+    </div>
+
+    <h2>🧠 Cómo pedir bien (los 4 hábitos)</h2>
+    <ol>
+      <li><strong>Pide explicaciones y ejemplos, no soluciones.</strong>
+        "Explícame cómo funciona X" te hace más fuerte; "hazme X" te hace dependiente.</li>
+      <li><strong>Cuando algo truene, pega tu error COMPLETO</strong> (todo el mensaje rojo,
+        sin recortar) junto con tu código, y pide que te lo explique. Los mensajes de error
+        son pistas de detective 🔍, y la IA es muy buena traduciéndolas.</li>
+      <li><strong>Pide que te haga preguntas.</strong> Que te examine. Si no puedes responder
+        sus preguntas, todavía no lo dominas — y eso es información valiosísima.</li>
+      <li><strong>SIEMPRE prueba lo que te diga.</strong> La IA se equivoca con toda
+        confianza: inventa funciones, se confunde de versión, mezcla lenguajes.
+        Tú eres quien corre el código; tú tienes la última palabra. 🧪</li>
+    </ol>
+
+    <h2>📋 Plantillas listas para copiar</h2>
+    <p class="suave">Copia la plantilla, rellena los <span class="hueco">[huecos]</span>
+      y pégala en <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> o
+      <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</p>
+
+    <div class="plantilla">
+      <h3>1️⃣ Explícame un concepto</h3>
+      <pre>Tengo 14 años y estoy aprendiendo a programar. Explícame qué es <span class="hueco">[concepto, ej. "un ciclo for"]</span> en <span class="hueco">[Python o JavaScript]</span> con un ejemplo sencillo de videojuegos. Al final, hazme 2 preguntas para ver si entendí. No uses palabras técnicas sin explicarlas.</pre>
+      <button class="btn magenta btn-copiar">📋 COPIAR</button>
+    </div>
+
+    <div class="plantilla">
+      <h3>2️⃣ Ayúdame con mi error (sin resolverlo por mí)</h3>
+      <pre>Estoy aprendiendo a programar. Este es mi código:
+
+<span class="hueco">[pega aquí tu código completo]</span>
+
+Y este es el error COMPLETO que me sale:
+
+<span class="hueco">[pega aquí todo el mensaje de error]</span>
+
+NO me des el código corregido. Primero explícame qué significa el error con palabras sencillas, y luego dame UNA pista de dónde buscar. Quiero arreglarlo yo.</pre>
+      <button class="btn magenta btn-copiar">📋 COPIAR</button>
+    </div>
+
+    <div class="plantilla">
+      <h3>3️⃣ Examíname</h3>
+      <pre>Acabo de estudiar <span class="hueco">[tema, ej. "funciones en Python"]</span>. Hazme 5 preguntas, de la más fácil a la más difícil, UNA POR UNA. Espera mi respuesta antes de la siguiente. Si me equivoco, no me des la respuesta: dame una pista y déjame intentar otra vez.</pre>
+      <button class="btn magenta btn-copiar">📋 COPIAR</button>
+    </div>
+
+    <div class="plantilla">
+      <h3>4️⃣ Dame otro ejemplo</h3>
+      <pre>Entendí a medias este código de mi curso:
+
+<span class="hueco">[pega aquí el código del curso]</span>
+
+Dame OTRO ejemplo distinto que use la misma idea, con tema de videojuegos, y explícamelo línea por línea con comentarios.</pre>
+      <button class="btn magenta btn-copiar">📋 COPIAR</button>
+    </div>
+
+    <div class="plantilla">
+      <h3>5️⃣ Revisa mi código (que SÍ funciona)</h3>
+      <pre>Este código lo escribí yo y SÍ funciona:
+
+<span class="hueco">[pega aquí tu código]</span>
+
+Actúa como un programador senior amable. Dime 2 o 3 cosas que podría mejorar y POR QUÉ, sin reescribirme todo el código. Quiero aprender, no que lo hagas por mí.</pre>
+      <button class="btn magenta btn-copiar">📋 COPIAR</button>
+    </div>
+
+    <div class="panel" style="border-color: var(--rojo);">
+      <h3 style="margin-top: 0; color: var(--rojo);">⚠️ Recuerda siempre</h3>
+      <ul style="margin-bottom: 0;">
+        <li>La IA <strong>se equivoca</strong> y no te avisa. Prueba TODO lo que te diga.</li>
+        <li>Si su respuesta usa algo que no reconoces, pregúntale: "¿qué hace esa línea?".</li>
+        <li>El objetivo no es terminar rápido: es que <strong>tu cerebro</strong> aprenda a construir. 🧠💪</li>
+      </ul>
+    </div>
+
+    <p class="centrado">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+
+  <!-- Botones de copiar: navigator.clipboard escribe al portapapeles
+       y CodeQuest.toast (del sistema del curso) muestra el avisito. -->
+  <script>
+    "use strict";
+    document.querySelectorAll(".btn-copiar").forEach(function (boton) {
+      boton.addEventListener("click", function () {
+        // El texto a copiar es el <pre> que vive en la misma tarjeta
+        const texto = boton.closest(".plantilla").querySelector("pre").innerText;
+        navigator.clipboard.writeText(texto).then(function () {
+          CodeQuest.toast("📋 ¡Plantilla copiada! Pégala en tu IA favorita");
+        }).catch(function () {
+          CodeQuest.toast("❌ No se pudo copiar — selecciónala y usa Cmd+C");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

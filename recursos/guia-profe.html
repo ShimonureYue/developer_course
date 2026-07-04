@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía para el profe 🧑‍🏫 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .tabla td:first-child { white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="max-width: 880px; padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">🧑‍🏫</div>
+      <h1>GUÍA PARA EL PROFE</h1>
+      <p class="suave">Cómo acompañar Code Quest sin convertirte en el que "pasa el nivel" por sus alumnos.</p>
+    </section>
+
+    <h2>🧭 La filosofía del curso</h2>
+    <div class="panel">
+      <p style="margin-top: 0;"><strong>1. El curso es auto-dirigido.</strong>
+        Cada lección está escrita para que el alumno avance solo, a su ritmo:
+        lee, prueba en los playgrounds, resuelve el reto y marca la lección como
+        completada (gana XP y medallas). Tu papel no es exponer al frente:
+        es <em>circular por el aula</em>, observar y desbloquear.</p>
+      <p><strong>2. La ayuda viene en 3 capas.</strong> Cuando alguien se atora,
+        el orden es:</p>
+      <ol>
+        <li><strong>La lección misma</strong> — cada una tiene un bloque
+          "🚑 ¿Atorado?" con los tropiezos más comunes. "Revisa el bloque naranja"
+          resuelve la mitad de los casos.</li>
+        <li><strong>Un compañero</strong> — explicar a otro es la mejor forma de
+          consolidar. Fomenta la regla "pregunta primero a tu vecino".</li>
+        <li><strong>Tú</strong> — pero con preguntas, no con soluciones
+          (ver la sección socrática más abajo). Como capa extra está la IA
+          usada como tutor (<a href="como-usar-ia.html">guía aquí</a>).</li>
+      </ol>
+      <p style="margin-bottom: 0;"><strong>3. El error es parte del juego.</strong>
+        En Code Quest un error no es una falla: es la mecánica central, como
+        perder una vida en un videojuego para aprender el patrón del jefe.
+        Celebra en voz alta los errores interesantes ("¡miren qué buen bug
+        encontró Sofía!") y prohíbete el "a ver, dame el teclado". Cada vez que
+        tú tecleas la solución, el alumno pierde la oportunidad de ganarse ese XP.</p>
+    </div>
+
+    <h2>⏱️ Tiempos sugeridos por nivel</h2>
+    <p>Con sesiones de <strong>~2 horas</strong>. Son rangos: cada grupo respira distinto.</p>
+    <table class="tabla">
+      <tr><th>Nivel</th><th>Tema</th><th>Sesiones (~2 h)</th></tr>
+      <tr><td>0 🌮</td><td>Preparar el equipo y entender qué es programar</td><td>1</td></tr>
+      <tr><td>1 🧱</td><td>HTML</td><td>2–3</td></tr>
+      <tr><td>2 🎨</td><td>CSS</td><td>2–3</td></tr>
+      <tr><td>3 🐍</td><td>Python I (pensamiento de programador)</td><td>3–4</td></tr>
+      <tr><td>4 🧩</td><td>Python II (funciones)</td><td>2–3</td></tr>
+      <tr><td>5 ⚡</td><td>JavaScript</td><td>3</td></tr>
+      <tr><td>6 🎮</td><td>Gato (primer videojuego)</td><td>2</td></tr>
+      <tr><td>7 💾</td><td>Datos, JSON y localStorage</td><td>2</td></tr>
+      <tr><td>8 🖌️</td><td>Canvas y Snake</td><td>3</td></tr>
+      <tr><td>9 👾</td><td>Space Invaders (proyecto final)</td><td>4</td></tr>
+      <tr><td>10 🚀</td><td>Retos legendarios y camino a Godot</td><td>1–2</td></tr>
+      <tr><td><strong>Total</strong></td><td></td><td><strong>≈ 25–30 sesiones (~2 h c/u)</strong></td></tr>
+    </table>
+    <p class="suave">💡 Los niveles 3 y 9 son donde más varía el ritmo: no los comprimas.
+      Si sobra tiempo a los rápidos, el Nivel 10 tiene retos extra sin fondo.</p>
+
+    <h2>🩺 Errores comunes por nivel (y preguntas que desbloquean)</h2>
+    <p>La pregunta estrella, útil en TODOS los niveles:
+      <strong>"¿Qué dice la última línea del error?"</strong> — enséñales a leerla
+      en voz alta antes de pedir ayuda.</p>
+    <table class="tabla">
+      <tr><th>Nivel</th><th>Tropiezo típico</th><th>Pregunta socrática (desbloquea sin resolver)</th></tr>
+      <tr><td>0 🌮</td><td>Miedo a la terminal; no saben dónde quedó guardado el archivo</td><td>"¿En qué carpeta le dijiste que lo guardara? ¿Cómo lo comprobamos?"</td></tr>
+      <tr><td>1 🧱</td><td>Etiquetas sin cerrar; archivos con espacios o acentos; editan y no ven cambios</td><td>"¿Toda etiqueta que abre… qué le falta? ¿Guardaste (Cmd+S) y recargaste (Cmd+R)?"</td></tr>
+      <tr><td>2 🎨</td><td>Falta el <code>;</code> o una <code>}</code>; el <code>&lt;link&gt;</code> apunta a otro archivo; clase escrita distinto en HTML y CSS</td><td>"¿El nombre de la clase es EXACTAMENTE igual en los dos archivos? Compáralos letra por letra."</td></tr>
+      <tr><td>3 🐍</td><td>IndentationError; confunden <code>=</code> con <code>==</code>; suman texto de <code>input()</code> como si fuera número</td><td>"¿Qué dice la última línea del error? ¿<code>input()</code> te da un número o un texto? ¿Cómo lo compruebas con <code>type()</code>?"</td></tr>
+      <tr><td>4 🧩</td><td>Usan <code>print</code> dentro de la función y esperan que "devuelva"; llaman la función sin paréntesis</td><td>"¿Tu función ENTREGA el resultado o solo lo GRITA? ¿Qué diferencia hay entre <code>return</code> y <code>print</code>?"</td></tr>
+      <tr><td>5 ⚡</td><td><code>getElementById</code> devuelve <code>null</code> (script corre antes del HTML); errores de mayúsculas; no abren la consola</td><td>"¿En qué orden lee el navegador tu página? ¿Tu script corre antes o después de que exista ese botón? ¿Ya viste qué dice la consola?"</td></tr>
+      <tr><td>6 🎮</td><td>Se puede tirar en casilla ocupada; revisan al ganador ANTES de poner la ficha; el estado y la pantalla se desincronizan</td><td>"¿Qué debería pasar si hago clic aquí dos veces? ¿En qué momento exacto revisas si alguien ganó?"</td></tr>
+      <tr><td>7 💾</td><td><code>JSON.parse(null)</code> al primer arranque; guardan el objeto sin <code>stringify</code> (aparece "[object Object]")</td><td>"¿Qué te da <code>getItem</code> la PRIMERA vez, cuando nunca has guardado nada? ¿localStorage guarda objetos o textos?"</td></tr>
+      <tr><td>8 🖌️</td><td>No borran el canvas y quedan "fantasmas"; confunden el eje Y (crece hacia abajo); setInterval duplicado al reiniciar</td><td>"¿Qué pasa si dibujas encima sin borrar? En canvas, ¿hacia dónde crece la Y? ¿Cuántos intervalos hay vivos ahorita?"</td></tr>
+      <tr><td>9 👾</td><td>Colisiones que "no pegan" (confunden centro con esquina); balas que nunca se borran del arreglo; quieren agregar TODO a la vez</td><td>"¿La x de tu invasor es su esquina o su centro? ¿Cuántas balas hay en el arreglo después de un minuto? ¿Qué es lo MÁS pequeño que puedes probar ahora?"</td></tr>
+      <tr><td>10 🚀</td><td>Frustración porque Godot se siente "empezar de cero"</td><td>"¿Qué conceptos de tu Space Invaders ya viste en Godot con otro nombre? (sprites, colisiones, game loop…)"</td></tr>
+    </table>
+
+    <h2>🏃 Ritmos distintos en el mismo salón</h2>
+    <div class="panel">
+      <ul style="margin: 0;">
+        <li><strong>Para los rápidos:</strong> cada jefe tiene retos extra y el Nivel 10
+          es un pozo sin fondo (mejorar la IA del Gato, power-ups en Snake, jefes en
+          Invaders). También puedes nombrarlos <strong>"mentores"</strong>: ayudar a
+          otro con PREGUNTAS les da práctica del nivel más alto. Nada de dictar código.</li>
+        <li><strong>Para los que van con calma:</strong> el mapa no bloquea nada, pero
+          sugiéreles no saltarse los "Tu turno". Sentarse en pareja (pair programming:
+          uno teclea, otro navega, y cambian) reduce muchísimo la fricción.</li>
+        <li><strong>Evita la comparación pública de XP.</strong> El XP es contra uno
+          mismo, no una tabla de posiciones del salón.</li>
+      </ul>
+    </div>
+
+    <h2>💾 El sistema de partidas (importante si las Macs son compartidas)</h2>
+    <div class="panel" style="border-color: var(--amarillo);">
+      <p style="margin-top: 0;">El progreso (XP, medallas, lecciones) se guarda en el
+        <code>localStorage</code> del navegador de ESA máquina y ESE navegador. Si los
+        equipos se comparten entre grupos, o alguien limpia el navegador, el progreso
+        se pierde. La solución está integrada:</p>
+      <ol>
+        <li><strong>Al FINAL de cada sesión:</strong> cada alumno abre
+          <a href="../progreso.html">💾 Mi progreso</a> y pulsa
+          <strong>"Guardar partida"</strong> → descarga un archivo
+          <code>mi-partida-codequest.json</code>. Que lo guarden en su USB,
+          Google Drive o carpeta personal.</li>
+        <li><strong>Al INICIO de la siguiente:</strong> en la misma página usan
+          <strong>"Cargar partida"</strong> con su archivo, y siguen donde iban.</li>
+      </ol>
+      <p style="margin-bottom: 0;">🔁 Conviértelo en ritual de cierre: "guarden su
+        partida" es el nuevo "guarden sus cuadernos". Dos minutos que salvan semanas
+        (además, los récords del Arcade viven en el mismo navegador).</p>
+    </div>
+
+    <h2>🌐 Publicar el curso con GitHub Pages (resumen del README)</h2>
+    <div class="panel">
+      <ol style="margin-top: 0;">
+        <li>Crea un repositorio en <a href="https://github.com" target="_blank" rel="noopener">github.com</a>
+          (por ejemplo <code>code-quest</code>) y sube esta carpeta:
+          <pre class="bloque-codigo"><code>cd developer_course
+git remote add origin https://github.com/TU-USUARIO/code-quest.git
+git push -u origin main</code></pre></li>
+        <li>En GitHub: <strong>Settings → Pages → Source: Deploy from a branch →
+          Branch: <code>main</code> / carpeta <code>/ (root)</code> → Save</strong>.</li>
+        <li>En un minuto el curso queda en
+          <code>https://TU-USUARIO.github.io/code-quest/</code>. Comparte esa dirección:
+          los alumnos solo necesitan un navegador.</li>
+      </ol>
+      <p style="margin-bottom: 0;" class="suave">💡 Combina bien con copias locales:
+        la página publicada para el día a día, y cada alumno descarga su copia del
+        repositorio cuando empieza a editar código en VS Code (el Nivel 0 los guía).
+        Más detalle en el <code>README.md</code> del proyecto.</p>
+    </div>
+
+    <p class="centrado">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

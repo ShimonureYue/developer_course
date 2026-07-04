@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bases de datos de verdad — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff5c7a;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">💾 Nivel 7: Datos</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 7 · LECCIÓN 3</span>
+    <h1>Bases de datos de verdad 🗄️</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Entender cómo Roblox y TikTok guardan MILLONES de datos usando
+        <strong>bases de datos</strong>, y hablarle a una base de datos REAL en su idioma:
+        <strong>SQL</strong>. Sí: hoy escribes tus primeras consultas en vivo. 🔥</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Ya sabes guardar datos en el navegador con localStorage. Pero piénsalo:
+        Roblox tiene más de 70 MILLONES de jugadores al día, y TikTok guarda miles de
+        videos cada minuto. Eso no cabe en el cajón de un navegador 😅. Para tamaños así,
+        los datos viven en <strong>bases de datos</strong>: programas especializados que corren
+        en servidores (compus gigantes que nunca se apagan) y que pueden guardar, buscar y
+        ordenar millones de registros en milésimas de segundo.</p>
+      <div class="analogia">
+        Una <strong>base de datos</strong> es como una <strong>hoja de cálculo con superpoderes</strong>:
+        una <strong>tabla</strong> con <strong>columnas</strong> (los tipos de dato: nombre, puntos…)
+        y <strong>filas</strong> (cada fila es un <strong>registro</strong>: la ficha completa de
+        un jugador 🃏, ¡como tus objetos de la lección 1!). Y <strong>SQL</strong> es el idioma
+        para pedirle cosas: "dame todos los jugadores con más de 500 puntos, ordenados del
+        mejor al peor" — y te responde al instante.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="250" viewBox="0 0 560 250">
+          <!-- Encabezado de la tabla -->
+          <rect x="40" y="30" width="360" height="34" rx="6" fill="#ff5c7a"/>
+          <text class="pixel" x="70" y="52" fill="#0a0a1a">id</text>
+          <text class="pixel" x="130" y="52" fill="#0a0a1a">nombre</text>
+          <text class="pixel" x="250" y="52" fill="#0a0a1a">puntos</text>
+          <!-- Fila 1 (seleccionada, parpadea) -->
+          <g class="anim-parpadeo">
+            <rect x="40" y="68" width="360" height="34" rx="6" fill="#1d1d3f" stroke="#39ff8e" stroke-width="2"/>
+            <text class="mono" x="62" y="90" font-size="13" fill="#eaeaf5">2</text>
+            <text class="mono" x="130" y="90" font-size="13" fill="#eaeaf5">Diego</text>
+            <text class="mono" x="250" y="90" font-size="13" fill="#39ff8e">1250</text>
+          </g>
+          <!-- Fila 2 (no cumple) -->
+          <rect x="40" y="106" width="360" height="34" rx="6" fill="#14142e" stroke="#2b2b55" stroke-width="2"/>
+          <text class="mono" x="62" y="128" font-size="13" fill="#a3a3c8">3</text>
+          <text class="mono" x="130" y="128" font-size="13" fill="#a3a3c8">Valeria</text>
+          <text class="mono" x="250" y="128" font-size="13" fill="#a3a3c8">12</text>
+          <!-- Fila 3 (seleccionada, parpadea con retraso) -->
+          <g class="anim-parpadeo" style="animation-delay: 0.6s;">
+            <rect x="40" y="144" width="360" height="34" rx="6" fill="#1d1d3f" stroke="#39ff8e" stroke-width="2"/>
+            <text class="mono" x="62" y="166" font-size="13" fill="#eaeaf5">5</text>
+            <text class="mono" x="130" y="166" font-size="13" fill="#eaeaf5">Renata</text>
+            <text class="mono" x="250" y="166" font-size="13" fill="#39ff8e">2100</text>
+          </g>
+          <!-- Etiquetas -->
+          <text x="40" y="215" font-size="12" fill="#a3a3c8">↑ cada FILA = un registro (la ficha de un jugador)</text>
+          <text x="420" y="52" font-size="12" fill="#a3a3c8">← COLUMNAS</text>
+          <!-- La consulta -->
+          <text class="mono" x="420" y="110" font-size="12" fill="#00e5ff">WHERE</text>
+          <text class="mono" x="420" y="128" font-size="12" fill="#00e5ff">puntos &gt; 500</text>
+          <text x="420" y="160" font-size="18">🔦</text>
+        </svg>
+        <p class="pie">La consulta recorre la tabla y "enciende" 🔦 solo los registros que
+          cumplen tu condición: Diego y Renata pasan (más de 500 puntos), Valeria no.</p>
+      </div>
+
+      <p>Abajo tienes un <strong>editor SQL de verdad</strong>, con una base de datos viviendo
+        en tu navegador. Ya trae una tabla llamada <code>jugadores</code> con estas columnas:
+        <code>id</code>, <code>nombre</code>, <code>juego</code>, <code>puntos</code> y
+        <code>ciudad</code>, con 8 jugadores mexicanos de ejemplo. Dos detalles:
+        todos los editores de esta página <strong>comparten la misma base</strong> (lo que
+        cambies en uno, lo ven los demás 😉), y esta base se reinicia al recargar la página —
+        las de verdad viven en servidores y no se borran nunca.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p><strong>Paso 1 — Ver todo.</strong> <code>SELECT * FROM jugadores;</code> se lee:
+        "SELECCIONA todo (<code>*</code> = todas las columnas) DE la tabla jugadores".
+        Presiona <strong>▶ Consultar</strong>:</p>
+
+      <div class="sql-runner" data-titulo="paso1_ver_todo.sql">
+<script type="text/plain">
+SELECT * FROM jugadores;
+</script>
+      </div>
+
+      <p><strong>Paso 2 — Pedir solo algunas columnas.</strong> En vez de <code>*</code>,
+        escribe los nombres de las columnas que quieres. Prueba, y luego cambia
+        <code>puntos</code> por <code>ciudad</code>:</p>
+
+      <div class="sql-runner" data-titulo="paso2_columnas.sql">
+<script type="text/plain">
+SELECT nombre, puntos FROM jugadores;
+</script>
+      </div>
+
+      <p><strong>Paso 3 — Filtrar con WHERE.</strong> Es el <code>if</code> de las bases de
+        datos: solo pasan las filas que cumplen la condición. Prueba, y luego cambia el 500
+        por 1000. ¿Cuántos sobreviven? 👀</p>
+
+      <div class="sql-runner" data-titulo="paso3_filtrar.sql">
+<script type="text/plain">
+SELECT nombre, puntos FROM jugadores WHERE puntos > 500;
+</script>
+      </div>
+
+      <p><strong>Paso 4 — Ordenar con ORDER BY.</strong> <code>DESC</code> significa
+        descendente (de mayor a menor): tabla de líderes instantánea 🏆. Cambia
+        <code>DESC</code> por <code>ASC</code> para verla al revés:</p>
+
+      <div class="sql-runner" data-titulo="paso4_ordenar.sql">
+<script type="text/plain">
+SELECT nombre, juego, puntos FROM jugadores ORDER BY puntos DESC;
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>¡Métete a la base de datos! 😎 Con <code>INSERT</code> agregas un registro nuevo.
+        Completa los TODO: agrégate con TU nombre y tu ciudad, ponte un puntaje épico,
+        y compruébalo con un <code>SELECT</code>:</p>
+
+      <div class="sql-runner" data-titulo="tu_registro.sql">
+<script type="text/plain">
+-- TODO 1: quita los guiones (--) de las 2 líneas del INSERT
+--         y cambia los valores por TU nombre, tu juego,
+--         tus puntos y tu ciudad:
+
+-- INSERT INTO jugadores (nombre, juego, puntos, ciudad)
+--   VALUES ('Tu Nombre', 'Gato', 9999, 'Tu Ciudad');
+
+-- TODO 2: escribe aquí abajo un SELECT que muestre toda la tabla
+--         ordenada por puntos de mayor a menor. ¿Quedaste en 1er lugar? 🏆
+
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          En SQL, las líneas que empiezan con <code>--</code> son comentarios (como <code>//</code>
+          en JavaScript). Borra los <code>--</code> del INSERT, cambia los valores entre comillas
+          simples <code>'…'</code> y presiona ▶ Consultar. Si sale ✅, ¡ya estás dentro!
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El SELECT del TODO 2 combina los pasos 1 y 4 del ejemplo:
+          empieza con <code>SELECT * FROM jugadores</code> y agrégale el
+          <code>ORDER BY … DESC</code> antes del punto y coma. Puedes dejar el INSERT arriba:
+          se ejecutan los dos en orden.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>INSERT INTO jugadores (nombre, juego, puntos, ciudad)
+  VALUES ('Regina', 'Snake', 9999, 'Querétaro');
+
+SELECT * FROM jugadores ORDER BY puntos DESC;</code></pre>
+          El <code>INSERT</code> dice: "en la tabla jugadores, en estas 4 columnas, mete estos
+          4 valores" (¡en el mismo orden!). El <code>id</code> no se lo damos: la base se lo
+          inventa sola, en automático. Y el <code>SELECT … ORDER BY puntos DESC</code> muestra
+          la tabla de líderes con tu registro nuevo hasta arriba. 🥇
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Error rojo ❌? Casi siempre es una <strong>comilla sin cerrar</strong> <code>'…'</code>,
+          una coma de más, o el nombre de la tabla mal escrito (<code>jugadores</code>, en plural).</li>
+        <li>Repasa el <strong>diagrama de la tabla</strong> 🗄️: columnas arriba, registros a lo ancho.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n7l3">Tengo 13 años y hoy aprendí mis primeras consultas SQL en una tabla llamada jugadores con columnas id, nombre, juego, puntos y ciudad. Ya probé SELECT, WHERE, ORDER BY e INSERT INTO. Explícame con una analogía sencilla qué hace cada una, y por qué los textos van entre comillas simples. Después ponme 3 mini-retos de consultas sobre esa misma tabla (sin darme las respuestas de inmediato).</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>En cualquier editor de arriba, intenta estas misiones: 1) solo los jugadores de
+        <code>'CDMX'</code> (ojo: los textos van con comillas simples);
+        2) los jugadores de Snake ordenados por puntos;
+        3) cuenta cuántos jugadores hay con <code>SELECT COUNT(*) FROM jugadores;</code>.
+        <strong>Jefe secreto:</strong> cámbiale el puntaje a alguien con
+        <code>UPDATE jugadores SET puntos = 5000 WHERE nombre = 'Valeria';</code> —
+        y ahora entiendes por qué a los hackers les encantan las bases de datos mal
+        protegidas… y por qué los buenos programadores las cuidan. 🔐</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n7-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En una tabla de base de datos, una FILA es…</p>
+          <button class="opcion">un tipo de dato, como "nombre" o "puntos"</button>
+          <button class="opcion" data-ok>un registro completo: la ficha de un jugador</button>
+          <button class="opcion">el idioma para hacer consultas</button>
+          <div class="explicacion">Fila = registro = una ficha completa (como tus objetos
+            <code>{nombre, puntos}</code> de la lección 1). Las columnas son los tipos de dato,
+            y SQL es el idioma para preguntar.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>WHERE puntos &gt; 500</code>?</p>
+          <button class="opcion">Ordena los registros por puntos</button>
+          <button class="opcion">Borra a los jugadores con menos de 500</button>
+          <button class="opcion" data-ok>Filtra: solo muestra los registros que cumplen la condición</button>
+          <div class="explicacion"><code>WHERE</code> es el <code>if</code> de las bases de datos:
+            no borra ni cambia nada, solo elige qué filas pasan a tu resultado. 🔦</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Quieres la tabla de líderes: del mejor al peor. ¿Qué usas?</p>
+          <button class="opcion" data-ok>ORDER BY puntos DESC</button>
+          <button class="opcion">ORDER BY puntos ASC</button>
+          <button class="opcion">SELECT puntos MAX</button>
+          <div class="explicacion"><code>DESC</code> = descendente (2100, 1250, 990…),
+            <code>ASC</code> = ascendente (12, 25, 480…). Para un top de récords quieres
+            los grandes arriba: <code>DESC</code>. 🏆</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n7-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: JSON y localStorage</a>
+      <a href="leccion-4.html">Siguiente: Jefe: tabla de récords 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/sql-runner.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parámetros: los ingredientes — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧩 Nivel 4: Python II</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 4 · LECCIÓN 2</span>
+    <h1>Parámetros: los ingredientes 🌮</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Pasarle información a tus funciones con <strong>parámetros</strong>:
+        la misma receta con distintos ingredientes. Al final construyes la
+        <strong>barra de vida</strong> de un videojuego: <code>dibujar_barra_de_vida(3)</code>
+        → ❤️❤️❤️🖤🖤. 🎮</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Tu <code>saludar()</code> de la lección pasada tiene un problema: saluda igual
+        a todo el mundo. "¡Qué onda!"… ¿y el nombre? 🤔 Nos falta poder decirle a la función
+        <strong>a quién</strong> saludar. O sea: nos falta poder mandarle un dato hacia adentro.</p>
+
+      <div class="analogia">
+        Un <strong>parámetro</strong> es el <strong>hueco del ingrediente en la receta</strong> 🌮:
+        la receta dice "quesadilla de ______". La receta es SIEMPRE la misma;
+        lo que cambia es el ingrediente que le pones: de queso 🧀, de champiñones 🍄,
+        de flor de calabaza 🌼. Misma máquina, distinto ingrediente → distinto platillo.
+      </div>
+
+      <div class="diagrama">
+        <svg width="620" height="250" viewBox="0 0 620 250">
+          <text class="mono" x="300" y="24" text-anchor="middle" font-size="14" fill="#a3a3c8">saludar("Ana")</text>
+          <!-- el ingrediente "Ana" entra -->
+          <g class="anim-ingrediente" style="--dx: 165px;">
+            <rect x="15" y="105" width="90" height="40" rx="8" fill="#ffe95c"/>
+            <text x="60" y="130" text-anchor="middle" fill="#0a0a1a" font-size="16">"Ana"</text>
+          </g>
+          <!-- la máquina con su hueco para el ingrediente -->
+          <g class="anim-maquina">
+            <rect x="200" y="60" width="200" height="130" rx="12" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <rect x="212" y="47" width="176" height="26" rx="6" fill="#a78bfa"/>
+            <text x="300" y="65" text-anchor="middle" fill="#0a0a1a" font-size="12">def saludar(nombre):</text>
+            <rect x="230" y="95" width="140" height="36" rx="8" fill="none" stroke="#ffe95c" stroke-width="2" stroke-dasharray="6 5"/>
+            <text class="mono" x="300" y="118" text-anchor="middle" font-size="13" fill="#ffe95c">nombre</text>
+            <text class="mono" x="300" y="165" text-anchor="middle" font-size="12" fill="#a3a3c8">print("¡Hola,", nombre)</text>
+          </g>
+          <!-- el platillo sale -->
+          <g class="anim-platillo" style="--dx: 75px;">
+            <rect x="415" y="105" width="132" height="40" rx="8" fill="none" stroke="#39ff8e" stroke-width="2.5"/>
+            <text x="481" y="130" text-anchor="middle" fill="#39ff8e" font-size="14">¡Hola, Ana! 👋</text>
+          </g>
+        </svg>
+        <p class="pie">El valor <code>"Ana"</code> viaja hacia adentro y aterriza en el hueco
+          <code>nombre</code> (el parámetro). Durante ESA llamada, <code>nombre</code> vale
+          <code>"Ana"</code>. Si llamas <code>saludar("Beto")</code>, el mismo hueco vale
+          <code>"Beto"</code>. Misma máquina, distinto ingrediente. 🌮</p>
+      </div>
+
+      <h3>📝 Cómo se escribe</h3>
+      <pre class="bloque-codigo"><code>def saludar(nombre):            # nombre = el hueco del ingrediente
+    print("¡Hola,", nombre, "👋")
+
+saludar("Ana")    # nombre vale "Ana"  → ¡Hola, Ana 👋
+saludar("Beto")   # nombre vale "Beto" → ¡Hola, Beto 👋</code></pre>
+      <p>El parámetro es una <strong>variable</strong> (¡una caja 📦!) que nace en cada llamada
+        con el valor que le mandaste. Dato curioso de vocabulario pro: al hueco se le llama
+        <em>parámetro</em> y al valor que mandas, <em>argumento</em>… pero si les dices
+        "los ingredientes", cualquier programador te entiende. 😄</p>
+
+      <h3>🚚 Varios parámetros: los valores viajan EN ORDEN</h3>
+      <p>Una función puede pedir varios ingredientes, separados por comas.
+        Y aquí LA regla importante: los valores se acomodan <strong>en el mismo orden</strong>
+        en que los mandas — el primero al primer hueco, el segundo al segundo:</p>
+      <pre class="bloque-codigo"><code>def presentar(nombre, edad):
+    print(nombre, "tiene", edad, "años")
+
+presentar("Ana", 14)    # nombre="Ana", edad=14  ✅
+presentar(13, "Beto")   # nombre=13, edad="Beto" 😱 → "13 tiene Beto años"</code></pre>
+      <p>Python no adivina: reparte los ingredientes en orden, aunque el resultado
+        quede sin sentido. El orden lo cuidas TÚ. 🚦</p>
+
+      <h3>✖️ Truco nuevo: multiplicar texto</h3>
+      <p>Para el reto de hoy necesitas un truco genial de Python: <strong>multiplicar un texto
+        lo repite</strong>. <code>"❤️" * 3</code> produce <code>"❤️❤️❤️"</code>.
+        Sí, así de fácil se dibujan barras de vida. 😏</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El saludo personalizado que nos quedó pendiente en la lección 1 — UNA receta,
+        tres amigos. Ejecuta, y luego agrega una llamada con TU nombre:</p>
+
+      <div class="py-runner" data-titulo="saludo_con_nombre.py">
+<script type="text/plain">
+def saludar(nombre):
+    print("✨✨✨✨✨✨✨✨✨✨")
+    print("¡Qué onda, " + nombre + "! Bienvenido a mi juego 🎮")
+    print("✨✨✨✨✨✨✨✨✨✨")
+
+saludar("Ana")
+saludar("Beto")
+saludar("Cleo")
+
+# TODO: agrega una llamada con TU nombre 😎
+</script>
+      </div>
+
+      <p>Ahora varios parámetros, y la prueba de que el ORDEN importa.
+        Ejecuta y mira el desastre de la última llamada 😂:</p>
+
+      <div class="py-runner" data-titulo="en_orden.py">
+<script type="text/plain">
+def presentar(nombre, edad):
+    print(nombre, "tiene", edad, "años")
+
+def ficha_de_jugador(nombre, poder, nivel):
+    print("🎮 Jugador:", nombre)
+    print("   Poder:", poder, "| Nivel:", nivel)
+
+presentar("Ana", 14)          # en orden: perfecto ✅
+presentar(13, "Beto")         # al revés: sin sentido 😱
+
+ficha_de_jugador("Kai", "🔥 bola de fuego", 7)
+# 🧪 EXPERIMENTO: revuelve el orden de los 3 valores y mira la ficha rara
+</script>
+      </div>
+
+      <p>Y el truco de multiplicar texto — te va a encantar 🎤:</p>
+
+      <div class="py-runner" data-titulo="texto_por_numero.py">
+<script type="text/plain">
+print("=" * 25)              # una línea decorativa instantánea
+print("na " * 8 + "¡BATMAN! 🦇")
+print("❤️" * 3 + "🖤" * 2)    # mmm... esto huele a barra de vida 👀
+print("=" * 25)
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: LA BARRA DE VIDA ❤️</p>
+      <p>Todo videojuego necesita su barra de vida. Vas a crear la función
+        <code>dibujar_barra_de_vida(vidas)</code>: recibe cuántas vidas quedan (de un máximo
+        de 5) y dibuja corazones llenos por las vidas que quedan y corazones negros por
+        las perdidas. <code>dibujar_barra_de_vida(3)</code> debe imprimir
+        <strong>❤️❤️❤️🖤🖤</strong>.</p>
+
+      <div class="py-runner" data-titulo="barra_de_vida.py">
+<script type="text/plain">
+# BARRA DE VIDA 🎮 — máximo: 5 corazones
+# dibujar_barra_de_vida(3)  →  ❤️❤️❤️🖤🖤
+
+# TODO 1: define la función dibujar_barra_de_vida con el parámetro vidas
+
+# TODO 2: adentro, imprime "❤️" * vidas + "🖤" * (5 - vidas)
+
+# TODO 3: cuenta la historia del jugador llamándola 3 veces:
+#         empieza con 5, un golpe lo deja en 3, y una caída épica en 1
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La estructura es la de <code>saludar(nombre)</code>, pero tu ingrediente se llama
+          <code>vidas</code>: <code>def dibujar_barra_de_vida(vidas):</code> —
+          y adentro va UN solo <code>print()</code> con la fórmula de los corazones.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Piensa la fórmula con vidas = 3: <code>"❤️" * 3</code> dibuja los corazones que quedan,
+          y las perdidas son <code>5 - 3 = 2</code>, o sea <code>"🖤" * (5 - vidas)</code>.
+          Los pegas con <code>+</code>. Los paréntesis en <code>(5 - vidas)</code> importan:
+          primero la resta, luego la multiplicación.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>def dibujar_barra_de_vida(vidas):
+    print("❤️" * vidas + "🖤" * (5 - vidas))
+
+dibujar_barra_de_vida(5)   # ❤️❤️❤️❤️❤️  jugador nuevecito
+dibujar_barra_de_vida(3)   # ❤️❤️❤️🖤🖤  ouch, dos golpes
+dibujar_barra_de_vida(1)   # ❤️🖤🖤🖤🖤  ¡al borde del game over!</code></pre>
+          Sigue el viaje del 3: entra a la llamada, aterriza en el hueco <code>vidas</code>,
+          y la fórmula hace <code>"❤️" * 3 + "🖤" * 2</code>. UNA línea de receta
+          te dibuja cualquier barra de vida posible. Los juegos de verdad funcionan
+          exactamente así. 🎮
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿<code>TypeError: ... missing 1 required positional argument</code>? Traducción:
+          llamaste la función SIN su ingrediente. <code>dibujar_barra_de_vida()</code> vacío
+          deja el hueco <code>vidas</code> sin valor: dale un número.</li>
+        <li>¿Sale algo sin sentido como "13 tiene Beto años"? Mandaste los valores
+          en el orden equivocado: el primero cae en el primer hueco, el segundo en el segundo.</li>
+        <li>¿<code>NameError</code> con <code>vidas</code>? Revisa que el nombre de ADENTRO del print
+          sea idéntico al del paréntesis del <code>def</code>. Si defines <code>(vidas)</code>
+          y escribes <code>vida</code>, Python no la conoce.</li>
+        <li>¿Los corazones salen mal contados? Revisa los paréntesis: es <code>(5 - vidas)</code>,
+          con paréntesis, para que la resta ocurra antes que la multiplicación.</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n4l2">Tengo 13 años y estoy aprendiendo parámetros de funciones en Python. Explícame con la analogía de una receta y sus ingredientes: 1) qué es un parámetro y qué pasa con él en cada llamada, 2) por qué con varios parámetros el orden de los valores importa, 3) cómo funciona multiplicar un texto por un número, como "❤️" * 3. Estoy haciendo una función dibujar_barra_de_vida(vidas) que imprime corazones llenos y vacíos: si te enseño mi código con errores, dame pistas para corregirlo yo mismo en vez de dármelo resuelto. Al final, ponme 2 mini-retos de funciones con parámetros.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n4l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p><strong>La taquería del programador</strong> 🌮: crea
+        <code>orden_de_tacos(guiso, cantidad)</code> que imprima algo como
+        "🌮 5 tacos de pastor — son $75" (cada taco cuesta $15: el total es
+        <code>cantidad * 15</code>). Pide la orden de 3 clientes distintos.
+        <strong>Jefe secreto:</strong> mejora tu barra de vida con DOS parámetros —
+        <code>dibujar_barra_de_vida(vidas, vida_maxima)</code> — para que funcione con
+        cualquier máximo: <code>dibujar_barra_de_vida(2, 8)</code> → ❤️❤️🖤🖤🖤🖤🖤🖤. 💪</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n4-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En <code>def saludar(nombre):</code>, ¿qué es <code>nombre</code>?</p>
+          <button class="opcion">Un texto fijo que siempre dice "nombre"</button>
+          <button class="opcion" data-ok>El hueco (parámetro) que recibe el valor de cada llamada</button>
+          <button class="opcion">Una función dentro de otra función</button>
+          <div class="explicacion">Es el hueco del ingrediente 🌮: en
+            <code>saludar("Ana")</code> vale <code>"Ana"</code>, y en
+            <code>saludar("Beto")</code> vale <code>"Beto"</code>. Misma receta,
+            distinto ingrediente en cada llamada.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Con <code>def presentar(nombre, edad):</code>,
+            ¿qué pasa al llamar <code>presentar("Ana", 14)</code>?</p>
+          <button class="opcion" data-ok><code>nombre</code> vale "Ana" y <code>edad</code> vale 14: los valores entran EN ORDEN</button>
+          <button class="opcion">Python adivina cuál es el nombre y cuál la edad</button>
+          <button class="opcion">Da error por mezclar texto con número</button>
+          <div class="explicacion">El reparto es en orden: primer valor → primer hueco,
+            segundo valor → segundo hueco 🚚. Si los mandas al revés, Python obedece igual…
+            y sale "13 tiene Beto años" 😱.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué imprime <code>print("🌮" * 3)</code>?</p>
+          <button class="opcion">Un error: no se puede multiplicar texto</button>
+          <button class="opcion">🌮 3</button>
+          <button class="opcion" data-ok>🌮🌮🌮</button>
+          <div class="explicacion">Multiplicar un texto por un número lo REPITE.
+            Es el truco de tu barra de vida: <code>"❤️" * vidas + "🖤" * (5 - vidas)</code>. ❤️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n4-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: ¿Qué es una función?</a>
+      <a href="leccion-3.html">Siguiente: Return: el platillo que devuelve ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

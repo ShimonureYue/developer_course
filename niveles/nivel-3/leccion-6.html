@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listas + Jefe: El oráculo 👑 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 6
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 6 · 👑 PELEA DE JEFE</span>
+    <h1>Listas + El oráculo 🔮👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Dominar las <strong>listas</strong> (una caja con muchas cosas) y construir tu primer
+        proyecto completo: <strong>EL ORÁCULO</strong> 🔮, una bola mágica que responde preguntas
+        sobre el futuro. Es la pelea de jefe del nivel: vale <strong>100 XP</strong>. 👑</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Hasta ahora, cada caja (variable) guardaba UNA cosa. Pero ¿y si quieres guardar
+        a todo tu equipo de amigos, o 20 respuestas mágicas? ¿Veinte variables? Nel. 🙅
+        Para eso existen las listas:</p>
+      <div class="analogia">
+        Una <strong>lista</strong> es una <strong>caja con varios compartimentos numerados</strong>,
+        como un edificio 🏢: cada departamento tiene su número de piso…
+        y OJO: en México la <strong>planta baja es el piso 0</strong>.
+        ¡En Python igual! <strong>El primer elemento es el número 0</strong>, no el 1.
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="230" viewBox="0 0 540 230">
+          <!-- El edificio-lista -->
+          <text class="mono" x="180" y="30" text-anchor="middle" font-size="14" fill="#a3a3c8">equipo = ["Ana", "Beto", "Cleo", "Dani"]</text>
+          <!-- Piso 3 -->
+          <g>
+            <rect x="110" y="50" width="140" height="38" rx="6" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+            <text x="180" y="75" text-anchor="middle" font-size="14" fill="#eaeaf5">"Dani"</text>
+            <text class="mono" x="90" y="75" text-anchor="end" font-size="14" fill="#a78bfa">[3]</text>
+          </g>
+          <!-- Piso 2 -->
+          <g>
+            <rect x="110" y="92" width="140" height="38" rx="6" fill="none" stroke="#ffe95c" stroke-width="2.5"/>
+            <text x="180" y="117" text-anchor="middle" font-size="14" fill="#eaeaf5">"Cleo"</text>
+            <text class="mono" x="90" y="117" text-anchor="end" font-size="14" fill="#ffe95c">[2]</text>
+          </g>
+          <!-- Piso 1 -->
+          <g>
+            <rect x="110" y="134" width="140" height="38" rx="6" fill="none" stroke="#ff4dd8" stroke-width="2.5"/>
+            <text x="180" y="159" text-anchor="middle" font-size="14" fill="#eaeaf5">"Beto"</text>
+            <text class="mono" x="90" y="159" text-anchor="end" font-size="14" fill="#ff4dd8">[1]</text>
+          </g>
+          <!-- Piso 0: planta baja -->
+          <g class="anim-pulso">
+            <rect x="110" y="176" width="140" height="38" rx="6" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text x="180" y="201" text-anchor="middle" font-size="14" fill="#eaeaf5">"Ana"</text>
+            <text class="mono" x="90" y="201" text-anchor="end" font-size="14" fill="#39ff8e">[0]</text>
+          </g>
+          <text x="285" y="201" font-size="12" fill="#39ff8e">← ¡planta baja = 0!</text>
+          <!-- Código de acceso -->
+          <text class="mono" x="395" y="90" text-anchor="middle" font-size="14" fill="#a3a3c8">equipo[0] → "Ana"</text>
+          <text class="mono" x="395" y="115" text-anchor="middle" font-size="14" fill="#a3a3c8">equipo[3] → "Dani"</text>
+          <text class="mono anim-parpadeo" x="395" y="145" text-anchor="middle" font-size="14" fill="#ffe95c">len(equipo) → 4</text>
+        </svg>
+        <p class="pie">El edificio <code>equipo</code>: "Ana" vive en la planta baja (índice 0)
+          y "Dani" en el piso 3… aunque son 4 amigos. <code>len()</code> te dice cuántos hay en total.</p>
+      </div>
+
+      <p>El kit básico de las listas:</p>
+      <ul>
+        <li><strong>Crear</strong>: <code>equipo = ["Ana", "Beto", "Cleo"]</code> — corchetes y comas.</li>
+        <li><strong>Leer un elemento</strong>: <code>equipo[0]</code> → <code>"Ana"</code>
+          (¡el 0 es el primero!).</li>
+        <li><strong>Agregar al final</strong>: <code>equipo.append("Dani")</code> —
+          append = "añade al final de la fila".</li>
+        <li><strong>Contar</strong>: <code>len(equipo)</code> → cuántos elementos hay
+          (len viene de <em>length</em>, longitud).</li>
+        <li><strong>Recorrer</strong> todos con el <code>for</code> de la lección pasada:
+          <code>for amigo in equipo:</code> — visita cada compartimento en orden. 🚶</li>
+      </ul>
+
+      <h3>🎲 El ingrediente mágico: random</h3>
+      <p>Python trae "cajas de herramientas" extra llamadas <strong>módulos</strong>.
+        Con <code>import random</code> te traes la caja del azar, y
+        <code>random.choice(lista)</code> saca <strong>un elemento al azar</strong> —
+        como una tómbola 🎰. Justo lo que necesita un oráculo que nunca responde lo mismo…</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Todo el kit de listas en acción. Ejecuta y luego: agrega a un amigo tuyo con
+        <code>append</code>, y cambia el índice del print para saludar a otro:</p>
+
+      <div class="py-runner" data-titulo="mi_equipo.py">
+<script type="text/plain">
+equipo = ["Ana", "Beto", "Cleo"]
+
+print("El primero del equipo es:", equipo[0])   # ¡índice 0!
+print("Somos", len(equipo), "integrantes")
+
+equipo.append("Dani")   # llega un nuevo integrante
+print("Ahora somos", len(equipo), "🎉")
+
+print("Pase de lista:")
+for amigo in equipo:
+    print("  ✅", amigo)
+
+# 🧟 ERROR A PROPÓSITO: descomenta y ejecuta para conocer el IndexError
+# print(equipo[10])
+# "IndexError: list index out of range" = pediste el piso 10...
+# ¡y el edificio no llega hasta allá! El último es equipo[3].
+</script>
+      </div>
+
+      <p>Y la tómbola 🎰: ejecuta esto varias veces y verás que cada vez sale algo distinto:</p>
+
+      <div class="py-runner" data-titulo="tombola.py">
+<script type="text/plain">
+import random
+
+premios = ["🌮 tacos gratis", "🎮 consola nueva", "📚 tarea extra (ups)", "⚽ balón firmado"]
+
+print("Girando la tómbola...")
+print("Te tocó:", random.choice(premios))
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO: LA PELEA DE JEFE ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ PELEA DE JEFE: EL ORÁCULO 🔮</p>
+      <p>Vas a construir una <strong>bola 8 mágica</strong>: tú le haces una pregunta sobre tu futuro
+        ("¿pasaré el examen?", "¿ganará mi equipo el sábado?") y el oráculo responde con sabiduría
+        aleatoria… en un ciclo que sigue <strong>hasta que escribas "salir"</strong>.</p>
+      <p>El plan de batalla, por partes (así se comen los proyectos grandes: a mordidas 🍕):</p>
+      <ol>
+        <li><strong>Parte 1</strong>: importa <code>random</code> y crea la lista <code>respuestas</code>
+          con al menos 5 respuestas místicas.</li>
+        <li><strong>Parte 2</strong>: da la bienvenida y pide la primera pregunta con <code>input()</code>.</li>
+        <li><strong>Parte 3</strong>: el ciclo — <code>while pregunta != "salir":</code>
+          responde con <code>random.choice(respuestas)</code> y vuelve a pedir pregunta
+          (¡ADENTRO del ciclo, o será infinito! ⌘R si te pasa 😅).</li>
+        <li><strong>Parte 4</strong>: al salir del ciclo, un mensaje de despedida digno de un oráculo. 🌫️</li>
+      </ol>
+
+      <div class="py-runner" data-titulo="el_oraculo.py">
+<script type="text/plain">
+# ══════════ 🔮 EL ORÁCULO ══════════
+
+# PARTE 1: la caja del azar y la sabiduría
+# TODO: import random
+# TODO: crea la lista respuestas con al menos 5 frases místicas
+#       ejemplo: respuestas = ["Sí, sin duda ✨", "Lo veo difícil 😬", ...]
+
+# PARTE 2: bienvenida y primera pregunta
+print("🔮 EL ORÁCULO 🔮")
+print("Pregúntame sobre tu futuro (o escribe 'salir' para terminar)")
+# TODO: pregunta = input("Tu pregunta: ")
+
+# PARTE 3: el ciclo del oráculo
+# TODO: while pregunta != "salir":
+#           responde con print y random.choice(respuestas)
+#           vuelve a pedir: pregunta = input("Tu pregunta: ")   ← ¡ADENTRO del ciclo!
+
+# PARTE 4: despedida
+# TODO: print("El oráculo se desvanece en la niebla... 🌫️")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Parte 1 y 2: <code>import random</code> va hasta arriba. La lista es como la de premios
+          de la tómbola, pero con frases de adivino: <code>respuestas = ["Sí, sin duda ✨",
+          "No cuentes con ello 🙅", "Pregunta más tarde 🌙", "¡Claro que sí! 🎉", "Lo veo difícil 😬"]</code>.
+          Y la primera pregunta se pide UNA vez, antes del ciclo.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Parte 3, el corazón del jefe:
+          <pre class="bloque-codigo"><code>while pregunta != "salir":
+    print("El oráculo responde:", random.choice(respuestas))
+    pregunta = input("Tu pregunta: ")</code></pre>
+          El truco: se pide la pregunta ANTES del ciclo (para tener algo que revisar)
+          y se vuelve a pedir ADENTRO (para que la respuesta pueda cambiar y el ciclo pueda terminar).
+          ¿Te suena? ¡Es la regla anti-ciclo-infinito de la lección 5!
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN COMPLETA EXPLICADA</span>
+          <pre class="bloque-codigo"><code>import random                          # la caja del azar
+
+respuestas = [                         # la sabiduría del oráculo
+    "Sí, sin duda ✨",
+    "No cuentes con ello 🙅",
+    "Pregunta de nuevo más tarde 🌙",
+    "¡Claro que sí! 🎉",
+    "Lo veo difícil 😬",
+    "Las estrellas dicen que sí ⭐",
+]
+
+print("🔮 EL ORÁCULO 🔮")
+print("Pregúntame sobre tu futuro (o escribe 'salir' para terminar)")
+
+pregunta = input("Tu pregunta: ")      # primera pregunta, ANTES del ciclo
+
+while pregunta != "salir":             # mientras no quieras salir...
+    print("El oráculo responde:", random.choice(respuestas))
+    pregunta = input("Tu pregunta: ")  # nueva pregunta, ADENTRO del ciclo
+
+print("El oráculo se desvanece en la niebla... 🌫️")</code></pre>
+          Mira todo lo que usaste: variables, input, while, comparaciones, listas y random.
+          ¡TODO el nivel 3 vive dentro de tu oráculo! Órale, esto ya es un programa de verdad. 🎉👑
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿<code>NameError: name 'random' is not defined</code>? Te faltó el
+          <code>import random</code> hasta arriba.</li>
+        <li>¿El oráculo nunca se calla aunque escribas salir? Revisa que sea EXACTO:
+          <code>"salir"</code> en minúsculas, sin espacios. Y que el input de adentro
+          guarde en la MISMA variable <code>pregunta</code>.</li>
+        <li>¿Página congelada? Te faltó el input ADENTRO del ciclo. ⌘R y a revisarlo.</li>
+        <li>¿<code>IndexError</code>? Pediste un piso que el edificio no tiene: recuerda que el último
+          índice es <code>len(lista) - 1</code>.</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l6">Tengo 13 años y estoy construyendo en Python una bola 8 mágica: una lista de respuestas, random.choice y un while que se repite hasta que escriba "salir". Explícame: 1) por qué los índices de las listas empiezan en 0 (con la analogía de la planta baja de un edificio), 2) cómo funciona mi ciclo del oráculo línea por línea, 3) qué significan IndexError y NameError. Si te enseño mi código con errores, dame pistas para arreglarlo yo mismo en vez de corregírmelo todo.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l6').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DEL JEFE (OPCIONALES, PARA LEYENDAS)</p>
+      <ol>
+        <li><strong>Más sabiduría</strong> 📜: agrega 4 respuestas nuevas a la lista con tu estilo
+          ("ni lo sueñes, compa 💀", "las estrellas dicen que primero hagas la tarea 📚"…).</li>
+        <li><strong>Contador de preguntas</strong> 🔢: usa un contador que empiece en 0 y suba
+          con cada pregunta. Al despedirse, el oráculo dice:
+          "Respondí X preguntas de tu destino".</li>
+        <li><strong>Modo sí/no/quizás</strong> 🎭: crea TRES listas
+          (<code>respuestas_si</code>, <code>respuestas_no</code>, <code>respuestas_quizas</code>)
+          y usa <code>random.choice(["si", "no", "quizas"])</code> con if/elif para decidir
+          de cuál lista responder. Doble azar = oráculo nivel épico.</li>
+      </ol>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n3-l6" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Si <code>colores = ["rojo", "verde", "azul"]</code>,
+            ¿qué te da <code>colores[1]</code>?</p>
+          <button class="opcion">"rojo", el primero de la lista</button>
+          <button class="opcion" data-ok>"verde", porque los índices empiezan en 0</button>
+          <button class="opcion">Un error, falta el piso 1</button>
+          <div class="explicacion">Como el edificio 🏢: "rojo" vive en la planta baja
+            (<code>colores[0]</code>) y "verde" en el piso 1. El índice 1 es el SEGUNDO elemento.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>equipo.append("Dani")</code>?</p>
+          <button class="opcion">Borra a Dani de la lista</button>
+          <button class="opcion">Pone a Dani al principio, en el índice 0</button>
+          <button class="opcion" data-ok>Agrega a Dani al FINAL de la lista</button>
+          <div class="explicacion"><code>append</code> = fórmate al final de la fila 🚶.
+            Después de esto, <code>len(equipo)</code> crece en 1 y Dani queda en el último índice.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace <code>random.choice(respuestas)</code>?</p>
+          <button class="opcion" data-ok>Saca UN elemento al azar de la lista, como una tómbola</button>
+          <button class="opcion">Revuelve toda la lista en desorden</button>
+          <button class="opcion">Elige siempre el primer elemento</button>
+          <div class="explicacion">Es la tómbola 🎰: cada vez que la llamas puede salir cualquier
+            elemento. Por eso el oráculo nunca responde igual dos veces (bueno, casi nunca 😄).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l6">👑 ¡Jefe derrotado! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-5.html">◀ Anterior: Ciclos: el poder de repetir</a>
+      <a href="../nivel-4/index.html">Siguiente: Nivel 4 · Funciones, tu superpoder ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

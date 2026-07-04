@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: dos juegos de consola 👑 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧩 Nivel 4: Python II</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 4 · LECCIÓN 4 · 👑 PELEA DE JEFE</span>
+    <h1>Dos juegos de consola 🕹️👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Construir <strong>DOS juegos completos</strong> como los arman los game devs de verdad:
+        con funciones. 🎯 <strong>Adivina el número</strong> y ✂️ <strong>Piedra, papel o
+        tijera al mejor de 3</strong>. Todo tu arsenal entra en acción: <code>def</code>,
+        parámetros, <code>return</code>, ciclos, ifs y random. Es la pelea de jefe del nivel:
+        vale <strong>100 XP</strong>. 👑</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>¿Cómo se construye un juego "grande" sin volverse loco? Los profesionales tienen
+        un truco milenario: <strong>divide y vencerás</strong>. Nadie programa "el juego":
+        se programan <strong>piezas chiquitas</strong> (funciones) que hacen UNA cosa bien,
+        y luego un <strong>ciclo principal</strong> las conecta.</p>
+
+      <div class="analogia">
+        Un juego grande es como una <strong>cocina de restaurante</strong> 🍽️: hay una receta
+        para el guiso, otra para la salsa, otra para las tortillas… y un <strong>chef</strong>
+        (tu ciclo <code>while</code>) que las va llamando en orden, plato tras plato,
+        hasta que termina el servicio. Cada receta se puede probar y arreglar POR SEPARADO.
+      </div>
+
+      <div class="diagrama">
+        <svg width="620" height="240" viewBox="0 0 620 240">
+          <!-- las piezas: funciones -->
+          <g class="anim-maquina">
+            <rect x="15" y="25" width="205" height="42" rx="8" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+            <text class="mono" x="117" y="51" text-anchor="middle" font-size="12" fill="#a78bfa">generar_secreto()</text>
+          </g>
+          <g class="anim-maquina" style="animation-delay: 0.6s;">
+            <rect x="15" y="98" width="205" height="42" rx="8" fill="none" stroke="#00e5ff" stroke-width="2.5"/>
+            <text class="mono" x="117" y="124" text-anchor="middle" font-size="12" fill="#00e5ff">pedir_intento()</text>
+          </g>
+          <g class="anim-maquina" style="animation-delay: 1.2s;">
+            <rect x="15" y="171" width="205" height="42" rx="8" fill="none" stroke="#ff4dd8" stroke-width="2.5"/>
+            <text class="mono" x="117" y="197" text-anchor="middle" font-size="11" fill="#ff4dd8">dar_pista(intento, secreto)</text>
+          </g>
+          <!-- cables hacia la consola -->
+          <path class="anim-recorrido" d="M 220 46 C 295 46, 305 90 365 105" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
+          <path class="anim-recorrido" d="M 220 119 L 365 120" fill="none" stroke="#00e5ff" stroke-width="2.5"/>
+          <path class="anim-recorrido" d="M 220 192 C 295 192, 305 150 365 135" fill="none" stroke="#ff4dd8" stroke-width="2.5"/>
+          <!-- la consola: el ciclo principal -->
+          <g class="anim-pulso">
+            <rect x="370" y="45" width="230" height="150" rx="14" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text x="485" y="105" text-anchor="middle" font-size="34">🎮</text>
+            <text x="485" y="140" text-anchor="middle" font-size="13" fill="#39ff8e">EL JUEGO</text>
+            <text class="mono" x="485" y="168" text-anchor="middle" font-size="11" fill="#a3a3c8">while ... (ciclo principal)</text>
+          </g>
+        </svg>
+        <p class="pie">Tres piezas, cada una con UN trabajo, conectadas al ciclo principal.
+          Si la pista sale mal, sabes EXACTO a qué máquina abrirle el cofre: a
+          <code>dar_pista</code>. Eso es lo que te regalan las funciones: orden y
+          lugares chiquitos donde buscar los bugs. 🔍</p>
+      </div>
+
+      <h3>🎲 Herramienta nueva para el arsenal: random.randint</h3>
+      <p>Ya conoces <code>random.choice(lista)</code>, la tómbola que saca un elemento al azar.
+        Su primo <code>random.randint(1, 20)</code> te da un <strong>número entero al azar
+        entre 1 y 20</strong> — y ojo, aquí <strong>el 20 SÍ entra</strong>
+        (no como en <code>range</code> 😄). Perfecto para pensar números secretos.</p>
+      <pre class="bloque-codigo"><code>import random
+
+random.choice(["piedra", "papel", "tijera"])  # un elemento al azar 🎰
+random.randint(1, 20)                         # un entero del 1 al 20 🎲</code></pre>
+
+      <h3>🧰 Tu checklist de jefe</h3>
+      <ul>
+        <li><code>def</code> + nombre → la receta (lección 1) ✅</li>
+        <li>Parámetros en orden → los ingredientes (lección 2) ✅</li>
+        <li><code>return</code> → el platillo entregado, para guardarlo y compararlo (lección 3) ✅</li>
+        <li><code>while</code>, <code>if/elif/else</code>, <code>int(input())</code> → tus poderes del Nivel 3 ✅</li>
+      </ul>
+      <p>Lo tienes TODO. A la arena. ⚔️</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: EL VOLADO 🪙</p>
+      <p>Antes de los dos jefes, un calentamiento: un volado construido con el patrón exacto
+        que vas a usar — funciones arriba, juego abajo. Ejecútalo un par de veces
+        y fíjate cómo cada función hace UNA sola cosa:</p>
+
+      <div class="py-runner" data-titulo="el_volado.py">
+<script type="text/plain">
+import random
+
+# ---- LAS PIEZAS (las recetas) ----
+def lanzar_moneda():
+    return random.choice(["águila", "sol"])   # ENTREGA el resultado
+
+def pedir_apuesta():
+    return input("¿águila o sol? ")           # ENTREGA lo que escribas
+
+# ---- EL JUEGO (el chef que las llama) ----
+print("🪙 EL VOLADO 🪙")
+apuesta = pedir_apuesta()
+resultado = lanzar_moneda()
+
+print("Cayó:", resultado)
+if apuesta == resultado:
+    print("¡Ganaste! 🎉")
+else:
+    print("Perdiste... ¡doble o nada! 😅")
+</script>
+      </div>
+
+      <p>¿Ves la jugada? Las funciones <strong>retornan</strong> valores, y el juego los
+        <strong>guarda y compara</strong>. Ese mismo esqueleto, con más piezas,
+        es un juego completo. Ahora sí: 👑</p>
+    </div>
+
+    <!-- ============ ✏️ JUEGO 1 ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ JUEGO 1: ADIVINA EL NÚMERO 🎯</p>
+      <p>La consola piensa un número secreto del 1 al 20 y tú lo cazas con pistas de
+        "más arriba / más abajo", mientras el juego cuenta tus intentos.
+        El plan de batalla, pieza por pieza (así se comen los jefes: a mordidas 🍕):</p>
+      <ol>
+        <li><strong>Pieza 1</strong> — <code>generar_secreto()</code>: RETORNA
+          <code>random.randint(1, 20)</code>. La fábrica de secretos. 🎲</li>
+        <li><strong>Pieza 2</strong> — <code>pedir_intento()</code>: RETORNA
+          <code>int(input(...))</code>. La ventanilla de intentos. 🗣️</li>
+        <li><strong>Pieza 3</strong> — <code>dar_pista(intento, secreto)</code>: compara y
+          <strong>RETORNA</strong> (¡no imprime!) <code>"MÁS ARRIBA ⬆️"</code>,
+          <code>"MÁS ABAJO ⬇️"</code> o <code>"¡GANASTE! 🎉"</code>. El juez. ⚖️</li>
+        <li><strong>Pieza 4</strong> — el ciclo principal: pide intentos y da pistas
+          <code>while intento != secreto</code>, contando los intentos con un contador. 🔁</li>
+      </ol>
+
+      <div class="py-runner" data-titulo="adivina_el_numero.py">
+<script type="text/plain">
+# ══════════ 🎯 ADIVINA EL NÚMERO ══════════
+import random
+
+# PIEZA 1: la fábrica de secretos 🎲
+# TODO: define generar_secreto() que RETORNE random.randint(1, 20)
+
+# PIEZA 2: la ventanilla de intentos 🗣️
+# TODO: define pedir_intento() que RETORNE int(input("Tu número (1-20): "))
+
+# PIEZA 3: el juez ⚖️ — compara y RETORNA la pista
+# TODO: define dar_pista(intento, secreto):
+#       si intento < secreto  → return "MÁS ARRIBA ⬆️"
+#       si intento > secreto  → return "MÁS ABAJO ⬇️"
+#       si son iguales        → return "¡GANASTE! 🎉"
+
+# PIEZA 4: el ciclo principal 🔁
+print("🎮 ADIVINA EL NÚMERO (del 1 al 20) 🎮")
+# TODO: secreto = generar_secreto()
+# TODO: intento = pedir_intento()   e   intentos = 1
+# TODO: while intento != secreto:
+#           imprime dar_pista(intento, secreto)
+#           intento = pedir_intento()      ← ¡ADENTRO del ciclo!
+#           intentos = intentos + 1
+# TODO: al final: print(dar_pista(intento, secreto))
+#       y print("Lo lograste en", intentos, "intentos 🏆")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Las piezas 1 y 2 son recetas de UNA línea, calcadas del volado:
+          <pre class="bloque-codigo"><code>def generar_secreto():
+    return random.randint(1, 20)
+
+def pedir_intento():
+    return int(input("Tu número (1-20): "))</code></pre>
+          El <code>int(...)</code> es clave: <code>input</code> te da TEXTO, y para comparar
+          con <code>&lt;</code> y <code>&gt;</code> necesitas número.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El juez es un <code>if/elif/else</code> con un <code>return</code> en cada camino:
+          <pre class="bloque-codigo"><code>def dar_pista(intento, secreto):
+    if intento &lt; secreto:
+        return "MÁS ARRIBA ⬆️"
+    elif intento &gt; secreto:
+        return "MÁS ABAJO ⬇️"
+    else:
+        return "¡GANASTE! 🎉"</code></pre>
+          Y el ciclo es como el del oráculo 🔮: primer intento ANTES del while,
+          siguiente intento ADENTRO (regla anti-ciclo-infinito), y el contador
+          <code>intentos = intentos + 1</code> en cada vuelta.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN COMPLETA EXPLICADA</span>
+          <pre class="bloque-codigo"><code>import random
+
+def generar_secreto():                     # PIEZA 1: la fábrica 🎲
+    return random.randint(1, 20)
+
+def pedir_intento():                       # PIEZA 2: la ventanilla 🗣️
+    return int(input("Tu número (1-20): "))
+
+def dar_pista(intento, secreto):           # PIEZA 3: el juez ⚖️
+    if intento &lt; secreto:
+        return "MÁS ARRIBA ⬆️"
+    elif intento &gt; secreto:
+        return "MÁS ABAJO ⬇️"
+    else:
+        return "¡GANASTE! 🎉"
+
+# PIEZA 4: el ciclo principal 🔁
+print("🎮 ADIVINA EL NÚMERO (del 1 al 20) 🎮")
+secreto = generar_secreto()
+intento = pedir_intento()                  # primer intento, ANTES del ciclo
+intentos = 1
+
+while intento != secreto:                  # mientras no le atines...
+    print(dar_pista(intento, secreto))     # el juez retorna, tú imprimes
+    intento = pedir_intento()              # nuevo intento, ADENTRO
+    intentos = intentos + 1                # el contador de la lección 5
+
+print(dar_pista(intento, secreto))         # el "¡GANASTE! 🎉" final
+print("Lo lograste en", intentos, "intentos 🏆")</code></pre>
+          Cópiala al editor y ¡a jugar! Fíjate en la línea
+          <code>print(dar_pista(intento, secreto))</code>: como el juez RETORNA la pista,
+          el ciclo decide qué hacer con ella. Con un print adentro del juez esto sería
+          mucho menos flexible — por eso los pros retornan. 😎
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ JUEGO 2 ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ JUEGO 2: PIEDRA, PAPEL O TIJERA ✂️</p>
+      <p>El clásico de los recreos, contra la computadora y <strong>al mejor de 3</strong>
+        (el primero que gane 2 rondas se lleva el duelo). Las piezas:</p>
+      <ol>
+        <li><strong>Pieza 1</strong> — <code>jugada_computadora()</code>: RETORNA
+          <code>random.choice(["piedra", "papel", "tijera"])</code>. 🤖</li>
+        <li><strong>Pieza 2</strong> — <code>decidir_ganador(jugador, compu)</code>: RETORNA
+          <code>"empate"</code>, <code>"jugador"</code> o <code>"compu"</code>.
+          Recuerda las reglas: piedra rompe tijera, papel envuelve piedra,
+          tijera corta papel. ⚖️</li>
+        <li><strong>Pieza 3</strong> — el marcador: dos contadores
+          (<code>puntos_jugador</code>, <code>puntos_compu</code>) y un
+          <code>while</code> que sigue mientras NADIE llegue a 2. 🏆</li>
+      </ol>
+
+      <div class="py-runner" data-titulo="piedra_papel_tijera.py">
+<script type="text/plain">
+# ══════════ ✂️ PIEDRA, PAPEL O TIJERA — al mejor de 3 ══════════
+import random
+
+# PIEZA 1: la jugada de la compu 🤖
+# TODO: define jugada_computadora() que RETORNE
+#       random.choice(["piedra", "papel", "tijera"])
+
+# PIEZA 2: el juez ⚖️ — RETORNA "empate", "jugador" o "compu"
+# TODO: define decidir_ganador(jugador, compu):
+#       si jugador == compu                            → "empate"
+#       si jugador "piedra" y compu "tijera"           → "jugador"
+#       si jugador "papel"  y compu "piedra"           → "jugador"
+#       si jugador "tijera" y compu "papel"            → "jugador"
+#       en cualquier otro caso                         → "compu"
+
+# PIEZA 3: el duelo 🏆
+print("✂️ PIEDRA, PAPEL O TIJERA — al mejor de 3 ✂️")
+# TODO: puntos_jugador = 0   y   puntos_compu = 0
+# TODO: while puntos_jugador < 2 and puntos_compu < 2:
+#           jugador = input("piedra, papel o tijera: ")
+#           compu = jugada_computadora()
+#           imprime lo que sacó la compu
+#           resultado = decidir_ganador(jugador, compu)
+#           con if/elif/else: suma el punto a quien ganó y anúncialo
+#           imprime el marcador
+# TODO: al final: anuncia al campeón del duelo 👑
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          El juez se ve larguísimo pero es puro <code>if</code> + <code>return</code>.
+          Y aquí un truco elegante: como <code>return</code> TERMINA la función,
+          si ninguna condición de "jugador gana" se cumplió y no fue empate…
+          lo único que queda es que ganó la compu:
+          <pre class="bloque-codigo"><code>def decidir_ganador(jugador, compu):
+    if jugador == compu:
+        return "empate"
+    if jugador == "piedra" and compu == "tijera":
+        return "jugador"
+    if jugador == "papel" and compu == "piedra":
+        return "jugador"
+    if jugador == "tijera" and compu == "papel":
+        return "jugador"
+    return "compu"        # si llegamos aquí, no ganaste 😅</code></pre>
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El duelo: la condición <code>while puntos_jugador &lt; 2 and puntos_compu &lt; 2:</code>
+          significa "mientras NADIE haya llegado a 2". Adentro, después de obtener
+          <code>resultado</code>, reparte el punto:
+          <pre class="bloque-codigo"><code>if resultado == "jugador":
+    puntos_jugador = puntos_jugador + 1
+    print("¡Punto para ti! 🎉")
+elif resultado == "compu":
+    puntos_compu = puntos_compu + 1
+    print("Punto para la compu 🤖")
+else:
+    print("Empate 😐")</code></pre>
+          Y al salir del ciclo, quien tenga más puntos es el campeón (un <code>if/else</code> final).
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN COMPLETA EXPLICADA</span>
+          <pre class="bloque-codigo"><code>import random
+
+def jugada_computadora():                  # PIEZA 1 🤖
+    return random.choice(["piedra", "papel", "tijera"])
+
+def decidir_ganador(jugador, compu):       # PIEZA 2 ⚖️
+    if jugador == compu:
+        return "empate"
+    if jugador == "piedra" and compu == "tijera":
+        return "jugador"
+    if jugador == "papel" and compu == "piedra":
+        return "jugador"
+    if jugador == "tijera" and compu == "papel":
+        return "jugador"
+    return "compu"
+
+# PIEZA 3: el duelo al mejor de 3 🏆
+print("✂️ PIEDRA, PAPEL O TIJERA — al mejor de 3 ✂️")
+puntos_jugador = 0
+puntos_compu = 0
+
+while puntos_jugador &lt; 2 and puntos_compu &lt; 2:
+    jugador = input("piedra, papel o tijera: ")
+    compu = jugada_computadora()
+    print("La compu sacó:", compu)
+
+    resultado = decidir_ganador(jugador, compu)
+
+    if resultado == "jugador":
+        puntos_jugador = puntos_jugador + 1
+        print("¡Punto para ti! 🎉")
+    elif resultado == "compu":
+        puntos_compu = puntos_compu + 1
+        print("Punto para la compu 🤖")
+    else:
+        print("Empate 😐")
+
+    print("MARCADOR → tú:", puntos_jugador, "| compu:", puntos_compu)
+
+if puntos_jugador &gt; puntos_compu:
+    print("👑 ¡CAMPEÓN! Ganaste el duelo")
+else:
+    print("🤖 La compu ganó esta vez... ¡revancha!")</code></pre>
+          Cópiala al editor, ejecútala y échate el duelo. 🎮 Y date cuenta de la joya:
+          <code>decidir_ganador</code> RETORNA quién ganó, y el ciclo decide qué hacer con eso
+          (sumar puntos, anunciar). El juez juzga, el chef cocina: cada pieza con su chamba.
+          Acabas de programar como programan los profesionales. 👑
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿<code>ValueError: invalid literal for int()</code>? Escribiste letras cuando
+          el juego pedía un número: <code>int("hola")</code> no existe. Dale números al 🎯.</li>
+        <li>¿<code>NameError</code> con una de tus funciones? O la llamaste antes de definirla
+          (los <code>def</code> van ARRIBA del ciclo principal) o el nombre no coincide letra
+          por letra.</li>
+        <li>¿La compu "hace trampa" y siempre gana? Revisa el juez: los textos deben coincidir
+          EXACTO — <code>"piedra"</code> en minúsculas, sin espacios. Escribe tu jugada
+          igualito.</li>
+        <li>¿Página congelada? Ciclo infinito 😅: en el juego 1 te faltó pedir el intento
+          ADENTRO del while; en el 2, sumar los puntos. ⌘R y a revisar.</li>
+        <li>¿Guardaste una pista y salió <code>None</code>? Tu juez tiene un <code>print</code>
+          donde debía haber un <code>return</code> — el error clásico #1 de la lección 3. 🪟</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n4l4">Tengo 13 años y estoy construyendo en Python dos juegos con funciones: "Adivina el número" (con generar_secreto usando random.randint, pedir_intento con int(input()) y dar_pista que retorna "más arriba"/"más abajo"/"ganaste") y "Piedra, papel o tijera" al mejor de 3 (con jugada_computadora usando random.choice y decidir_ganador que retorna quién ganó). Si te enseño mi código: 1) ayúdame a encontrar los bugs dándome pistas en vez de reescribirlo todo, 2) explícame por qué conviene que dar_pista y decidir_ganador RETORNEN el resultado en vez de imprimirlo, 3) revisa conmigo mi ciclo principal para evitar ciclos infinitos. No me des el juego resuelto: quiero armarlo yo.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n4l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DEL JEFE (OPCIONALES, PARA LEYENDAS)</p>
+      <ol>
+        <li><strong>Intentos limitados</strong> ⏳: en Adivina el número, da máximo 5 intentos —
+          cambia la condición a <code>while intento != secreto and intentos &lt; 5:</code>
+          y al final, si no le atinaste, muestra "GAME OVER, el secreto era..." 💀.</li>
+        <li><strong>Selector de dificultad</strong> 🎚️: pregunta "¿fácil o difícil?" al inicio
+          y dale un parámetro a tu fábrica: <code>generar_secreto(maximo)</code> —
+          fácil llama <code>generar_secreto(10)</code>, difícil <code>generar_secreto(50)</code>.</li>
+        <li><strong>Lagarto y Spock</strong> 🖖: la versión de los científicos locos, con 5 opciones:
+          tijera corta papel, papel envuelve piedra, piedra aplasta lagarto, lagarto envenena
+          a Spock, Spock rompe tijera, tijera decapita lagarto, lagarto come papel,
+          papel refuta a Spock, Spock vaporiza piedra y piedra rompe tijera.
+          Agrega las dos opciones a la lista de la compu y los nuevos casos al juez.
+          Suena imposible… pero es puro <code>if</code> + <code>return</code>, y tu juez ya
+          sabe hacer eso. 😏</li>
+      </ol>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n4-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué conviene armar un juego con varias funciones chiquitas
+            en vez de un solo bloque gigante de código?</p>
+          <button class="opcion">Porque Python no permite programas de más de 20 líneas</button>
+          <button class="opcion" data-ok>Porque cada pieza hace UNA cosa: es más fácil de leer, probar, arreglar y reusar</button>
+          <button class="opcion">Porque los programas con funciones corren más rápido</button>
+          <div class="explicacion">Divide y vencerás 🍕: si la pista sale mal, abres SOLO
+            <code>dar_pista</code>; si la compu juega raro, SOLO
+            <code>jugada_computadora</code>. En un bloque gigante, el bug se esconde
+            en cualquier parte.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. <code>dar_pista(intento, secreto)</code> RETORNA la pista
+            en vez de imprimirla. ¿Qué gana el juego con eso?</p>
+          <button class="opcion">Nada, print y return hacen lo mismo</button>
+          <button class="opcion">Que la pista salga con mejores emojis</button>
+          <button class="opcion" data-ok>El ciclo principal recibe el valor y DECIDE qué hacer con él: imprimirlo, compararlo, guardarlo…</button>
+          <div class="explicacion">El juez entrega su veredicto 🤲 y el chef decide.
+            Hoy lo imprimes; mañana podrías guardarlo en una lista de pistas o usarlo para
+            dar puntos. Con un print adentro, la función decide por ti y adiós flexibilidad.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué te da <code>random.randint(1, 20)</code>?</p>
+          <button class="opcion">Un número decimal entre 0 y 1</button>
+          <button class="opcion" data-ok>Un número entero al azar del 1 al 20, ambos incluidos</button>
+          <button class="opcion">Un elemento al azar de una lista de 20 cosas</button>
+          <div class="explicacion">Es el primo de <code>random.choice</code>: randint da ENTEROS
+            entre los dos números… y a diferencia de <code>range(1, 20)</code>,
+            aquí el 20 SÍ puede salir. 🎲</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n4-l4">👑 ¡Jefe derrotado! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Return: el platillo que devuelve</a>
+      <a href="../nivel-5/index.html">Siguiente: Nivel 5 · JavaScript: dale vida a tu página ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

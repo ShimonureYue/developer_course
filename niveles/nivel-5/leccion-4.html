@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decisiones y ciclos en JS — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">⚡ Nivel 5: JavaScript</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 5 · LECCIÓN 4</span>
+    <h1>Decisiones y ciclos en JS 🔁</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Usar <strong>if/else</strong>, <strong>for</strong> y <strong>while</strong> en JavaScript
+        (que YA dominas en Python 💪) y hacer magia: <strong>llenar una página con 100
+        estrellitas ⭐ usando solo 3 líneas de código</strong>.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Buenas noticias: hoy NO aprendes conceptos nuevos. Decidir con <code>if</code> y repetir
+        con ciclos ya lo traes en la sangre desde Python. 🐍 Solo vas a aprender cómo se
+        "visten" en JavaScript. Vamos por partes:</p>
+
+      <h2>🚦 if / else: mismo semáforo, otras llaves</h2>
+      <table class="tabla">
+        <tr><th>🐍 Python</th><th>⚡ JavaScript</th></tr>
+        <tr>
+          <td><pre class="bloque-codigo"><code>if vidas == 0:
+    print("GAME OVER")
+elif vidas == 1:
+    print("¡Cuidado!")
+else:
+    print("Vas bien")</code></pre></td>
+          <td><pre class="bloque-codigo"><code>if (vidas === 0) {
+  console.log("GAME OVER");
+} else if (vidas === 1) {
+  console.log("¡Cuidado!");
+} else {
+  console.log("Vas bien");
+}</code></pre></td>
+        </tr>
+      </table>
+      <p>Tres cambios: la condición va <strong>entre paréntesis</strong>, el código va
+        <strong>entre llaves</strong>, y <code>elif</code> se estira a <code>else if</code>.</p>
+
+      <h2>⚠️ El detalle importante: <code>===</code> con TRES signos</h2>
+      <div class="analogia">
+        En JavaScript comparar con <code>==</code> (doble) es como un guardia distraído 😴:
+        deja pasar cosas "parecidas" — para él <code>5 == "5"</code> es verdadero, ¡aunque uno
+        es número y otro es texto! <code>===</code> (triple) es el guardia estricto 🫡:
+        solo dice "verdadero" si son <strong>iguales en valor Y en tipo</strong>.
+        Regla de oro: <strong>usa siempre <code>===</code></strong> (y <code>!==</code> para "distinto").
+      </div>
+
+      <h2>🔁 Ciclos: for y while</h2>
+      <table class="tabla">
+        <tr><th>¿Qué hace?</th><th>🐍 Python</th><th>⚡ JavaScript</th></tr>
+        <tr>
+          <td>Repetir 10 veces</td>
+          <td><pre class="bloque-codigo"><code>for i in range(10):
+    print(i)</code></pre></td>
+          <td><pre class="bloque-codigo"><code>for (let i = 0; i &lt; 10; i++) {
+  console.log(i);
+}</code></pre></td>
+        </tr>
+        <tr>
+          <td>Repetir mientras…</td>
+          <td><pre class="bloque-codigo"><code>while vidas &gt; 0:
+    vidas = vidas - 1</code></pre></td>
+          <td><pre class="bloque-codigo"><code>while (vidas &gt; 0) {
+  vidas = vidas - 1;
+}</code></pre></td>
+        </tr>
+      </table>
+      <p>El <code>for</code> de JS parece trabalenguas pero son 3 instrucciones separadas por
+        punto y coma, como una receta de repetición:</p>
+      <pre class="bloque-codigo"><code>for (let i = 0;   i &lt; 10;   i++) {
+//   ↑ inicio     ↑ ¿sigo?    ↑ después de cada vuelta
+//  "i arranca   "repite      "súmale 1 a i"
+//   en 0"        mientras i
+//                sea menor
+//                que 10"</code></pre>
+      <p>Y <code>i++</code> es un atajo de <code>i = i + 1</code>. Los programadores somos
+        fans de los atajos. 😄</p>
+
+      <div class="diagrama">
+        <svg width="520" height="230" viewBox="0 0 520 230">
+          <!-- Flecha circular del ciclo -->
+          <g class="anim-girar">
+            <circle cx="130" cy="115" r="62" fill="none" stroke="#ffe95c" stroke-width="4" stroke-dasharray="270 60"/>
+            <polygon points="180,73 196,88 174,94" fill="#ffe95c"/>
+          </g>
+          <text class="mono" x="130" y="110" text-anchor="middle" font-size="13" fill="#eaeaf5">repetir</text>
+          <text class="mono" x="130" y="130" text-anchor="middle" font-size="13" fill="#eaeaf5">10 veces</text>
+          <!-- Contador que avanza -->
+          <text class="mono" x="280" y="60" font-size="14" fill="#a3a3c8">i = …</text>
+          <g>
+            <text class="mono anim-conteo" x="330" y="60" font-size="17" fill="#00e5ff">0</text>
+            <text class="mono anim-conteo paso-2" x="355" y="60" font-size="17" fill="#39ff8e">1</text>
+            <text class="mono anim-conteo paso-3" x="380" y="60" font-size="17" fill="#ff4dd8">2</text>
+            <text class="mono anim-conteo paso-4" x="405" y="60" font-size="17" fill="#ffe95c">3</text>
+            <text class="mono anim-conteo paso-5" x="430" y="60" font-size="17" fill="#a78bfa">4</text>
+          </g>
+          <!-- Estrellas que van apareciendo -->
+          <text x="280" y="125" font-size="14" fill="#a3a3c8">y cada vuelta deja algo:</text>
+          <g>
+            <text class="anim-conteo" x="285" y="170" font-size="24">⭐</text>
+            <text class="anim-conteo paso-2" x="320" y="170" font-size="24">⭐</text>
+            <text class="anim-conteo paso-3" x="355" y="170" font-size="24">⭐</text>
+            <text class="anim-conteo paso-4" x="390" y="170" font-size="24">⭐</text>
+            <text class="anim-conteo paso-5" x="425" y="170" font-size="24">⭐</text>
+          </g>
+          <text x="365" y="210" text-anchor="middle" font-size="12" fill="#a3a3c8">…⭐ hasta llegar a 100 sin sudar 😎</text>
+        </svg>
+        <p class="pie">El ciclo da vueltas 🔁: en cada vuelta el contador <code>i</code> crece y el
+          código de adentro se ejecuta otra vez. Tú escribes 3 líneas, la computadora hace las 100 vueltas.</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Decisiones y ciclos trabajando juntos, estilo videojuego. Ejecuta y luego cambia
+        <code>puntos</code> a 900 para ver qué pasa:</p>
+
+      <div class="playground" data-mode="js" data-titulo="rango_gamer.js">
+<script type="text/plain">
+// ===== DECISIONES con === =====
+let puntos = 350;
+
+if (puntos >= 800) {
+  console.log("🏆 Rango: LEYENDA");
+} else if (puntos >= 300) {
+  console.log("😎 Rango: PRO");
+} else {
+  console.log("🐣 Rango: NOVATO");
+}
+
+// ===== EL GUARDIA DISTRAÍDO vs EL ESTRICTO =====
+console.log("¿5 == '5'?", 5 == "5");    // true 😱 (guardia distraído)
+console.log("¿5 === '5'?", 5 === "5");  // false ✅ (guardia estricto)
+
+// ===== CICLO FOR =====
+console.log("--- Cuenta regresiva ---");
+for (let i = 5; i > 0; i--) {
+  console.log(i + "…");
+}
+console.log("🚀 ¡DESPEGUE!");
+
+// ===== CICLO WHILE =====
+let energia = 3;
+while (energia > 0) {
+  console.log("⚡ Energía restante:", energia);
+  energia = energia - 1;
+}
+console.log("😴 Sin energía… a dormir");
+</script>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>La magia prometida ✨: llena la página de <strong>100 estrellitas con un ciclo de
+        3 líneas</strong>. El truco nuevo es <code>document.body.append("⭐")</code>, que
+        agrega algo al final de la página. Completa el TODO:</p>
+
+      <div class="playground" data-mode="html" data-titulo="cielo_estrellado.html" data-alto="280">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #0a0a1a; font-size: 1.5rem; text-align: center; }
+    h1 { color: #ffe95c; font-family: sans-serif; font-size: 1.2rem; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Mi cielo estrellado ✨&lt;/h1&gt;
+
+  &lt;script&gt;
+    // TODO: escribe un ciclo for que repita 100 veces
+    //       y en cada vuelta haga: document.body.append("⭐");
+    //       ¡Solo son 3 líneas contando las llaves!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Mira la tabla de ciclos: en Python sería <code>for i in range(100):</code>.
+          Tradúcelo con la receta <code>for (inicio; ¿sigo?; avanza)</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La primera línea completa es: <code>for (let i = 0; i &lt; 100; i++) {</code> —
+          adentro va el <code>append</code> y al final cierras la llave <code>}</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>for (let i = 0; i &lt; 100; i++) {   // repite 100 veces (i va de 0 a 99)
+  document.body.append("⭐");       // cada vuelta pega una estrella
+}                                    // fin del ciclo</code></pre>
+          3 líneas → 100 estrellas. Ahora imagina cambiar el 100 por 1000… 🤯
+          Ese es el superpoder de los ciclos: tú escribes la instrucción UNA vez
+          y la computadora la repite las veces que quieras.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Compara tu código con las <strong>tablas Python ↔ JS</strong>: casi siempre falta un
+          paréntesis, una llave o un punto y coma. 🔎</li>
+        <li>Lee el mensaje de error de la consola: te dice la línea del problema.
+          Es una pista, no un regaño. 🚑</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n5l4">Tengo 13 años, domino if/else y ciclos en Python y estoy aprendiendo JavaScript. Explícame las 3 partes del for clásico de JavaScript (inicio; condición; avance) comparándolo con range() de Python, y la diferencia entre == y === con ejemplos. Luego ponme 3 ejercicios cortos de ciclos en JavaScript (del más fácil al más difícil) y revisa mis respuestas una por una. No me des las soluciones hasta que yo lo intente dos veces.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>En tu cielo estrellado: alterna <code>⭐</code> y <code>🌙</code> usando un
+        <code>if</code> adentro del ciclo (pista: <code>i % 2 === 0</code> detecta los pares,
+        ¡el módulo <code>%</code> funciona igual que en Python!).
+        <strong>Jefe secreto:</strong> haz una tabla del 7 en la consola con un ciclo:
+        <code>7 x 1 = 7</code>, <code>7 x 2 = 14</code>… hasta el 10. 👑</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n5-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué conviene usar <code>===</code> en vez de <code>==</code> en JavaScript?</p>
+          <button class="opcion">Porque tres signos se ven más profesionales</button>
+          <button class="opcion" data-ok>Porque <code>===</code> compara valor Y tipo; <code>==</code> deja pasar cosas "parecidas" como <code>5 == "5"</code></button>
+          <button class="opcion">No hay diferencia, son idénticos</button>
+          <div class="explicacion"><code>==</code> es el guardia distraído 😴 y <code>===</code> el
+            estricto 🫡. Con <code>===</code> evitas bugs raros donde un texto se confunde con un número.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cuál es la traducción correcta de <code>for i in range(5):</code> a JavaScript?</p>
+          <button class="opcion"><code>for i in range(5) { }</code></button>
+          <button class="opcion"><code>for (i hasta 5) { }</code></button>
+          <button class="opcion" data-ok><code>for (let i = 0; i &lt; 5; i++) { }</code></button>
+          <div class="explicacion">Las 3 partes: <code>let i = 0</code> (arranca en 0),
+            <code>i &lt; 5</code> (sigue mientras sea menor que 5), <code>i++</code> (suma 1 por vuelta).
+            Recorre 0, 1, 2, 3, 4 — igual que <code>range(5)</code>.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Cuántas veces se ejecuta el <code>append</code> aquí? <code>for (let i = 0; i &lt; 100; i++) { document.body.append("⭐"); }</code></p>
+          <button class="opcion">99 veces</button>
+          <button class="opcion" data-ok>100 veces (i va de 0 a 99)</button>
+          <button class="opcion">101 veces</button>
+          <div class="explicacion">Empieza en 0 y para cuando i llega a 100 (porque
+            <code>100 &lt; 100</code> es falso). De 0 a 99 hay exactamente 100 vueltas. 🌟</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n5-l4">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: El DOM: tocar la página</a>
+      <a href="leccion-5.html">Siguiente: Jefe: Taco Clicker 🌮👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

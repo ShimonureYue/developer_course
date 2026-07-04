@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Arcade 👾 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor">
+    <!-- ============ HÉROE ============ -->
+    <section class="centrado" style="padding: 50px 0 10px;">
+      <div style="font-size: 4rem;">👾</div>
+      <h1>EL ARCADE</h1>
+      <p style="max-width: 640px; margin: 18px auto; font-size: 1.1rem;">
+        Estos juegos los vas a construir <strong>TÚ</strong> durante el curso —
+        juégalos, obsérvalos con ojo de detective 🔍, y cuando termines los tuyos,
+        regresa aquí a compararlos. <em>Spoiler:</em> los tuyos pueden quedar mejores 😏.
+      </p>
+      <p class="suave" style="max-width: 640px; margin: 0 auto; font-size: 0.95rem;">
+        💡 Tip de game dev: en cualquier juego puedes hacer clic derecho →
+        <strong>"Ver código fuente de la página"</strong> — todo el código está
+        comentado para que lo estudies.
+      </p>
+    </section>
+
+    <!-- ============ LOS 3 JUEGOS ============ -->
+    <section class="mapa" style="grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); padding-top: 24px;">
+
+      <a class="mapa-nivel" href="gato.html" style="--color-nivel: #00e5ff;">
+        <span class="emoji">😼</span>
+        <span class="numero">LO CONSTRUYES EN EL NIVEL 6</span>
+        <div class="titulo">GATO</div>
+        <div class="estado">
+          El clásico tres en línea. Reta a un amigo 🧑‍🤝‍🧑 o a la computadora 🤖.
+          Tu primer videojuego de verdad: turnos, victoria, empate y marcador.
+          <br><br>🖱️ <strong>Controles:</strong> haz clic en la casilla donde quieras tirar.
+        </div>
+      </a>
+
+      <a class="mapa-nivel" href="snake.html" style="--color-nivel: #39ff8e;">
+        <span class="emoji">🐍</span>
+        <span class="numero">LO CONSTRUYES EN EL NIVEL 8</span>
+        <div class="titulo">SNAKE</div>
+        <div class="estado">
+          La serpiente que crece con cada manzana 🍎… y cada vez va más rápido.
+          Aquí conoces el <em>game loop</em> y el canvas.
+          <br><br>⌨️ <strong>Controles:</strong> flechas ⬅️⬆️⬇️➡️ para moverte,
+          ESPACIO para reintentar.
+        </div>
+      </a>
+
+      <a class="mapa-nivel" href="space-invaders.html" style="--color-nivel: #a78bfa;">
+        <span class="emoji">👾</span>
+        <span class="numero">LO CONSTRUYES EN EL NIVEL 9</span>
+        <div class="titulo">SPACE INVADERS</div>
+        <div class="estado">
+          El proyecto final: oleadas de invasores, disparos, explosiones,
+          vidas y sonidos retro. La joya de la corona 👑.
+          <br><br>⌨️ <strong>Controles:</strong> ← → para mover la nave,
+          ESPACIO para disparar, P para pausa.
+        </div>
+      </a>
+    </section>
+
+    <!-- ============ NOTA SOBRE LOS RÉCORDS ============ -->
+    <section class="panel centrado">
+      <p style="margin: 0;">
+        💾 Cada juego guarda sus <strong>récords y marcadores en esta computadora</strong>
+        (usando <code>localStorage</code>, la memoria del navegador — lo aprendes en el Nivel 7).
+        Si juegas en otra compu, los récords empiezan de cero. ¡A romperlos todos! 🏆
+      </p>
+    </section>
+  </main>
+
+  <footer class="centrado suave" style="padding: 30px; font-size: 0.85rem;">
+    ¿Listo para construir los tuyos? <a href="../index.html">🗺️ Ve al mapa de la aventura</a>
+  </footer>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

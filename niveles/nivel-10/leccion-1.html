@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retos legendarios: Tetris y plataformero — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #00e5ff;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🚀 Nivel 10: Camino a Godot</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 10 · LECCIÓN 1</span>
+    <h1>Retos legendarios: Tetris 🧩 y un plataformero 🍄</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Llevarte los <strong>planos de dos juegos legendarios</strong> para construir por tu
+        cuenta — Tetris 🧩 y un plataformero tipo Mario 🍄 — y dominar la pieza clave del
+        segundo: la <strong>física de salto con gravedad</strong>, con demo jugable incluida.
+        Sin paso a paso: <strong>pistas por etapa</strong>, como los game devs de verdad.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: LOS JUEGOS GRANDES SE COMEN POR ETAPAS</p>
+      <p>¿Cómo construiste Space Invaders, un juego de 400 líneas? <strong>Nunca lo hiciste de
+        golpe</strong>: nave → balas → invasión → choques → vidas → pantallas. Seis etapas, y en
+        cada una tenías algo que FUNCIONABA. Ese es el método, y hoy te lo llevas de por vida:</p>
+      <div class="analogia">
+        Un proyecto grande es como una <strong>pizza familiar</strong> 🍕: nadie se la come de un
+        bocado, pero rebanada por rebanada desaparece. La regla de oro:
+        <strong>cada etapa termina con algo que corre y se puede probar</strong>. Si tu etapa no
+        se puede probar, la rebanada era demasiado grande: pártela en dos.
+      </div>
+
+      <h2>🍎 La pieza nueva: gravedad (física de a de veras, versión juego)</h2>
+      <p>Para el plataformero necesitas UN concepto nuevo. En Space Invaders las cosas se movían
+        a velocidad constante. En un plataformero, al saltar, la velocidad <strong>cambia en cada
+        cuadro</strong>: la gravedad le suma un poquito hacia abajo, siempre:</p>
+      <pre class="bloque-codigo"><code>jugador.velocidadY = jugador.velocidadY + 0.5;  // la gravedad JALA cada cuadro
+jugador.y = jugador.y + jugador.velocidadY;     // y la velocidad mueve al jugador
+
+// y al saltar (SOLO si estás pisando algo):
+jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)</code></pre>
+      <p>Resultado: subes rápido → frenas → flotas un instante → caes cada vez más rápido.
+        Esa curva tiene nombre: <strong>parábola</strong> — la misma de un balón lanzado. 📐⚽</p>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- Piso -->
+          <rect x="30" y="185" width="500" height="12" rx="4" fill="#39ff8e"/>
+          <!-- Parábola punteada -->
+          <path class="anim-recorrido" d="M 70 180 Q 280 -40 490 180" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <!-- Jugador al inicio -->
+          <rect x="55" y="158" width="26" height="26" rx="4" fill="#ff4dd8"/>
+          <!-- Etiquetas de velocidad -->
+          <text class="mono" x="115" y="120" font-size="12" fill="#a3a3c8">sube rápido ⬆️</text>
+          <text class="mono" x="235" y="52" font-size="12" fill="#ffe95c">frena… flota 🪶</text>
+          <text class="mono" x="385" y="120" font-size="12" fill="#a3a3c8">cae más rápido ⬇️</text>
+          <text class="mono" x="280" y="215" text-anchor="middle" font-size="13" fill="#00e5ff">velocidadY += 0.5 en CADA cuadro = parábola</text>
+        </svg>
+        <p class="pie">El salto perfecto no se dibuja: <strong>emerge</strong> de una sola regla
+          repetida 60 veces por segundo. Sumar 0.5 a la velocidad cada cuadro produce la parábola solita.</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: LA FÍSICA DE SALTO, VIVA</p>
+      <p>Camina con ← →, salta con ⬆️ o ESPACIO, y sube de plataforma en plataforma. Siente la
+        parábola. Fíjate en la regla anti-trampa: <strong>solo puedes saltar si
+        <code>enPiso</code> es <code>true</code></strong> — sin ella, podrías "volar" apretando
+        saltar en el aire. 🪁</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="fisica_de_salto.html" data-alto="330">
+<pre class="codigo-inicial" hidden>
+@@CODE:n10l1-demo@@
+</pre>
+      </div>
+
+      <p>El aterrizaje usa a tu vieja amiga: una comparación de rectángulos tipo
+        <code>chocan()</code>, con un extra: solo aterrizas si <strong>venías cayendo desde
+        arriba</strong> (<code>velocidadY &gt;= 0</code>). Si no, ¡te pegarías al techo de las
+        plataformas al saltar por debajo!</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: CONVIÉRTELO EN JUEGO</p>
+      <p>Hay una ⭐ arriba a la izquierda… <strong>imposible de alcanzar</strong>. Tu misión:
+        (1) agrega una plataforma-escalón al arreglo, y (2) detecta con <code>chocan()</code>
+        (ya viene incluida) cuándo el jugador toca la estrella para mostrar el letrero de
+        victoria. Meta + detección = eso convierte un juguete en un JUEGO. 🏆</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_plataformero.html" data-alto="330">
+<pre class="codigo-inicial" hidden>
+@@CODE:n10l1-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Una plataforma es solo un objeto más en el arreglo:
+          <code>{ x: 20, y: 190, ancho: 100, alto: 14 }</code>. Cuidado con la altura: tu salto
+          sube máximo 100 píxeles, así que el escalón debe estar a 100px o menos de donde
+          despegas (el piso está en y = 280).
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El TODO 2 es una sola línea dentro de <code>actualizar()</code>:
+          <code>if (chocan(jugador, meta)) ganaste = true;</code> — el dibujo del letrero ya
+          está listo esperando a que <code>ganaste</code> sea true.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>var plataformas = [
+  { x: 0,   y: 280, ancho: 480, alto: 20 },
+  { x: 150, y: 210, ancho: 120, alto: 14 },
+  { x: 320, y: 140, ancho: 110, alto: 14 },
+  { x: 20,  y: 190, ancho: 100, alto: 14 }   // 1) el escalón nuevo 🪜
+];
+
+// 2) dentro de actualizar(), al final:
+if (chocan(jugador, meta)) {
+  ganaste = true;
+}</code></pre>
+          Piso → escalón → salto a la estrella. Fíjate qué hiciste: <strong>diseñaste un
+          nivel</strong>. Cambiar datos (el arreglo) cambia el mapa sin tocar la lógica —
+          así es como los juegos tienen 100 niveles con el mismo código.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿No alcanzas tu plataforma nueva? Está muy alta: recuerda, el salto sube ~100px.
+          Bájala (número de <code>y</code> MÁS GRANDE = más abajo). 📏</li>
+        <li>¿Atraviesas la plataforma? Revisa que la agregaste DENTRO del arreglo, con su coma. 🔍</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n10l1">Tengo 13 años, ya construí un Space Invaders completo en JavaScript con canvas, y ahora quiero construir mi siguiente juego yo solo (estoy decidiendo entre Tetris y un plataformero tipo Mario). Ya tengo un plan por etapas. Quiero que seas mi mentor de proyecto: cuando te pegue el código de una etapa, ayúdame SOLO con pistas y preguntas, nunca me escribas el juego completo. Empecemos: te voy a contar mi etapa actual y lo que ya funciona.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO: LOS PLANOS LEGENDARIOS ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 LOS RETOS LEGENDARIOS (TU PRÓXIMO MES DE JUEGO)</p>
+      <p>Aquí están los planos. <strong>No hay paso a paso a propósito</strong>: tú ya sabes
+        construir; esto son los mapas de la mina. Elige UNO, avanza una etapa por sesión, y
+        usa a la IA como mentor (prompt de arriba ☝️) cuando te atores.</p>
+
+      <h2>🧩 RETO 1: TETRIS (dificultad: 👑👑)</h2>
+      <p>El secreto que lo desbloquea todo: el tablero es una <strong>matriz</strong> — un
+        arreglo de arreglos, 20 filas × 10 columnas, donde 0 = vacío y 1 = ocupado. ¡Y las
+        piezas TAMBIÉN son mini-matrices! La T es
+        <code>[[0,1,0],[1,1,1]]</code>. Todo Tetris es mover numeritos entre matrices.</p>
+      <ol class="pasos">
+        <li><strong>El tablero:</strong> crea la matriz 20×10 (ciclos anidados 😉) y dibújala en
+          el canvas: cada celda, un cuadrito de ~24px. Pinta algunas celdas a mano para probar.</li>
+        <li><strong>Una pieza que cae:</strong> elige una pieza (su matriz + su posición fila/columna)
+          y hazla bajar una fila cada 30 cuadros — un "reloj de gravedad" con un contador, como
+          el <code>tiempo</code> de tus explosiones.</li>
+        <li><strong>Chocar y congelarse:</strong> antes de bajar, revisa si cabe (¿celda ocupada
+          o piso?). Si no cabe: la pieza se "escribe" en el tablero y nace una nueva arriba.</li>
+        <li><strong>Moverla:</strong> ← → (revisando paredes y celdas ocupadas antes de mover) y
+          ⬇️ para acelerar la caída.</li>
+        <li><strong>Rotar:</strong> el paso más rudo 💪: rotar una matriz 90° (busca "rotar matriz"
+          — o deduce: la fila se vuelve columna). Revisa que la rotación quepa antes de aplicarla.</li>
+        <li><strong>Limpiar filas:</strong> si una fila del tablero está llena de 1s, elimínala y
+          agrega una fila vacía arriba (¡<code>filter</code> y amigos!). +100 puntos. Las 7 piezas,
+          velocidad creciente y récord en localStorage: ya sabes cómo. 🏆</li>
+      </ol>
+
+      <h2>🍄 RETO 2: PLATAFORMERO TIPO MARIO (dificultad: 👑👑)</h2>
+      <p>¡Ya tienes la etapa 1 y 2 hechas ARRIBA! La física de salto de esta lección es el
+        corazón del juego. Sigue desde ahí:</p>
+      <ol class="pasos">
+        <li><strong>Gravedad y salto:</strong> ✅ hecho hoy (velocidadY += 0.5, salto solo
+          <code>enPiso</code>).</li>
+        <li><strong>Plataformas AABB:</strong> ✅ hecho hoy (aterrizar solo cayendo desde arriba).</li>
+        <li><strong>El nivel grande:</strong> diseña un mundo de 2000px de ancho en tu arreglo
+          <code>plataformas</code> (¡ya viste que diseñar niveles es editar datos!).</li>
+        <li><strong>Scroll — el gran truco:</strong> la cámara NO existe: cuando el jugador pasa
+          de la mitad de la pantalla, <strong>mueves el MUNDO hacia atrás</strong> (restas a la x
+          de todas las plataformas) y el jugador se queda. Compruébalo: se siente exactamente
+          como una cámara.</li>
+        <li><strong>Peligros:</strong> caer al vacío = perder vida (¿<code>jugador.y &gt;
+          canvas.height</code>?) y algún enemigo que patrulla su plataforma ida y vuelta
+          (como los invasores, pero solito).</li>
+        <li><strong>La meta:</strong> bandera al final 🏁 con <code>chocan()</code> (¡como tu
+          estrella de hoy!), pantalla de victoria, monedas que suman puntos… y estados
+          inicio/jugando/gameover, que ya son tu especialidad. 🎬</li>
+      </ol>
+      <p><strong>Regla de leyenda:</strong> guarda cada etapa como archivo aparte
+        (<code>tetris-etapa1.html</code>, <code>tetris-etapa2.html</code>…). Si rompes algo,
+        siempre tienes a dónde volver. En la Lección 3 aprenderás la versión pro de esto:
+        GitHub. 😉</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n10-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué el salto de un plataformero dibuja una parábola?</p>
+          <button class="opcion">Porque el programador dibuja la curva punto por punto</button>
+          <button class="opcion" data-ok>Porque la gravedad suma un poquito a velocidadY en CADA cuadro: subes frenando y caes acelerando</button>
+          <button class="opcion">Porque canvas redondea los movimientos automáticamente</button>
+          <div class="explicacion">Una regla simple, repetida 60 veces por segundo, produce una
+            curva natural. A eso se le llama comportamiento <em>emergente</em> — y es la magia
+            de los game loops. 🪄</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En Tetris, ¿cómo conviene representar el tablero?</p>
+          <button class="opcion">Con 200 variables: celda1, celda2, celda3…</button>
+          <button class="opcion" data-ok>Con una matriz (arreglo de arreglos) de 20 filas × 10 columnas, donde cada número dice si la celda está ocupada</button>
+          <button class="opcion">Con una foto del tablero que se recorta</button>
+          <div class="explicacion">La matriz convierte el juego en pura lógica de numeritos:
+            mover una pieza es cambiar índices, limpiar una fila es eliminar un arreglo.
+            Datos bien elegidos = código fácil. 🧩</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Cómo se hace el "scroll" cuando el personaje avanza por el nivel?</p>
+          <button class="opcion">Se agranda el canvas para que quepa todo el nivel</button>
+          <button class="opcion">El personaje se hace más pequeño para simular distancia</button>
+          <button class="opcion" data-ok>El personaje se queda cerca del centro y es EL MUNDO el que se mueve hacia atrás</button>
+          <div class="explicacion">El truco más contraintuitivo y famoso de los videojuegos:
+            no existe cámara, existe un mundo que se desplaza. Hasta los juegos 3D usan esta
+            idea (todo es relativo a la cámara). 🎥</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n10-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 10</a>
+      <a href="leccion-2.html">Siguiente: Godot, tu siguiente consola ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

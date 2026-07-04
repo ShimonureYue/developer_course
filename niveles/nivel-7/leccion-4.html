@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: tabla de récords para tu Gato — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff5c7a;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">💾 Nivel 7: Datos</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 7 · LECCIÓN 4 · 👑 JEFE</span>
+    <h1>Jefe: tabla de récords para tu Gato 👑🏆</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 EL JEFE DE ESTE NIVEL</p>
+      <p>Conectar TODO el nivel: tu Gato del nivel 6 va a <strong>pedir los nombres de los
+        jugadores</strong>, guardar sus victorias en un <strong>arreglo de objetos</strong>
+        <code>[{nombre, victorias}]</code>, empacarlo con <strong>JSON</strong> en
+        <strong>localStorage</strong>, y mostrar un <strong>TOP 5 ordenado</strong> que
+        sobrevive a la recarga. Como los récords de las maquinitas de verdad. 🕹️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL PLAN DE BATALLA</p>
+      <p>Un jefe no se vence a lo loco: se vence con plan. El viaje de cada victoria
+        tiene 5 estaciones, y TODAS las aprendiste ya en este nivel:</p>
+      <div class="analogia">
+        Es como el <strong>salón de la fama de las maquinitas</strong> 🕹️: ganas, la máquina
+        te pide tus iniciales, guarda tu marca en su memoria… y aunque la desconecten,
+        al día siguiente tu nombre sigue brillando en la pantalla de HIGH SCORES.
+      </div>
+
+      <div class="diagrama">
+        <svg width="600" height="220" viewBox="0 0 600 220">
+          <!-- La victoria que viaja hacia el cajón -->
+          <g class="anim-valor-entra" style="--dx: 210px;">
+            <rect x="20" y="80" width="130" height="52" rx="10" fill="#ffe95c"/>
+            <text x="85" y="102" text-anchor="middle" fill="#0a0a1a" font-size="13">🎉 ¡ganó Kai!</text>
+            <text class="mono" x="85" y="122" text-anchor="middle" fill="#0a0a1a" font-size="10">{nombre, victorias}</text>
+          </g>
+          <!-- Empacadora JSON -->
+          <g class="anim-pulso">
+            <rect x="240" y="70" width="120" height="72" rx="10" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <text x="300" y="100" text-anchor="middle" font-size="12" fill="#a78bfa">JSON.stringify</text>
+            <text x="300" y="124" text-anchor="middle" font-size="18">📦</text>
+          </g>
+          <line class="anim-recorrido" x1="365" y1="106" x2="425" y2="106" stroke="#39ff8e" stroke-width="3"/>
+          <!-- El cajón -->
+          <rect x="430" y="55" width="150" height="100" rx="12" fill="none" stroke="#ff5c7a" stroke-width="3"/>
+          <rect x="443" y="42" width="124" height="24" rx="6" fill="#ff5c7a"/>
+          <text x="505" y="59" text-anchor="middle" fill="#0a0a1a" font-size="11">localStorage</text>
+          <text class="anim-valor-aparece" x="505" y="105" text-anchor="middle" font-size="22">💾</text>
+          <text x="505" y="135" text-anchor="middle" font-size="10" fill="#a3a3c8">"gato-records"</text>
+          <!-- De regreso -->
+          <text x="300" y="185" text-anchor="middle" font-size="12" fill="#a3a3c8">…y al abrir la página: JSON.parse 📂 → sort 🔢 → TOP 5 🏆</text>
+        </svg>
+        <p class="pie">Cada victoria viaja: objeto → <code>JSON.stringify</code> 📦 →
+          <code>localStorage</code> 💾. Y al abrir la página, el viaje de regreso:
+          <code>getItem</code> → <code>JSON.parse</code> 📂 → ordenar → pintar el TOP 5.</p>
+      </div>
+
+      <p>Las 5 estaciones, en código:</p>
+      <ol>
+        <li><strong>Los nombres:</strong> <code>prompt("¿Quién juega con la X?")</code> —
+          una ventanita que pregunta y devuelve lo que escriban.</li>
+        <li><strong>La ficha:</strong> cada jugador es un objeto <code>{ nombre: "Kai", victorias: 2 }</code>
+          dentro de una lista (lección 1 🃏).</li>
+        <li><strong>Guardar:</strong> <code>localStorage.setItem("gato-records", JSON.stringify(lista))</code>
+          (lección 2 💾).</li>
+        <li><strong>Leer:</strong> <code>JSON.parse(localStorage.getItem("gato-records"))</code> —
+          y si viene <code>null</code>, empezamos con lista vacía <code>[]</code>.</li>
+        <li><strong>El TOP 5:</strong> ordenar la lista de mayor a menor y quedarnos con 5.
+          Dos herramientas nuevas chiquitas:
+          <code>lista.sort(function (a, b) { return b.victorias - a.victorias; })</code>
+          ordena comparando fichas por pares (si el resultado es positivo, <code>b</code> va primero),
+          y <code>lista.slice(0, 5)</code> corta una copia con los primeros 5. ✂️</li>
+      </ol>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 ASÍ SE VE EL JEFE VENCIDO</p>
+      <p>Aquí está el Gato completo con récords, listo para jugar. Presiona
+        <strong>▶ Ejecutar</strong>, escribe los nombres, juega unas partidas… y luego vuelve
+        a presionar <strong>▶ Ejecutar</strong> (la "recarga"): los récords siguen ahí 🤯.
+        Léelo con calma: reconocerás el Gato del nivel 6 + las funciones nuevas de récords:</p>
+
+      <div class="playground" data-mode="html" data-titulo="gato_con_records.html" data-alto="620" data-auto="no">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; background: #14142e; color: #eaeaf5; text-align: center; }
+    h1 { color: #ffe95c; font-size: 22px; }
+    #tablero { display: grid; grid-template-columns: repeat(3, 74px); gap: 6px; justify-content: center; }
+    .celda { width: 74px; height: 74px; font-size: 36px; background: #1d1d3f;
+             color: #00e5ff; border: 2px solid #2b2b55; border-radius: 10px; cursor: pointer; }
+    #estado { font-size: 18px; min-height: 26px; }
+    table { margin: 8px auto; border-collapse: collapse; }
+    td, th { border: 1px solid #2b2b55; padding: 5px 16px; }
+    th { color: #ff5c7a; }
+    .otra { padding: 8px 16px; border-radius: 8px; border: none;
+            background: #39ff8e; cursor: pointer; font-weight: bold; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 Gato con récords&lt;/h1&gt;
+  &lt;p id="estado"&gt;&lt;/p&gt;
+  &lt;div id="tablero"&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;button class="otra" id="reiniciar"&gt;🔄 Otra partida&lt;/button&gt;&lt;/p&gt;
+  &lt;h3&gt;🏆 TOP 5 DE TODOS LOS TIEMPOS&lt;/h3&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Jugador&lt;/th&gt;&lt;th&gt;Victorias&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody id="records"&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+
+  &lt;script&gt;
+    // ---------- ESTACIÓN 1: los nombres ----------
+    var nombreX = prompt("¿Quién juega con la X?") || "Jugador X";
+    var nombreO = prompt("¿Quién juega con la O?") || "Jugador O";
+
+    // ---------- El Gato del nivel 6 (¡ya lo conoces!) ----------
+    var tablero = ["", "", "", "", "", "", "", "", ""];
+    var turno = "X";
+    var terminado = false;
+
+    var LINEAS = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],   // filas
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],   // columnas
+      [0, 4, 8], [2, 4, 6]               // diagonales
+    ];
+
+    var zonaTablero = document.getElementById("tablero");
+    var estado = document.getElementById("estado");
+
+    function pintarTablero() {
+      zonaTablero.innerHTML = "";
+      for (var i = 0; i &lt; 9; i++) {
+        var celda = document.createElement("button");
+        celda.className = "celda";
+        celda.textContent = tablero[i];
+        celda.onclick = jugarEn(i);
+        zonaTablero.appendChild(celda);
+      }
+    }
+
+    function jugarEn(i) {
+      return function () {
+        if (terminado || tablero[i] !== "") return;
+        tablero[i] = turno;
+        var ganador = checarGanador();
+        if (ganador) {
+          terminado = true;
+          var nombre = ganador === "X" ? nombreX : nombreO;
+          estado.textContent = "🎉 ¡Ganó " + nombre + "!";
+          sumarVictoria(nombre);        // 💾 ¡aquí entra el nivel 7!
+        } else if (tableroLleno()) {
+          terminado = true;
+          estado.textContent = "😺 ¡Empate! (gato)";
+        } else {
+          turno = turno === "X" ? "O" : "X";
+          estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
+        }
+        pintarTablero();
+      };
+    }
+
+    function checarGanador() {
+      for (var i = 0; i &lt; LINEAS.length; i++) {
+        var l = LINEAS[i];
+        if (tablero[l[0]] !== "" &amp;&amp;
+            tablero[l[0]] === tablero[l[1]] &amp;&amp;
+            tablero[l[1]] === tablero[l[2]]) {
+          return tablero[l[0]];
+        }
+      }
+      return null;
+    }
+
+    function tableroLleno() {
+      for (var i = 0; i &lt; 9; i++) {
+        if (tablero[i] === "") return false;
+      }
+      return true;
+    }
+
+    // ---------- ESTACIONES 2 a 5: los récords 💾 ----------
+
+    // Leer la lista del cajón (o empezar con lista vacía)
+    function cargarRecords() {
+      var crudo = localStorage.getItem("gato-records");
+      if (crudo === null) return [];      // primera vez: nadie ha ganado
+      return JSON.parse(crudo);           // 📂 desempacar texto → lista de fichas
+    }
+
+    // Empacar la lista y guardarla en el cajón
+    function guardarRecords(lista) {
+      localStorage.setItem("gato-records", JSON.stringify(lista));  // 📦
+    }
+
+    // Sumar una victoria a la ficha del ganador (o crearle ficha nueva)
+    function sumarVictoria(nombre) {
+      var lista = cargarRecords();
+      var ficha = null;
+      for (var i = 0; i &lt; lista.length; i++) {
+        if (lista[i].nombre === nombre) ficha = lista[i];   // ¡ya existía!
+      }
+      if (ficha === null) {
+        ficha = { nombre: nombre, victorias: 0 };   // jugador nuevo
+        lista.push(ficha);
+      }
+      ficha.victorias = ficha.victorias + 1;
+      guardarRecords(lista);
+      pintarRecords();
+    }
+
+    // Ordenar de mayor a menor, cortar el TOP 5 y pintarlo
+    function pintarRecords() {
+      var lista = cargarRecords();
+      lista.sort(function (a, b) { return b.victorias - a.victorias; });
+      var top5 = lista.slice(0, 5);
+      var cuerpo = document.getElementById("records");
+      cuerpo.innerHTML = "";
+      for (var i = 0; i &lt; top5.length; i++) {
+        var fila = document.createElement("tr");
+        fila.innerHTML = "&lt;td&gt;" + (i + 1) + "&lt;/td&gt;&lt;td&gt;" + top5[i].nombre +
+          "&lt;/td&gt;&lt;td&gt;" + top5[i].victorias + "&lt;/td&gt;";
+        cuerpo.appendChild(fila);
+      }
+    }
+
+    document.getElementById("reiniciar").onclick = function () {
+      tablero = ["", "", "", "", "", "", "", "", ""];
+      turno = "X";
+      terminado = false;
+      estado.textContent = "Turno de " + nombreX + " (X)";
+      pintarTablero();
+    };
+
+    // ---------- Arranque ----------
+    estado.textContent = "Turno de " + nombreX + " (X)";
+    pintarTablero();
+    pintarRecords();   // ¡los récords viejos aparecen desde el segundo cero!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🌐 Recuerda: localStorage guarda de verdad cuando el sitio se abre por
+        internet o con Live Server (con doble clic / <code>file://</code> puede no guardar).</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: VENCE AL JEFE POR PARTES</p>
+      <p>Aquí tienes el mismo Gato, pero con las 4 funciones de récords <strong>vacías</strong>.
+        El juego funciona… pero no recuerda nada. Tu misión: completar los TODO
+        <strong>en orden</strong> y ejecutar después de cada parte. Guíate con las 5 estaciones
+        del plan de batalla: 👇</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_gato_con_records.html" data-alto="620" data-auto="no">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; background: #14142e; color: #eaeaf5; text-align: center; }
+    h1 { color: #ffe95c; font-size: 22px; }
+    #tablero { display: grid; grid-template-columns: repeat(3, 74px); gap: 6px; justify-content: center; }
+    .celda { width: 74px; height: 74px; font-size: 36px; background: #1d1d3f;
+             color: #00e5ff; border: 2px solid #2b2b55; border-radius: 10px; cursor: pointer; }
+    #estado { font-size: 18px; min-height: 26px; }
+    table { margin: 8px auto; border-collapse: collapse; }
+    td, th { border: 1px solid #2b2b55; padding: 5px 16px; }
+    th { color: #ff5c7a; }
+    .otra { padding: 8px 16px; border-radius: 8px; border: none;
+            background: #39ff8e; cursor: pointer; font-weight: bold; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 Mi Gato con récords&lt;/h1&gt;
+  &lt;p id="estado"&gt;&lt;/p&gt;
+  &lt;div id="tablero"&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;button class="otra" id="reiniciar"&gt;🔄 Otra partida&lt;/button&gt;&lt;/p&gt;
+  &lt;h3&gt;🏆 TOP 5&lt;/h3&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Jugador&lt;/th&gt;&lt;th&gt;Victorias&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody id="records"&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+
+  &lt;script&gt;
+    // TODO 1 (Estación 1): pide los nombres con prompt().
+    //        Cambia estas dos líneas para que pregunten de verdad,
+    //        con || "Jugador X" de respaldo por si no escriben nada:
+    var nombreX = "Jugador X";
+    var nombreO = "Jugador O";
+
+    // ---------- El Gato (este ya funciona, no lo toques) ----------
+    var tablero = ["", "", "", "", "", "", "", "", ""];
+    var turno = "X";
+    var terminado = false;
+
+    var LINEAS = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+
+    var zonaTablero = document.getElementById("tablero");
+    var estado = document.getElementById("estado");
+
+    function pintarTablero() {
+      zonaTablero.innerHTML = "";
+      for (var i = 0; i &lt; 9; i++) {
+        var celda = document.createElement("button");
+        celda.className = "celda";
+        celda.textContent = tablero[i];
+        celda.onclick = jugarEn(i);
+        zonaTablero.appendChild(celda);
+      }
+    }
+
+    function jugarEn(i) {
+      return function () {
+        if (terminado || tablero[i] !== "") return;
+        tablero[i] = turno;
+        var ganador = checarGanador();
+        if (ganador) {
+          terminado = true;
+          var nombre = ganador === "X" ? nombreX : nombreO;
+          estado.textContent = "🎉 ¡Ganó " + nombre + "!";
+          sumarVictoria(nombre);
+        } else if (tableroLleno()) {
+          terminado = true;
+          estado.textContent = "😺 ¡Empate! (gato)";
+        } else {
+          turno = turno === "X" ? "O" : "X";
+          estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
+        }
+        pintarTablero();
+      };
+    }
+
+    function checarGanador() {
+      for (var i = 0; i &lt; LINEAS.length; i++) {
+        var l = LINEAS[i];
+        if (tablero[l[0]] !== "" &amp;&amp;
+            tablero[l[0]] === tablero[l[1]] &amp;&amp;
+            tablero[l[1]] === tablero[l[2]]) {
+          return tablero[l[0]];
+        }
+      }
+      return null;
+    }
+
+    function tableroLleno() {
+      for (var i = 0; i &lt; 9; i++) {
+        if (tablero[i] === "") return false;
+      }
+      return true;
+    }
+
+    // ---------- TUS MISIONES 💾 ----------
+
+    function cargarRecords() {
+      // TODO 2 (Estación 4): lee "gato-records" con localStorage.getItem.
+      //        Si es null, regresa []. Si no, regresa JSON.parse(loLeido).
+      return [];
+    }
+
+    function guardarRecords(lista) {
+      // TODO 3 (Estación 3): guarda la lista en "gato-records"
+      //        empacándola con JSON.stringify.
+    }
+
+    function sumarVictoria(nombre) {
+      // TODO 4 (Estación 2): carga la lista, busca con un for la ficha
+      //        cuyo .nombre sea igual al ganador. Si no existe, crea
+      //        { nombre: nombre, victorias: 0 } y hazle push a la lista.
+      //        Súmale 1 a .victorias, guarda la lista y llama pintarRecords().
+    }
+
+    function pintarRecords() {
+      // TODO 5 (Estación 5): carga la lista, ordénala de mayor a menor con
+      //        sort, corta el top 5 con slice(0, 5) y pinta una fila &lt;tr&gt;
+      //        por cada ficha dentro de la tabla (tbody con id "records").
+    }
+
+    document.getElementById("reiniciar").onclick = function () {
+      tablero = ["", "", "", "", "", "", "", "", ""];
+      turno = "X";
+      terminado = false;
+      estado.textContent = "Turno de " + nombreX + " (X)";
+      pintarTablero();
+    };
+
+    estado.textContent = "Turno de " + nombreX + " (X)";
+    pintarTablero();
+    pintarRecords();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Los TODO 1, 2 y 3 son casi copiar del plan de batalla:
+          <code>var nombreX = prompt("¿Quién juega con la X?") || "Jugador X";</code> —
+          y las funciones de cargar/guardar son las mismas 3 líneas de la lección 2,
+          con la clave <code>"gato-records"</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para <code>sumarVictoria</code>: primero <code>var lista = cargarRecords();</code>,
+          luego un <code>for</code> que compare <code>lista[i].nombre === nombre</code> y guarde
+          esa ficha en una variable. Si la variable sigue en <code>null</code> después del for,
+          el jugador es nuevo: crea su ficha y hazle <code>lista.push(ficha)</code>.
+          Al final: <code>ficha.victorias = ficha.victorias + 1;</code>, guardar y repintar.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function cargarRecords() {
+  var crudo = localStorage.getItem("gato-records");
+  if (crudo === null) return [];   // cajón vacío → lista vacía
+  return JSON.parse(crudo);        // 📂 desempacar
+}
+
+function guardarRecords(lista) {
+  localStorage.setItem("gato-records", JSON.stringify(lista)); // 📦
+}
+
+function sumarVictoria(nombre) {
+  var lista = cargarRecords();
+  var ficha = null;
+  for (var i = 0; i &lt; lista.length; i++) {
+    if (lista[i].nombre === nombre) ficha = lista[i];
+  }
+  if (ficha === null) {                       // jugador nuevo
+    ficha = { nombre: nombre, victorias: 0 };
+    lista.push(ficha);
+  }
+  ficha.victorias = ficha.victorias + 1;      // ¡+1 victoria!
+  guardarRecords(lista);
+  pintarRecords();
+}
+
+function pintarRecords() {
+  var lista = cargarRecords();
+  lista.sort(function (a, b) { return b.victorias - a.victorias; });
+  var top5 = lista.slice(0, 5);
+  var cuerpo = document.getElementById("records");
+  cuerpo.innerHTML = "";
+  for (var i = 0; i &lt; top5.length; i++) {
+    var fila = document.createElement("tr");
+    fila.innerHTML = "&lt;td&gt;" + (i + 1) + "&lt;/td&gt;&lt;td&gt;" + top5[i].nombre +
+      "&lt;/td&gt;&lt;td&gt;" + top5[i].victorias + "&lt;/td&gt;";
+    cuerpo.appendChild(fila);
+  }
+}</code></pre>
+          Detalle fino del <code>sort</code>: le pasas una función que compara DOS fichas.
+          <code>b.victorias - a.victorias</code> ordena de mayor a menor (si lo volteas a
+          <code>a - b</code>, queda de menor a mayor). Y como <code>ficha</code> apunta a la
+          MISMA ficha que está dentro de la lista, sumarle a <code>ficha.victorias</code>
+          también la cambia dentro de la lista. Magia de los objetos. ✨
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vence al jefe <strong>una estación a la vez</strong> y ejecuta entre cada una:
+          así sabes exactamente dónde se rompió.</li>
+        <li>¿La tabla sale vacía? Casi seguro <code>pintarRecords</code> no se está llamando,
+          o <code>cargarRecords</code> sigue regresando <code>[]</code> siempre.</li>
+        <li>Compara tu código con el <strong>ejemplo completo</strong> de arriba: está ahí
+          justo para eso.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n7l4">Tengo 13 años y estoy haciendo un juego de Gato (tres en línea) en JavaScript con tabla de récords: guardo un arreglo de objetos {nombre, victorias} en localStorage con JSON.stringify y JSON.parse, lo ordeno con sort y muestro el top 5 con slice. Estoy atorado en una parte. Hazme preguntas para ayudarme a encontrar el error yo mismo, en lugar de darme el código completo. Explícame despacio cómo funciona sort con una función comparadora.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        los jefes se vencen mejor en equipo.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DE JEFE (OPCIONALES)</p>
+      <p>Para dejar tu Gato de campeonato:
+        1) guarda también los <strong>empates</strong> de cada quien (agrega
+        <code>empates</code> a la ficha y súmalo cuando haya gato);
+        2) un botón <strong>🗑️ Borrar récords</strong> que use
+        <code>localStorage.removeItem("gato-records")</code> y repinte la tabla;
+        3) una <strong>medallita 🥇 al primer lugar</strong>: dentro del for de
+        <code>pintarRecords</code>, si <code>i === 0</code>, pega "🥇 " antes del nombre.
+        <strong>Jefe secreto:</strong> ¿🥈 y 🥉 para el segundo y tercero? Tú puedes. 😏</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n7-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué empacamos la lista con <code>JSON.stringify</code>
+            antes de guardarla?</p>
+          <button class="opcion">Para que ocupe menos espacio</button>
+          <button class="opcion" data-ok>Porque localStorage solo guarda texto, y la lista es un objeto</button>
+          <button class="opcion">Para ordenarla automáticamente</button>
+          <div class="explicacion">El cajón solo acepta texto. <code>stringify</code> convierte
+            <code>[{nombre: "Kai", victorias: 3}]</code> en un texto guardable, y
+            <code>parse</code> lo revive al leerlo. 📦📂</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace
+            <code>lista.sort(function (a, b) { return b.victorias - a.victorias; })</code>?</p>
+          <button class="opcion">Ordena la lista alfabéticamente por nombre</button>
+          <button class="opcion">Suma las victorias de todos</button>
+          <button class="opcion" data-ok>Ordena las fichas de MÁS a MENOS victorias</button>
+          <div class="explicacion"><code>sort</code> compara fichas por pares con tu función:
+            <code>b.victorias - a.victorias</code> pone primero a quien tenga más.
+            Volteado (<code>a - b</code>) quedaría de menor a mayor.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Para qué sirve <code>lista.slice(0, 5)</code>?</p>
+          <button class="opcion" data-ok>Toma una copia con los primeros 5 elementos: el TOP 5</button>
+          <button class="opcion">Borra los primeros 5 elementos de la lista</button>
+          <button class="opcion">Reparte la lista en 5 pedazos iguales</button>
+          <div class="explicacion"><code>slice(0, 5)</code> = "córtame del elemento 0 al 4"
+            (el 5 ya no entra). Y es una COPIA: la lista original queda intacta en el cajón. ✂️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n7-l4">👑 ¡JEFE VENCIDO! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Bases de datos de verdad</a>
+      <a href="../nivel-8/index.html">Siguiente: Nivel 8 — Canvas 🖌️ ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

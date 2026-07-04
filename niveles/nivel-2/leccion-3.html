@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acomodar cosas + magia — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff4dd8;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎨 Nivel 2: CSS</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 2 · LECCIÓN 3</span>
+    <h1>Acomodar cosas + magia 🌮🪄</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Acomodar cajas a tu antojo con <strong>flexbox</strong> (fila, columna, centrado, con
+        espacio parejo), aprender <strong>el truco de centrar que todo programador googlea</strong> 😉,
+        y darle magia a tus botones con <code>:hover</code> y <code>transition</code>. 🪄</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Ya sabes hacer cajas bonitas… pero el navegador las apila una debajo de otra, como
+        calcetines cayendo en un cajón. ¿Y si las quieres en fila? ¿Centradas? ¿Repartidas parejito?
+        Para eso existe <strong>flexbox</strong>, el acomodador oficial de la web:</p>
+      <div class="analogia">
+        Flexbox es como <strong>acomodar tacos en un plato 🌮🍽️</strong>: el plato es la caja
+        contenedora (le pones <code>display: flex;</code>) y los tacos son las cajas de adentro.
+        Tú solo das las órdenes: "en fila", "en columna", "al centro", "repartidos con espacio" —
+        y el plato acomoda los tacos SOLO. Tú nunca mueves los tacos uno por uno.
+      </div>
+      <p>Las órdenes se le dan <strong>al plato</strong> (al contenedor), no a los tacos:</p>
+      <ul>
+        <li><code>display: flex;</code> → "este es un plato flexible" (los hijos se ponen en fila).</li>
+        <li><code>flex-direction: row;</code> o <code>column;</code> → tacos en fila ➡️ o
+          apilados en torre ⬇️.</li>
+        <li><code>justify-content</code> → cómo repartirlos A LO LARGO:
+          <code>center</code> (juntitos al centro), <code>space-between</code> (en las orillas y
+          espacio en medio), <code>space-around</code> (espacio parejo alrededor).</li>
+        <li><code>align-items: center;</code> → centrados A LO ANCHO del otro eje (que ningún taco
+          quede chueco).</li>
+        <li><code>gap: 16px;</code> → espacio fijo ENTRE tacos, sin andar poniendo margins. 👌</li>
+      </ul>
+
+      <div class="diagrama">
+        <svg width="560" height="290" viewBox="0 0 560 290">
+          <!-- Fila 1: flex-start -->
+          <rect x="60" y="20" width="440" height="60" rx="10" fill="#0d0d22" stroke="#a3a3c8" stroke-width="2"/>
+          <text x="130" y="58" text-anchor="middle" font-size="24">🌮</text>
+          <text x="180" y="58" text-anchor="middle" font-size="24">🌮</text>
+          <text x="230" y="58" text-anchor="middle" font-size="24">🌮</text>
+          <text class="mono" x="510" y="55" text-anchor="end" font-size="11" fill="#a3a3c8">normal (inicio)</text>
+          <!-- Fila 2: center -->
+          <rect x="60" y="105" width="440" height="60" rx="10" fill="#0d0d22" stroke="#ffe95c" stroke-width="2"/>
+          <g class="anim-pulso">
+            <text x="230" y="143" text-anchor="middle" font-size="24">🌮</text>
+            <text x="280" y="143" text-anchor="middle" font-size="24">🌮</text>
+            <text x="330" y="143" text-anchor="middle" font-size="24">🌮</text>
+          </g>
+          <text class="mono" x="510" y="140" text-anchor="end" font-size="11" fill="#ffe95c">center</text>
+          <!-- Fila 3: space-between -->
+          <rect x="60" y="190" width="440" height="60" rx="10" fill="#0d0d22" stroke="#39ff8e" stroke-width="2"/>
+          <text x="95" y="228" text-anchor="middle" font-size="24">🌮</text>
+          <text x="280" y="228" text-anchor="middle" font-size="24">🌮</text>
+          <text x="465" y="228" text-anchor="middle" font-size="24">🌮</text>
+          <text class="mono" x="510" y="185" text-anchor="end" font-size="11" fill="#39ff8e">space-between</text>
+          <text x="280" y="280" text-anchor="middle" font-size="13" fill="#a3a3c8">El mismo plato, los mismos tacos: solo cambia la orden de justify-content 🍽️</text>
+        </svg>
+        <p class="pie">Tres platos con <code>display: flex;</code> y distinta orden de
+          <code>justify-content</code>: al inicio, al <code>center</code> y con
+          <code>space-between</code>. Los tacos jamás se movieron a mano. 🌮</p>
+      </div>
+
+      <p><strong>🏆 EL truco legendario:</strong> ¿cómo centrar algo EXACTAMENTE en medio (a lo
+        ancho Y a lo alto)? Es, en serio, una de las cosas más googleadas por programadores de todo
+        el mundo 😉. Y tú lo aprendes hoy, en 3 líneas:</p>
+      <pre class="bloque-codigo"><code>.plato {
+  display: flex;
+  justify-content: center;   /* centrado a lo largo  ↔ */
+  align-items: center;       /* centrado a lo ancho  ↕ */
+}</code></pre>
+      <p>Y la <strong>magia</strong> 🪄: hasta ahora tus páginas se quedan quietas. Con dos poderes
+        nuevos, reaccionan al mouse:</p>
+      <ul>
+        <li><code>.boton:hover { … }</code> → estilos que se activan SOLO cuando el mouse está
+          encima. Es un "disfraz alternativo" que la caja se pone al sentir el cursor. 🐭</li>
+        <li><code>transition: all 0.3s;</code> → en lugar de cambiar de golpe, el cambio se
+          hace <strong>suavecito</strong> en 0.3 segundos. La diferencia entre un robot y un
+          bailarín. 🕺</li>
+      </ul>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Un menú de videojuego real: botones centrados con el truco legendario, y con
+        <code>:hover</code> + <code>transition</code> para que reaccionen. Ejecuta y
+        <strong>pasa el mouse por encima de los botones</strong> 🐭✨. Luego experimenta: cambia
+        <code>justify-content: center</code> por <code>space-between</code>, o la transición a
+        <code>1s</code> para verla en cámara lenta:</p>
+      <div class="playground" data-mode="html" data-titulo="menu-de-juego.html" data-alto="300">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Menú del juego</title>
+    <style>
+      body {
+        background-color: #0a0a1a;
+        font-family: Arial;
+      }
+      .menu {
+        display: flex;              /* ¡el plato es flexible! */
+        justify-content: center;    /* centrado a lo largo ↔ */
+        align-items: center;        /* centrado a lo ancho ↕ */
+        gap: 20px;                  /* espacio entre botones */
+        height: 220px;              /* alto para ver el centrado */
+      }
+      .boton {
+        padding: 16px 28px;
+        background-color: #1a1a38;
+        color: #00e5ff;
+        border: 3px solid #00e5ff;
+        border-radius: 12px;
+        font-size: 18px;
+        transition: all 0.3s;       /* 🪄 cambios suavecitos */
+      }
+      .boton:hover {                /* el disfraz al pasar el mouse */
+        background-color: #00e5ff;
+        color: #0a0a1a;
+        box-shadow: 0 0 30px #00e5ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <div class="boton">▶ JUGAR</div>
+      <div class="boton">⚙️ OPCIONES</div>
+      <div class="boton">🏆 RÉCORDS</div>
+    </div>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: las órdenes flex están en <code>.menu</code> (el plato), no en los
+        botones (los tacos). El <code>:hover</code> solo escribe lo que CAMBIA. Y quita la línea de
+        <code>transition</code> para sentir la diferencia: sin ella el botón cambia como robot 🤖,
+        con ella baila 🕺.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Estas 3 tarjetitas de personajes están apiladas y aburridas. Completa los TODOs para
+        acomodarlas en fila centrada y darles magia hover. 🃏</p>
+      <div class="playground" data-mode="html" data-titulo="equipo.html" data-alto="300">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi equipo</title>
+    <style>
+      body {
+        background-color: #0a0a1a;
+        font-family: Arial;
+      }
+      .equipo {
+        height: 220px;
+        /* TODO 1: conviértelo en plato flexible con display: flex; */
+
+        /* TODO 2: centra las tarjetas con justify-content y
+           align-items (¡el truco legendario!) y dales gap de 16px */
+
+      }
+      .carta {
+        background-color: #1a1a38;
+        color: white;
+        padding: 20px;
+        border: 3px solid #a78bfa;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 30px;
+        /* TODO 3: agrega transition: all 0.3s; */
+
+      }
+      /* TODO 4: crea la regla .carta:hover que le ponga
+         box-shadow: 0 0 25px #a78bfa; */
+
+    </style>
+  </head>
+  <body>
+    <div class="equipo">
+      <div class="carta">🦊</div>
+      <div class="carta">🐸</div>
+      <div class="carta">🐉</div>
+    </div>
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Las órdenes van en el PLATO (<code>.equipo</code>), no en las cartas. Empieza con
+          <code>display: flex;</code> y ejecuta: verás las cartas ponerse en fila. Luego agrega las
+          demás órdenes una por una.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El truco legendario completo: <code>justify-content: center;</code> +
+          <code>align-items: center;</code> + <code>gap: 16px;</code>. Y para el TODO 4, la regla
+          nueva se escribe FUERA de las otras: <code>.carta:hover { box-shadow: 0 0 25px #a78bfa; }</code>
+          (sin espacio antes de los dos puntos).
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>.equipo {
+  height: 220px;
+  display: flex;              /* 1) el plato se vuelve flexible */
+  justify-content: center;    /* 2a) centradas a lo largo ↔ */
+  align-items: center;        /* 2b) centradas a lo alto ↕ */
+  gap: 16px;                  /* 2c) espacio parejo entre cartas */
+}
+
+.carta {
+  /* …lo que ya estaba… */
+  transition: all 0.3s;       /* 3) los cambios serán suavecitos */
+}
+
+.carta:hover {                /* 4) el disfraz al sentir el mouse */
+  box-shadow: 0 0 25px #a78bfa;
+}</code></pre>
+          Pasa el mouse por tus cartas: si brillan suavecito, dominaste flexbox Y la magia en una
+          sola lección. Nivel: leyenda. 🌟
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama de los platos de tacos</strong> 🌮: la orden va al plato.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n2l3">Tengo 13 años y estoy aprendiendo flexbox en CSS con la analogía de acomodar tacos en un plato (el contenedor es el plato con display: flex y los elementos son los tacos). Ya conozco flex-direction, justify-content, align-items y gap, pero a veces confundo justify-content con align-items. Explícame la diferencia con dibujos de texto (ASCII) de un plato horizontal, y luego descríbeme 3 acomodos ("todo centrado", "uno en cada orilla", "torre vertical centrada") y pregúntame qué propiedades usaría, corrigiéndome con pistas. No me des las respuestas de inmediato.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>1) Cambia <code>.equipo</code> a <code>flex-direction: column;</code> — ¡torre de
+        cartas! 🗼 ¿Notas que ahora <code>justify-content</code> y <code>align-items</code>
+        intercambiaron ejes? 2) Haz que las cartas CREZCAN al pasar el mouse agregando
+        <code>transform: scale(1.15);</code> dentro del <code>:hover</code> — el efecto de "carta
+        seleccionada" de los juegos de cartas. <strong>Jefe secreto:</strong> agrega una cuarta
+        carta con OTRO personaje y su propio color de borde neón (necesitarás darle una segunda
+        clase, como <code>class="carta especial"</code>… investiga cómo 😏).</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n2-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Quieres 3 tarjetas en fila. ¿Dónde pones <code>display: flex;</code>?</p>
+          <button class="opcion">En cada tarjeta, tres veces</button>
+          <button class="opcion" data-ok>En el contenedor que las envuelve: la orden se le da al plato 🍽️</button>
+          <button class="opcion">En el <code>&lt;head&gt;</code> de la página</button>
+          <div class="explicacion">Flexbox trabaja así: el PLATO (contenedor) recibe las órdenes y
+            acomoda a sus tacos (hijos) solito. Nunca acomodas taco por taco. 🌮</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. El combo legendario para centrar algo a lo largo Y a lo alto es…</p>
+          <button class="opcion"><code>centrar: total;</code> y ya</button>
+          <button class="opcion"><code>margin: center;</code> tres veces seguidas</button>
+          <button class="opcion" data-ok><code>display: flex;</code> + <code>justify-content: center;</code> + <code>align-items: center;</code></button>
+          <div class="explicacion">Las 3 líneas doradas 🏆. De verdad es de lo más googleado del
+            planeta ("how to center a div")… y tú ya lo sabes de memoria. 😎</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace <code>transition: all 0.3s;</code> en un botón con <code>:hover</code>?</p>
+          <button class="opcion">Hace que el botón espere 0.3 segundos antes de funcionar</button>
+          <button class="opcion" data-ok>Suaviza el cambio de estilos: en vez de cambiar de golpe, "fluye" en 0.3s 🕺</button>
+          <button class="opcion">Traduce el botón a otro idioma</button>
+          <div class="explicacion">Sin transición el cambio es robótico 🤖; con ella, el botón se
+            transforma suavecito. Va en el estado NORMAL del botón, no en el :hover, para que
+            funcione de ida y de regreso.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n2-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: El modelo de caja</a>
+      <a href="leccion-4.html">Siguiente: Jefe — Tu tarjeta con estilo 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

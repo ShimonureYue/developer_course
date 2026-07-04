@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Que se sienta juego: vidas, contraataque y sonido — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 5
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 5</span>
+    <h1>Que se sienta juego: vidas, contraataque y sonido ❤️🔊</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Convertir tu demo en un JUEGO de verdad: <strong>3 vidas ❤️❤️❤️</strong>, invasores
+        que <strong>contraatacan</strong> ☄️, peligro real si llegan abajo, <strong>oleadas cada
+        vez más rápidas</strong> 🌊 y <strong>sonidos retro</strong> hechos por ti con WebAudio. 🎛️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: RIESGO + RECOMPENSA = DIVERSIÓN</p>
+      <p>Hasta ayer, tu juego era tiro al blanco: tú disparas, ellos reciben. 🎯 Divertido…
+        2 minutos. Los diseñadores de juegos saben el secreto: un juego se siente VIVO cuando
+        <strong>puedes perder</strong>. Hoy le damos dientes a los invasores.</p>
+      <div class="analogia">
+        Un buen juego es como un <strong>partidito de futbol en la calle</strong> ⚽: si el otro
+        equipo no puede meterte gol, te aburres aunque vayas ganando 10-0. La emoción no está
+        en ganar fácil: está en que <strong>te pueden anotar</strong> — y en que cada partido
+        (oleada) el rival juega un poquito mejor.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="240" viewBox="0 0 560 240">
+          <!-- Invasor tirador -->
+          <rect x="120" y="30" width="34" height="26" rx="4" fill="#ff4dd8"/>
+          <rect x="127" y="38" width="6" height="6" fill="#0a0a1a"/>
+          <rect x="141" y="38" width="6" height="6" fill="#0a0a1a"/>
+          <!-- Bala enemiga cayendo -->
+          <path class="anim-recorrido" d="M 137 66 L 137 170" fill="none" stroke="#ff5c7a" stroke-width="2"/>
+          <g class="anim-valor-entra" style="--dx: 0px; --dy: 108px;">
+            <rect x="134" y="62" width="6" height="14" fill="#ff5c7a"/>
+          </g>
+          <!-- La nave -->
+          <g class="anim-pulso">
+            <rect x="107" y="180" width="60" height="18" fill="#00e5ff"/>
+            <rect x="132" y="170" width="10" height="10" fill="#00e5ff"/>
+          </g>
+          <text x="137" y="225" text-anchor="middle" font-size="12" fill="#a3a3c8">impacto → pierdes una vida</text>
+          <!-- Vidas -->
+          <text x="360" y="52" font-size="22">❤️</text>
+          <text x="392" y="52" font-size="22">❤️</text>
+          <g class="anim-parpadeo">
+            <text x="424" y="52" font-size="22">💔</text>
+          </g>
+          <text class="mono" x="405" y="85" text-anchor="middle" font-size="13" fill="#a3a3c8">vidas = vidas - 1</text>
+          <!-- Oleadas -->
+          <text x="405" y="140" text-anchor="middle" font-size="14" fill="#39ff8e">OLEADA 1 → 2 → 3…</text>
+          <text class="mono" x="405" y="168" text-anchor="middle" font-size="12" fill="#a3a3c8">velocidad + 0.5 cada vez 😈</text>
+          <text x="405" y="205" text-anchor="middle" font-size="13" fill="#ffe95c">riesgo ⚖️ recompensa</text>
+        </svg>
+        <p class="pie">Las tres piezas del "game feel" de hoy: balas enemigas que caen ☄️,
+          corazones que se rompen 💔, y oleadas que aceleran la marcha. Perder tiene que ser posible.</p>
+      </div>
+
+      <h2>☄️ El contraataque: azar bien usado</h2>
+      <p>¿Cómo decide una computadora "de vez en cuando, dispara uno"? Con probabilidad,
+        como el dado de la manzana de Snake 🎲: en cada cuadro, <code>Math.random()</code> saca
+        un número entre 0 y 1; si sale menor que 0.014, un invasor vivo <strong>elegido al
+        azar</strong> suelta una bala. 60 cuadros por segundo × probabilidad pequeñita ≈ un
+        disparo por ahí de cada segundo. Y ojo: las balas enemigas son OTRO arreglo
+        (<code>balasEnemigas</code>) con su mismo patrón mover-y-barrer — tercera vez que lo
+        usas, ya es tuyo.</p>
+
+      <h2>🔊 Sonidos retro con WebAudio: tu sintetizador de 8 bits</h2>
+      <p>Nada de descargar mp3: vas a <strong>fabricar el sonido con código</strong>, como las
+        consolas de los 80. El navegador trae un sintetizador escondido
+        (<code>AudioContext</code>) que genera ondas. Nuestra función <code>beep()</code> pide
+        una onda cuadrada (la del sonido "de maquinita" 🕹️), le pone frecuencia (aguda o
+        grave) y duración:</p>
+      <pre class="bloque-codigo"><code>function beep(frecuencia, duracion) {
+  if (!audio) audio = new AudioContext();      // el sintetizador (solo 1 vez)
+  var onda = audio.createOscillator();         // el generador de la onda
+  var volumen = audio.createGain();            // la perilla de volumen
+  onda.type = "square";                        // cuadrada = 8 bits 🕹️
+  onda.frequency.value = frecuencia;           // Hz: agudo ↑ o grave ↓
+  volumen.gain.value = 0.05;                   // bajito 👂
+  onda.connect(volumen);                       // onda → volumen →
+  volumen.connect(audio.destination);          // → tus bocinas
+  onda.start();
+  onda.stop(audio.currentTime + duracion);     // se apaga solo
+}
+
+beep(880, 0.08);   // ¡piu! disparo (agudo, cortito)
+beep(220, 0.15);   // ¡boom! explosión (grave)
+beep(110, 0.4);    // ouch… vida perdida (gravísimo, largo)</code></pre>
+      <p>La regla del diseño sonoro arcade: <strong>agudo = bueno/pequeño, grave = malo/grande</strong>.
+        Con una sola función y dos números tienes efectos para todo el juego.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR (🔊 sube tu volumen)</p>
+      <p>Ahora sí: esquiva las balas rosas ☄️, cuida tus ❤️ (arriba a la derecha), y limpia
+        la pantalla para pasar de oleada — cada una marcha más rápido. Si los invasores llegan
+        a tu altura, pierdes vida y la formación se reinicia. Tres corazones rotos = GAME OVER.</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="invaders_etapa5.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l5@@
+</pre>
+      </div>
+
+      <p>Repasa el código: TODO te suena. <code>contraatacar()</code> = azar de Snake +
+        push de balas. <code>revisarImpactos()</code> = tu <code>chocan()</code> de la Lección 4
+        apuntando a tu nave. <code>revisarOleada()</code> = <code>some()</code> + reiniciar
+        formación. Estás ensamblando piezas que TÚ construiste. 🧩</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>En esta versión los invasores son <strong>inofensivos</strong> 😴:
+        <code>contraatacar()</code> está vacía y nunca disparan. Complétala: elige un
+        <strong>tirador al azar</strong> entre los vivos y mete su bala al arreglo
+        <code>balasEnemigas</code>. Cuando la primera bala rosa caiga hacia ti… corre. 🏃</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa5.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l5-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Elegir al azar de un arreglo es el truco de la manzana de Snake:
+          <code>vivos[Math.floor(Math.random() * vivos.length)]</code> —
+          <code>Math.random()</code> da un decimal entre 0 y 1, lo multiplicas por el tamaño
+          del arreglo y <code>Math.floor</code> lo redondea hacia abajo: un índice válido.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La bala enemiga es igualita a las tuyas pero nace ABAJO del tirador
+          (<code>y: tirador.y + tirador.alto</code>) y su velocidad es positiva (3) porque en
+          <code>moverBalasEnemigas()</code> se SUMA: cae en vez de subir.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function contraatacar() {
+  var vivos = invasores.filter(function (inv) { return inv.vivo; });
+  if (vivos.length === 0) return;   // nadie vivo, nadie dispara
+
+  if (Math.random() &lt; 0.01 + oleada * 0.004) {   // de vez en cuando…
+    // 1) tirador al azar entre los vivos 🎲
+    var tirador = vivos[Math.floor(Math.random() * vivos.length)];
+    // 2) su bala nace justo debajo de él y CAE (velocidad positiva)
+    balasEnemigas.push({
+      x: tirador.x + tirador.ancho / 2 - 3,
+      y: tirador.y + tirador.alto,
+      ancho: 6,
+      alto: 14,
+      velocidad: 3
+    });
+  }
+}</code></pre>
+          Fíjate en la probabilidad: <code>0.01 + oleada * 0.004</code>. En la oleada 1 disparan
+          poco; en la 5, llueven balas. UN número controla la dificultad — y tú decides su valor,
+          porque el diseñador eres tú. 🎛️
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿No suena nada? Haz clic dentro de la vista previa y dispara: los navegadores solo
+          dejan sonar audio después de que el jugador interactúa. 🔊</li>
+        <li>¿Las balas enemigas suben en vez de caer? Su velocidad se SUMA a la y — revisa que
+          no la estés restando.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l5">Tengo 13 años y mi Space Invaders en JavaScript ya tiene vidas, oleadas y sonidos con WebAudio. Estoy haciendo que los invasores contraataquen: cada cuadro, con Math.random() decido si un invasor vivo elegido al azar dispara una bala hacia abajo (las guardo en un arreglo balasEnemigas). Voy a pegarte mi función contraatacar(): guíame con preguntas para encontrar mis errores sin dármela resuelta. Luego explícame cómo elegir un elemento al azar de un arreglo y cómo la probabilidad por cuadro controla la dificultad.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <ul>
+        <li><strong>🎼 Compositor:</strong> inventa tus propios efectos cambiando los números de
+          <code>beep()</code>. ¿Un sonido para cada oleada nueva? ¿Una notita al moverte?
+          (Frecuencias útiles: 262 = do, 330 = mi, 392 = sol, 523 = do agudo.)</li>
+        <li><strong>💨 Esquive con estilo:</strong> haz que la nave sea más rápida cuando queden
+          pocas vidas: <code>if (vidas === 1) nave.velocidad = 9;</code> — adrenalina de último
+          corazón.</li>
+        <li><strong>😈 Jefe secreto — francotiradores:</strong> haz que el tirador elegido sea
+          siempre el invasor MÁS CERCANO a tu nave en x. Pista: recorre los vivos comparando
+          <code>Math.abs(inv.x - nave.x)</code>. ¿Se siente más injusto o más emocionante?</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n9-l5" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cómo logra el juego que los invasores disparen "de vez en cuando"?</p>
+          <button class="opcion">Con un cronómetro exacto que dispara cada 3 segundos</button>
+          <button class="opcion" data-ok>En cada cuadro se saca un número al azar; si es menor que una probabilidad pequeña, un invasor al azar dispara</button>
+          <button class="opcion">El jugador decide cuándo disparan los enemigos</button>
+          <div class="explicacion">Azar por cuadro = comportamiento impredecible con UNA línea.
+            Y como la probabilidad crece con la oleada, la dificultad sube sola. 🎲</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En <code>beep(880, 0.08)</code> y <code>beep(110, 0.4)</code>, ¿qué controla el primer número?</p>
+          <button class="opcion" data-ok>La frecuencia en Hz: 880 suena agudo (disparo), 110 suena grave (perder vida)</button>
+          <button class="opcion">El volumen del sonido</button>
+          <button class="opcion">Cuántas veces se repite el sonido</button>
+          <div class="explicacion">Frecuencia = qué tan aguda es la nota; el segundo número es la
+            duración en segundos. Regla arcade: agudo para lo bueno, grave para lo malo. 🎵</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Al limpiar una oleada, el juego hace <code>velocidadInvasores = velocidadInvasores + 0.5</code>. ¿Por qué?</p>
+          <button class="opcion">Para que el código no se repita</button>
+          <button class="opcion">Porque JavaScript exige subir la velocidad</button>
+          <button class="opcion" data-ok>Es diseño de dificultad: cada oleada más rápida mantiene el reto conforme el jugador mejora</button>
+          <div class="explicacion">Igual que Snake aceleraba con cada manzana 🍎: si el juego no
+            crece contigo, te aburre. Una suma pequeñita = curva de dificultad infinita.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l5">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-4.html">◀ Anterior: Colisiones y explosiones</a>
+      <a href="leccion-6.html">Siguiente: JEFE FINAL 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

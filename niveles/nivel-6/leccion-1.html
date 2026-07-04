@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anatomía de un videojuego — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #00e5ff;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎮 Nivel 6: Tu primer videojuego</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 6 · LECCIÓN 1</span>
+    <h1>Anatomía de un videojuego 🎮🔬</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Descubrir el <strong>patrón secreto de TODOS los videojuegos</strong>
+        (ESTADO + DIBUJAR + REACCIONAR) y construir el <strong>tablero 3×3 del Gato</strong>
+        con CSS Grid: la cancha donde vivirá tu primer juego. 😼</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Te voy a contar un secreto de la industria de los videojuegos 🤫. Desde el Gato hasta
+        Minecraft, desde Snake hasta Zelda, <strong>TODOS los juegos del mundo</strong> están
+        hechos con las mismas 3 piezas. Millones de dólares, estudios gigantes… y por dentro
+        es el mismo esqueleto. Y spoiler: <strong>tú ya lo usaste</strong> en el Taco Clicker
+        🌮 sin darte cuenta.</p>
+      <div class="analogia">
+        Un videojuego es como un <strong>partido de fútbol</strong> ⚽:
+        el <strong>ESTADO</strong> es el marcador y dónde está la pelota (los datos),
+        <strong>DIBUJAR</strong> es lo que ves en la pantalla gigante del estadio (mostrarlos),
+        y <strong>REACCIONAR</strong> es lo que pasa cuando alguien patea el balón
+        (la entrada del jugador). El partido es ese ciclo repitiéndose sin parar.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="270" viewBox="0 0 560 270">
+          <!-- Anillo central que gira: el ciclo eterno del juego -->
+          <g class="anim-girar lento">
+            <circle cx="280" cy="145" r="52" fill="none" stroke="#00e5ff" stroke-width="3" stroke-dasharray="10 8"/>
+            <polygon points="280,86 271,100 289,100" fill="#00e5ff"/>
+          </g>
+          <text x="280" y="140" text-anchor="middle" font-size="11" fill="#a3a3c8">el ciclo</text>
+          <text x="280" y="156" text-anchor="middle" font-size="11" fill="#a3a3c8">del juego</text>
+
+          <!-- Pieza 1: ESTADO -->
+          <g class="anim-pulso">
+            <rect x="205" y="10" width="150" height="48" rx="10" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="280" y="32" text-anchor="middle" font-size="14" fill="#ffe95c">📦 ESTADO</text>
+            <text x="280" y="49" text-anchor="middle" font-size="11" fill="#a3a3c8">los datos del juego</text>
+          </g>
+          <!-- Pieza 2: DIBUJAR -->
+          <rect x="400" y="195" width="145" height="48" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+          <text x="472" y="217" text-anchor="middle" font-size="14" fill="#39ff8e">🖌️ DIBUJAR</text>
+          <text x="472" y="234" text-anchor="middle" font-size="11" fill="#a3a3c8">mostrarlos en pantalla</text>
+          <!-- Pieza 3: REACCIONAR -->
+          <rect x="15" y="195" width="150" height="48" rx="10" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+          <text x="90" y="217" text-anchor="middle" font-size="14" fill="#ff4dd8">🕹️ REACCIONAR</text>
+          <text x="90" y="234" text-anchor="middle" font-size="11" fill="#a3a3c8">escuchar al jugador</text>
+
+          <!-- Flechas del ciclo -->
+          <path class="anim-recorrido" d="M 360 40 Q 480 60 472 190" fill="none" stroke="#39ff8e" stroke-width="2.5"/>
+          <text x="497" y="110" text-anchor="middle" font-size="10" fill="#a3a3c8">pintar()</text>
+          <path class="anim-recorrido" d="M 395 219 L 170 219" fill="none" stroke="#ff4dd8" stroke-width="2.5"/>
+          <text x="282" y="260" text-anchor="middle" font-size="10" fill="#a3a3c8">el jugador ve… y hace clic 👆</text>
+          <path class="anim-recorrido" d="M 88 190 Q 78 60 200 38" fill="none" stroke="#ffe95c" stroke-width="2.5"/>
+          <text x="70" y="110" text-anchor="middle" font-size="10" fill="#a3a3c8">cambia los datos</text>
+        </svg>
+        <p class="pie">El ciclo eterno: el <strong>estado</strong> se <strong>dibuja</strong>, el jugador lo ve
+          y hace algo, el juego <strong>reacciona</strong> cambiando el estado… y se vuelve a dibujar.
+          Así, una y otra vez, hasta el GAME OVER. 🔁</p>
+      </div>
+
+      <p>Compruébalo tú: en el <strong>Taco Clicker</strong> 🌮 el ESTADO eran las variables
+        <code>tacos</code> y <code>porClic</code>, DIBUJAR era tu función <code>pintar()</code>,
+        y REACCIONAR eran los <code>addEventListener</code> de los botones. En el
+        <strong>Gato</strong> 😼 será igual: el estado serán las 9 casillas y el turno,
+        <code>pintar()</code> las mostrará, y reaccionaremos a los clics del jugador.
+        ¡Mismo esqueleto, otro juego!</p>
+
+      <h2>🔲 La pieza nueva: CSS Grid, tu cuadrícula mágica</h2>
+      <p>Antes de programar las reglas necesitamos la <strong>cancha</strong>: un tablero de
+        3×3 con 9 botones grandes. ¿Acomodar 9 botones en cuadrícula perfecta? Para eso CSS
+        tiene un superpoder llamado <strong>Grid</strong> (cuadrícula):</p>
+      <pre class="bloque-codigo"><code>#tablero {
+  display: grid;                            /* 1) enciende el modo cuadrícula ✨ */
+  grid-template-columns: repeat(3, 100px);  /* 2) "quiero 3 columnas de 100px" */
+  grid-template-rows: repeat(3, 100px);     /* 3) "y 3 filas de 100px" */
+  gap: 10px;                                /* 4) espacio entre casillas */
+}</code></pre>
+      <p>Y ya. En serio, YA. 🤯 Todo lo que pongas adentro de <code>#tablero</code> se acomoda
+        solito en la cuadrícula: los primeros 3 botones llenan la fila de arriba, los
+        siguientes 3 la de en medio, y los últimos 3 la de abajo.
+        <code>repeat(3, 100px)</code> es un atajo que significa
+        <code>100px 100px 100px</code> — porque los programadores odiamos repetirnos. 😅</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Aquí está el tablero del Gato ya armado, con una partida a medias de decoración.
+        Presiona <strong>▶ Ejecutar</strong>, pasa el mouse por las casillas y tócalas.
+        Luego juega con los números: cambia <code>100px</code> por <code>130px</code>,
+        o el <code>gap</code> a <code>2px</code>, y ejecuta otra vez:</p>
+
+      <div class="playground" data-mode="html" data-titulo="tablero_gato.html" data-alto="470">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #061520; color: #eaeaf5; font-family: sans-serif; text-align: center; }
+    h1 { color: #00e5ff; letter-spacing: 4px; }
+    #tablero {
+      display: grid;                            /* 1) enciende la cuadrícula ✨ */
+      grid-template-columns: repeat(3, 100px);  /* 2) 3 columnas de 100px */
+      grid-template-rows: repeat(3, 100px);     /* 3) 3 filas de 100px */
+      gap: 10px;                                /* 4) espacio entre casillas */
+      justify-content: center;                  /* 5) centradito en la página */
+    }
+    .casilla {
+      font-size: 3rem;
+      background: #0d2b3d;
+      border: 3px solid #00e5ff;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .casilla:hover { background: #14587a; }
+    .casilla:active { transform: scale(0.93); }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 EL GATO&lt;/h1&gt;
+  &lt;div id="tablero"&gt;
+    &lt;button class="casilla"&gt;❌&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;⭕&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;❌&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;⭕&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;p&gt;Tócalas: se sienten como botones… pero todavía no piensan 🧠 (eso llega en la Lección 2)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p>Fíjate en algo importante: en el HTML los 9 botones están escritos uno tras otro,
+        como una lista. Es el <strong>Grid</strong> quien los acomoda en 3×3. La estructura
+        (HTML) y el acomodo (CSS) son trabajos separados — eso ya lo sabías desde el Nivel 2. 🎨</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Te dejamos los 9 botones… pero alguien le robó el Grid al tablero 😱 y quedaron
+        desparramados. Completa el CSS de <code>#tablero</code> siguiendo los TODO para que
+        se acomoden en una cuadrícula de 3×3. Ejecuta después de CADA línea que agregues
+        y mira cómo cambia:</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_tablero.html" data-alto="470">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #061520; color: #eaeaf5; font-family: sans-serif; text-align: center; }
+    h1 { color: #00e5ff; letter-spacing: 4px; }
+    #tablero {
+      /* TODO 1: enciende el modo cuadrícula (pista: display) */
+      /* TODO 2: pide 3 columnas de 100px (pista: grid-template-columns con repeat) */
+      /* TODO 3: pide 3 filas de 100px (pista: grid-template-rows) */
+      /* TODO 4: dales 10px de espacio entre sí (pista: gap) */
+      justify-content: center;
+    }
+    .casilla {
+      font-size: 3rem;
+      background: #0d2b3d;
+      border: 3px solid #00e5ff;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .casilla:hover { background: #14587a; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 EL GATO&lt;/h1&gt;
+  &lt;div id="tablero"&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+    &lt;button class="casilla"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          El interruptor mágico es <code>display: grid;</code> — con solo esa línea el
+          navegador entra en "modo cuadrícula". Pero sin decirle cuántas columnas quieres,
+          te pondrá todo en una sola columna. Ahí entran los otros TODO. 🔲
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Las propiedades exactas son <code>grid-template-columns</code> y
+          <code>grid-template-rows</code>, y las dos aceptan <code>repeat(3, 100px)</code>.
+          Recuerda: cada línea de CSS termina con <code>;</code> — ¡y escríbelas ADENTRO
+          de las llaves de <code>#tablero</code>, no en los comentarios!
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>#tablero {
+  display: grid;                            /* 1) modo cuadrícula: ON */
+  grid-template-columns: repeat(3, 100px);  /* 2) tres columnas iguales */
+  grid-template-rows: repeat(3, 100px);     /* 3) tres filas iguales */
+  gap: 10px;                                /* 4) aire entre casillas */
+  justify-content: center;                  /* (ya estaba) centra el tablero */
+}</code></pre>
+          Línea por línea: primero enciendes el Grid, luego le describes la cuadrícula
+          (3 columnas × 3 filas de 100px) y por último el espacio entre celdas. Los 9
+          botones se reparten solos: HTML pone las piezas, Grid las acomoda. 🧩
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Compara tu CSS con el del <strong>ejemplo de arriba</strong>: ahí está funcionando. 👀</li>
+        <li>¿Los botones siguen desparramados? Revisa que escribiste las líneas <strong>afuera
+          de los comentarios</strong> <code>/* … */</code> y con su <code>;</code> al final.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n6l1">Tengo 13 años y estoy construyendo mi primer videojuego web: el gato (tres en línea). Estoy armando el tablero de 3x3 con CSS Grid. Explícame con dibujos de texto qué hacen display: grid, grid-template-columns con repeat(3, 100px) y gap. También explícame en palabras simples el patrón de los videojuegos: estado, dibujar y reaccionar. Al final hazme 2 preguntas para ver si entendí. No me resuelvas mis ejercicios.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n6l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Este tablero va a ser TU juego, así que déjale tu firma 🖋️: cambia los colores de
+        las casillas y del borde (¿modo lava 🔥? ¿modo neón morado?), hazlas de
+        <code>120px</code>, ponle a tu juego un nombre épico en el <code>&lt;h1&gt;</code> y
+        agrégales un <code>:hover</code> más dramático.
+        <strong>Jefe secreto:</strong> haz un tablero de <strong>4×4</strong> — necesitas
+        cambiar los <code>repeat(…)</code> y agregar botones hasta llegar a 16. ¿Cuántos
+        agregaste? Esa cuenta te va a servir en la siguiente lección. 😉</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n6-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuáles son las 3 piezas del patrón secreto de todos los videojuegos?</p>
+          <button class="opcion">HTML, CSS y JavaScript</button>
+          <button class="opcion" data-ok>ESTADO (los datos), DIBUJAR (mostrarlos) y REACCIONAR (la entrada del jugador)</button>
+          <button class="opcion">Gráficos, música y niveles</button>
+          <div class="explicacion">Los datos del juego 📦, la función que los muestra 🖌️ y los
+            eventos que escuchan al jugador 🕹️. Del Gato a Minecraft, ese es el esqueleto.
+            HTML/CSS/JS son las herramientas; el patrón es el diseño.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>grid-template-columns: repeat(3, 100px)</code>?</p>
+          <button class="opcion">Repite el tablero 3 veces en la página</button>
+          <button class="opcion">Hace los botones 3 veces más grandes</button>
+          <button class="opcion" data-ok>Crea 3 columnas de 100px cada una (es el atajo de "100px 100px 100px")</button>
+          <div class="explicacion"><code>repeat(3, 100px)</code> = "repite 100px tres veces".
+            Le describe al Grid cuántas columnas quieres y de qué tamaño. Con
+            <code>grid-template-rows</code> haces lo mismo pero con las filas.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. En el Taco Clicker 🌮, ¿cuál era el ESTADO del juego?</p>
+          <button class="opcion" data-ok>Las variables <code>tacos</code> y <code>porClic</code></button>
+          <button class="opcion">La función <code>pintar()</code></button>
+          <button class="opcion">Los <code>addEventListener</code> de los botones</button>
+          <div class="explicacion">El estado son los DATOS 📦. <code>pintar()</code> era la pieza
+            DIBUJAR 🖌️ y los eventos eran REACCIONAR 🕹️. ¡Ya habías usado el patrón sin saberlo!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n6-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 6</a>
+      <a href="leccion-2.html">Siguiente: El estado del juego ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funciones y eventos — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">⚡ Nivel 5: JavaScript</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 5 · LECCIÓN 2</span>
+    <h1>Funciones y eventos: tu página te escucha 👂</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir <strong>funciones en JavaScript</strong> (spoiler: ya sabes hacerlas en Python 🧩)
+        y crear tu <strong>primer botón que hace algo</strong> cuando le das clic, usando
+        <strong>eventos</strong>.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>En el Nivel 4 te volviste <strong>Maestro de funciones</strong> en Python: máquinas que
+        reciben ingredientes y hacen su chamba. Pues en JavaScript las funciones son
+        <strong>exactamente lo mismo</strong>… con otra ropa. 🎭</p>
+
+      <table class="tabla">
+        <tr><th>🐍 Python</th><th>⚡ JavaScript</th></tr>
+        <tr>
+          <td><pre class="bloque-codigo"><code>def saludar(nombre):
+    print("Hola", nombre)
+
+saludar("Kai")</code></pre></td>
+          <td><pre class="bloque-codigo"><code>function saludar(nombre) {
+  console.log("Hola", nombre);
+}
+
+saludar("Kai");</code></pre></td>
+        </tr>
+      </table>
+      <p>Los cambios: <code>def</code> se convierte en <code>function</code>, los dos puntos
+        <code>:</code> se convierten en llaves <code>{ }</code>, y listo. Llamarla es idéntico:
+        nombre + paréntesis. <em>Misma idea, otra ortografía.</em>
+        (Dato pro 🕶️: en JS también existen las "funciones flecha" como
+        <code>const saludar = (nombre) =&gt; {…}</code>. Las verás por ahí; por ahora
+        <code>function</code> es todo lo que necesitas.)</p>
+
+      <h2>👂 Eventos: la página está escuchando</h2>
+      <p>En Python tus programas corrían de arriba a abajo y se acababan. Una página web es
+        diferente: se queda <strong>esperando</strong> a que pase algo — un clic, una tecla,
+        el mouse moviéndose. Cada una de esas cosas es un <strong>evento</strong>.</p>
+      <div class="analogia">
+        Un evento es como el <strong>timbre de tu casa</strong> 🔔: el timbre está ahí,
+        esperando. Cuando alguien lo toca (el evento), tú corres a abrir (la función).
+        <code>addEventListener</code> significa: "cuando suene ESTE timbre, corre ESTA función".
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="200" viewBox="0 0 560 200">
+          <!-- Dedo que viaja hacia el botón -->
+          <g class="anim-valor-entra" style="--dx: 105px;">
+            <text x="30" y="105" font-size="34">👆</text>
+          </g>
+          <!-- El botón -->
+          <g class="anim-pulso">
+            <rect x="150" y="70" width="120" height="46" rx="10" fill="#39ff8e"/>
+            <text x="210" y="99" text-anchor="middle" font-size="15" fill="#0a0a1a">Botón</text>
+          </g>
+          <text x="210" y="145" text-anchor="middle" font-size="12" fill="#a3a3c8">evento: "click"</text>
+          <!-- Camino del evento hacia la función -->
+          <path class="anim-recorrido" d="M 275 93 L 375 93" fill="none" stroke="#ffe95c" stroke-width="3"/>
+          <!-- La función que despierta -->
+          <g class="anim-maquina">
+            <rect x="380" y="55" width="150" height="75" rx="12" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="455" y="87" text-anchor="middle" font-size="13" fill="#ff4dd8">function</text>
+            <text class="mono" x="455" y="110" text-anchor="middle" font-size="13" fill="#eaeaf5">saludar()</text>
+          </g>
+          <text class="anim-valor-aparece" x="455" y="165" text-anchor="middle" font-size="16" fill="#ffe95c">"¡Hola! 👋"</text>
+        </svg>
+        <p class="pie">El dedo hace clic → el botón dispara el evento <code>"click"</code> →
+          la función despierta y hace su chamba. Ese viaje completo pasa en milisegundos. ⚡</p>
+      </div>
+
+      <p>La línea mágica se lee así:</p>
+      <pre class="bloque-codigo"><code>boton.addEventListener("click", saludar);
+//  ↑            ↑           ↑        ↑
+// quién     "escucha…"   qué evento  qué función correr</code></pre>
+      <p>Ojo 👀: se escribe <code>saludar</code> <strong>sin paréntesis</strong>. No le estás
+        diciendo "córrela YA", le estás diciendo "córrela <em>cuando</em> pase el clic".
+        Es como dejarle tu número a alguien: no te llama en ese momento, te llama después. 📞</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Primero, funciones puras en JavaScript (compáralas mentalmente con tus <code>def</code> de Python):</p>
+
+      <div class="playground" data-mode="js" data-titulo="funciones.js">
+<script type="text/plain">
+// En Python esto era: def presentar(nombre, poder):
+function presentar(nombre, poder) {
+  console.log("⭐ " + nombre + " tiene el poder de " + poder);
+}
+
+presentar("Luna", "volar");
+presentar("Max", "leer mentes");
+
+// Las funciones también pueden devolver cosas (¡como return en Python!)
+function doble(numero) {
+  return numero * 2;
+}
+
+console.log("El doble de 21 es:", doble(21));
+</script>
+      </div>
+
+      <p>Y ahora sí… 🥁 tu <strong>primer botón vivo</strong>. Esta es una página completa:
+        HTML + JavaScript trabajando juntos. Dale <strong>▶ Ejecutar</strong> y luego
+        haz clic en el botón de la vista previa:</p>
+
+      <div class="playground" data-mode="html" data-titulo="boton_que_saluda.html" data-alto="240">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Mi primer botón vivo 🔴&lt;/h1&gt;
+  &lt;button id="boton-saludo"&gt;¡Tócame!&lt;/button&gt;
+
+  &lt;script&gt;
+    // 1) La función que queremos que corra
+    function saludar() {
+      alert("¡Hola! Me tocaste 👋😄");
+    }
+
+    // 2) Buscamos el botón por su id
+    let boton = document.getElementById("boton-saludo");
+
+    // 3) "Cuando le den clic, corre saludar" (¡sin paréntesis!)
+    boton.addEventListener("click", saludar);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p>Dos cosas nuevas: <code>alert()</code> abre una <strong>ventanita emergente</strong>
+        (el grito del navegador 📢), y <code>document.getElementById("boton-saludo")</code>
+        busca en la página la etiqueta con ese <code>id</code>. En la próxima lección vas a
+        dominar ese superpoder de "agarrar" cosas de la página. 🔮</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Crea un botón de <strong>festejo</strong> 🎉: cuando le den clic, debe mostrar un
+        <code>alert</code> con tu grito de gol favorito. Completa los TODO:</p>
+
+      <div class="playground" data-mode="html" data-titulo="boton_festejo.html" data-alto="240">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Botón de festejo 🎉&lt;/h1&gt;
+  &lt;button id="boton-festejo"&gt;¡FESTEJAR!&lt;/button&gt;
+
+  &lt;script&gt;
+    // TODO 1: crea una función llamada festejar
+    //         que muestre un alert con tu grito favorito
+
+    // TODO 2: busca el botón con document.getElementById
+
+    // TODO 3: conecta el clic del botón con tu función
+    //         usando addEventListener
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La receta de una función: <code>function festejar() { … }</code>.
+          Adentro va <code>alert("tu grito");</code>. Es tu <code>def</code> de Python
+          con llaves en vez de dos puntos.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El botón se llama <code>boton-festejo</code> en su <code>id</code>. Entonces:
+          <code>let boton = document.getElementById("boton-festejo");</code> y después
+          <code>boton.addEventListener("click", festejar);</code> — ¡sin paréntesis en
+          <code>festejar</code>!
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function festejar() {
+  alert("¡GOOOOOOL! 🎉⚽");          // 1) la función lista para correr
+}
+
+let boton = document.getElementById("boton-festejo"); // 2) agarra el botón
+
+boton.addEventListener("click", festejar); // 3) timbre conectado 🔔</code></pre>
+          El orden importa: primero existe la función, luego encuentras el botón, y al final
+          los conectas. Si escribieras <code>festejar()</code> con paréntesis, ¡el alert saldría
+          al cargar la página en vez de esperar el clic!
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama del timbre</strong> 🔔: ¿quién escucha?, ¿qué evento?, ¿qué función?</li>
+        <li>Checa que el <code>id</code> del HTML y el de <code>getElementById</code> sean
+          <strong>idénticos</strong>, letra por letra.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n5l2">Tengo 13 años, sé funciones en Python (def) y estoy aprendiendo JavaScript. Explícame cómo funciona addEventListener("click", miFuncion) con una analogía sencilla, y por qué la función va SIN paréntesis. Luego ayúdame a depurar mi código de un botón que no responde: te lo voy a pegar y quiero que me hagas preguntas para que YO encuentre el error, sin dármelo resuelto.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Agrega un <strong>segundo botón</strong> "😢 Abuchear" con su propia función y su propio
+        <code>alert</code>. <strong>Jefe secreto:</strong> haz una función
+        <code>gritar(mensaje)</code> que reciba un parámetro (¡como en Python!) y conéctala a los
+        dos botones usando <code>function () { gritar("...") }</code> — investiga con la IA cómo
+        pasar argumentos en un evento. 🕵️</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n5-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cómo se traduce el <code>def saludar():</code> de Python a JavaScript?</p>
+          <button class="opcion"><code>def saludar() { }</code></button>
+          <button class="opcion" data-ok><code>function saludar() { }</code></button>
+          <button class="opcion"><code>func saludar():</code></button>
+          <div class="explicacion"><code>def</code> → <code>function</code>, y los dos puntos +
+            sangría → llaves <code>{ }</code>. La idea de "máquina reutilizable" es la misma. 🧩</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En <code>boton.addEventListener("click", festejar)</code>, ¿por qué <code>festejar</code> va sin paréntesis?</p>
+          <button class="opcion">Porque a JavaScript no le gustan los paréntesis</button>
+          <button class="opcion">Es un error: siempre deben llevar paréntesis</button>
+          <button class="opcion" data-ok>Porque no queremos correrla YA, sino cuando ocurra el clic</button>
+          <div class="explicacion">Con paréntesis la función corre inmediatamente. Sin paréntesis
+            solo le "dejas el número" 📞 al evento para que la llame después.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué es un evento en una página web?</p>
+          <button class="opcion" data-ok>Algo que pasa (un clic, una tecla) y que la página puede escuchar</button>
+          <button class="opcion">Una fiesta que organiza el navegador 🎊</button>
+          <button class="opcion">Un error del programa</button>
+          <div class="explicacion">La página vive esperando eventos: clics, teclas, movimientos.
+            Con <code>addEventListener</code> decides qué hacer cuando ocurren. 👂</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n5-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: El idioma del navegador</a>
+      <a href="leccion-3.html">Siguiente: El DOM: tocar la página ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

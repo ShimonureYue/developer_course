@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciclos: el poder de repetir — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 5
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 5</span>
+    <h1>Ciclos: el poder de repetir 🔁</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Hacer que la computadora repita cosas por ti con <code>while</code> y <code>for</code>:
+        una tabla de multiplicar completa en <strong>3 líneas de código</strong>
+        y una cuenta regresiva de cohete 🚀. Este es el superpoder que hace útiles a las computadoras.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Piénsalo: si quisieras imprimir "hola" 500 veces, ¿escribirías 500 prints? 😱
+        Las computadoras existen justamente para NO hacer eso. Repetir millones de veces
+        sin cansarse es su especialidad. Solo necesitas saber pedírselo: con <strong>ciclos</strong>.</p>
+
+      <h3>🌀 while: repite MIENTRAS algo sea cierto</h3>
+      <div class="analogia">
+        Un <code>while</code> es como <strong>dar vueltas a la cuadra en bici MIENTRAS haya luz</strong> 🚴:
+        antes de cada vuelta te preguntas "¿todavía hay luz?". ¿Sí? → otra vuelta.
+        ¿Ya anocheció? → te metes a tu casa. La pregunta se revisa <strong>antes de cada vuelta</strong>.
+      </div>
+
+      <div class="diagrama">
+        <svg width="520" height="220" viewBox="0 0 520 220">
+          <!-- Flecha circular girando -->
+          <g class="anim-girar">
+            <circle cx="140" cy="110" r="62" fill="none" stroke="#39ff8e" stroke-width="5" stroke-dasharray="290 100"/>
+            <polygon points="140,38 156,52 140,64" fill="#39ff8e"/>
+          </g>
+          <text x="140" y="105" text-anchor="middle" font-size="13" fill="#ffe95c">¿condición</text>
+          <text x="140" y="123" text-anchor="middle" font-size="13" fill="#ffe95c">cierta? 🔁</text>
+          <!-- Contador: las vueltas van apareciendo -->
+          <text x="330" y="55" font-size="13" fill="#a3a3c8">vueltas que da el ciclo:</text>
+          <g>
+            <text class="anim-conteo" x="300" y="115" font-size="34" fill="#00e5ff" text-anchor="middle">1</text>
+            <text class="anim-conteo paso-2" x="345" y="115" font-size="34" fill="#ff4dd8" text-anchor="middle">2</text>
+            <text class="anim-conteo paso-3" x="390" y="115" font-size="34" fill="#39ff8e" text-anchor="middle">3</text>
+            <text class="anim-conteo paso-4" x="435" y="115" font-size="34" fill="#ffe95c" text-anchor="middle">4</text>
+            <text class="anim-conteo paso-5" x="480" y="115" font-size="34" fill="#a78bfa" text-anchor="middle">5</text>
+          </g>
+          <text class="mono" x="300" y="165" font-size="13" fill="#a3a3c8">while vueltas &lt;= 5:</text>
+          <text class="mono" x="300" y="185" font-size="13" fill="#a3a3c8">    vueltas = vueltas + 1</text>
+        </svg>
+        <p class="pie">La flecha gira: cada vuelta el ciclo revisa la condición y el contador avanza
+          1, 2, 3, 4, 5… Cuando la condición deja de ser cierta, el ciclo se detiene. 🛑</p>
+      </div>
+
+      <pre class="bloque-codigo"><code>vueltas = 1                 # el CONTADOR: lleva la cuenta
+while vueltas &lt;= 5:         # MIENTRAS no pasemos de 5...
+    print("Vuelta", vueltas)
+    vueltas = vueltas + 1   # ¡clave! algo DEBE cambiar adentro</code></pre>
+      <p>Dos personajes que vas a usar toda tu vida de programador:</p>
+      <ul>
+        <li>El <strong>contador</strong> 🔢: una variable que crece de 1 en 1 para llevar la cuenta
+          (<code>vueltas = vueltas + 1</code>).</li>
+        <li>El <strong>acumulador</strong> 💰: una variable que va juntando cosas, como una alcancía
+          (<code>total = total + precio</code>).</li>
+      </ul>
+
+      <h3>🔂 for + range(): repite N veces, sin tanto rollo</h3>
+      <p>Cuando ya sabes CUÁNTAS veces quieres repetir, <code>for</code> es el atajo:
+        él crea el contador y le va cambiando el valor solito:</p>
+      <pre class="bloque-codigo"><code>for i in range(5):        # repite 5 veces: i vale 0, 1, 2, 3, 4
+    print("Hola número", i)
+
+for i in range(1, 11):    # i va del 1 al 10 (¡el 11 NO entra!)
+    print(i)</code></pre>
+      <p>📏 Ojo con <code>range(1, 11)</code>: empieza en el 1 y se detiene
+        <strong>justo antes</strong> del 11. Es como los juegos de la feria: "del 1 al 10" —
+        el límite de arriba no juega. Y <code>range(5)</code> a secas empieza desde 0
+        (en la próxima lección verás por qué a las compus les encanta el 0 👀).</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El <code>while</code> de las vueltas en bici, y de paso un acumulador que junta tu dinero 💰:</p>
+
+      <div class="py-runner" data-titulo="vueltas_y_alcancia.py">
+<script type="text/plain">
+# CONTADOR: vueltas a la cuadra mientras haya luz (5 "horas" de luz)
+vueltas = 1
+while vueltas <= 5:
+    print("🚴 Vuelta número", vueltas)
+    vueltas = vueltas + 1
+print("🌙 Ya anocheció, ¡a la casa!")
+
+# ACUMULADOR: la alcancía junta 10 pesos por semana
+ahorro = 0
+semana = 1
+while semana <= 4:
+    ahorro = ahorro + 10
+    print("Semana", semana, "→ llevas", ahorro, "pesos")
+    semana = semana + 1
+</script>
+      </div>
+
+      <p>Y ahora la joya de la corona: la <strong>tabla de multiplicar en 3 líneas</strong>.
+        En la primaria te la aprendiste en semanas… tu programa la escribe en milisegundos.
+        Cambia el <code>numero</code> por cualquier tabla que quieras:</p>
+
+      <div class="py-runner" data-titulo="tabla_en_3_lineas.py">
+<script type="text/plain">
+numero = 7
+for i in range(1, 11):
+    print(numero, "x", i, "=", numero * i)
+</script>
+      </div>
+
+      <h3>☠️ EL CICLO INFINITO (con casco, por favor)</h3>
+      <p>⚠️ <strong>ADVERTENCIA REAL</strong>: el siguiente experimento puede congelar esta página.
+        No pasa nada grave: <strong>si tu página se congela, recárgala con ⌘R</strong> y listo.
+        Pero guarda tu código de otros editores antes, porque se reinician.</p>
+      <p>¿Qué pasa si al <code>while</code> se le olvida cambiar algo adentro? Mira este código
+        (NO hace falta que lo ejecutes, pero si el científico loco que llevas dentro insiste… ⌘R es tu amigo):</p>
+
+      <div class="py-runner" data-titulo="ciclo_infinito.py">
+<script type="text/plain">
+# ☠️ CICLO INFINITO A PROPÓSITO ☠️
+# vueltas empieza en 1 y NUNCA cambia adentro del ciclo...
+# así que la condición 1 <= 5 es cierta POR SIEMPRE.
+# Si lo ejecutas y la página se congela: recarga con ⌘R (Cmd + R)
+
+vueltas = 1
+while vueltas <= 5:
+    print("¡No puedo parar! 😵", vueltas)
+    # falta: vueltas = vueltas + 1
+</script>
+      </div>
+
+      <p>La lección más importante del día: <strong>adentro de un while, algo DEBE cambiar</strong>
+        para que la condición algún día sea falsa. Si nada cambia, el ciclo da vueltas por toda la eternidad
+        (o hasta el ⌘R, lo que llegue primero 😅). Todos los programadores han creado un ciclo infinito
+        por accidente. Todos. Es como una insignia de iniciación. 🎖️</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: LA CUENTA REGRESIVA DEL COHETE 🚀</p>
+      <p>Houston, te necesita: programa una cuenta regresiva del <strong>10 al 1</strong>
+        y al final el gran <strong>"¡DESPEGUE! 🚀"</strong>.
+        Hazla con <code>while</code>, empezando el contador en 10 y <strong>restando</strong>.</p>
+
+      <div class="py-runner" data-titulo="cohete.py">
+<script type="text/plain">
+print("Iniciando cuenta regresiva...")
+
+# TODO 1: crea el contador en 10
+
+# TODO 2: while el contador >= 1:
+#   TODO 3: imprime el contador
+#   TODO 4: réstale 1 al contador
+
+# TODO 5: al final (afuera del ciclo): print("¡DESPEGUE! 🚀")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Es el ciclo de las vueltas en bici, pero al revés: el contador empieza GRANDE
+          (<code>contador = 10</code>) y en cada vuelta se hace más chico
+          (<code>contador = contador - 1</code>). ¿Cuál sería la condición para seguir?
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La condición es <code>while contador &gt;= 1:</code> — mientras no lleguemos a 0, seguimos.
+          Y cuidado: el <code>print("¡DESPEGUE! 🚀")</code> va SIN indentación,
+          pegado a la izquierda, para que ocurra UNA vez al final y no en cada vuelta.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>print("Iniciando cuenta regresiva...")
+
+contador = 10               # empezamos arriba
+while contador &gt;= 1:        # mientras no pasemos del 1...
+    print(contador)         # muestra 10, 9, 8...
+    contador = contador - 1 # ¡el cambio que evita el ciclo infinito!
+
+print("¡DESPEGUE! 🚀")      # afuera del ciclo: solo pasa una vez</code></pre>
+          Bonus para presumir: la misma cuenta con for en una línea de ciclo:
+          <code>for i in range(10, 0, -1):</code> — el tercer número (-1) le dice a range
+          que cuente hacia atrás. 🤯
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Se congeló la página? Ciclo infinito 😅. Recarga con <strong>⌘R</strong> y revisa:
+          ¿tu contador cambia ADENTRO del ciclo?</li>
+        <li>¿El ciclo no arranca? Revisa la condición: si es falsa desde el inicio, nunca entra
+          (ej. <code>contador = 0</code> con <code>while contador &gt;= 1</code>).</li>
+        <li>¿"DESPEGUE" sale 10 veces? Está indentado de más: sácalo del ciclo
+          (pégalo a la izquierda).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l5">Tengo 13 años y estoy aprendiendo ciclos en Python (while y for con range). Explícame con analogías de la vida diaria: 1) la diferencia entre while y for, 2) qué es un contador y qué es un acumulador, 3) por qué se crean los ciclos infinitos y cómo evitarlos. Después ponme 3 retos chiquitos de ciclos, del más fácil al más difícil, y dame pistas si me atoro (no me des las soluciones de inmediato).</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p><strong>Todas las tablas</strong>: usa un <code>for</code> con <code>int(input())</code>
+        para preguntar qué tabla quiere el usuario, e imprímela.
+        <strong>Jefe secreto:</strong> el "aplausómetro" 👏 — suma con un acumulador los números del 1 al 100
+        (<code>total = total + i</code> dentro de un <code>for i in range(1, 101)</code>).
+        Cuenta la leyenda que el matemático Gauss lo resolvió de niño en segundos…
+        tu programa lo hará más rápido. ¿Te da 5050?</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n3-l5" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuándo deja de repetirse un <code>while</code>?</p>
+          <button class="opcion">Después de 100 vueltas, es el límite de Python</button>
+          <button class="opcion" data-ok>Cuando su condición se vuelve falsa</button>
+          <button class="opcion">Cuando la computadora se cansa</button>
+          <div class="explicacion">El <code>while</code> revisa su condición antes de cada vuelta:
+            mientras sea <code>True</code>, sigue; en cuanto es <code>False</code>, se sale.
+            Por eso algo debe cambiar adentro… o será infinito. ☠️</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué números recorre <code>for i in range(1, 11)</code>?</p>
+          <button class="opcion">Del 1 al 11, los dos incluidos</button>
+          <button class="opcion" data-ok>Del 1 al 10: el 11 ya no entra</button>
+          <button class="opcion">Del 0 al 10, siempre empieza en 0</button>
+          <div class="explicacion"><code>range(inicio, fin)</code> llega JUSTO ANTES del fin.
+            <code>range(1, 11)</code> → 1, 2, 3… 10. Perfecto para las tablas de multiplicar.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Este ciclo se quedó infinito. ¿Por qué?<br>
+            <code>vidas = 3</code><br>
+            <code>while vidas &gt; 0:</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;print("jugando...")</code></p>
+          <button class="opcion" data-ok>Porque <code>vidas</code> nunca cambia adentro del ciclo</button>
+          <button class="opcion">Porque el print está indentado</button>
+          <button class="opcion">Porque 3 es un número impar</button>
+          <div class="explicacion">La condición <code>3 &gt; 0</code> será cierta por siempre:
+            nadie le resta vidas al jugador. Faltó un <code>vidas = vidas - 1</code> adentro.
+            Si te pasa: ⌘R y a corregir. 😄</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l5">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-4.html">◀ Anterior: Decisiones avanzadas + input</a>
+      <a href="leccion-6.html">Siguiente: Listas + Jefe: El oráculo 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

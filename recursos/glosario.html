@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glosario 📖 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* Buscador */
+    .buscador {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      margin: 18px auto 6px;
+      padding: 14px 18px;
+      font-family: var(--fuente-cuerpo);
+      font-size: 1rem;
+      color: var(--texto);
+      background: var(--panel);
+      border: 2px solid var(--panel-borde);
+      border-radius: 12px;
+      outline: none;
+    }
+    .buscador:focus { border-color: var(--cian); box-shadow: 0 0 14px #00e5ff33; }
+
+    /* Tarjetas de términos */
+    .glosario {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+      padding: 20px 0 40px;
+    }
+    .termino {
+      background: var(--panel);
+      border: 2px solid var(--panel-borde);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .termino h3 { margin: 0 0 10px; font-size: 0.8rem; color: var(--cian); }
+    .termino p { margin: 0; font-size: 0.98rem; }
+    .termino .analogia {
+      display: block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-left: 4px solid var(--amarillo);
+      background: #1d1b0f;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+      color: var(--texto-suave);
+    }
+    .termino .analogia::before { content: "💡 Como "; color: var(--amarillo); }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">📖</div>
+      <h1>GLOSARIO</h1>
+      <p class="suave" style="max-width: 620px; margin: 12px auto 0;">
+        ¿Una palabra te sonó a hechizo de mago? 🧙 Aquí están todas, en español
+        sencillo y con una analogía para que se te quede. En orden alfabético.
+      </p>
+      <input class="buscador" id="buscador" type="text" placeholder="🔍 Busca una palabra… (ej. bug)">
+    </section>
+
+    <section class="glosario" id="glosario">
+
+      <div class="termino"><h3>🗺️ Algoritmo</h3>
+        <p>Una lista de pasos exactos y en orden para lograr algo. Los programas son algoritmos escritos en un lenguaje que la compu entiende.</p>
+        <span class="analogia">una receta de cocina: pasos claros, en orden, sin saltarse ninguno.</span></div>
+
+      <div class="termino"><h3>🍳 Backend</h3>
+        <p>La parte de un sistema que trabaja "detrás del telón", en un servidor: guarda datos, revisa contraseñas, hace cuentas.</p>
+        <span class="analogia">la cocina de un restaurante: no la ves, pero ahí se prepara todo.</span></div>
+
+      <div class="termino"><h3>🗄️ Base de datos</h3>
+        <p>Un programa especializado en guardar MUCHA información ordenada, para encontrarla y actualizarla rapidísimo.</p>
+        <span class="analogia">un archivero gigante con todo etiquetado y en su lugar.</span></div>
+
+      <div class="termino"><h3>✅ Booleano</h3>
+        <p>Un tipo de dato que solo puede valer dos cosas: verdadero (<code>true</code>) o falso (<code>false</code>).</p>
+        <span class="analogia">un interruptor de luz: prendido o apagado, sin puntos medios.</span></div>
+
+      <div class="termino"><h3>🐛 Bug</h3>
+        <p>Un error en un programa que hace que se comporte raro o truene. Encontrarlos y arreglarlos se llama "debuggear". TODOS los programadores tienen bugs.</p>
+        <span class="analogia">una piedrita en el zapato: chiquita, molesta, y no descansas hasta sacarla.</span></div>
+
+      <div class="termino"><h3>🖼️ Canvas</h3>
+        <p>Una etiqueta de HTML (<code>&lt;canvas&gt;</code>) que es un lienzo donde JavaScript puede dibujar píxel por píxel. Ahí viven Snake y Space Invaders.</p>
+        <span class="analogia">una hoja en blanco donde tu código pinta lo que quiera.</span></div>
+
+      <div class="termino"><h3>🚚 CDN</h3>
+        <p>Red de servidores repartidos por el mundo que entregan archivos (como librerías de código) al navegador de forma rápida.</p>
+        <span class="analogia">una red de repartidores: siempre te atiende el que está más cerca de tu casa.</span></div>
+
+      <div class="termino"><h3>🔁 Ciclo</h3>
+        <p>Instrucción que repite un bloque de código varias veces (<code>for</code>, <code>while</code>) sin copiar y pegar.</p>
+        <span class="analogia">dar vueltas a la pista: la misma ruta, las veces que haga falta.</span></div>
+
+      <div class="termino"><h3>🐑 Clonar</h3>
+        <p>Descargar una copia completa de un repositorio (con toda su historia) a tu computadora, usando git.</p>
+        <span class="analogia">fotocopiar el cuaderno completo de un compañero, no solo una página.</span></div>
+
+      <div class="termino"><h3>💥 Colisión</h3>
+        <p>Cuando dos objetos de un juego se tocan: la bala y el invasor, la serpiente y la manzana. Detectarlas es matemáticas de rectángulos.</p>
+        <span class="analogia">los carritos chocones: el juego "sabe" exactamente cuándo se tocaron.</span></div>
+
+      <div class="termino"><h3>🖥️ Consola</h3>
+        <p>Pantalla de texto donde los programas escriben mensajes y errores. Python tiene la suya y el navegador también (en DevTools).</p>
+        <span class="analogia">un walkie-talkie con tu programa: por ahí te cuenta qué está pasando.</span></div>
+
+      <div class="termino"><h3>🗿 Constante</h3>
+        <p>Un valor con nombre que NO cambia durante el programa. En JS se crea con <code>const</code>; en Python se escribe en MAYÚSCULAS.</p>
+        <span class="analogia">tu fecha de nacimiento: tiene nombre, tiene valor, y no cambia jamás.</span></div>
+
+      <div class="termino"><h3>🎨 CSS</h3>
+        <p>El lenguaje de los estilos: colores, tamaños, tipografías, posiciones. Le da el "look" a lo que HTML estructura.</p>
+        <span class="analogia">la ropa y el peinado de la página: la misma persona, otro estilo.</span></div>
+
+      <div class="termino"><h3>🚀 Deploy</h3>
+        <p>Publicar tu proyecto en internet para que cualquiera lo use (por ejemplo, subirlo a GitHub Pages).</p>
+        <span class="analogia">el estreno de una película: pasó de tu compu al mundo real.</span></div>
+
+      <div class="termino"><h3>🔬 DevTools</h3>
+        <p>Las herramientas secretas del navegador (clic derecho → Inspeccionar): consola, inspector de HTML/CSS y más. Los detectives de la web viven ahí.</p>
+        <span class="analogia">los rayos X del navegador: ves los huesos de cualquier página.</span></div>
+
+      <div class="termino"><h3>🌳 DOM</h3>
+        <p>El "árbol" de todos los elementos de la página que el navegador arma al leer tu HTML. JavaScript lo puede leer y modificar en vivo.</p>
+        <span class="analogia">el árbol genealógico de la página: body es el abuelo y cada etiqueta, un descendiente.</span></div>
+
+      <div class="termino"><h3>✍️ Editor</h3>
+        <p>El programa donde escribes código, con colores, autocompletado y avisos de errores. En este curso usamos VS Code.</p>
+        <span class="analogia">el cuaderno profesional del programador, con superpoderes.</span></div>
+
+      <div class="termino"><h3>🔔 Evento</h3>
+        <p>Algo que sucede en la página: un clic, una tecla, el paso del tiempo. Tu código puede "escucharlos" con <code>addEventListener</code> y reaccionar.</p>
+        <span class="analogia">el timbre de tu casa: cuando suena (evento), alguien va a abrir (tu función).</span></div>
+
+      <div class="termino"><h3>🎭 Frontend</h3>
+        <p>La parte de un sistema que el usuario VE y toca: la página, los botones, los colores. Se hace con HTML, CSS y JavaScript.</p>
+        <span class="analogia">el comedor del restaurante: mesas bonitas, menú, meseros… lo que el cliente vive.</span></div>
+
+      <div class="termino"><h3>🤖 Función</h3>
+        <p>Un bloque de código con nombre que puedes ejecutar las veces que quieras. Recibe datos (parámetros) y puede devolver un resultado (return).</p>
+        <span class="analogia">una licuadora: le metes ingredientes, aprietas el botón y te da el licuado.</span></div>
+
+      <div class="termino"><h3>🔄 Game loop</h3>
+        <p>El ciclo que hace vivir a un videojuego: muchas veces por segundo actualiza el mundo (mover, chocar) y lo vuelve a dibujar.</p>
+        <span class="analogia">los cuadros de una caricatura: muchas fotos rapidito parecen movimiento.</span></div>
+
+      <div class="termino"><h3>📸 Git</h3>
+        <p>Sistema de control de versiones: toma "fotos" (commits) de tu código para que puedas viajar en el tiempo si algo sale mal.</p>
+        <span class="analogia">los puntos de guardado de un videojuego, pero para tu código.</span></div>
+
+      <div class="termino"><h3>☁️ GitHub</h3>
+        <p>Sitio web donde guardas tus repositorios de git en la nube, colaboras con otros y hasta publicas páginas gratis (GitHub Pages).</p>
+        <span class="analogia">una red social de código: tu perfil, tus proyectos y los de millones más.</span></div>
+
+      <div class="termino"><h3>🧱 HTML</h3>
+        <p>El lenguaje de la ESTRUCTURA de las páginas web: títulos, párrafos, imágenes, enlaces. Todo sitio del mundo empieza aquí.</p>
+        <span class="analogia">los cimientos y paredes de una casa: primero la estructura, luego la decoración.</span></div>
+
+      <div class="termino"><h3>📐 Indentación</h3>
+        <p>Los espacios al inicio de una línea de código. En Python son OBLIGATORIOS: le dicen qué está dentro de qué.</p>
+        <span class="analogia">la sangría de un esquema: lo que va "más adentro" pertenece a lo de arriba.</span></div>
+
+      <div class="termino"><h3>📦 JSON</h3>
+        <p>Un formato de texto para guardar y enviar datos: <code>{"nombre": "Ana", "puntos": 120}</code>. Lo entienden casi todos los lenguajes.</p>
+        <span class="analogia">empacar tus cosas en cajas etiquetadas para una mudanza: fácil de guardar, fácil de desempacar.</span></div>
+
+      <div class="termino"><h3>💾 localStorage</h3>
+        <p>La memoria del navegador: guarda textos con clave y valor, y ahí siguen aunque cierres la pestaña. Así guardan récord tus juegos (y este curso tu XP).</p>
+        <span class="analogia">un cajón secreto del navegador: lo que dejas ahí, ahí sigue mañana.</span></div>
+
+      <div class="termino"><h3>🏗️ Motor de juegos</h3>
+        <p>Programa con herramientas ya construidas para crear juegos: física, sonido, escenas. Godot es el que te espera al final del curso.</p>
+        <span class="analogia">una cocina industrial: los hornos ya están, tú pones la receta.</span></div>
+
+      <div class="termino"><h3>🌐 Navegador</h3>
+        <p>El programa que descarga páginas y las convierte en algo que ves: lee HTML, aplica CSS y ejecuta JavaScript. Chrome, Safari, Firefox…</p>
+        <span class="analogia">un traductor simultáneo: recibe código y te muestra una página bonita.</span></div>
+
+      <div class="termino"><h3>🎁 Parámetro</h3>
+        <p>El dato que una función espera recibir para trabajar. Cuando la llamas, le pasas los valores (argumentos).</p>
+        <span class="analogia">los espacios en blanco de una invitación: "Querido ____": tú decides el nombre en cada copia.</span></div>
+
+      <div class="termino"><h3>🔲 Píxel</h3>
+        <p>El puntito de color más pequeño de la pantalla. Todo lo que ves (y todo lo que dibujas en canvas) está hecho de miles de ellos.</p>
+        <span class="analogia">las cuentas de un collar de chaquira: de cerca son puntitos, de lejos, un dibujo.</span></div>
+
+      <div class="termino"><h3>📇 Registro</h3>
+        <p>UNA fila de una tabla de base de datos: todos los datos de una cosa (un jugador, un producto).</p>
+        <span class="analogia">una ficha de la biblioteca: una tarjeta = un libro con todos sus datos.</span></div>
+
+      <div class="termino"><h3>📁 Repositorio</h3>
+        <p>La carpeta de un proyecto administrada por git, con todos sus archivos y toda su historia de cambios.</p>
+        <span class="analogia">la carpeta del proyecto… con máquina del tiempo incluida.</span></div>
+
+      <div class="termino"><h3>📤 Return</h3>
+        <p>La instrucción con la que una función DEVUELVE su resultado y termina. Sin return, la función hace cosas pero no te entrega nada.</p>
+        <span class="analogia">la ventanilla de entrega del ticket: pediste, y por ahí te dan tu platillo.</span></div>
+
+      <div class="termino"><h3>🏢 Servidor</h3>
+        <p>Una computadora (normalmente lejana y siempre encendida) que atiende peticiones: "dame esta página", "guarda este dato".</p>
+        <span class="analogia">la matriz de una pizzería: tú pides desde tu casa y ella responde a miles a la vez.</span></div>
+
+      <div class="termino"><h3>✏️ Sintaxis</h3>
+        <p>Las reglas de escritura de un lenguaje de programación: dónde van los dos puntos, las llaves, los paréntesis. Un error de sintaxis = la compu no te entiende.</p>
+        <span class="analogia">la ortografía y gramática de un idioma, pero sin perdón: una coma mal y no compila.</span></div>
+
+      <div class="termino"><h3>🧍 Sprite</h3>
+        <p>La imagen 2D de un personaje u objeto de un juego: la nave, el invasor, la moneda. Puede tener varios cuadros para animarse.</p>
+        <span class="analogia">las calcomanías de un álbum: figuras recortadas que pegas y mueves por la escena.</span></div>
+
+      <div class="termino"><h3>🔍 SQL</h3>
+        <p>El lenguaje para hablar con bases de datos: pedir, filtrar y ordenar información con frases como <code>SELECT * FROM jugadores</code>.</p>
+        <span class="analogia">hacerle preguntas MUY precisas a un bibliotecario: "dame todos los libros de 1990, ordenados por autor".</span></div>
+
+      <div class="termino"><h3>🧵 String</h3>
+        <p>Una cadena de texto: letras, números y símbolos entre comillas. <code>"hola"</code>, <code>"3 tacos"</code> y <code>""</code> son strings.</p>
+        <span class="analogia">cuentas de letras ensartadas en un hilo, una tras otra: por eso "cadena".</span></div>
+
+      <div class="termino"><h3>📊 Tabla</h3>
+        <p>En una base de datos, la estructura que organiza la información en filas (registros) y columnas (datos). Como una hoja de cálculo.</p>
+        <span class="analogia">la lista de asistencia del salón: una fila por alumno, una columna por dato.</span></div>
+
+      <div class="termino"><h3>📦 Variable</h3>
+        <p>Una caja con nombre donde guardas un valor que puede cambiar: <code>vidas = 3</code>, y más tarde <code>vidas = 2</code>.</p>
+        <span class="analogia">un locker con etiqueta: sabes cómo se llama, y puedes cambiar lo que hay dentro.</span></div>
+
+    </section>
+
+    <p class="centrado" style="padding-bottom: 40px;">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+
+  <!-- Buscador del glosario: filtra las tarjetas mientras escribes.
+       Un ejemplo real de eventos + DOM, como los del Nivel 5 😉 -->
+  <script>
+    "use strict";
+    const buscador = document.getElementById("buscador");
+    const tarjetas = document.querySelectorAll(".termino");
+
+    buscador.addEventListener("input", function () {
+      const texto = buscador.value.toLowerCase();
+      tarjetas.forEach(function (tarjeta) {
+        // Si el término o su definición contienen lo escrito, se muestra
+        const coincide = tarjeta.textContent.toLowerCase().includes(texto);
+        tarjeta.style.display = coincide ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

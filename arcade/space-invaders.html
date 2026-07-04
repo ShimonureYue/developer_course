@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Invaders 👾 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+
+  <!-- ============================================================
+       ESTILOS DEL JUEGO (solo de esta página)
+       ============================================================ -->
+  <style>
+    #lienzo {
+      background: #07071a;
+      border: 3px solid var(--panel-borde);
+      border-radius: 12px;
+      box-shadow: 0 0 34px #a78bfa33;
+      max-width: 100%;
+      cursor: pointer;
+    }
+    .botonera {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 22px 0 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor centrado" style="padding-top: 30px;">
+    <div style="font-size: 3.4rem;">👾</div>
+    <h1>SPACE INVADERS</h1>
+    <p class="suave" style="max-width: 580px; margin: 8px auto 14px;">
+      La Tierra cuenta contigo, piloto 🫡. Detén las oleadas de invasores…
+      cada una viene más rápida que la anterior.
+    </p>
+
+    <!-- El campo de batalla -->
+    <canvas id="lienzo" width="480" height="560"></canvas>
+
+    <p class="suave" style="font-size: 0.9rem; margin-top: 12px;">
+      ⌨️ ← → para mover · ESPACIO para disparar · P para pausa<br>
+      💡 Si el teclado no responde, <strong>haz clic en el juego</strong> primero.
+      🔊 Sube el volumen: hay sonidos retro.
+    </p>
+
+    <div class="botonera">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER AL ARCADE</a>
+    </div>
+
+    <p class="suave" style="font-size: 0.9rem;">
+      🔍 Clic derecho → <strong>"Ver código fuente de la página"</strong> para estudiar el juego.
+      Este es el proyecto final que construyes en el <a href="../niveles/nivel-9/index.html">Nivel 9</a>.
+    </p>
+  </main>
+
+  <!-- ============================================================
+       LA LÓGICA DEL JUEGO
+       El proyecto final del curso, ya completo y pulido.
+       Piezas: estado → game loop → controles → colisiones → sonido.
+       Léelo por secciones, ¡no todo de golpe!
+       ============================================================ -->
+  <script>
+    "use strict";
+
+    // ---------- 1. EL LIENZO ----------
+    const lienzo = document.getElementById("lienzo");
+    const ctx = lienzo.getContext("2d");
+    const ANCHO = lienzo.width;   // 480
+    const ALTO = lienzo.height;   // 560
+
+    // ---------- 2. PIXEL ART CON UNOS Y CEROS ----------
+    // Cada dibujo es una lista de textos: "1" = píxel encendido, "0" = apagado.
+    // ¡Así se hacían los sprites de los 80! El invasor tiene DOS cuadros
+    // (frames) para que "camine" al alternarlos.
+    const INVASOR_A = [
+      "00100000100",
+      "00010001000",
+      "00111111100",
+      "01101110110",
+      "11111111111",
+      "10111111101",
+      "10100000101",
+      "00011011000"
+    ];
+    const INVASOR_B = [
+      "00100000100",
+      "10010001001",
+      "10111111101",
+      "11101110111",
+      "11111111111",
+      "01111111110",
+      "00100000100",
+      "01000000010"
+    ];
+    const NAVE_SPRITE = [
+      "00000100000",
+      "00001110000",
+      "00001110000",
+      "01111111110",
+      "11111111111",
+      "11111111111"
+    ];
+
+    // Dibuja una matriz de píxeles en (x, y), con su escala y color
+    function dibujarSprite(sprite, x, y, escala, color) {
+      ctx.fillStyle = color;
+      for (let fila = 0; fila < sprite.length; fila++) {
+        for (let col = 0; col < sprite[fila].length; col++) {
+          if (sprite[fila][col] === "1") {
+            ctx.fillRect(x + col * escala, y + fila * escala, escala, escala);
+          }
+        }
+      }
+    }
+
+    // ---------- 3. CONSTANTES DEL JUEGO ----------
+    const ESCALA_INV = 2;
+    const ANCHO_INV = 11 * ESCALA_INV;   // 22 px
+    const ALTO_INV = 8 * ESCALA_INV;     // 16 px
+    const FILAS_INV = 4;
+    const COLUMNAS_INV = 8;
+    const TOTAL_INV = FILAS_INV * COLUMNAS_INV; // 32 invasores
+
+    const ESCALA_NAVE = 3;
+    const ANCHO_NAVE = 11 * ESCALA_NAVE; // 33 px
+    const ALTO_NAVE = 6 * ESCALA_NAVE;   // 18 px
+
+    // Colores y puntos según la fila (la de arriba vale más 💰)
+    const COLOR_FILA = ["#ff4dd8", "#a78bfa", "#ff4dd8", "#a78bfa"];
+    const PUNTOS_FILA = [40, 30, 20, 10];
+
+    const CLAVE_RECORD = "arcade-invaders-record";
+
+    // ---------- 4. EL ESTADO DEL JUEGO ----------
+    let estado = "titulo";     // "titulo" → "jugando" ⇄ "pausa" → "gameover"
+    let cuadro = 0;            // contador de frames (para animaciones)
+
+    let nave = { x: ANCHO / 2 - ANCHO_NAVE / 2, y: ALTO - 60, ancho: ANCHO_NAVE, alto: ALTO_NAVE };
+    let invasores = [];        // objetos {x, y, fila, vivo}
+    let dirInvasores = 1;      // 1 = derecha, -1 = izquierda
+    let balas = [];            // disparos de la nave (suben)
+    let balasEnemigas = [];    // disparos de los invasores (bajan)
+    let explosiones = [];      // efectos {x, y, t}
+
+    let puntos = 0;
+    let vidas = 3;
+    let oleada = 1;
+    let record = parseInt(localStorage.getItem(CLAVE_RECORD) || "0", 10);
+
+    let enfriamientoDisparo = 0; // frames que faltan para poder disparar otra vez
+    let invulnerable = 0;        // frames de escudo tras recibir un golpe
+    let tiempoMensaje = 0;       // frames que queda visible el aviso de oleada
+    let textoMensaje = "";
+
+    const teclas = {};           // qué teclas están presionadas AHORA MISMO
+
+    // ---------- 5. SONIDOS RETRO CON WEBAUDIO 🔊 ----------
+    // En vez de archivos .mp3, GENERAMOS los sonidos con matemáticas:
+    // un OscillatorNode produce una onda (como un sintetizador de los 80).
+    // Los navegadores solo permiten crear audio DESPUÉS de que el usuario
+    // interactúa, por eso lo creamos en la primera tecla presionada.
+    let audio = null;
+
+    function asegurarAudio() {
+      if (!audio) {
+        audio = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audio.state === "suspended") {
+        audio.resume(); // algunos navegadores lo pausan hasta que hay interacción
+      }
+    }
+
+    // Un "beep" configurable: frecuencia inicial → final, tipo de onda y duración
+    function beep(frecInicial, frecFinal, tipo, duracion, volumen) {
+      if (!audio) return; // sin audio todavía: silencio y no pasa nada
+      const osc = audio.createOscillator();  // el generador de la onda
+      const gain = audio.createGain();       // el control de volumen
+      const ahora = audio.currentTime;
+      osc.type = tipo;                       // "square", "sawtooth", "triangle"…
+      osc.frequency.setValueAtTime(frecInicial, ahora);
+      osc.frequency.exponentialRampToValueAtTime(frecFinal, ahora + duracion);
+      gain.gain.setValueAtTime(volumen, ahora);
+      gain.gain.exponentialRampToValueAtTime(0.001, ahora + duracion); // se desvanece
+      osc.connect(gain);
+      gain.connect(audio.destination);       // ¡a las bocinas!
+      osc.start(ahora);
+      osc.stop(ahora + duracion);
+    }
+
+    function sonidoDisparo()   { beep(880, 220, "square",   0.12, 0.08); } // agudo, láser
+    function sonidoExplosion() { beep(150, 35,  "sawtooth", 0.30, 0.15); } // grave, boom
+    function sonidoGolpe()     { beep(90,  30,  "triangle", 0.50, 0.20); } // te dieron 💔
+
+    // ---------- 6. CREAR UNA OLEADA DE INVASORES ----------
+    function crearOleada() {
+      invasores = [];
+      for (let fila = 0; fila < FILAS_INV; fila++) {
+        for (let col = 0; col < COLUMNAS_INV; col++) {
+          invasores.push({
+            x: 42 + col * 46,   // separados 46 px en horizontal
+            y: 80 + fila * 38,  // y 38 px en vertical
+            fila: fila,         // la fila decide su color y sus puntos
+            vivo: true
+          });
+        }
+      }
+      dirInvasores = 1; // toda oleada nueva empieza marchando a la derecha
+    }
+
+    // ---------- 7. EMPEZAR PARTIDA ----------
+    function empezarJuego() {
+      puntos = 0;
+      vidas = 3;
+      oleada = 1;
+      balas = [];
+      balasEnemigas = [];
+      explosiones = [];
+      nave.x = ANCHO / 2 - ANCHO_NAVE / 2;
+      enfriamientoDisparo = 20; // pequeña pausa para no disparar al instante
+      invulnerable = 0;
+      crearOleada();
+      textoMensaje = "OLEADA 1";
+      tiempoMensaje = 90;
+      estado = "jugando";
+    }
+
+    // ---------- 8. COLISIONES AABB 📦 ----------
+    // AABB = cajas alineadas a los ejes. Dos rectángulos CHOCAN si se
+    // traslapan en horizontal Y TAMBIÉN en vertical. Es la técnica de
+    // colisión más usada en los videojuegos 2D.
+    function chocan(a, b) {
+      return a.x < b.x + b.ancho &&
+             a.x + a.ancho > b.x &&
+             a.y < b.y + b.alto &&
+             a.y + a.alto > b.y;
+    }
+
+    // Una explosión en (x, y): t es su "edad" en frames
+    function explotar(x, y) {
+      explosiones.push({ x: x, y: y, t: 0 });
+    }
+
+    // ---------- 9. ACTUALIZAR EL MUNDO (una vez por frame) ----------
+    function actualizar() {
+      cuadro++;
+
+      // --- La nave se mueve SUAVE mientras la tecla siga presionada ---
+      if (teclas["ArrowLeft"])  { nave.x -= 4.5; }
+      if (teclas["ArrowRight"]) { nave.x += 4.5; }
+      // La atrapamos dentro del lienzo (¡nada de escapar por los lados!)
+      nave.x = Math.max(6, Math.min(ANCHO - ANCHO_NAVE - 6, nave.x));
+
+      // --- Disparo con cadencia limitada (no eres una manguera 😄) ---
+      if (enfriamientoDisparo > 0) { enfriamientoDisparo--; }
+      if (teclas[" "] && enfriamientoDisparo <= 0) {
+        balas.push({ x: nave.x + ANCHO_NAVE / 2 - 2, y: nave.y - 12, ancho: 4, alto: 12 });
+        enfriamientoDisparo = 22; // ~1/3 de segundo entre disparos
+        sonidoDisparo();
+      }
+
+      // --- Mover invasores en bloque 👾👾👾 ---
+      const vivos = invasores.filter(function (inv) { return inv.vivo; });
+
+      // ¿Oleada limpiada? ¡Viene otra MÁS RÁPIDA!
+      if (vivos.length === 0) {
+        oleada++;
+        crearOleada();
+        balasEnemigas = []; // borrón y cuenta nueva
+        textoMensaje = "OLEADA " + oleada;
+        tiempoMensaje = 90;
+        return; // este frame termina aquí; el siguiente ya trae la oleada nueva
+      }
+
+      // Velocidad: sube con cada oleada Y conforme quedan menos invasores
+      // (como en el arcade original: el último invasor es velocísimo 💨)
+      let velInv = (0.35 + (oleada - 1) * 0.2) + (TOTAL_INV - vivos.length) * 0.05;
+      velInv = Math.min(velInv, 4);
+
+      let tocaronBorde = false;
+      for (const inv of vivos) {
+        inv.x += dirInvasores * velInv;
+        if (inv.x < 8 || inv.x + ANCHO_INV > ANCHO - 8) {
+          tocaronBorde = true;
+        }
+      }
+      if (tocaronBorde) {
+        dirInvasores = -dirInvasores;      // dan la vuelta…
+        for (const inv of vivos) {
+          inv.y += 18;                     // …y BAJAN un escalón 😱
+        }
+      }
+
+      // ¿Algún invasor llegó a la altura de la nave? Invasión consumada.
+      for (const inv of vivos) {
+        if (inv.y + ALTO_INV >= nave.y) {
+          perderJuego();
+          return;
+        }
+      }
+
+      // --- Los invasores disparan al azar ---
+      // Cada frame hay una probabilidad pequeña de que UNO dispare.
+      const probabilidad = 0.012 + oleada * 0.004;
+      if (Math.random() < probabilidad && balasEnemigas.length < 3 + oleada) {
+        const tirador = vivos[Math.floor(Math.random() * vivos.length)];
+        balasEnemigas.push({
+          x: tirador.x + ANCHO_INV / 2 - 2,
+          y: tirador.y + ALTO_INV,
+          ancho: 4,
+          alto: 12
+        });
+      }
+
+      // --- Mover balas de la nave (suben) y detectar impactos ---
+      for (const bala of balas) {
+        bala.y -= 8;
+        for (const inv of invasores) {
+          if (inv.vivo && chocan(bala, { x: inv.x, y: inv.y, ancho: ANCHO_INV, alto: ALTO_INV })) {
+            inv.vivo = false;                       // 💥 invasor eliminado
+            bala.usada = true;                      // la bala también muere
+            puntos += PUNTOS_FILA[inv.fila];        // filas de arriba valen más
+            explotar(inv.x + ANCHO_INV / 2, inv.y + ALTO_INV / 2);
+            sonidoExplosion();
+            break; // esta bala ya no puede pegarle a nadie más
+          }
+        }
+      }
+      // Nos quedamos solo con las balas vigentes (ni usadas ni fuera de pantalla)
+      balas = balas.filter(function (b) { return !b.usada && b.y > -20; });
+
+      // --- Mover balas enemigas (bajan) y ver si nos dieron ---
+      if (invulnerable > 0) { invulnerable--; }
+      for (const bala of balasEnemigas) {
+        bala.y += 2.6 + oleada * 0.3;
+        if (invulnerable <= 0 && chocan(bala, nave)) {
+          bala.usada = true;
+          vidas--;
+          invulnerable = 90; // 1.5 segundos de escudo (la nave parpadea)
+          explotar(nave.x + ANCHO_NAVE / 2, nave.y + ALTO_NAVE / 2);
+          sonidoGolpe();
+          if (vidas <= 0) {
+            perderJuego();
+            return;
+          }
+        }
+      }
+      balasEnemigas = balasEnemigas.filter(function (b) { return !b.usada && b.y < ALTO + 20; });
+
+      // --- Envejecer las explosiones y retirar las terminadas ---
+      for (const ex of explosiones) { ex.t++; }
+      explosiones = explosiones.filter(function (ex) { return ex.t < 24; });
+
+      if (tiempoMensaje > 0) { tiempoMensaje--; }
+    }
+
+    // ---------- 10. GAME OVER ----------
+    function perderJuego() {
+      estado = "gameover";
+      if (puntos > record) {
+        record = puntos;
+        localStorage.setItem(CLAVE_RECORD, String(record));
+      }
+    }
+
+    // ---------- 11. DIBUJAR TODO 🖌️ ----------
+    function dibujar() {
+      // Fondo (borra el frame anterior)
+      ctx.fillStyle = "#07071a";
+      ctx.fillRect(0, 0, ANCHO, ALTO);
+
+      // Estrellitas de fondo (posiciones fijas calculadas con una fórmula,
+      // para no guardar un arreglo: mismo resultado cada frame)
+      ctx.fillStyle = "#2c2c5a";
+      for (let i = 0; i < 40; i++) {
+        const sx = (i * 137) % ANCHO;
+        const sy = (i * 211 + Math.floor(cuadro / 4)) % ALTO; // caen lentamente
+        ctx.fillRect(sx, sy, 2, 2);
+      }
+
+      // El cuadro de animación de los invasores cambia cada 20 frames
+      const frameInv = Math.floor(cuadro / 20) % 2 === 0 ? INVASOR_A : INVASOR_B;
+
+      // Invasores vivos, con su brillo neón
+      ctx.shadowBlur = 6;
+      for (const inv of invasores) {
+        if (!inv.vivo) continue;
+        ctx.shadowColor = COLOR_FILA[inv.fila];
+        dibujarSprite(frameInv, inv.x, inv.y, ESCALA_INV, COLOR_FILA[inv.fila]);
+      }
+
+      // La nave (parpadea si está invulnerable: se dibuja frames alternados)
+      if (invulnerable <= 0 || Math.floor(cuadro / 4) % 2 === 0) {
+        ctx.shadowColor = "#00e5ff";
+        ctx.shadowBlur = 12;
+        dibujarSprite(NAVE_SPRITE, nave.x, nave.y, ESCALA_NAVE, "#00e5ff");
+      }
+
+      // Balas de la nave (cian) y de los enemigos (magenta)
+      ctx.shadowColor = "#00e5ff";
+      ctx.shadowBlur = 10;
+      ctx.fillStyle = "#aef7ff";
+      for (const bala of balas) {
+        ctx.fillRect(bala.x, bala.y, bala.ancho, bala.alto);
+      }
+      ctx.shadowColor = "#ff4dd8";
+      ctx.fillStyle = "#ff8ae6";
+      for (const bala of balasEnemigas) {
+        ctx.fillRect(bala.x, bala.y, bala.ancho, bala.alto);
+      }
+
+      // Explosiones: 8 chispas que vuelan desde el centro 💥
+      for (const ex of explosiones) {
+        const progreso = ex.t / 24;              // 0 → 1
+        const distancia = progreso * 24;         // qué tan lejos van las chispas
+        ctx.shadowColor = "#ffb86c";
+        ctx.shadowBlur = 10;
+        ctx.fillStyle = progreso < 0.5 ? "#ffe95c" : "#ffb86c";
+        for (let i = 0; i < 8; i++) {
+          const angulo = (i * Math.PI) / 4;      // 8 direcciones en círculo
+          const px = ex.x + Math.cos(angulo) * distancia;
+          const py = ex.y + Math.sin(angulo) * distancia;
+          ctx.fillRect(px - 2, py - 2, 4, 4);
+        }
+      }
+      ctx.shadowBlur = 0;
+
+      // --- El HUD: puntos, récord, oleada y vidas ---
+      ctx.textAlign = "left";
+      ctx.font = '10px "Press Start 2P", monospace';
+      ctx.fillStyle = "#eaeaf5";
+      ctx.fillText("PUNTOS " + puntos, 14, 24);
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillText("RECORD " + record, 14, 44);
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#a78bfa";
+      ctx.fillText("OLEADA " + oleada, ANCHO - 14, 24);
+      ctx.font = '14px sans-serif';
+      ctx.fillText("❤️".repeat(Math.max(0, vidas)), ANCHO - 14, 46);
+
+      // Aviso de oleada nueva, centrado y temporal
+      if (tiempoMensaje > 0) {
+        ctx.textAlign = "center";
+        ctx.font = '18px "Press Start 2P", monospace';
+        ctx.fillStyle = "#a78bfa";
+        ctx.shadowColor = "#a78bfa";
+        ctx.shadowBlur = 14;
+        ctx.fillText(textoMensaje, ANCHO / 2, ALTO / 2 - 40);
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // ---------- 12. PANTALLA DE TÍTULO ----------
+    function dibujarTitulo() {
+      cuadro++;
+      ctx.fillStyle = "#07071a";
+      ctx.fillRect(0, 0, ANCHO, ALTO);
+
+      // Título con glow
+      ctx.textAlign = "center";
+      ctx.shadowColor = "#ff4dd8";
+      ctx.shadowBlur = 18;
+      ctx.fillStyle = "#ff4dd8";
+      ctx.font = '24px "Press Start 2P", monospace';
+      ctx.fillText("SPACE", ANCHO / 2, 110);
+      ctx.fillText("INVADERS", ANCHO / 2, 150);
+      ctx.shadowBlur = 0;
+
+      // Invasores decorativos que "bailan" (animados con seno y frames)
+      const frameInv = Math.floor(cuadro / 20) % 2 === 0 ? INVASOR_A : INVASOR_B;
+      const colores = ["#ff4dd8", "#a78bfa", "#00e5ff", "#39ff8e"];
+      for (let i = 0; i < 4; i++) {
+        const bamboleo = Math.sin(cuadro / 25 + i) * 8; // sube y baja suavecito
+        ctx.shadowColor = colores[i];
+        ctx.shadowBlur = 8;
+        dibujarSprite(frameInv, 90 + i * 84, 210 + bamboleo, 2.5, colores[i]);
+      }
+      ctx.shadowBlur = 0;
+
+      // Tabla de puntos, como en el arcade original
+      ctx.font = '10px "Press Start 2P", monospace';
+      ctx.fillStyle = "#a3a3c8";
+      ctx.fillText("FILA DE ARRIBA = 40 PTS", ANCHO / 2, 300);
+      ctx.fillText("FILA DE ABAJO  = 10 PTS", ANCHO / 2, 322);
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillText("RECORD: " + record, ANCHO / 2, 360);
+
+      // "PRESIONA ESPACIO" parpadeando (aparece y desaparece cada 30 frames)
+      if (Math.floor(cuadro / 30) % 2 === 0) {
+        ctx.fillStyle = "#39ff8e";
+        ctx.shadowColor = "#39ff8e";
+        ctx.shadowBlur = 12;
+        ctx.font = '14px "Press Start 2P", monospace';
+        ctx.fillText("PRESIONA ESPACIO", ANCHO / 2, 430);
+        ctx.shadowBlur = 0;
+      }
+
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = '9px "Press Start 2P", monospace';
+      ctx.fillText("← → MOVER   ESPACIO DISPARAR", ANCHO / 2, 490);
+      ctx.fillText("P = PAUSA", ANCHO / 2, 512);
+    }
+
+    // ---------- 13. CAPAS DE PAUSA Y GAME OVER ----------
+    function dibujarPausa() {
+      dibujar(); // el juego se ve congelado debajo…
+      ctx.fillStyle = "rgba(7, 7, 26, 0.75)";
+      ctx.fillRect(0, 0, ANCHO, ALTO);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ffe95c";
+      ctx.shadowColor = "#ffe95c";
+      ctx.shadowBlur = 14;
+      ctx.font = '22px "Press Start 2P", monospace';
+      ctx.fillText("PAUSA", ANCHO / 2, ALTO / 2 - 20);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = '11px "Press Start 2P", monospace';
+      ctx.fillText("PRESIONA P PARA SEGUIR", ANCHO / 2, ALTO / 2 + 30);
+    }
+
+    function dibujarGameOver() {
+      dibujar(); // la escena final queda de fondo
+      ctx.fillStyle = "rgba(7, 7, 26, 0.8)";
+      ctx.fillRect(0, 0, ANCHO, ALTO);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ff5c7a";
+      ctx.shadowColor = "#ff5c7a";
+      ctx.shadowBlur = 16;
+      ctx.font = '24px "Press Start 2P", monospace';
+      ctx.fillText("GAME OVER", ANCHO / 2, 210);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = '12px "Press Start 2P", monospace';
+      ctx.fillText("PUNTOS: " + puntos, ANCHO / 2, 270);
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillText("RECORD: " + record, ANCHO / 2, 300);
+      if (puntos > 0 && puntos === record) {
+        ctx.fillStyle = "#39ff8e";
+        ctx.fillText("¡NUEVO RECORD! 🏆", ANCHO / 2, 340);
+      }
+      if (Math.floor(cuadro / 30) % 2 === 0) {
+        ctx.fillStyle = "#a3a3c8";
+        ctx.font = '11px "Press Start 2P", monospace';
+        ctx.fillText("ESPACIO PARA JUGAR OTRA VEZ", ANCHO / 2, 400);
+      }
+      cuadro++; // para que el texto siga parpadeando
+    }
+
+    // ---------- 14. EL GAME LOOP ----------
+    // requestAnimationFrame le pide al navegador: "llámame en el próximo
+    // refresco de pantalla" (~60 veces por segundo). El loop corre SIEMPRE
+    // y decide qué hacer según el estado. Un solo loop = cero duplicados.
+    function bucle() {
+      if (estado === "titulo") {
+        dibujarTitulo();
+      } else if (estado === "jugando") {
+        actualizar();
+        // actualizar() puede cambiar el estado (game over); revisamos de nuevo
+        if (estado === "jugando") { dibujar(); }
+        else { dibujarGameOver(); }
+      } else if (estado === "pausa") {
+        dibujarPausa();
+      } else if (estado === "gameover") {
+        dibujarGameOver();
+      }
+      requestAnimationFrame(bucle); // ¡y nos volvemos a apuntar para el siguiente!
+    }
+
+    // ---------- 15. CONTROLES ⌨️ ----------
+    // Guardamos qué teclas están abajo en el objeto "teclas". Así el
+    // movimiento es suave: el loop pregunta cada frame "¿sigue presionada?"
+    document.addEventListener("keydown", function (evento) {
+      // Que las flechas y el espacio no hagan scroll a la página
+      if (["ArrowLeft", "ArrowRight", " "].includes(evento.key)) {
+        evento.preventDefault();
+      }
+
+      // Primera interacción del usuario: ya podemos encender el audio 🔊
+      asegurarAudio();
+
+      teclas[evento.key] = true;
+
+      // Si dejas la tecla presionada, el sistema "repite" el evento muchas
+      // veces por segundo. Para cambiar de pantalla o pausar solo nos
+      // interesa la PRIMERA presión, no las repeticiones automáticas.
+      if (evento.repeat) return;
+
+      // ESPACIO también arranca el juego desde el título o el game over
+      if (evento.key === " ") {
+        if (estado === "titulo" || estado === "gameover") {
+          empezarJuego();
+        }
+      }
+
+      // P alterna la pausa (solo tiene sentido durante la partida)
+      if (evento.key === "p" || evento.key === "P") {
+        if (estado === "jugando") { estado = "pausa"; }
+        else if (estado === "pausa") { estado = "jugando"; }
+      }
+    });
+
+    document.addEventListener("keyup", function (evento) {
+      teclas[evento.key] = false;
+    });
+
+    // Clic en el lienzo = recuperar el foco del teclado
+    lienzo.addEventListener("click", function () {
+      window.focus();
+    });
+
+    // ---------- 16. ¡A JUGAR! ----------
+    crearOleada(); // para que haya invasores que mostrar si acaso
+    requestAnimationFrame(bucle);
+  </script>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: Snake completo — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🖌️ Nivel 8: Canvas</a> › Lección 5
+    </p>
+    <span class="etiqueta-leccion">NIVEL 8 · LECCIÓN 5 · 👑 JEFE</span>
+    <h1>Jefe: Snake completo 👑🐍</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 EL JEFE DE ESTE NIVEL</p>
+      <p>Convertir tu serpiente viva en un <strong>JUEGO completo</strong>: morir al chocar
+        con la pared o contigo mismo 💀, <strong>puntaje</strong> 🍎, velocidad que
+        aumenta con cada manzana 🚀, pantalla de <strong>GAME OVER</strong> con tecla para
+        reiniciar 🔄… y un <strong>RÉCORD que sobrevive</strong> gracias a localStorage
+        (¡nivel 7 en acción! 💾). Al vencer a este jefe, habrás programado el mismo juego
+        que venía en millones de celulares. De cero. Tú solo. 😤</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL PLAN DE BATALLA</p>
+      <p>¿Qué le falta a la serpiente de la lección pasada para ser un juego de verdad?
+        Una sola cosa: <strong>que puedas perder</strong>.</p>
+      <div class="analogia">
+        Un videojuego sin game over es como jugar a las escondidas sin que nadie la
+        traiga 🙈: técnicamente funciona, pero no emociona. El <strong>peligro</strong>
+        (chocar 💀) más el <strong>premio</strong> (tu récord 🏆) son los que convierten
+        tu demo en JUEGO. Hoy le metemos los dos.
+      </div>
+
+      <p>Cada paso de la serpiente ahora pasa por una aduana de dos preguntas ANTES de
+        avanzar:</p>
+
+      <div class="diagrama">
+        <svg width="620" height="235" viewBox="0 0 620 235">
+          <!-- Cabeza nueva -->
+          <g class="anim-pulso">
+            <rect x="10" y="65" width="115" height="55" rx="10" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="67" y="88" text-anchor="middle" font-size="12" fill="#ffe95c">cabeza nueva</text>
+            <text class="mono" x="67" y="106" text-anchor="middle" font-size="10" fill="#a3a3c8">{x, y}</text>
+          </g>
+          <line class="anim-recorrido" x1="125" y1="92" x2="160" y2="92" stroke="#39ff8e" stroke-width="3"/>
+          <!-- Aduana 1: pared -->
+          <rect x="160" y="65" width="140" height="55" rx="10" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <text x="230" y="88" text-anchor="middle" font-size="12" fill="#00e5ff">¿chocó con</text>
+          <text x="230" y="106" text-anchor="middle" font-size="12" fill="#00e5ff">la pared? 🧱</text>
+          <!-- no → -->
+          <line class="anim-camino-b" x1="300" y1="92" x2="345" y2="92" stroke="#39ff8e" stroke-width="3"/>
+          <text class="anim-camino-b" x="322" y="82" text-anchor="middle" font-size="11" fill="#39ff8e">no</text>
+          <!-- Aduana 2: cuerpo -->
+          <rect x="345" y="65" width="140" height="55" rx="10" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+          <text x="415" y="88" text-anchor="middle" font-size="12" fill="#ff4dd8">¿chocó consigo</text>
+          <text x="415" y="106" text-anchor="middle" font-size="12" fill="#ff4dd8">misma? 🐍</text>
+          <!-- no → -->
+          <line class="anim-camino-b" x1="485" y1="92" x2="525" y2="92" stroke="#39ff8e" stroke-width="3"/>
+          <text class="anim-camino-b" x="505" y="82" text-anchor="middle" font-size="11" fill="#39ff8e">no</text>
+          <!-- Avanza -->
+          <rect x="525" y="65" width="90" height="55" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+          <text x="570" y="88" text-anchor="middle" font-size="12" fill="#39ff8e">avanza ✅</text>
+          <text x="570" y="106" text-anchor="middle" font-size="12" fill="#39ff8e">¿come? 🍎</text>
+          <!-- sí ↓ hacia game over -->
+          <line class="anim-camino-a" x1="230" y1="120" x2="230" y2="172" stroke="#ff5c7a" stroke-width="3"/>
+          <text class="anim-camino-a" x="214" y="150" text-anchor="middle" font-size="11" fill="#ff5c7a">sí 💥</text>
+          <line class="anim-camino-a" x1="415" y1="120" x2="415" y2="172" stroke="#ff5c7a" stroke-width="3"/>
+          <text class="anim-camino-a" x="431" y="150" text-anchor="middle" font-size="11" fill="#ff5c7a">sí 💥</text>
+          <!-- Game over -->
+          <rect x="245" y="174" width="155" height="48" rx="10" fill="none" stroke="#ff5c7a" stroke-width="3"/>
+          <text class="anim-parpadeo" x="322" y="204" text-anchor="middle" font-size="14" fill="#ff5c7a">💀 GAME OVER</text>
+        </svg>
+        <p class="pie">La aduana de cada paso: si la cabeza nueva se sale del tablero
+          🧱 o cae en una celda del propio cuerpo 🐍 → <code>gameOver()</code>.
+          Si no, la vida sigue: avanza, y si hay manzana, punto y crecimiento. 🍎</p>
+      </div>
+
+      <p>Tus 5 misiones de jefe, una por una:</p>
+      <ol>
+        <li><strong>💀 Muerte por pared:</strong> adiós modo fantasma. Si
+          <code>cabeza.x &lt; 0 || cabeza.x &gt;= COLUMNAS || cabeza.y &lt; 0 ||
+          cabeza.y &gt;= FILAS</code> → <code>gameOver()</code>.</li>
+        <li><strong>💀 Muerte por mordida:</strong> recorre el arreglo con un
+          <code>for</code> comparando cada segmento con la cabeza nueva. ¿Misma
+          <code>x</code> Y misma <code>y</code> que alguno? Te mordiste. 🐍</li>
+        <li><strong>🍎 Puntaje:</strong> una variable <code>puntos</code> que sube con
+          cada manzana y se muestra en la página.</li>
+        <li><strong>🚀 Velocidad:</strong> cada manzana resta milisegundos al ritmo.
+          Truco: <code>setInterval</code> no se puede "editar" en caliente — se apaga con
+          <code>clearInterval(temporizador)</code> y se enciende otro más rápido.</li>
+        <li><strong>💾 Récord:</strong> puro nivel 7 — al morir, si
+          <code>puntos &gt; record</code>, guárdalo con
+          <code>localStorage.setItem("snake-record", ...)</code>. Al abrir el juego,
+          léelo con <code>getItem</code> (ojo: te lo da como TEXTO, conviértelo con
+          <code>parseInt</code>).</li>
+      </ol>
+      <p>Y el toque final: la pantalla de GAME OVER es solo un rectángulo medio
+        transparente encima del juego + textos con <code>fillText</code>. La tecla
+        <code>R</code> llama a <code>iniciar()</code>, que regresa todo a su estado
+        inicial. Fin del plan. A pelear. ⚔️</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 ASÍ SE VE EL JEFE VENCIDO</p>
+      <p>El Snake completo, jugable y con récord. Presiona <strong>▶ Ejecutar</strong>…</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu
+        teclado.</strong> Maneja con ⬆️⬇️⬅️➡️, muere con estilo, y presiona
+        <code>R</code> para reintentar. Tu récord seguirá ahí aunque vuelvas mañana 💾
+        (léelo con calma: reconocerás CADA pieza de las lecciones anteriores):</p>
+
+      <div class="playground" data-mode="html" data-titulo="snake_completo.html" data-alto="560">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #eaeaf5; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; }
+    #marcador { font-size: 17px; margin: 8px 0 6px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="marcador"&gt;&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="400"&gt;&lt;/canvas&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro · flechas para manejar · R para reiniciar&lt;/p&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+    var marcador = document.getElementById("marcador");
+
+    var CELDA = 20;
+    var COLUMNAS = canvas.width / CELDA;
+    var FILAS = canvas.height / CELDA;
+
+    var serpiente, direccion, manzana, puntos, velocidad, vivo, temporizador;
+
+    // 💾 MISIÓN 5: el récord vive en localStorage (¡nivel 7 aplicado!)
+    // getItem devuelve TEXTO (o null la primera vez) → parseInt lo vuelve número
+    var record = parseInt(localStorage.getItem("snake-record") || "0", 10);
+
+    function iniciar() {
+      serpiente = [ { x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 } ];
+      direccion = { x: 1, y: 0 };
+      puntos = 0;
+      velocidad = 150;              // ms entre pasos: menos = más rápido
+      vivo = true;
+      nuevaManzana();
+      clearInterval(temporizador);  // apaga el reloj anterior (si había)
+      temporizador = setInterval(paso, velocidad);
+      pintarMarcador();
+    }
+
+    function nuevaManzana() {
+      manzana = {
+        x: Math.floor(Math.random() * COLUMNAS),
+        y: Math.floor(Math.random() * FILAS)
+      };
+    }
+
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
+      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
+      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+      if (!vivo &amp;&amp; (evento.key === "r" || evento.key === "R")) iniciar();  // 🔄
+      evento.preventDefault();
+    });
+
+    function paso() {
+      if (!vivo) return;   // muerta no camina 💀
+
+      var cabeza = {
+        x: serpiente[0].x + direccion.x,
+        y: serpiente[0].y + direccion.y
+      };
+
+      // 💀 MISIÓN 1: ¿chocó con la pared?
+      if (cabeza.x &lt; 0 || cabeza.x &gt;= COLUMNAS ||
+          cabeza.y &lt; 0 || cabeza.y &gt;= FILAS) {
+        return gameOver();
+      }
+
+      // 💀 MISIÓN 2: ¿se mordió? (compara la cabeza con CADA segmento)
+      for (var i = 0; i &lt; serpiente.length; i++) {
+        if (serpiente[i].x === cabeza.x &amp;&amp; serpiente[i].y === cabeza.y) {
+          return gameOver();
+        }
+      }
+
+      serpiente.unshift(cabeza);
+
+      if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
+        puntos = puntos + 1;               // 🍎 MISIÓN 3: ¡punto!
+        nuevaManzana();
+        if (velocidad &gt; 60) {              // 🚀 MISIÓN 4: acelerar
+          velocidad = velocidad - 5;
+          clearInterval(temporizador);     // reloj viejo fuera…
+          temporizador = setInterval(paso, velocidad);  // …reloj más rápido dentro
+        }
+        pintarMarcador();
+      } else {
+        serpiente.pop();
+      }
+
+      dibujar();
+    }
+
+    function gameOver() {
+      vivo = false;
+
+      // 💾 MISIÓN 5: ¿nuevo récord? ¡Al cajón del navegador!
+      if (puntos &gt; record) {
+        record = puntos;
+        localStorage.setItem("snake-record", String(record));
+      }
+      pintarMarcador();
+      dibujar();
+
+      // La pantalla de la derrota: una cortina oscura + letrero
+      ctx.fillStyle = "rgba(10, 10, 26, 0.78)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ff5c7a";
+      ctx.font = "bold 36px monospace";
+      ctx.fillText("GAME OVER", canvas.width / 2, 175);
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = "17px monospace";
+      ctx.fillText("🍎 " + puntos + "   🏆 récord: " + record, canvas.width / 2, 215);
+      ctx.fillText("presiona R para reintentar", canvas.width / 2, 245);
+      ctx.textAlign = "left";   // regresar el pincel a la normalidad
+    }
+
+    function pintarMarcador() {
+      marcador.textContent = "🍎 " + puntos + "  ·  🏆 Récord: " + record;
+    }
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ff5c7a";
+      ctx.fillRect(manzana.x * CELDA, manzana.y * CELDA, CELDA - 1, CELDA - 1);
+
+      for (var i = 0; i &lt; serpiente.length; i++) {
+        ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
+        ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
+      }
+    }
+
+    iniciar();
+    dibujar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🌐 Recuerda del nivel 7: localStorage guarda de verdad cuando el
+        sitio se abre por internet o con Live Server. Y cuando venzas al jefe, compárate
+        con la versión del arcade: <a href="../../arcade/snake.html">👾 Snake del
+        arcade</a> — ¿en qué se parece a la tuya?</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: VENCE AL JEFE POR MISIONES</p>
+      <p>Aquí está tu Snake de la lección 4, ya con marcador, aceleración y tecla R
+        conectados… pero es <strong>inmortal</strong>: atraviesa paredes, se atraviesa a
+        sí mismo y jamás guarda récord. Completa las 3 misiones EN ORDEN, ejecutando
+        después de cada una. <strong>🖱️ Haz clic dentro de la vista previa primero,
+        para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_snake_final.html" data-alto="560">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #eaeaf5; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; }
+    #marcador { font-size: 17px; margin: 8px 0 6px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p id="marcador"&gt;&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="400"&gt;&lt;/canvas&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro · flechas para manejar · R para reiniciar&lt;/p&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+    var marcador = document.getElementById("marcador");
+
+    var CELDA = 20;
+    var COLUMNAS = canvas.width / CELDA;
+    var FILAS = canvas.height / CELDA;
+
+    var serpiente, direccion, manzana, puntos, velocidad, vivo, temporizador;
+
+    // El récord ya se LEE del cajón (guardarlo es tu Misión 3 💾)
+    var record = parseInt(localStorage.getItem("snake-record") || "0", 10);
+
+    function iniciar() {
+      serpiente = [ { x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 } ];
+      direccion = { x: 1, y: 0 };
+      puntos = 0;
+      velocidad = 150;
+      vivo = true;
+      nuevaManzana();
+      clearInterval(temporizador);
+      temporizador = setInterval(paso, velocidad);
+      pintarMarcador();
+    }
+
+    function nuevaManzana() {
+      manzana = {
+        x: Math.floor(Math.random() * COLUMNAS),
+        y: Math.floor(Math.random() * FILAS)
+      };
+    }
+
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
+      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
+      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+      if (!vivo &amp;&amp; (evento.key === "r" || evento.key === "R")) iniciar();
+      evento.preventDefault();
+    });
+
+    function paso() {
+      if (!vivo) return;
+
+      var cabeza = {
+        x: serpiente[0].x + direccion.x,
+        y: serpiente[0].y + direccion.y
+      };
+
+      // MISIÓN 1 💀: mata el modo fantasma. BORRA estas 4 líneas y en su
+      // lugar escribe: si la cabeza se salió del tablero (x &lt; 0, x &gt;= COLUMNAS,
+      // y &lt; 0 o y &gt;= FILAS) → return gameOver();
+      if (cabeza.x &lt; 0) cabeza.x = COLUMNAS - 1;
+      if (cabeza.x &gt;= COLUMNAS) cabeza.x = 0;
+      if (cabeza.y &lt; 0) cabeza.y = FILAS - 1;
+      if (cabeza.y &gt;= FILAS) cabeza.y = 0;
+
+      // MISIÓN 2 💀: la mordida. Recorre "serpiente" con un for y, si algún
+      // segmento tiene la MISMA x y la MISMA y que la cabeza nueva
+      // → return gameOver();
+
+      serpiente.unshift(cabeza);
+
+      if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
+        puntos = puntos + 1;
+        nuevaManzana();
+        if (velocidad &gt; 60) {
+          velocidad = velocidad - 5;
+          clearInterval(temporizador);
+          temporizador = setInterval(paso, velocidad);
+        }
+        pintarMarcador();
+      } else {
+        serpiente.pop();
+      }
+
+      dibujar();
+    }
+
+    function gameOver() {
+      vivo = false;
+
+      // MISIÓN 3 💾: si puntos &gt; record → actualiza record y guárdalo en
+      // localStorage con la clave "snake-record" (recuerda: setItem guarda texto)
+
+      pintarMarcador();
+      dibujar();
+      ctx.fillStyle = "rgba(10, 10, 26, 0.78)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#ff5c7a";
+      ctx.font = "bold 36px monospace";
+      ctx.fillText("GAME OVER", canvas.width / 2, 175);
+      ctx.fillStyle = "#eaeaf5";
+      ctx.font = "17px monospace";
+      ctx.fillText("🍎 " + puntos + "   🏆 récord: " + record, canvas.width / 2, 215);
+      ctx.fillText("presiona R para reintentar", canvas.width / 2, 245);
+      ctx.textAlign = "left";
+    }
+
+    function pintarMarcador() {
+      marcador.textContent = "🍎 " + puntos + "  ·  🏆 Récord: " + record;
+    }
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ff5c7a";
+      ctx.fillRect(manzana.x * CELDA, manzana.y * CELDA, CELDA - 1, CELDA - 1);
+
+      for (var i = 0; i &lt; serpiente.length; i++) {
+        ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
+        ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
+      }
+    }
+
+    iniciar();
+    dibujar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Misión 1: las 4 condiciones de pared van en UN solo <code>if</code> unidas con
+          <code>||</code> ("o"): salirse por CUALQUIER lado mata. El <code>return</code>
+          antes de <code>gameOver()</code> es importante: corta el paso ahí mismo, para
+          que una serpiente muerta no siga avanzando.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Misión 2: es el mismo patrón de "buscar en un arreglo" que usaste en la tabla de
+          récords del nivel 7: <code>for (var i = 0; i &lt; serpiente.length; i++)</code>
+          y adentro un <code>if</code> que compara <code>serpiente[i].x === cabeza.x
+          &amp;&amp; serpiente[i].y === cabeza.y</code>. Misión 3: son 2 líneas dentro de
+          un <code>if (puntos &gt; record)</code> — mira cómo se LEE el récord arriba y
+          haz el viaje de regreso con <code>setItem</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// MISIÓN 1 💀: pared = muerte (borra los 4 if del modo fantasma)
+if (cabeza.x &lt; 0 || cabeza.x &gt;= COLUMNAS ||
+    cabeza.y &lt; 0 || cabeza.y &gt;= FILAS) {
+  return gameOver();
+}
+
+// MISIÓN 2 💀: ¿la cabeza nueva cae sobre el cuerpo?
+for (var i = 0; i &lt; serpiente.length; i++) {
+  if (serpiente[i].x === cabeza.x &amp;&amp; serpiente[i].y === cabeza.y) {
+    return gameOver();
+  }
+}
+
+// MISIÓN 3 💾 (dentro de gameOver):
+if (puntos &gt; record) {
+  record = puntos;
+  localStorage.setItem("snake-record", String(record));
+}</code></pre>
+          Detalles finos: la muerte se revisa con la <strong>cabeza nueva ANTES del
+          unshift</strong> — preguntamos "¿PUEDO pisar esa celda?" antes de pisarla.
+          El <code>for</code> de la mordida compara contra TODO el cuerpo actual; con que
+          UN segmento coincida en x y en y, adiós 💀. Y el récord es el mismo viaje del
+          nivel 7: <code>getItem</code> al nacer (texto → <code>parseInt</code>),
+          <code>setItem</code> al morir con gloria. Por eso tu récord sigue ahí mañana. 🏆
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Una <strong>misión a la vez</strong> y ▶ Ejecutar entre cada una: así sabes
+          exactamente qué línea rompió qué.</li>
+        <li>¿Muere al arrancar sin razón? Revisa los signos de la Misión 1: es
+          <code>&gt;= COLUMNAS</code>, no <code>&gt; COLUMNAS</code> (las celdas van de 0
+          a 19: la 20 ya es pared).</li>
+        <li>¿Muere justo al comer? En tu <code>for</code> de la mordida quizá comparas con
+          <code>||</code> en vez de <code>&amp;&amp;</code> — debe coincidir la x
+          <strong>Y</strong> la y del MISMO segmento.</li>
+        <li>¿El récord no sobrevive? Verifica la clave exacta <code>"snake-record"</code>
+          en <code>getItem</code> y <code>setItem</code>, y que estés probando con Live
+          Server. 💾</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n8l5">Tengo 13 años y estoy terminando mi juego de Snake en canvas con JavaScript. La serpiente es un arreglo de objetos {x, y} en celdas; muere al salir del tablero o al tocar su propio cuerpo (lo reviso con un for comparando la cabeza nueva con cada segmento), acelera con clearInterval + setInterval, y guarda el récord en localStorage. Estoy atorado en una parte. Hazme preguntas una por una para que yo mismo encuentre el error (no me des el juego resuelto), y si te lo pido, explícame despacio cómo se revisa la colisión de la serpiente consigo misma.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>6. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        los jefes finales se vencen mejor en equipo.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DE JEFE (OPCIONALES)</p>
+      <p>Para presumir tu Snake:
+        1) <strong>Paredes que teletransportan</strong> 🌀: en vez de morir en la pared,
+        vuelve al modo fantasma de la lección 4… pero deja la mordida mortal (¡queda un
+        juego distinto y muy divertido!);
+        2) <strong>Manzana dorada</strong> ✨: de vez en cuando (por ejemplo, si
+        <code>Math.random() &lt; 0.2</code>) haz la manzana amarilla y que valga 5 puntos;
+        3) <strong>Manzana educada</strong> 🍎: evita que nazca sobre la serpiente
+        (después de sortearla, recorre el cuerpo; si cae encima, sortéala de nuevo).
+        <strong>Jefe secreto:</strong> ¿un TOP 5 de récords con nombres, como el del
+        nivel 7? Tienes TODO para hacerlo. Y luego ve a comparar con
+        <a href="../../arcade/snake.html">el Snake del arcade 👾</a>. 😏</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n8-l5" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cómo sabe el juego que la serpiente se mordió a sí misma?</p>
+          <button class="opcion">El navegador lanza un evento "selfbite" automáticamente</button>
+          <button class="opcion" data-ok>Un for recorre el arreglo comparando cada segmento con la cabeza nueva: si alguno coincide en x Y en y, chocó</button>
+          <button class="opcion">Se compara el color del píxel donde va a entrar la cabeza</button>
+          <div class="explicacion">Nada de magia: es una búsqueda en un arreglo, como
+            buscar una ficha en la tabla de récords del nivel 7. Coincidencia exacta de
+            celda = mordida. 🐍💥</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Por qué para acelerar el juego hacemos <code>clearInterval</code> y luego otro <code>setInterval</code>?</p>
+          <button class="opcion">Para ahorrar memoria del navegador</button>
+          <button class="opcion">Porque setInterval solo funciona 2 veces seguidas</button>
+          <button class="opcion" data-ok>Porque un setInterval ya encendido no se puede cambiar de ritmo: hay que apagarlo y encender uno nuevo más rápido</button>
+          <div class="explicacion">El intervalo es como un metrónomo de cuerda: no le
+            puedes cambiar la velocidad andando. Se detiene
+            (<code>clearInterval</code>) y se arranca otro con menos milisegundos. 🚀</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Por qué el récord sigue ahí aunque cierres el navegador?</p>
+          <button class="opcion">Porque JavaScript guarda las variables para siempre</button>
+          <button class="opcion" data-ok>Porque lo guardamos en localStorage, que vive en el disco del navegador, no en las variables del programa</button>
+          <button class="opcion">Porque el canvas recuerda lo que dibujó</button>
+          <div class="explicacion">Las variables mueren con la pestaña; localStorage es el
+            cajón permanente del navegador (nivel 7 💾). <code>setItem</code> al morir,
+            <code>getItem</code> + <code>parseInt</code> al nacer, y tu gloria es
+            eterna. 🏆</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n8-l5">👑 ¡JEFE VENCIDO! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-4.html">◀ Anterior: Snake I, la serpiente viva</a>
+      <a href="../nivel-9/index.html">Siguiente: Nivel 9 — Space Invaders 👾 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

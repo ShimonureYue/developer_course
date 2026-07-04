@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El modelo de caja — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff4dd8;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎨 Nivel 2: CSS</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 2 · LECCIÓN 2</span>
+    <h1>El modelo de caja 📦🎂</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Descubrir el secreto #1 del diseño web: <strong>TODO en una página es una caja</strong> —
+        y controlar sus 3 capas con <code>padding</code>, <code>border</code> y
+        <code>margin</code>, más dos trucos de lujo: <code>border-radius</code> y
+        <code>box-shadow</code>. ✨</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Haz clic derecho en CUALQUIER página web y elige "Inspeccionar": vas a ver que cada título,
+        cada foto, cada botón… es un <strong>rectángulo</strong>. La web entera son cajas dentro de
+        cajas dentro de cajas. 🤯 Y toda caja tiene 3 capas alrededor de su contenido, que se
+        entienden perfecto con una torta de cumpleaños:</p>
+      <div class="analogia">
+        Piensa en una <strong>torta en su caja de regalo 🎂</strong>:
+        el <strong>contenido</strong> es la torta;
+        el <strong>padding</strong> es el espacio de aire entre la torta y la caja (para que no se
+        embarre el betún);
+        el <strong>border</strong> es la caja/el papel de regalo que se ve por fuera;
+        y el <strong>margin</strong> es el espacio personal ENTRE tu caja y las demás — como en el
+        metro 🚇: nadie quiere ir pegado al de al lado.
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="300" viewBox="0 0 540 300">
+          <!-- margin (zona exterior, punteada) -->
+          <rect x="40" y="20" width="460" height="240" rx="12" fill="none" stroke="#ffb86c" stroke-width="2" stroke-dasharray="8 6"/>
+          <text class="mono" x="70" y="45" font-size="13" fill="#ffb86c">margin 🚇</text>
+          <!-- border -->
+          <rect x="110" y="55" width="320" height="170" rx="10" fill="none" stroke="#ff4dd8" stroke-width="6"/>
+          <text class="mono" x="135" y="80" font-size="13" fill="#ff4dd8">border 🎁</text>
+          <!-- padding -->
+          <rect x="150" y="90" width="240" height="100" rx="8" fill="none" stroke="#ffe95c" stroke-width="2" stroke-dasharray="4 4"/>
+          <text class="mono" x="172" y="112" font-size="13" fill="#ffe95c">padding 💨</text>
+          <!-- contenido -->
+          <g class="anim-pulso">
+            <rect x="195" y="122" width="150" height="48" rx="6" fill="#39ff8e"/>
+            <text x="270" y="152" text-anchor="middle" font-size="16" fill="#0a0a1a">la torta 🎂</text>
+          </g>
+          <text x="270" y="290" text-anchor="middle" font-size="13" fill="#a3a3c8">Toda caja: contenido → padding → border → margin (de adentro hacia afuera)</text>
+        </svg>
+        <p class="pie">Las 3 capas de TODA caja web, de adentro hacia afuera:
+          <code>padding</code> (aire interno 💨), <code>border</code> (el papel visible 🎁) y
+          <code>margin</code> (espacio personal 🚇). Grábatelo: es EL diagrama del diseño web.</p>
+      </div>
+
+      <p>En código, cada capa es una propiedad (los tamaños van en píxeles, <code>px</code>):</p>
+      <pre class="bloque-codigo"><code>.tarjeta {
+  padding: 20px;                 /* aire entre el texto y el borde */
+  border: 4px solid #ff4dd8;     /* grosor + estilo + color del borde */
+  margin: 30px;                  /* espacio personal hacia afuera */
+  border-radius: 16px;           /* 🍬 esquinas redonditas */
+  box-shadow: 0 0 20px #ff4dd8;  /* ✨ resplandor/sombra alrededor */
+}</code></pre>
+      <ul>
+        <li><code>border: 4px solid #ff4dd8;</code> pide 3 datos juntos: qué tan gruesa la línea,
+          de qué tipo (<code>solid</code> = continua, <code>dashed</code> = punteada) y su color.</li>
+        <li><code>border-radius</code> redondea esquinas: poquito (<code>8px</code>) = tarjeta
+          elegante; mucho (<code>50%</code>) = ¡círculo completo!</li>
+        <li><code>box-shadow: 0 0 20px color;</code> dibuja una sombra: los dos primeros números la
+          mueven (derecha y abajo) y el tercero la difumina. Con <code>0 0</code> y un color neón…
+          obtienes el famoso <strong>brillo de letrero</strong> 🌆.</li>
+      </ul>
+      <p>Un detalle más: viste en la lección pasada selectores como <code>h1</code> o <code>p</code>.
+        Aquí aparece <code>.tarjeta</code> (con punto): es un <strong>selector de clase</strong>.
+        Le pones <code>class="tarjeta"</code> a cualquier etiqueta HTML, y la regla
+        <code>.tarjeta { … }</code> viste SOLO a las que traigan ese gafete. Así puedes vestir
+        diferente a dos <code>&lt;div&gt;</code> distintos. 🎫 (Un <code>&lt;div&gt;</code> es
+        una caja genérica sin sabor: la usamos para agrupar cosas.)</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Dos cajas con el MISMO texto: una "cruda" y una con las 3 capas + esquinas + resplandor.
+        Ejecuta y luego experimenta: cambia el <code>padding</code> a <code>40px</code>, el
+        <code>border-radius</code> a <code>50px</code>, el color de la sombra…
+        ¡rompe todo, para eso está! 🔨</p>
+      <div class="playground" data-mode="html" data-titulo="cajas.html" data-alto="330">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>El modelo de caja</title>
+    <style>
+      body {
+        background-color: #0a0a1a;
+        font-family: Arial;
+        color: white;
+      }
+      .cruda {
+        border: 2px solid gray;    /* borde para VER la caja */
+      }
+      .conestilo {
+        padding: 20px;                  /* aire adentro 💨 */
+        border: 4px solid #ff4dd8;      /* papel de regalo 🎁 */
+        margin: 30px;                   /* espacio personal 🚇 */
+        border-radius: 16px;            /* esquinas de gomita 🍬 */
+        box-shadow: 0 0 25px #ff4dd8;   /* resplandor neón ✨ */
+        background-color: #1d0f1a;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cruda">Caja cruda: el texto va PEGADO al borde. Incómodo. 😬</div>
+    <div class="conestilo">Caja con estilo: aire adentro, borde neón,
+      espacio afuera. Respira. 😌✨</div>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: el <code>padding</code> empuja el borde <strong>hacia afuera del
+        texto</strong>; el <code>margin</code> empuja <strong>a las otras cajas</strong>. Si el
+        texto se ve apretado → falta padding. Si dos cajas se ven amontonadas → falta margin.
+        Esa es la regla de oro. 🥇</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Aquí hay 3 "gafetes de jugador" amontonados y sin gracia. Rescátalos completando los TODOs
+        del CSS: dale a <code>.gafete</code> sus 3 capas y sus trucos de lujo. 🛠️</p>
+      <div class="playground" data-mode="html" data-titulo="gafetes.html" data-alto="330">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Gafetes de jugador</title>
+    <style>
+      body {
+        background-color: #0a0a1a;
+        font-family: Arial;
+        color: white;
+      }
+      .gafete {
+        background-color: #1a1a38;
+        /* TODO 1: padding de 16px, para que el texto respire */
+
+        /* TODO 2: border de 3px solid #00e5ff */
+
+        /* TODO 3: margin de 14px, para despegarlos entre sí */
+
+        /* TODO 4: border-radius de 12px y un box-shadow
+           de 0 0 15px #00e5ff (resplandor neón) */
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gafete">🥇 Player 1 — Luna</div>
+    <div class="gafete">🥈 Player 2 — Teo</div>
+    <div class="gafete">🥉 Player 3 — Rex</div>
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Recuerda la torta 🎂: de adentro hacia afuera es <code>padding</code> → <code>border</code>
+          → <code>margin</code>. Cada línea es <code>propiedad: valor;</code>, por ejemplo:
+          <code>padding: 16px;</code>. Ejecuta después de CADA una para ver qué cambia.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El borde pide sus 3 datos juntos: <code>border: 3px solid #00e5ff;</code>. Y la sombra
+          neón: <code>box-shadow: 0 0 15px #00e5ff;</code> (cero movida a los lados, cero abajo,
+          15px de difuminado, color cian).
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>.gafete {
+  background-color: #1a1a38;
+  padding: 16px;                 /* 1) aire: el texto ya no va pegado */
+  border: 3px solid #00e5ff;     /* 2) papel de regalo cian */
+  margin: 14px;                  /* 3) espacio personal entre gafetes */
+  border-radius: 12px;           /* 4a) esquinas redonditas */
+  box-shadow: 0 0 15px #00e5ff;  /* 4b) resplandor de letrero neón */
+}</code></pre>
+          Una sola regla <code>.gafete</code>… ¡y los TRES gafetes se vistieron igual! Ese es el
+          poder de las clases: un gafete, mil jugadores. 🎫✨
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama de la torta</strong> 🎂: padding adentro, margin afuera.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n2l2">Tengo 13 años y estoy aprendiendo CSS. Hoy vi el modelo de caja: padding, border y margin, con la analogía de una torta en su caja de regalo (padding = aire entre torta y caja, border = el papel, margin = espacio personal en el metro). Lo que todavía confundo es cuándo usar padding y cuándo usar margin. Explícamelo con 3 ejemplos visuales de una página real (un botón, una tarjeta, una lista) y luego descríbeme 3 situaciones ("el texto está pegado al borde", etc.) y pregúntame cuál propiedad arregla cada una, dándome pistas si me equivoco. No me des las respuestas de inmediato.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Operación "botón de videojuego" 🎮: agrega a tus gafetes un cuarto <code>&lt;div&gt;</code>
+        que diga "▶ JUGAR" y dale su propia clase <code>.boton</code> con fondo
+        <code>#39ff8e</code>, texto <code>#0a0a1a</code>, padding generoso y
+        <code>border-radius: 50px;</code> (forma de píldora 💊). <strong>Jefe secreto:</strong>
+        haz un avatar PERFECTAMENTE redondo: un div pequeño con el mismo ancho y alto
+        (<code>width: 80px; height: 80px;</code>) y <code>border-radius: 50%;</code>. Ese truco lo
+        usan TODAS las apps para las fotos de perfil. 📸</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n2-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. El texto de tu tarjeta se ve PEGADO al borde. ¿Qué le falta?</p>
+          <button class="opcion" data-ok><code>padding</code>: el aire entre la torta y su caja 🎂</button>
+          <button class="opcion"><code>margin</code>: espacio hacia las otras cajas</button>
+          <button class="opcion">Más <code>border</code>, para tapar el problema</button>
+          <div class="explicacion">Apretado por DENTRO = <code>padding</code>. Amontonado por FUERA
+            con otras cajas = <code>margin</code>. La regla de oro del diseño. 🥇</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>border-radius: 50%;</code> en una caja cuadrada?</p>
+          <button class="opcion">Le pinta el borde a la mitad</button>
+          <button class="opcion">La hace 50% más grande</button>
+          <button class="opcion" data-ok>La convierte en un círculo perfecto ⭕</button>
+          <div class="explicacion">Redondear las esquinas al 50% de una caja cuadrada la vuelve
+            círculo: así se hacen los avatares de perfil de todas las apps. 📸</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. En <code>border: 4px solid #ff4dd8;</code>, ¿qué significa <code>solid</code>?</p>
+          <button class="opcion">Que el borde es resistente a los golpes</button>
+          <button class="opcion" data-ok>Que la línea es continua (a diferencia de <code>dashed</code>, punteada)</button>
+          <button class="opcion">Que el color no se puede cambiar</button>
+          <div class="explicacion">El borde pide 3 datos: grosor (<code>4px</code>), estilo de línea
+            (<code>solid</code> continua, <code>dashed</code> punteada, <code>dotted</code> de
+            puntitos) y color. 🎁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n2-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: ¿Qué es CSS?</a>
+      <a href="leccion-3.html">Siguiente: Acomodar cosas + magia ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

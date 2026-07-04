@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Fuego! Balas como arreglo de objetos — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 2</span>
+    <h1>¡Fuego! Balas como arreglo de objetos 🔫</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Que tu nave dispare: cada ESPACIO crea una <strong>bala nueva en un arreglo</strong>,
+        las balas suben solas, y las que salen de la pantalla se <strong>barren con
+        <code>filter</code></strong> para que tu juego no se llene de balas fantasma. 👻🧹</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: MUCHOS OBJETOS A LA VEZ</p>
+      <p>Hasta ahora tus juegos manejaban cosas de una en una: UNA serpiente, UN tablero.
+        Pero ¿cuántas balas hay en Space Invaders? <strong>Depende del momento</strong>: cero al
+        empezar, tres si disparas rápido, una si acaba de salir… Cuando no sabes cuántos
+        habrá, la respuesta siempre es la misma: <strong>un arreglo</strong>.</p>
+      <div class="analogia">
+        El arreglo <code>balas</code> es como la <strong>charola de un horno de galletas</strong> 🍪:
+        cada vez que disparas, <code>push</code> pone una galleta nueva en la charola. El game
+        loop las hornea a todas por igual (todas suben). Y cuando una ya no sirve (salió de
+        la pantalla), <strong>se retira de la charola</strong> — si no, se acumulan hasta
+        quemar el horno. 🔥
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="250" viewBox="0 0 560 250">
+          <!-- Zona de pantalla -->
+          <rect x="40" y="20" width="200" height="200" rx="10" fill="none" stroke="#2b2b55" stroke-width="2"/>
+          <text x="140" y="240" text-anchor="middle" font-size="12" fill="#a3a3c8">la pantalla</text>
+          <!-- Nave -->
+          <rect x="120" y="195" width="44" height="14" fill="#00e5ff"/>
+          <rect x="137" y="186" width="10" height="9" fill="#00e5ff"/>
+          <!-- Trayectoria punteada -->
+          <path class="anim-recorrido" d="M 142 180 L 142 30" fill="none" stroke="#ffe95c" stroke-width="2"/>
+          <!-- Bala que sube y desaparece -->
+          <g class="anim-valor-entra" style="--dx: 0px; --dy: -150px;">
+            <rect x="139" y="170" width="6" height="14" fill="#ffe95c"/>
+          </g>
+          <!-- Escoba arriba -->
+          <text x="142" y="16" text-anchor="middle" font-size="16">🧹</text>
+          <!-- El arreglo a la derecha -->
+          <text class="mono" x="300" y="50" font-size="14" fill="#a78bfa">balas = [</text>
+          <g class="anim-valor-aparece">
+            <text class="mono" x="320" y="78" font-size="13" fill="#ffe95c">{ x: 139, y: 170, … },</text>
+          </g>
+          <g class="anim-valor-aparece" style="animation-delay: 0.8s;">
+            <text class="mono" x="320" y="104" font-size="13" fill="#ffe95c">{ x: 200, y: 90, … },</text>
+          </g>
+          <text class="mono" x="300" y="132" font-size="14" fill="#a78bfa">]</text>
+          <text x="380" y="180" text-anchor="middle" font-size="13" fill="#a3a3c8">ESPACIO → push() mete una bala</text>
+          <text x="380" y="202" text-anchor="middle" font-size="13" fill="#a3a3c8">sale de pantalla → filter() la barre</text>
+        </svg>
+        <p class="pie">Cada bala es un objeto en el arreglo. Nace con <code>push</code>, sube en cada
+          cuadro, y al cruzar el borde superior el <code>filter</code> la elimina de la memoria.</p>
+      </div>
+
+      <h2>🧹 La regla de oro: si no barres, se llena de fantasmas</h2>
+      <p>Una bala que salió de la pantalla <strong>ya no se ve… pero sigue existiendo</strong>:
+        el game loop la sigue moviendo y dibujando (fuera de cámara) 60 veces por segundo.
+        Dispara 500 veces y tu juego estará arrastrando 500 balas fantasma 👻 —
+        <strong>se pone lento</strong> sin que sepas por qué. La solución es <code>filter</code>,
+        que ya conoces: quédate solo con las balas que cumplen "sigo en pantalla":</p>
+      <pre class="bloque-codigo"><code>balas = balas.filter(function (bala) {
+  return bala.y + bala.alto &gt; 0;   // ✅ me quedo · ❌ me barren
+});</code></pre>
+      <p>Y un detalle de cadencia: en el evento usamos <code>!e.repeat</code>. Si dejas ESPACIO
+        presionado, el teclado "repite" la tecla automáticamente como cuando dejas apretada
+        una letra — sin ese candado, tu nave se convertiría en manguera de balas. 🚿</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Dispara con ESPACIO y muévete con ← →. Abajo a la izquierda hay un
+        <strong>espía 🕵️</strong>: el contador de balas vivas en memoria. Dispara varias veces
+        y obsérvalo: sube cuando disparas… y <strong>baja cuando la bala sale</strong>. Ese
+        número bajando es el <code>filter</code> haciendo su chamba.</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="invaders_etapa2.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l2@@
+</pre>
+      </div>
+
+      <p>Experimento de detective 🔍: bórrale las 3 líneas del <code>filter</code> a
+        <code>moverBalas()</code>, ejecuta, y dispara 20 veces. El contador ya nunca baja:
+        cada bala fantasma vive para siempre. Ahora ya sabes POR QUÉ se barre.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>En esta versión, <code>disparar()</code> ya funciona… pero las balas nacen y se quedan
+        <strong>congeladas en el aire</strong> 🧊. Completa <code>moverBalas()</code>: haz que
+        suban y que se barran al salir. El contador-espía te dirá si tu <code>filter</code>
+        funciona. (🖱️ Clic en la vista previa antes de disparar.)</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa2.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l2-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Para que una bala SUBA, su <code>y</code> debe HACERSE MÁS CHICA (en canvas, el 0
+          está arriba). Recorre el arreglo con un <code>for</code> y a cada
+          <code>balas[i].y</code> réstale <code>balas[i].velocidad</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El barrido es una sola instrucción: <code>balas = balas.filter(function (bala) { … })</code>.
+          Adentro, <code>return bala.y + bala.alto &gt; 0;</code> — o sea: "consérvame mientras mi
+          parte de abajo siga dentro de la pantalla".
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function moverBalas() {
+  // 1) TODAS las balas suben un poquito en cada cuadro
+  for (var i = 0; i &lt; balas.length; i++) {
+    balas[i].y = balas[i].y - balas[i].velocidad;
+  }
+  // 2) 🧹 El barrido: me quedo SOLO con las que siguen visibles.
+  //    Una bala está fuera cuando hasta su borde de abajo
+  //    (bala.y + bala.alto) ya cruzó el 0 de arriba.
+  balas = balas.filter(function (bala) {
+    return bala.y + bala.alto &gt; 0;
+  });
+}</code></pre>
+          El <code>for</code> mueve, el <code>filter</code> limpia. Esta pareja
+          (mover-y-barrer) la vas a repetir con las balas enemigas de la Lección 5 —
+          y en cualquier juego con proyectiles, partículas o enemigos que aparecen y mueren.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿No dispara? Haz <strong>clic dentro de la vista previa</strong> y revisa que sea la tecla ESPACIO. 🖱️</li>
+        <li>¿Las balas bajan en vez de subir? Estás SUMANDO velocidad. Recuerda: arriba es restar. ⬆️</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l2">Tengo 13 años y estoy haciendo Space Invaders en JavaScript con canvas. Mis balas son un arreglo de objetos que creo con push cuando presiono espacio, las muevo restando su velocidad a y, y las elimino con filter cuando salen de la pantalla. Voy a pegarte mi función moverBalas(): revísala conmigo con preguntas guiadas, sin darme la solución de golpe. Explícame también, con un ejemplo cortito, cómo funciona filter y por qué hay que eliminar los objetos que ya no se usan en un juego.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <ul>
+        <li><strong>🚦 Cadencia limitada:</strong> en los arcades de verdad no puedes inundar la
+          pantalla. En <code>disparar()</code>, al principio pon:
+          <code>if (balas.length &gt;= 3) return;</code> — máximo 3 balas en el aire. ¿Se vuelve
+          más estratégico el juego?</li>
+        <li><strong>⚡ Balas turbo:</strong> cambia la <code>velocidad</code> de las balas nuevas a
+          15. ¿Y a 2? Siente la diferencia.</li>
+        <li><strong>🔱 Jefe secreto — disparo doble:</strong> haz que <code>disparar()</code> meta
+          DOS balas al arreglo: una pegada al borde izquierdo de la nave y otra al derecho.
+          Pista: dos <code>push</code> con diferente <code>x</code>.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n9-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué las balas se guardan en un ARREGLO y la nave no?</p>
+          <button class="opcion">Porque las balas son más pequeñas que la nave</button>
+          <button class="opcion" data-ok>Porque no sabemos cuántas balas habrá en cada momento: pueden ser 0, 1 o muchas. La nave siempre es una</button>
+          <button class="opcion">Porque los arreglos hacen que las cosas se muevan más rápido</button>
+          <div class="explicacion">Regla de diseño: cantidad fija y conocida → variables u objetos
+            sueltos; cantidad que cambia durante el juego → arreglo. 📦📦📦</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué pasaría si NUNCA elimináramos las balas que salen de la pantalla?</p>
+          <button class="opcion">Nada, el navegador las borra solito</button>
+          <button class="opcion">Las balas regresarían por abajo como boomerang</button>
+          <button class="opcion" data-ok>Se acumularían miles de balas invisibles que el juego seguiría moviendo y dibujando: cada vez más lento</button>
+          <div class="explicacion">Las balas fantasma 👻 consumen trabajo del game loop aunque no se
+            vean. Barrer lo que ya no sirve es higiene básica de game dev — por eso existe el
+            contador-espía en el ejemplo.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace exactamente <code>balas.filter(function (bala) { return bala.y + bala.alto &gt; 0; })</code>?</p>
+          <button class="opcion" data-ok>Construye un arreglo nuevo SOLO con las balas que cumplen la condición (las visibles) y descarta el resto</button>
+          <button class="opcion">Cambia la y de todas las balas a 0</button>
+          <button class="opcion">Detiene las balas que llegan al borde</button>
+          <div class="explicacion"><code>filter</code> es un colador 🫗: pasa cada elemento por la
+            pregunta y se queda con los que respondan <code>true</code>. Por eso lo reasignamos:
+            <code>balas = balas.filter(…)</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Diseño de tu juego</a>
+      <a href="leccion-3.html">Siguiente: La invasión ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

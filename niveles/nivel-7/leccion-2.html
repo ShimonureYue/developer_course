@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardar de verdad: JSON y localStorage — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff5c7a;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">💾 Nivel 7: Datos</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 7 · LECCIÓN 2</span>
+    <h1>Guardar de verdad: JSON y localStorage 💾</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Que tus datos <strong>sobrevivan a la recarga de la página</strong> usando
+        <strong>localStorage</strong> (el cajón del navegador) y <strong>JSON</strong>
+        (la forma de empacar objetos como texto). Al final tendrás una nota que NO se borra. 📝</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p><strong>Primero, el problemón.</strong> Todas las variables que has creado en tu vida
+        viven en la memoria RAM, que es como escribir en el vaho del espejo del baño 🪞:
+        clarísimo mientras dura… y ¡puf!, se borra. Compruébalo tú: dale varios clics al botón
+        de abajo y luego presiona <strong>▶ Ejecutar</strong> otra vez (eso es como recargar la página):</p>
+
+      <div class="playground" data-mode="html" data-titulo="contador_olvidadizo.html" data-alto="170">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body style="font-family: sans-serif; text-align: center; background: #f4f4ff;"&gt;
+  &lt;h2&gt;Tacos comidos 🌮: &lt;span id="cuenta"&gt;0&lt;/span&gt;&lt;/h2&gt;
+  &lt;button id="boton" style="font-size: 18px; padding: 8px 18px;"&gt;¡Comer taco!&lt;/button&gt;
+  &lt;script&gt;
+    let tacos = 0;   // vive en una variable… o sea, en la memoria RAM
+    document.getElementById("boton").onclick = function () {
+      tacos = tacos + 1;
+      document.getElementById("cuenta").textContent = tacos;
+    };
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <p>😱 ¿Viste? Comiste 10 tacos y al "recargar"… cero tacos. Así, tal cual, se perdería
+        el puntaje de tu juego, el nivel de tu jugador, TODO. La solución tiene dos piezas:</p>
+
+      <div class="analogia">
+        <strong>localStorage</strong> es el <strong>cajón del buró</strong> que cada navegador
+        tiene para cada sitio web: lo que guardas ahí sigue existiendo aunque recargues,
+        cierres la pestaña o apagues la compu. Pero el cajón tiene una regla rara:
+        <strong>solo acepta TEXTO</strong>. Por eso existe <strong>JSON</strong>: el papel
+        burbuja 📦 que convierte tus objetos en texto (<code>JSON.stringify</code> = empacar)
+        y el texto de vuelta en objetos (<code>JSON.parse</code> = desempacar).
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- Valor que entra al cajón -->
+          <g class="anim-valor-entra" style="--dx: 190px;">
+            <rect x="30" y="85" width="120" height="44" rx="8" fill="#ffe95c"/>
+            <text class="mono" x="90" y="112" text-anchor="middle" fill="#0a0a1a" font-size="14">"🌮 7"</text>
+          </g>
+          <!-- El cajón localStorage -->
+          <rect x="250" y="55" width="180" height="110" rx="12" fill="none" stroke="#ff5c7a" stroke-width="3"/>
+          <rect x="265" y="41" width="150" height="26" rx="6" fill="#ff5c7a"/>
+          <text x="340" y="59" text-anchor="middle" fill="#0a0a1a" font-size="12">localStorage</text>
+          <text class="anim-valor-aparece mono" x="340" y="122" text-anchor="middle" font-size="18" fill="#ffe95c">"🌮 7"</text>
+          <text x="340" y="150" text-anchor="middle" font-size="11" fill="#a3a3c8">sigue aquí… y aquí… y aquí</text>
+          <!-- Flecha de recarga que gira y NO borra el cajón -->
+          <g class="anim-girar lento">
+            <circle cx="495" cy="110" r="32" fill="none" stroke="#00e5ff" stroke-width="3" stroke-dasharray="150 40"/>
+            <path d="M 495 74 L 507 82 L 493 88 Z" fill="#00e5ff"/>
+          </g>
+          <text x="495" y="115" text-anchor="middle" font-size="18">🔄</text>
+          <text x="495" y="170" text-anchor="middle" font-size="11" fill="#a3a3c8">recarga y recarga…</text>
+          <text x="90" y="160" text-anchor="middle" font-size="11" fill="#a3a3c8">setItem = guardar</text>
+        </svg>
+        <p class="pie">La página se recarga una y otra vez 🔄… y el cajón <code>localStorage</code>
+          NI se inmuta: tu <code>"🌮 7"</code> sigue guardado adentro.</p>
+      </div>
+
+      <p>El cajón se usa con dos órdenes súper simples:</p>
+      <pre class="bloque-codigo"><code>localStorage.setItem("tacos", "7");   // guardar: (etiqueta, texto)
+let dato = localStorage.getItem("tacos");   // leer: te da "7"… ¡o null si no hay nada!</code></pre>
+      <p>Y el empacado JSON, con otras dos:</p>
+      <pre class="bloque-codigo"><code>let ficha = { nombre: "Kai", vidas: 3 };
+let texto = JSON.stringify(ficha);   // 📦 empacar  → '{"nombre":"Kai","vidas":3}'
+let copia = JSON.parse(texto);       // 📂 desempacar → el objeto de vuelta, vivo</code></pre>
+      <p>🤯 <strong>Dato curioso:</strong> TODO tu XP de Code Quest se guarda exactamente así.
+        Abre DevTools (clic derecho → Inspeccionar) → pestaña <strong>Application</strong> →
+        <strong>Local Storage</strong> y busca la clave <code>codequest-partida</code>:
+        ahí está tu partida, empacada en JSON. Hasta puedes leer el código que lo hace en
+        <code>assets/js/progress.js</code>. 😎</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El mismo contador de tacos, pero ahora <strong>inmortal</strong> 🛡️. Come varios tacos,
+        presiona <strong>▶ Ejecutar</strong> para "recargar"… ¡y siguen ahí! Lee los comentarios:
+        el truco son 2 momentos: <strong>al abrir</strong> (leer el cajón) y
+        <strong>al cambiar</strong> (guardar en el cajón):</p>
+
+      <div class="playground" data-mode="html" data-titulo="contador_inmortal.html" data-alto="190">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body style="font-family: sans-serif; text-align: center; background: #f4f4ff;"&gt;
+  &lt;h2&gt;Tacos guardados 🌮: &lt;span id="cuenta"&gt;?&lt;/span&gt;&lt;/h2&gt;
+  &lt;button id="boton" style="font-size: 18px; padding: 8px 18px;"&gt;¡Comer taco!&lt;/button&gt;
+  &lt;button id="borrar" style="font-size: 18px; padding: 8px 18px;"&gt;🗑️ Reiniciar contador&lt;/button&gt;
+  &lt;script&gt;
+    // ---- MOMENTO 1: al abrir la página, revisa el cajón ----
+    let guardado = localStorage.getItem("tacos");
+    let tacos = 0;
+    if (guardado !== null) {
+      tacos = JSON.parse(guardado);   // 📂 desempacar el texto → número
+    }
+    document.getElementById("cuenta").textContent = tacos;
+
+    // ---- MOMENTO 2: cada vez que cambia, guarda en el cajón ----
+    document.getElementById("boton").onclick = function () {
+      tacos = tacos + 1;
+      document.getElementById("cuenta").textContent = tacos;
+      localStorage.setItem("tacos", JSON.stringify(tacos));   // 📦 empacar y guardar
+    };
+
+    // Bonus: vaciar el cajón
+    document.getElementById("borrar").onclick = function () {
+      localStorage.removeItem("tacos");
+      tacos = 0;
+      document.getElementById("cuenta").textContent = tacos;
+    };
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <p class="suave">🌐 <strong>Nota rápida:</strong> los ejemplos de localStorage funcionan
+        cuando el sitio se abre por internet o con Live Server. Si abres el archivo con doble
+        clic (la barra dice <code>file://</code>), el navegador puede negarse a guardar.
+        Si "no te guarda", esa es la razón, no tu código. 😉</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Construye <strong>la nota inmortal</strong> 📝: escribe algo, guárdalo, "recarga" con
+        <strong>▶ Ejecutar</strong>… y que tu nota siga ahí. Completa los 2 TODO:</p>
+
+      <div class="playground" data-mode="html" data-titulo="nota_inmortal.html" data-alto="230">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body style="font-family: sans-serif; padding: 20px; background: #f4f4ff;"&gt;
+  &lt;h2&gt;📝 Mi nota inmortal&lt;/h2&gt;
+  &lt;textarea id="nota" rows="3" style="width: 100%; font-size: 16px;"
+    placeholder="Escribe aquí tu nota…"&gt;&lt;/textarea&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;button id="guardar" style="font-size: 16px; padding: 8px 16px;"&gt;💾 Guardar nota&lt;/button&gt;
+  &lt;script&gt;
+    let caja = document.getElementById("nota");
+
+    // TODO 1: al abrir la página, lee la clave "mi-nota" del cajón
+    //         con localStorage.getItem. Si NO es null,
+    //         ponla en la caja con:  caja.value = loQueLeiste;
+
+    document.getElementById("guardar").onclick = function () {
+      // TODO 2: guarda caja.value en el cajón con la clave "mi-nota"
+      //         (es texto puro, así que aquí no necesitas JSON 😉)
+
+      alert("💾 ¡Guardada! Ahora presiona ▶ Ejecutar para 'recargar' y comprobar");
+    };
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          El TODO 2 es UNA línea: <code>localStorage.setItem("mi-nota", caja.value);</code> —
+          etiqueta del cajón primero, lo que guardas después.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para el TODO 1: guarda lo leído en una variable y pregunta con un <code>if</code>:
+          <code>let guardada = localStorage.getItem("mi-nota");</code> y luego
+          <code>if (guardada !== null) { … }</code>. Adentro, pásala a <code>caja.value</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// TODO 1: al abrir, revisar el cajón
+let guardada = localStorage.getItem("mi-nota");
+if (guardada !== null) {
+  caja.value = guardada;       // había nota: ¡a la caja!
+}
+
+// TODO 2: dentro del onclick del botón
+localStorage.setItem("mi-nota", caja.value);</code></pre>
+          ¿Por qué aquí no usamos JSON? Porque la nota YA es texto, y el cajón acepta texto
+          directo. JSON entra al quite cuando quieres guardar números, objetos o listas —
+          como la ficha <code>{nombre, vidas}</code> de la lección pasada. 📦
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Repasa el <strong>diagrama del cajón</strong> 💾: guardar = <code>setItem</code>,
+          leer = <code>getItem</code>, y al leer puede venir <code>null</code>.</li>
+        <li>¿No guarda nada? Checa la <strong>nota 🌐</strong> de arriba: con <code>file://</code>
+          el cajón puede estar cerrado.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n7l2">Tengo 13 años y estoy aprendiendo JavaScript. Hoy vi localStorage (setItem, getItem, removeItem) y JSON.stringify / JSON.parse. Explícame con una analogía sencilla: 1) por qué las variables se borran al recargar la página, 2) por qué localStorage solo guarda texto y para qué sirve JSON, 3) qué es null y cómo revisarlo con if. Después hazme 2 preguntas para ver si entendí. No me resuelvas mis ejercicios completos.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Guarda un objeto completo: <code>let config = { nombre: "…", colorFavorito: "hotpink" }</code>.
+        Empácalo con <code>JSON.stringify</code>, guárdalo, y al abrir la página desempácalo con
+        <code>JSON.parse</code> y aplica el color:
+        <code>document.body.style.background = config.colorFavorito;</code> —
+        ¡una página que recuerda tu estilo! 🎨
+        <strong>Jefe secreto:</strong> agrega un botón "modo fábrica" que borre TODO con
+        <code>localStorage.removeItem</code> y regrese la página a como estaba.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n7-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Recargas la página. ¿Qué le pasa a una variable
+            <code>let puntos = 900;</code>?</p>
+          <button class="opcion">Nada, las variables se guardan solas</button>
+          <button class="opcion" data-ok>Se borra: las variables viven en la memoria y la recarga las destruye</button>
+          <button class="opcion">Se convierte en texto automáticamente</button>
+          <div class="explicacion">La RAM es el vaho del espejo 🪞: rapidísima pero olvidadiza.
+            Si quieres que un dato sobreviva, tienes que guardarlo tú en el cajón
+            (<code>localStorage</code>).</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Para qué sirve <code>JSON.stringify(ficha)</code>?</p>
+          <button class="opcion" data-ok>Empaca el objeto como texto, porque localStorage solo guarda texto</button>
+          <button class="opcion">Borra la ficha para ahorrar memoria</button>
+          <button class="opcion">Convierte el texto de vuelta en objeto</button>
+          <div class="explicacion">📦 <code>stringify</code> = empacar (objeto → texto).
+            📂 <code>parse</code> = desempacar (texto → objeto). Si los confundes, recuerda:
+            "string" significa texto, y stringify lo VUELVE texto.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué te devuelve <code>localStorage.getItem("x")</code>
+            si nunca guardaste nada con esa etiqueta?</p>
+          <button class="opcion">Un texto vacío ""</button>
+          <button class="opcion">El número 0</button>
+          <button class="opcion" data-ok>null (o sea: "aquí no hay nada")</button>
+          <div class="explicacion"><code>null</code> es la forma del cajón de decir "ese
+            compartimento está vacío". Por eso siempre preguntamos
+            <code>if (dato !== null)</code> antes de usarlo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n7-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Objetos: fichas de personaje</a>
+      <a href="leccion-3.html">Siguiente: Bases de datos de verdad ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomar el control: tu teclado manda — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🖌️ Nivel 8: Canvas</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 8 · LECCIÓN 3</span>
+    <h1>Tomar el control 🎮</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Que TU teclado mande: escuchar las teclas con <code>keydown</code> y
+        <code>event.key</code>, mover un personaje con las <strong>flechas</strong>
+        ⬆️⬇️⬅️➡️, y encerrarlo con <code>if</code> para que no se escape de la pantalla.
+        Hasta hoy tus animaciones se movían solas; desde hoy, <strong>obedecen</strong>. 😎</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>En el nivel 5 aprendiste eventos con clics de botones. Las teclas funcionan
+        IGUAL, solo que en vez de escuchar un botón, escuchas el teclado completo:
+        <code>document.addEventListener("keydown", miFuncion)</code>. Cada vez que una
+        tecla baja (<em>key down</em> = "tecla abajo"), el navegador llama a tu función y
+        le entrega un paquete llamado <code>evento</code> con toda la info del golpe.</p>
+      <div class="analogia">
+        Es como el <strong>timbre de tu casa</strong> 🔔: tú no te asomas a la puerta cada
+        segundo por si llegó alguien; el timbre te AVISA. Y en la pantallita del
+        interfón hasta ves QUIÉN es: eso es <code>evento.key</code>, el nombre exacto de
+        la tecla que tocó. <code>"ArrowUp"</code>, <code>"a"</code>, <code>" "</code>
+        (la barra espaciadora)… cada tecla dice su nombre.
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="200" viewBox="0 0 540 200">
+          <!-- La tecla que viaja -->
+          <g class="anim-valor-entra" style="--dx: 150px;">
+            <rect x="20" y="70" width="110" height="52" rx="10" fill="#ffe95c"/>
+            <text x="75" y="92" text-anchor="middle" fill="#0a0a1a" font-size="16">⬆️ ¡pum!</text>
+            <text class="mono" x="75" y="112" text-anchor="middle" fill="#0a0a1a" font-size="11">"ArrowUp"</text>
+          </g>
+          <!-- Tu función escuchando -->
+          <g class="anim-pulso">
+            <rect x="190" y="55" width="170" height="82" rx="10" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="275" y="82" text-anchor="middle" font-size="12" fill="#00e5ff">tu función "keydown"</text>
+            <text class="mono" x="275" y="105" text-anchor="middle" font-size="11" fill="#a3a3c8">if (evento.key ===</text>
+            <text class="mono" x="275" y="122" text-anchor="middle" font-size="11" fill="#a3a3c8">"ArrowUp") y = y - 5;</text>
+          </g>
+          <line class="anim-recorrido" x1="365" y1="96" x2="425" y2="96" stroke="#39ff8e" stroke-width="3"/>
+          <!-- El canvas reaccionando -->
+          <rect x="430" y="40" width="100" height="112" rx="8" fill="#0a0a1a" stroke="#39ff8e" stroke-width="3"/>
+          <rect x="468" y="100" width="24" height="24" fill="#2b2b55"/>
+          <rect class="anim-valor-aparece" x="468" y="60" width="24" height="24" fill="#ff4dd8"/>
+          <text x="480" y="172" text-anchor="middle" font-size="11" fill="#a3a3c8">¡sube 5 px!</text>
+        </svg>
+        <p class="pie">Presionas ⬆️ → el navegador dispara el evento <code>keydown</code>
+          con <code>evento.key === "ArrowUp"</code> → tu <code>if</code> lo reconoce →
+          cambia la <code>y</code> → y el game loop dibuja al personaje más arriba.
+          (Recuerda: subir = <strong>restar</strong> a la y 🙃).</p>
+      </div>
+
+      <p>Los nombres de las flechas son <code>"ArrowUp"</code>, <code>"ArrowDown"</code>,
+        <code>"ArrowLeft"</code> y <code>"ArrowRight"</code> (respetando mayúsculas).
+        Dos trucos de pro:</p>
+      <ul>
+        <li><strong>Velocidad como variable:</strong> en vez de <code>y = y - 5</code>
+          escribe <code>y = y - VELOCIDAD</code>. Así, cambiar la agilidad de tu personaje
+          es tocar UN solo número. 🚀</li>
+        <li><strong><code>evento.preventDefault()</code>:</strong> las flechas también
+          mueven la página (scroll). Esta línea le dice al navegador "yo me encargo,
+          no muevas nada tú". 🙅</li>
+      </ul>
+      <p class="suave">🖱️ Importante en TODOS los ejemplos de hoy: <strong>haz clic dentro
+        de la vista previa primero, para que escuche tu teclado</strong>. El teclado solo
+        le habla a la zona que tiene el "foco".</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Un cuadrito que obedece tus flechas, y de paso te muestra el nombre de la última
+        tecla que presionaste (así puedes descubrir cómo se llama CUALQUIER tecla 🕵️).
+        Presiona <strong>▶ Ejecutar</strong>…</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu
+        teclado.</strong> Luego usa ⬆️⬇️⬅️➡️:</p>
+
+      <div class="playground" data-mode="html" data-titulo="control_total.html" data-alto="420">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #a3a3c8; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 8px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro y usa las flechas ⬆️⬇️⬅️➡️&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="280"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    var x = 180;
+    var y = 120;
+    var TAM = 40;
+    var VELOCIDAD = 6;                 // súbele si quieres turbo 🚀
+    var ultimaTecla = "(ninguna)";
+
+    // El oído: cada tecla presionada pasa por aquí 🔔
+    document.addEventListener("keydown", function (evento) {
+      ultimaTecla = evento.key;
+
+      if (evento.key === "ArrowUp")    y = y - VELOCIDAD;  // subir = restar y 🙃
+      if (evento.key === "ArrowDown")  y = y + VELOCIDAD;
+      if (evento.key === "ArrowLeft")  x = x - VELOCIDAD;
+      if (evento.key === "ArrowRight") x = x + VELOCIDAD;
+
+      evento.preventDefault();  // que las flechas no muevan la página
+    });
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00e5ff";
+      ctx.fillRect(x, y, TAM, TAM);
+
+      // Chismógrafo de teclas: muestra el nombre de la última 🕵️
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = "13px monospace";
+      ctx.fillText("evento.key: " + ultimaTecla, 10, 20);
+
+      requestAnimationFrame(dibujar);
+    }
+
+    dibujar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🕵️ Presiona otras teclas (letras, espacio, shift…) y mira cómo se
+        llaman en la esquina. Ese es el nombre que usarías en tu <code>if</code>.
+        Nota: por ahora el cuadrito SÍ puede fugarse del lienzo… de eso te encargas tú. 👇</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: CONTROL COMPLETO Y SIN FUGAS</p>
+      <p>Este cuadrito solo sabe ir a la derecha 😅 y además se escapa del lienzo.
+        Tu misión: 1) enséñale las otras 3 direcciones, 2) ponle <strong>paredes
+        invisibles</strong> para que no se salga. Recuerda:
+        <strong>🖱️ haz clic dentro de la vista previa primero, para que escuche
+        tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="sin_fugas.html" data-alto="420">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #a3a3c8; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 8px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro y usa las flechas ⬆️⬇️⬅️➡️&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="280"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    var x = 180;
+    var y = 120;
+    var TAM = 40;
+    var VELOCIDAD = 6;
+
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "ArrowRight") x = x + VELOCIDAD;
+
+      // TODO 1: agrega los if de "ArrowLeft", "ArrowUp" y "ArrowDown".
+      //         (Acuérdate: subir es RESTAR a la y)
+
+      evento.preventDefault();
+    });
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // TODO 2: paredes invisibles 🧱 — cuatro if que regresen al cuadro
+      //         si se pasó. Por ejemplo, la pared izquierda:
+      //         if (x &lt; 0) x = 0;
+      //         Te faltan: derecha (x &gt; canvas.width - TAM),
+      //         arriba (y &lt; 0) y abajo (y &gt; canvas.height - TAM).
+
+      ctx.fillStyle = "#ff4dd8";
+      ctx.fillRect(x, y, TAM, TAM);
+
+      requestAnimationFrame(dibujar);
+    }
+
+    dibujar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Los 3 <code>if</code> que faltan son gemelos del que ya está. Solo cambia el
+          nombre de la tecla y la operación: izquierda resta a <code>x</code>, arriba
+          resta a <code>y</code>, abajo suma a <code>y</code>. Cópialos del ejemplo de
+          arriba si quieres: los pros también leen código ajeno. 😉
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para las paredes, piensa en cada borde: si <code>x</code> se hizo menor que 0,
+          regrésalo a 0. Si <code>x</code> se pasó de <code>canvas.width - TAM</code>
+          (la pared derecha menos el ancho del cuadro), regrésalo justo ahí:
+          <code>if (x &gt; canvas.width - TAM) x = canvas.width - TAM;</code>.
+          Arriba y abajo son iguales pero con <code>y</code> y <code>canvas.height</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// TODO 1: las 4 direcciones completas
+if (evento.key === "ArrowRight") x = x + VELOCIDAD;
+if (evento.key === "ArrowLeft")  x = x - VELOCIDAD;
+if (evento.key === "ArrowUp")    y = y - VELOCIDAD;  // subir = restar 🙃
+if (evento.key === "ArrowDown")  y = y + VELOCIDAD;
+
+// TODO 2: paredes invisibles 🧱
+if (x &lt; 0) x = 0;
+if (x &gt; canvas.width - TAM) x = canvas.width - TAM;
+if (y &lt; 0) y = 0;
+if (y &gt; canvas.height - TAM) y = canvas.height - TAM;</code></pre>
+          ¿Por qué <code>canvas.width - TAM</code>? Porque <code>x</code> es la esquina
+          izquierda del cuadro. Si el lienzo mide 400 y el cuadro 40, la <code>x</code>
+          más lejana permitida es 360: ahí el cuadro toca la pared derecha sin salirse.
+          Estas 4 líneas son un "clamp" (abrazadera): sujetan al valor dentro de un rango.
+          Las verás en TODOS tus juegos. 🔒
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿El teclado no responde? Casi seguro te faltó <strong>hacer clic dentro de la
+          vista previa</strong> 🖱️ — sin foco, no hay eventos.</li>
+        <li>¿Una tecla no jala? Revisa el nombre EXACTO: es <code>"ArrowUp"</code>,
+          no <code>"arrowup"</code> ni <code>"flecha arriba"</code>. Usa el chismógrafo
+          del ejemplo para verificar. 🕵️</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n8l3">Tengo 13 años y estoy haciendo un juego en canvas con JavaScript. Muevo un cuadrito con addEventListener("keydown") y evento.key ("ArrowUp", "ArrowDown", etc.), y quiero evitar que se salga de la pantalla con ifs. Algo no me funciona. Hazme preguntas una por una para ayudarme a encontrar el error yo mismo (por ejemplo sobre el foco del teclado, los nombres exactos de las teclas y mis condiciones), en lugar de darme el código completo.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        pídele que pruebe tu control, como buen tester.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>1) <strong>Modo turbo:</strong> si presionan <code>" "</code> (la barra
+        espaciadora), duplica la <code>VELOCIDAD</code> por un rato… o alterna entre
+        lenta y rápida. 2) <strong>Dos jugadores:</strong> agrega un segundo cuadro que
+        se mueva con <code>"w"</code>, <code>"a"</code>, <code>"s"</code>,
+        <code>"d"</code> — ¡su primer juego local para dos! 👯
+        <strong>Jefe secreto:</strong> dibuja una "moneda" 🪙 (círculo amarillo) en un
+        lugar al azar, y cuando el cuadro la toque, muévela a otro lugar. Eso que acabas
+        de sentir se llama <em>detección de colisiones</em>… y mañana la usas en Snake. 🐍</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n8-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Presionas la flecha hacia arriba. ¿Qué trae <code>evento.key</code>?</p>
+          <button class="opcion">"flecha-arriba"</button>
+          <button class="opcion" data-ok>"ArrowUp"</button>
+          <button class="opcion">38</button>
+          <div class="explicacion">Cada tecla dice su nombre en inglés y con mayúsculas
+            exactas: <code>"ArrowUp"</code>, <code>"ArrowDown"</code>,
+            <code>"ArrowLeft"</code>, <code>"ArrowRight"</code>. Si dudas del nombre de una
+            tecla, imprímelo y espía. 🕵️</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Quieres que tu personaje SUBA cuando presionen ⬆️. ¿Qué haces con su <code>y</code>?</p>
+          <button class="opcion">Sumarle, porque subir es más</button>
+          <button class="opcion" data-ok>Restarle, porque en canvas la y crece hacia abajo</button>
+          <button class="opcion">Nada, la y solo controla izquierda y derecha</button>
+          <div class="explicacion">El clásico 🙃: en canvas, arriba es MENOS y. Subir =
+            <code>y = y - VELOCIDAD</code>. Si tu personaje "sube al revés", ya sabes
+            exactamente dónde mirar.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Para qué escribimos <code>if (x &lt; 0) x = 0;</code> en el juego?</p>
+          <button class="opcion">Para que el cuadro rebote con más fuerza</button>
+          <button class="opcion">Para reiniciar el juego cuando pierdes</button>
+          <button class="opcion" data-ok>Para que el cuadro no se salga por el borde izquierdo: si se pasó, lo regresa</button>
+          <div class="explicacion">Es una pared invisible 🧱: si la posición se volvió
+            ilegal (menor que 0), la corregimos al valor límite. Con 4 de estas, tu
+            personaje queda bien portado dentro del lienzo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n8-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: El game loop</a>
+      <a href="leccion-4.html">Siguiente: Snake I, la serpiente viva ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

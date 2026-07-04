@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: Mi tarjeta de gamer — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffb86c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧱 Nivel 1: HTML</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 1 · LECCIÓN 4 · 👑 PELEA DE JEFE</span>
+    <h1>Mi tarjeta de gamer 🎮👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Construir <strong>tu primera página completa</strong>: una tarjeta de gamer con tu nombre,
+        tu avatar, tu presentación, tu top de juegos y tus enlaces favoritos — usando TODO lo que
+        aprendiste en el Nivel 1. Sin código nuevo. Solo tú contra el jefe. 👑</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL PLAN DE BATALLA</p>
+      <p>En los videojuegos, la pelea de jefe no te pide poderes nuevos: te pide usar
+        <strong>todos los que ya ganaste</strong>, juntos y bien. Aquí es igual. Ya sabes hacer
+        títulos (<code>&lt;h1&gt;</code>, <code>&lt;h2&gt;</code>), párrafos (<code>&lt;p&gt;</code>),
+        listas (<code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>), enlaces (<code>&lt;a href&gt;</code>)
+        e imágenes (<code>&lt;img&gt;</code> o emojis gigantes). Hoy los combinas en un solo combo. 🥊</p>
+      <div class="analogia">
+        Tu <strong>tarjeta de gamer</strong> es como tu tarjeta de presentación de luchador 🤼:
+        tu nombre de batalla en grande, tu máscara (avatar), tus mejores movimientos (top de juegos)
+        y dónde encontrarte (enlaces). Todo en una sola página que grita "este soy yo".
+      </div>
+      <p>Toda página se arma <strong>por secciones, de arriba hacia abajo</strong>. Este es el plano
+        de la tuya — míralo bien porque es tu mapa del tesoro:</p>
+
+      <div class="diagrama">
+        <svg width="520" height="330" viewBox="0 0 520 330">
+          <!-- Marco de la tarjeta -->
+          <rect x="110" y="14" width="300" height="300" rx="14" fill="#0d0d22" stroke="#ffb86c" stroke-width="3"/>
+          <!-- 1: h1 nombre -->
+          <g class="anim-conteo">
+            <rect x="130" y="30" width="260" height="34" rx="6" fill="#ffb86c"/>
+            <text x="260" y="53" text-anchor="middle" font-size="14" fill="#0a0a1a">&lt;h1&gt; Tu nombre gamer</text>
+          </g>
+          <!-- 2: avatar -->
+          <g class="anim-conteo paso-2">
+            <circle cx="260" cy="105" r="30" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="260" y="115" text-anchor="middle" font-size="26">🐱‍👤</text>
+            <text class="mono" x="330" y="110" font-size="12" fill="#00e5ff">avatar</text>
+          </g>
+          <!-- 3: presentación -->
+          <g class="anim-conteo paso-3">
+            <rect x="130" y="150" width="260" height="28" rx="6" fill="none" stroke="#39ff8e" stroke-width="2"/>
+            <text class="mono" x="260" y="169" text-anchor="middle" font-size="12" fill="#39ff8e">&lt;p&gt; quién eres</text>
+          </g>
+          <!-- 4: top juegos -->
+          <g class="anim-conteo paso-4">
+            <rect x="130" y="190" width="260" height="52" rx="6" fill="none" stroke="#ffe95c" stroke-width="2"/>
+            <text class="mono" x="260" y="212" text-anchor="middle" font-size="12" fill="#ffe95c">&lt;ol&gt; tu top de juegos</text>
+            <text class="mono" x="260" y="230" text-anchor="middle" font-size="11" fill="#a3a3c8">1. … 2. … 3. …</text>
+          </g>
+          <!-- 5: enlaces -->
+          <g class="anim-conteo paso-5">
+            <rect x="130" y="254" width="260" height="28" rx="6" fill="none" stroke="#ff4dd8" stroke-width="2"/>
+            <text class="mono" x="260" y="273" text-anchor="middle" font-size="12" fill="#ff4dd8">&lt;a&gt; tus enlaces favoritos</text>
+          </g>
+          <text x="260" y="326" text-anchor="middle" font-size="13" fill="#a3a3c8">Sección por sección, como armar un LEGO 🧱</text>
+        </svg>
+        <p class="pie">El plano de tu tarjeta: nombre → avatar → presentación → top de juegos →
+          enlaces. Cada pieza ya la sabes hacer. El jefe solo quiere verlas juntas. 😉</p>
+      </div>
+
+      <p><strong>Consejo de pro</strong> 🧠: no intentes escribir todo de golpe. Los programadores
+        de verdad trabajan así: escriben UNA sección → ejecutan → ven que funcione → siguen con la
+        próxima. Si algo se rompe, sabes que fue lo último que escribiste. Ese truco te salvará
+        toda la vida.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Esta es la tarjeta de gamer de <strong>Kai</strong>, un estudiante como tú. Ejecútala y
+        estúdiala con ojos de detective 🕵️: fíjate cómo cada sección del plano se convierte en
+        etiquetas que YA conoces. Tu tarjeta va a ser como esta… pero con TU personalidad:</p>
+      <div class="playground" data-mode="html" data-titulo="tarjeta-de-kai.html" data-alto="380">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Tarjeta de gamer — Kai</title>
+  </head>
+  <body>
+    <h1>🎮 KaiMaster_07</h1>
+
+    <p style="font-size: 80px; margin: 0;">🐱‍👤</p>
+
+    <p>¡Qué onda! Soy Kai, tengo 13 años y vivo en Guadalajara.
+       Me gustan los juegos de aventura y quiero aprender a hacer los míos.</p>
+
+    <h2>🏆 Mi top 3 de juegos</h2>
+    <ol>
+      <li>The Legend of Zelda</li>
+      <li>Minecraft</li>
+      <li>Mario Kart</li>
+    </ol>
+
+    <h2>🚀 Lo que quiero construir en este curso</h2>
+    <p>Un videojuego de un gato ninja que rescata tacos robados. 🌮</p>
+
+    <h2>🔗 Mis lugares favoritos de internet</h2>
+    <p><a href="https://es.wikipedia.org" target="_blank">Wikipedia</a> —
+       para investigar de todo.</p>
+    <p><a href="https://scratch.mit.edu" target="_blank">Scratch</a> —
+       donde vi mis primeros juegos hechos por niños.</p>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: el avatar es un <strong>emoji gigante</strong> (un párrafo con letra
+        de 80px — truco de la Lección 3 que nunca falla, ni sin internet). Los subtítulos usan
+        <code>&lt;h2&gt;</code> porque el <code>&lt;h1&gt;</code> es solo para el título principal.
+        Y los enlaces llevan <code>target="_blank"</code> para abrir en pestaña nueva. Puro
+        material del Nivel 1. 💪</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: ¡PELEA DE JEFE!</p>
+      <p>Aquí está el esqueleto de tu tarjeta con 6 TODOs. Ve <strong>uno por uno</strong>,
+        ejecutando después de cada uno. El jefe cae cuando tu tarjeta tenga: tu nombre en grande,
+        tu avatar, tu presentación, tu top 3-5 de juegos, lo que quieres construir, y al menos
+        2 enlaces. ¡A darle! ⚔️</p>
+      <div class="playground" data-mode="html" data-titulo="mi-tarjeta-de-gamer.html" data-alto="380">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi tarjeta de gamer</title>
+  </head>
+  <body>
+    <!-- TODO 1: tu nombre (o nombre de gamer) en un <h1>
+         Tip: ponle un emoji para que se vea con poder 🎮 -->
+
+    <!-- TODO 2: tu avatar: un emoji gigante
+         Copia este truco y cambia el emoji por el tuyo:
+         <p style="font-size: 80px; margin: 0;">😎</p> -->
+
+    <!-- TODO 3: un <p> presentándote: cómo te llamas,
+         cuántos años tienes, qué te gusta -->
+
+    <!-- TODO 4: un <h2> que diga "Mi top de juegos" y
+         una lista <ol> con tus 3 a 5 juegos favoritos -->
+
+    <!-- TODO 5: un <h2> + un <p> contando qué quieres
+         construir en este curso (¡sueña en grande!) -->
+
+    <!-- TODO 6: un <h2> "Mis enlaces favoritos" y
+         al menos 2 enlaces <a href> a sitios que uses
+         (que abran en pestaña nueva 😉) -->
+
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Repasa el ejemplo de Kai: tu tarjeta usa exactamente las mismas piezas. Las recetas:
+          título <code>&lt;h1&gt;Texto&lt;/h1&gt;</code>, párrafo <code>&lt;p&gt;Texto&lt;/p&gt;</code>,
+          y la lista numerada es una caja con cajitas adentro:
+          <code>&lt;ol&gt; &lt;li&gt;Juego 1&lt;/li&gt; &lt;li&gt;Juego 2&lt;/li&gt; &lt;/ol&gt;</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La receta del enlace en pestaña nueva:
+          <code>&lt;a href="https://sitio.com" target="_blank"&gt;texto visible&lt;/a&gt;</code>.
+          Y si algo se ve raro, revisa las tapas: casi siempre el villano es una etiqueta sin su
+          <code>&lt;/…&gt;</code>. Ejecuta después de CADA sección para cachar al culpable rápido. 🕵️
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mi tarjeta de gamer&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;⚡ DanaPlays&lt;/h1&gt;                     &lt;!-- TODO 1: nombre en grande --&gt;
+
+    &lt;p style="font-size: 80px; margin: 0;"&gt;🦊&lt;/p&gt;  &lt;!-- TODO 2: avatar emoji --&gt;
+
+    &lt;p&gt;Soy Dana, tengo 14 años y vivo en Puebla.   &lt;!-- TODO 3 --&gt;
+       Me encantan los juegos de carreras y dibujar.&lt;/p&gt;
+
+    &lt;h2&gt;🏆 Mi top de juegos&lt;/h2&gt;              &lt;!-- TODO 4: lista numerada --&gt;
+    &lt;ol&gt;
+      &lt;li&gt;Mario Kart&lt;/li&gt;
+      &lt;li&gt;Stardew Valley&lt;/li&gt;
+      &lt;li&gt;Roblox&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;h2&gt;🚀 Quiero construir…&lt;/h2&gt;             &lt;!-- TODO 5 --&gt;
+    &lt;p&gt;Un juego de carreras de tlacuaches en el espacio.&lt;/p&gt;
+
+    &lt;h2&gt;🔗 Mis enlaces favoritos&lt;/h2&gt;         &lt;!-- TODO 6: portales --&gt;
+    &lt;p&gt;&lt;a href="https://www.youtube.com" target="_blank"&gt;YouTube&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;a href="https://es.wikipedia.org" target="_blank"&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          Sección por sección, como el plano del diagrama: h1 → avatar → presentación → ol con li
+          adentro → párrafo de tus sueños → enlaces con href y target. Si tu tarjeta se parece a
+          esto pero habla de TI… <strong>¡el jefe está derrotado!</strong> 👑💥
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>plano de la tarjeta</strong> del diagrama y ve sección por sección. 🗺️</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n1l4">Tengo 13 años y estoy haciendo mi primer proyecto de HTML: una tarjeta de presentación de gamer con h1, p, ol con li, a con href y target="_blank", y un emoji gigante como avatar. Voy a pegarte mi código abajo. NO me lo resuelvas ni me lo reescribas completo: dime qué etiqueta tiene el problema, explícame por qué con la analogía de cajas que se abren y se cierran, y dame una pista para que yo lo arregle. Mi código es este:</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n1l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>¿El jefe cayó muy fácil? Súbele la dificultad 😏: 1) agrega una sección
+        <code>&lt;h2&gt;</code> nueva, como "🎵 Mi música para programar" o "🐶 Mis mascotas";
+        2) agrega un <strong>dato curioso sobre ti</strong> que nadie se espere (¿coleccionas algo
+        raro? ¿has comido chapulines? 🦗); 3) presume tu tarjeta: enséñasela a un compañero y que
+        adivine cuál sección fue la más difícil de programar. <strong>Guarda este código</strong>
+        (cópialo a un archivo en tu carpeta del curso): en el Nivel 2 le vas a poner una skin
+        legendaria con CSS. 🎨</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n1-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Quieres tu top 3 de juegos con numeritos (1, 2, 3…). ¿Qué combo usas?</p>
+          <button class="opcion" data-ok><code>&lt;ol&gt;</code> con un <code>&lt;li&gt;</code> por cada juego</button>
+          <button class="opcion">Tres <code>&lt;h1&gt;</code>, uno por juego</button>
+          <button class="opcion"><code>&lt;p&gt;</code> con los números escritos a mano: 1. 2. 3.</button>
+          <div class="explicacion"><code>ol</code> = lista ordenada (con números automáticos) y cada
+            <code>li</code> es un elemento. Si escribes los números a mano y luego cambias el orden,
+            tienes que renumerar todo tú. La <code>ol</code> lo hace sola. 🤖</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En tu tarjeta hay UN <code>&lt;h1&gt;</code> y varios <code>&lt;h2&gt;</code>. ¿Por qué?</p>
+          <button class="opcion">Porque el h2 pesa menos y la página carga más rápido</button>
+          <button class="opcion" data-ok>El h1 es el título principal (uno solo) y los h2 son los subtítulos de cada sección</button>
+          <button class="opcion">Por costumbre, da igual usar puros h1</button>
+          <div class="explicacion">Los títulos tienen jerarquía, como en un periódico 📰: un titular
+            principal (<code>h1</code>) y encabezados de sección (<code>h2</code>). Así el navegador
+            (¡y Google!) entienden la estructura de tu página.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Tu página "se rompió": desde la mitad todo se ve gigante. ¿Cuál es el sospechoso #1?</p>
+          <button class="opcion">El navegador, que ya se cansó</button>
+          <button class="opcion">Usaste demasiados emojis</button>
+          <button class="opcion" data-ok>Una etiqueta sin cerrar: se quedó una caja sin tapa, como un &lt;h2&gt; sin &lt;/h2&gt;</button>
+          <div class="explicacion">Clásico entre clásicos 😌: una caja sin tapa se "traga" todo lo que
+            sigue. Por eso ejecutamos después de cada sección: el error siempre está en lo último que
+            escribiste.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n1-l4">👑 ¡Jefe derrotado! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Enlaces e imágenes</a>
+      <a href="../nivel-2/index.html">Siguiente: Nivel 2 — CSS 🎨 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

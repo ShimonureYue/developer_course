@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake I: la serpiente viva — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🖌️ Nivel 8: Canvas</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 8 · LECCIÓN 4</span>
+    <h1>Snake I: la serpiente viva 🐍</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Construir el corazón de <strong>Snake</strong>: un campo en
+        <strong>cuadrícula</strong>, una serpiente que es un <strong>arreglo de
+        segmentos</strong>, movimiento con <code>unshift</code> + <code>pop</code>,
+        control con flechas (sin reversazos 🚫), y una manzana 🍎 que la hace
+        <strong>crecer</strong>. Hoy la serpiente cobra vida; en la próxima lección,
+        el juego completo.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p><strong>Idea 1: piensa en CELDAS, no en píxeles.</strong> Snake no se mueve
+        suavecito: salta de casilla en casilla, como en un tablero. Así que dividimos el
+        lienzo en celdas de 20 píxeles (<code>var CELDA = 20;</code>): un canvas de
+        400x400 se convierte en un tablero de <strong>20 columnas por 20 filas</strong>.
+        Desde ahora, la posición de la serpiente es su CELDA — la celda (5, 3) — y solo
+        al dibujar la convertimos a píxeles multiplicando:
+        <code>x * CELDA = 100</code>. Comparar celdas es exacto y facilito:
+        ¿la cabeza está en la misma celda que la manzana? <code>===</code> y ya. 🎯</p>
+      <p><strong>Idea 2: la serpiente es un ARREGLO de segmentos.</strong> ¿Recuerdas los
+        objetos del nivel 7? Cada pedacito de serpiente es una ficha
+        <code>{ x: 10, y: 10 }</code>, y la serpiente completa es un arreglo de fichas
+        donde <code>serpiente[0]</code> es la CABEZA.</p>
+      <div class="analogia">
+        La serpiente avanza como una <strong>fila de conga</strong> 💃🕺: para "moverse",
+        alguien nuevo se forma ADELANTE (la cabeza nueva: <code>unshift</code>) y el del
+        FINAL se sale de la fila (la cola: <code>pop</code>). Nadie más se mueve, pero la
+        fila completa avanzó un paso. Y si hay pastel 🍰 (una manzana), el del final NO
+        se sale ese turno… y la fila crece.
+      </div>
+
+      <div class="diagrama">
+        <svg width="540" height="210" viewBox="0 0 540 210">
+          <!-- Dirección -->
+          <text x="270" y="200" text-anchor="middle" font-size="12" fill="#a3a3c8">la serpiente "avanza" hacia la derecha →</text>
+          <!-- Cola que sale -->
+          <g class="anim-valor-entra" style="--dx: -60px;">
+            <rect x="120" y="90" width="36" height="36" rx="6" fill="#1da35c"/>
+          </g>
+          <text x="90" y="70" text-anchor="middle" font-size="12" fill="#ff5c7a">pop(): sale la cola</text>
+          <!-- Cuerpo -->
+          <rect x="164" y="90" width="36" height="36" rx="6" fill="#39ff8e"/>
+          <rect x="208" y="90" width="36" height="36" rx="6" fill="#39ff8e"/>
+          <rect x="252" y="90" width="36" height="36" rx="6" fill="#39ff8e"/>
+          <rect x="296" y="90" width="36" height="36" rx="6" fill="#39ff8e"/>
+          <!-- Slot de la cabeza nueva -->
+          <rect x="340" y="90" width="36" height="36" rx="6" fill="none" stroke="#ffe95c" stroke-width="2" stroke-dasharray="5 4"/>
+          <!-- Cabeza que entra desde arriba -->
+          <g class="anim-valor-entra" style="--dx: 0px; --dy: 66px;">
+            <rect x="340" y="24" width="36" height="36" rx="6" fill="#ffe95c"/>
+            <text x="358" y="49" text-anchor="middle" font-size="18">🐍</text>
+          </g>
+          <text x="430" y="70" text-anchor="middle" font-size="12" fill="#ffe95c">unshift(cabeza):</text>
+          <text x="430" y="86" text-anchor="middle" font-size="12" fill="#ffe95c">entra adelante</text>
+          <!-- El arreglo en código -->
+          <text class="mono" x="270" y="160" text-anchor="middle" font-size="12" fill="#a3a3c8">serpiente = [ {x:17,y:10}, {x:16,y:10}, {x:15,y:10}, … ]</text>
+        </svg>
+        <p class="pie">Un paso de Snake = <code>unshift</code> mete una cabeza nueva al
+          inicio del arreglo y <code>pop</code> quita la cola del final. Si comió 🍎,
+          ese turno NO hay <code>pop</code>… y la serpiente mide un segmento más. 💃</p>
+      </div>
+
+      <p><strong>Idea 3: la dirección también es una ficha.</strong>
+        <code>var direccion = { x: 1, y: 0 };</code> significa "una celda a la derecha por
+        paso". La cabeza nueva siempre nace en
+        <code>serpiente[0].x + direccion.x</code>. Con las flechas cambias la dirección…
+        con UNA regla sagrada: <strong>prohibida la reversa instantánea</strong> 🚫.
+        Si vas a la derecha y presionas izquierda, chocarías con tu propio cuello.
+        Por eso cada <code>if</code> revisa la dirección actual antes de aceptar.</p>
+      <p><strong>Idea 4: el ritmo con <code>setInterval</code>.</strong> A 60 cuadros por
+        segundo, Snake sería injugable 😵. Aquí conviene más
+        <code>setInterval(paso, 150)</code>: "ejecuta <code>paso</code> cada 150
+        milisegundos". Fácil de razonar (un paso = un salto de celda) y fácil de acelerar
+        después: menos milisegundos = más difícil. 😏</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: LA SERPIENTE RESPIRA</p>
+      <p>Snake parcial pero VIVO: se mueve, obedece tus flechas, come y crece. Todavía no
+        puede morir (por ahora atraviesa las paredes como fantasma 👻 — el game over llega
+        en la próxima lección). Presiona <strong>▶ Ejecutar</strong> y…</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu
+        teclado.</strong> Luego maneja con ⬆️⬇️⬅️➡️ y ve por la manzana:</p>
+
+      <div class="playground" data-mode="html" data-titulo="snake_vivo.html" data-alto="520">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #a3a3c8; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 8px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro y maneja con las flechas ⬆️⬇️⬅️➡️&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="400"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // El tablero: celdas de 20 px → 20 columnas x 20 filas
+    var CELDA = 20;
+    var COLUMNAS = canvas.width / CELDA;   // 20
+    var FILAS = canvas.height / CELDA;     // 20
+
+    // La serpiente: arreglo de fichas {x, y} EN CELDAS. [0] es la cabeza.
+    var serpiente = [
+      { x: 10, y: 10 },
+      { x: 9,  y: 10 },
+      { x: 8,  y: 10 }
+    ];
+    var direccion = { x: 1, y: 0 };        // arranca hacia la derecha
+    var manzana = { x: 15, y: 10 };
+
+    // Control 🎮 (con la regla sagrada: nada de reversa instantánea 🚫)
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
+      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
+      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+      evento.preventDefault();
+    });
+
+    // Una manzana nueva en una celda al azar 🍎
+    function nuevaManzana() {
+      manzana = {
+        x: Math.floor(Math.random() * COLUMNAS),
+        y: Math.floor(Math.random() * FILAS)
+      };
+    }
+
+    function actualizar() {
+      // 1) ¿Dónde nace la cabeza nueva? Una celda en la dirección actual
+      var cabeza = {
+        x: serpiente[0].x + direccion.x,
+        y: serpiente[0].y + direccion.y
+      };
+
+      // Por ahora: modo fantasma 👻, atraviesa las paredes
+      // (en la próxima lección esto se convierte en GAME OVER 💀)
+      if (cabeza.x &lt; 0) cabeza.x = COLUMNAS - 1;
+      if (cabeza.x &gt;= COLUMNAS) cabeza.x = 0;
+      if (cabeza.y &lt; 0) cabeza.y = FILAS - 1;
+      if (cabeza.y &gt;= FILAS) cabeza.y = 0;
+
+      // 2) La cabeza nueva entra al inicio del arreglo (la conga se forma 💃)
+      serpiente.unshift(cabeza);
+
+      // 3) ¿La cabeza cayó en la manzana?
+      if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
+        nuevaManzana();       // comió: manzana nueva y NO quitamos cola → crece 🐍
+      } else {
+        serpiente.pop();      // no comió: sale la cola y mide lo mismo
+      }
+    }
+
+    function dibujar() {
+      // Borrar todo
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // La manzana (celda → píxeles: multiplicar por CELDA)
+      ctx.fillStyle = "#ff5c7a";
+      ctx.fillRect(manzana.x * CELDA, manzana.y * CELDA, CELDA - 1, CELDA - 1);
+
+      // La serpiente, segmento por segmento (cabeza amarilla)
+      for (var i = 0; i &lt; serpiente.length; i++) {
+        ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
+        ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
+      }
+    }
+
+    // El ritmo del juego: un paso cada 150 milisegundos ⏱️
+    setInterval(function () {
+      actualizar();
+      dibujar();
+    }, 150);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🔍 Fíjate en el <code>CELDA - 1</code> al dibujar: ese píxel de
+        separación hace que se noten los segmentos, como cuentas de un collar.
+        Y prueba: come 5 manzanas y observa cómo la fila crece.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: DALE VIDA A TU PROPIA SERPIENTE</p>
+      <p>Esta serpiente está a medias: solo sabe girar hacia arriba y abajo 😬, y pasa
+        sobre la manzana como si no existiera. Completa los TODO para que quede como la
+        del ejemplo. Recuerda: <strong>🖱️ haz clic dentro de la vista previa primero,
+        para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_snake.html" data-alto="520">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; color: #a3a3c8; font-family: sans-serif; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 8px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;🖱️ Haz clic aquí adentro y maneja con las flechas ⬆️⬇️⬅️➡️&lt;/p&gt;
+  &lt;canvas id="lienzo" width="400" height="400"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    var CELDA = 20;
+    var COLUMNAS = canvas.width / CELDA;
+    var FILAS = canvas.height / CELDA;
+
+    var serpiente = [
+      { x: 10, y: 10 },
+      { x: 9,  y: 10 },
+      { x: 8,  y: 10 }
+    ];
+    var direccion = { x: 1, y: 0 };
+    var manzana = { x: 15, y: 10 };
+
+    document.addEventListener("keydown", function (evento) {
+      if (evento.key === "ArrowUp"   &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown" &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
+
+      // TODO 1: agrega "ArrowLeft" y "ArrowRight" con su regla anti-reversa:
+      //         izquierda solo si direccion.x !== 1
+      //         derecha solo si direccion.x !== -1
+
+      evento.preventDefault();
+    });
+
+    function nuevaManzana() {
+      manzana = {
+        x: Math.floor(Math.random() * COLUMNAS),
+        y: Math.floor(Math.random() * FILAS)
+      };
+    }
+
+    function actualizar() {
+      var cabeza = {
+        x: serpiente[0].x + direccion.x,
+        y: serpiente[0].y + direccion.y
+      };
+
+      // Modo fantasma 👻 (así se queda hoy)
+      if (cabeza.x &lt; 0) cabeza.x = COLUMNAS - 1;
+      if (cabeza.x &gt;= COLUMNAS) cabeza.x = 0;
+      if (cabeza.y &lt; 0) cabeza.y = FILAS - 1;
+      if (cabeza.y &gt;= FILAS) cabeza.y = 0;
+
+      serpiente.unshift(cabeza);   // entra la cabeza nueva
+
+      // TODO 2: ¿comió? 🍎 Si cabeza.x === manzana.x Y cabeza.y === manzana.y:
+      //         llama a nuevaManzana() y NO quites la cola (así crece).
+      //         Solo si NO comió, haz serpiente.pop();
+      serpiente.pop();
+    }
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ff5c7a";
+      ctx.fillRect(manzana.x * CELDA, manzana.y * CELDA, CELDA - 1, CELDA - 1);
+
+      for (var i = 0; i &lt; serpiente.length; i++) {
+        ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
+        ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
+      }
+    }
+
+    setInterval(function () {
+      actualizar();
+      dibujar();
+    }, 150);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Los dos <code>if</code> que faltan son gemelos de los que ya están, pero
+          horizontales: cambian <code>direccion</code> a <code>{ x: -1, y: 0 }</code>
+          (izquierda) o <code>{ x: 1, y: 0 }</code> (derecha), y su guardia anti-reversa
+          revisa <code>direccion.x</code> en lugar de <code>direccion.y</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para el TODO 2 necesitas un <code>if / else</code>: si la cabeza está en la
+          celda de la manzana → <code>nuevaManzana();</code> (y NADA más);
+          <code>else</code> → <code>serpiente.pop();</code>. Ojo: borra el
+          <code>serpiente.pop();</code> suelto que está abajo del comentario,
+          o tu serpiente jamás crecerá.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// TODO 1: las direcciones horizontales, con guardia anti-reversa 🚫
+if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
+if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+
+// TODO 2: comer o avanzar (dentro de actualizar, después del unshift)
+if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
+  nuevaManzana();      // comió 🍎: no hay pop → crece un segmento
+} else {
+  serpiente.pop();     // no comió: la cola sale y mide igual
+}</code></pre>
+          La guardia <code>direccion.x !== 1</code> significa: "acepta ir a la izquierda
+          SOLO si no vas ya a la derecha". Sin ella, un reversazo te haría chocar con tu
+          propio cuello (en la próxima lección, eso mata 💀). Y el crecimiento es pura
+          elegancia: crecer NO es agregar un segmento extra… es simplemente
+          <strong>no quitar la cola</strong> ese turno. La cabeza nueva ya lo agregó. 🤯
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿No responde el teclado? <strong>Clic dentro de la vista previa</strong>
+          primero. 🖱️</li>
+        <li>¿La serpiente crece sin parar? Se te quedó un <code>pop()</code> fuera del
+          <code>else</code>… o no hay ningún <code>pop()</code>. Debe salir cola en TODOS
+          los pasos excepto cuando come.</li>
+        <li>¿No crece nunca? Entonces el <code>pop()</code> se ejecuta siempre: revisa que
+          esté en la rama <code>else</code>.</li>
+        <li>Vuelve al <strong>diagrama de la conga</strong> 💃 y repasa: unshift adelante,
+          pop atrás.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n8l4">Tengo 13 años y estoy programando Snake en canvas con JavaScript. Mi serpiente es un arreglo de objetos {x, y} en celdas de 20 píxeles; avanzo con unshift (cabeza nueva) y pop (quitar cola), y cuando come una manzana no hago pop para que crezca. Explícame despacio, con un dibujo de texto del arreglo, qué pasa en el arreglo en un paso normal y en un paso donde come. Después hazme 2 preguntas para ver si lo entendí. No me des el juego resuelto.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>6. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        explicar la conga en voz alta desatora solito.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>1) <strong>Serpiente personalizada:</strong> cambia los colores, o pinta cada
+        segmento distinto usando la <code>i</code> del <code>for</code>.
+        2) <strong>Turbo:</strong> baja el 150 a 90 y siente la adrenalina 😅.
+        3) <strong>Serpiente larga de nacimiento:</strong> haz que empiece con 6 segmentos.
+        <strong>Jefe secreto:</strong> dibuja la cuadrícula del tablero — dos ciclos
+        <code>for</code> que pinten líneas cada 20 píxeles. Se ve profesional y te ayuda a
+        depurar. 📐</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n8-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. La serpiente está en la celda (5, 3) y CELDA = 20. ¿En qué píxel se dibuja?</p>
+          <button class="opcion">En el píxel (5, 3), las celdas y los píxeles son lo mismo</button>
+          <button class="opcion" data-ok>En el píxel (100, 60): celda por 20</button>
+          <button class="opcion">En el píxel (25, 23): celda más 20</button>
+          <div class="explicacion">La lógica del juego vive en celdas y SOLO al dibujar se
+            multiplica: <code>x * CELDA</code>. Así comparar posiciones (¿cabeza ===
+            manzana?) es exacto, sin decimales ni "casi toca". 🎯</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cómo avanza la serpiente en cada paso?</p>
+          <button class="opcion">Se le suma 1 a la x de TODOS los segmentos</button>
+          <button class="opcion" data-ok>Entra una cabeza nueva adelante (unshift) y sale la cola (pop)</button>
+          <button class="opcion">Se borra todo el arreglo y se crea uno nuevo desde cero</button>
+          <div class="explicacion">La conga 💃: nadie "camina", solo se forma uno adelante
+            y se sale el del final. Por eso la serpiente puede dar vueltas: cada segmento
+            se queda quieto donde nació.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace crecer a la serpiente cuando come una manzana?</p>
+          <button class="opcion">Se le hace push de 3 segmentos extra al final</button>
+          <button class="opcion">Cada segmento se estira al doble de tamaño</button>
+          <button class="opcion" data-ok>Ese turno NO se quita la cola: la cabeza nueva entra y nadie sale</button>
+          <div class="explicacion">Crecer = saltarse el <code>pop()</code> un turno.
+            El <code>unshift</code> de siempre agrega la cabeza, la cola se queda…
+            y el arreglo mide uno más. Elegancia pura. ✨</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n8-l4">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Tomar el control</a>
+      <a href="leccion-5.html">Siguiente: Jefe — Snake completo 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

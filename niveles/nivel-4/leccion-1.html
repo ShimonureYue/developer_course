@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué es una función? — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧩 Nivel 4: Python II</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 4 · LECCIÓN 1</span>
+    <h1>¿Qué es una función? 🧩</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Crear tus propias <strong>funciones</strong> con <code>def</code>: recetas con nombre
+        que escribes UNA vez y usas mil veces. Y vas a entender la regla de oro que confunde
+        a todos al principio: <strong>definir una función NO la ejecuta</strong> —
+        escribir la receta no cocina el platillo. 👨‍🍳</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Primero, el problema. Imagina que tu juego saluda a 3 amigos con un saludo bien fancy
+        de 4 líneas. Sin funciones, lo escribes 3 veces: <strong>12 líneas de puro copy-paste</strong> 😩.
+        Y aquí viene lo peor: un día decides cambiar "¡Qué onda!" por "¡Bienvenido!"…
+        y tienes que cambiarlo <strong>en 3 lugares distintos</strong>. Si se te olvida uno,
+        tu programa queda mitad viejo, mitad nuevo. En un juego de verdad no son 3 lugares:
+        son 300. 💀</p>
+
+      <div class="analogia">
+        Una <strong>función</strong> es una <strong>receta con nombre</strong> 📖: escribes las
+        instrucciones UNA sola vez en tu recetario, y cada vez que dices su nombre,
+        la cocina ejecuta la receta completa. ¿Quieres cambiar la receta?
+        La cambias en UN solo lugar, y todos los que la usan reciben la nueva versión. ✨
+      </div>
+
+      <div class="diagrama">
+        <svg width="600" height="230" viewBox="0 0 600 230">
+          <!-- La llamada viaja hacia la máquina -->
+          <g class="anim-ingrediente" style="--dx: 150px;">
+            <rect x="10" y="95" width="120" height="40" rx="8" fill="#ffe95c"/>
+            <text class="mono" x="70" y="120" text-anchor="middle" fill="#0a0a1a" font-size="15">saludar()</text>
+          </g>
+          <!-- La máquina: la función ya definida -->
+          <g class="anim-maquina">
+            <rect x="195" y="55" width="170" height="120" rx="12" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <rect x="208" y="42" width="144" height="26" rx="6" fill="#a78bfa"/>
+            <text x="280" y="60" text-anchor="middle" fill="#0a0a1a" font-size="13">def saludar():</text>
+            <text x="280" y="112" text-anchor="middle" font-size="30">⚙️</text>
+            <text class="mono" x="280" y="150" text-anchor="middle" font-size="11" fill="#a3a3c8">print("¡Qué onda!")</text>
+          </g>
+          <!-- El resultado sale -->
+          <g class="anim-platillo" style="--dx: 85px;">
+            <rect x="380" y="95" width="130" height="40" rx="8" fill="none" stroke="#39ff8e" stroke-width="2.5"/>
+            <text x="445" y="120" text-anchor="middle" fill="#39ff8e" font-size="14">¡Qué onda! 👋</text>
+          </g>
+        </svg>
+        <p class="pie">La función es una <strong>máquina con nombre</strong>: cuando escribes
+          <code>saludar()</code> (la llamada, amarillo), la máquina despierta ⚙️, ejecuta sus
+          instrucciones, y sale el resultado (verde). Sin llamada, la máquina duerme. 😴</p>
+      </div>
+
+      <h3>📝 Cómo se escribe una función</h3>
+      <pre class="bloque-codigo"><code>def saludar():              # def = "DEFino la receta llamada saludar"
+    print("¡Qué onda! 👋")   # las instrucciones van INDENTADAS (4 espacios)
+    print("Bienvenido a mi juego 🎮")
+
+saludar()                   # la LLAMADA: aquí SÍ se cocina la receta</code></pre>
+      <ul>
+        <li><code>def</code> 📖: le dice a Python "apúntate esta receta" (viene de <em>definir</em>).</li>
+        <li>El <strong>nombre</strong> lo eliges tú: minúsculas y guiones bajos, como las variables
+          (<code>saludar</code>, <code>grito_de_batalla</code>). Que diga QUÉ hace.</li>
+        <li>Los <strong>paréntesis</strong> <code>()</code> y los <strong>dos puntos</strong> <code>:</code>
+          son obligatorios (los paréntesis van vacíos… por ahora 👀).</li>
+        <li>La <strong>indentación</strong> (4 espacios) marca qué instrucciones están
+          ADENTRO de la receta — igualito que en <code>if</code> y <code>while</code>.</li>
+        <li>La <strong>llamada</strong> <code>saludar()</code> va SIN <code>def</code>, sin indentación
+          y CON paréntesis. Es la orden: "¡cocina esa receta AHORA!". 🔔</li>
+      </ul>
+
+      <h3>⚡ La regla de oro: DEFINIR ≠ EJECUTAR</h3>
+      <p>Cuando Python lee un <code>def</code>, solo <strong>memoriza la receta</strong> y sigue
+        de largo. No imprime nada, no ejecuta nada. Es como escribir la receta de un pastel
+        en tu cuaderno: por más bonita que te quede la letra, <strong>no aparece ningún
+        pastel</strong> 🎂. El pastel solo existe cuando alguien dice "¡hornéala!" —
+        o sea, cuando alguien <strong>llama</strong> a la función con <code>saludar()</code>.
+        Grábatelo, porque abajo te lo voy a demostrar. 👇</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Primero, siente el dolor del copy-paste 😩. Ejecuta esto y luego intenta el
+        experimento del comentario final:</p>
+
+      <div class="py-runner" data-titulo="sin_funciones.py">
+<script type="text/plain">
+# Versión SIN funciones: puro copy-paste 😩
+
+# saludo para Ana
+print("✨✨✨✨✨✨✨✨✨✨")
+print("¡Qué onda! Bienvenido a mi juego 🎮")
+print("✨✨✨✨✨✨✨✨✨✨")
+
+# saludo para Beto
+print("✨✨✨✨✨✨✨✨✨✨")
+print("¡Qué onda! Bienvenido a mi juego 🎮")
+print("✨✨✨✨✨✨✨✨✨✨")
+
+# saludo para Cleo
+print("✨✨✨✨✨✨✨✨✨✨")
+print("¡Qué onda! Bienvenido a mi juego 🎮")
+print("✨✨✨✨✨✨✨✨✨✨")
+
+# 🧪 EXPERIMENTO: cambia "¡Qué onda!" por "¡Hola, crack!"...
+# Tuviste que cambiarlo en 3 lugares, ¿verdad? Imagina 300. 💀
+</script>
+      </div>
+
+      <p>Ahora la versión con función. Fíjate MUY bien en el orden de lo que se imprime:
+        la receta se define hasta arriba… <strong>y no pasa nada</strong> hasta que la llamamos:</p>
+
+      <div class="py-runner" data-titulo="con_funcion.py">
+<script type="text/plain">
+# 1) DEFINIR: Python solo MEMORIZA la receta (aquí no pasa NADA)
+def saludar():
+    print("✨✨✨✨✨✨✨✨✨✨")
+    print("¡Qué onda! Bienvenido a mi juego 🎮")
+    print("✨✨✨✨✨✨✨✨✨✨")
+
+print("¿Ves algún saludo arriba de esta línea? NO. 🤨")
+print("La receta está escrita, pero nadie la ha cocinado...")
+print("Ahora sí: ¡a llamarla 3 veces!")
+
+# 2) LLAMAR: cada llamada cocina la receta completa
+saludar()
+saludar()
+saludar()
+
+# 🧪 EXPERIMENTO: ahora cambia "¡Qué onda!" por "¡Hola, crack!"
+# Un solo cambio... ¡y las 3 llamadas se actualizan solas! 🤯
+</script>
+      </div>
+
+      <p>¿Viste? Mismo resultado, pero la receta vive en UN solo lugar. Y cada
+        <code>saludar()</code> extra te sale <strong>gratis</strong>: una línea y ya. 😎
+        ("¿Y cómo le pongo el nombre de cada amigo al saludo?" — excelente pregunta 👀,
+        eso es EXACTAMENTE la próxima lección: parámetros.)</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: EL GRITO DE BATALLA ⚔️</p>
+      <p>Tu equipo de aventureros necesita un grito de batalla. Define la función
+        <code>grito_de_batalla()</code> que imprima DOS líneas épicas
+        (por ejemplo <code>"⚔️ ¡POR LA VICTORIA!"</code> y <code>"🔥 ¡NADIE NOS DETIENE!"</code>)…
+        y luego lánzalo <strong>3 veces</strong> llamándola.</p>
+
+      <div class="py-runner" data-titulo="grito_de_batalla.py">
+<script type="text/plain">
+print("El ejército se prepara... 🏰")
+
+# TODO 1: define la función grito_de_batalla()
+#         (recuerda: def, paréntesis, dos puntos)
+
+# TODO 2: adentro (indentado), imprime tus 2 líneas épicas
+
+# TODO 3: aquí abajo, SIN indentación, llámala 3 veces
+
+print("¡A la carga! 🐎")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La estructura es como la del diagrama: primero la receta con
+          <code>def grito_de_batalla():</code> (no olvides los dos puntos),
+          y ADENTRO, con 4 espacios, tus <code>print()</code>.
+          Al definirla no se imprime nada — es normal, ¡es la regla de oro!
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para llamarla: <code>grito_de_batalla()</code> — el nombre EXACTO, con paréntesis,
+          sin <code>def</code> y pegado a la izquierda. ¿Quieres 3 gritos? Tres llamadas,
+          una debajo de otra.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>print("El ejército se prepara... 🏰")
+
+def grito_de_batalla():            # 1) la receta: Python la memoriza
+    print("⚔️ ¡POR LA VICTORIA!")   # 2) instrucciones adentro (indentadas)
+    print("🔥 ¡NADIE NOS DETIENE!")
+
+grito_de_batalla()                 # 3) primera llamada: ¡se cocina!
+grito_de_batalla()                 # segunda: gratis 😎
+grito_de_batalla()                 # tercera: gratis 😎
+
+print("¡A la carga! 🐎")</code></pre>
+          Fíjate en el orden de la salida: primero "se prepara", luego los 3 gritos
+          (la definición de arriba no imprimió nada por sí sola) y al final "¡A la carga!".
+          Escribiste la receta UNA vez y la usaste 3. Eso es programar. 🧩
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Ejecutas y <strong>no pasa nada</strong>? Definiste la receta pero nunca la llamaste.
+          Falta el <code>grito_de_batalla()</code> abajo, sin indentación. 🔔</li>
+        <li>¿Escribiste <code>grito_de_batalla</code> SIN paréntesis? Así solo la "mencionas",
+          no la ejecutas. Los paréntesis son el botón de "¡cocina ya!". 🔘</li>
+        <li>¿<code>NameError: name 'grito_de_batalla' is not defined</code>? O la llamaste ANTES
+          del <code>def</code> (Python lee de arriba hacia abajo), o el nombre no es idéntico
+          (Python distingue mayúsculas y acentos).</li>
+        <li>¿<code>IndentationError</code>? Las instrucciones de adentro llevan sus 4 espacios,
+          y la llamada de afuera va pegada a la izquierda.</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n4l1">Tengo 13 años y estoy aprendiendo funciones en Python (def y llamadas, todavía sin parámetros). Explícame con la analogía de una receta de cocina: 1) qué es DEFINIR una función y qué es LLAMARLA, y por qué al definirla no se ejecuta nada, 2) por qué las instrucciones de adentro van indentadas, 3) qué gano usando funciones en vez de copiar y pegar el mismo código. Después ponme 2 retos chiquitos de crear y llamar funciones, y si me atoro dame pistas en vez de resolverlos por mí.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n4l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p><strong>La máquina de historias</strong> 📖: crea TRES funciones —
+        <code>intro()</code>, <code>nudo()</code> y <code>final()</code> — cada una con 2 prints
+        de un mini-cuento (un héroe, un problema, un desenlace). Luego llámalas en orden…
+        y después <strong>en desorden</strong>: ¿qué historia loca sale si el final va primero? 😂
+        <strong>Jefe secreto:</strong> crea <code>historia_completa()</code> que ADENTRO llame
+        a las otras tres — sí, una función puede llamar a otras funciones. Con una sola llamada
+        a <code>historia_completa()</code> sale todo el cuento. 🤯</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n4-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace Python cuando lee <code>def saludar():</code> y sus instrucciones?</p>
+          <button class="opcion">Ejecuta el saludo inmediatamente</button>
+          <button class="opcion" data-ok>Memoriza la receta y sigue de largo, sin ejecutar nada</button>
+          <button class="opcion">Imprime "saludar" en la pantalla</button>
+          <div class="explicacion">Es la regla de oro: <code>def</code> solo ESCRIBE la receta
+            en el recetario 📖. Escribir la receta del pastel no hornea ningún pastel:
+            solo la llamada <code>saludar()</code> la cocina.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cómo se ejecuta (se llama) la función <code>saludar</code>?</p>
+          <button class="opcion">Escribiendo <code>def saludar():</code> otra vez</button>
+          <button class="opcion">Escribiendo <code>saludar</code>, sin más</button>
+          <button class="opcion" data-ok>Escribiendo <code>saludar()</code>, con sus paréntesis</button>
+          <div class="explicacion">Los paréntesis son el botón de "¡cocina ya!" 🔔.
+            Sin ellos solo estás mencionando la función, como decir "existe la receta del pastel"
+            sin hornearla.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Este programa completo solo contiene:<br>
+            <code>def fiesta():</code><br>
+            <code>&nbsp;&nbsp;&nbsp;&nbsp;print("🎊🎊🎊")</code><br>
+            ¿Qué imprime al ejecutarlo?</p>
+          <button class="opcion">🎊🎊🎊 una vez</button>
+          <button class="opcion" data-ok>Nada de nada</button>
+          <button class="opcion">Un error de Python</button>
+          <div class="explicacion">La receta quedó perfectamente definida… pero nadie llamó
+            <code>fiesta()</code>, así que nadie festejó 😢. Definir ≠ ejecutar.
+            No es error: es un programa que solo apunta recetas.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n4-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 4</a>
+      <a href="leccion-2.html">Siguiente: Parámetros: los ingredientes ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

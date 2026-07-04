@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Textos con poder — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffb86c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧱 Nivel 1: HTML</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 1 · LECCIÓN 2</span>
+    <h1>Textos con poder 💪📰</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Dominar las etiquetas de texto: títulos del <code>&lt;h1&gt;</code> al
+        <code>&lt;h6&gt;</code>, párrafos, <strong>negritas</strong> y <em>énfasis</em>,
+        listas <code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> (con tu top de videojuegos 🎮)
+        y los comentarios secretos <code>&lt;!-- --&gt;</code>.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Una página no es un choro gigante de texto: tiene <strong>jerarquía</strong> — cosas más
+        importantes y cosas menos importantes. HTML te da 6 niveles de título para eso:</p>
+      <div class="analogia">
+        Piensa en un <strong>periódico deportivo</strong> ⚽: el titular ENORME de portada
+        ("¡MÉXICO CAMPEÓN!") es el <code>&lt;h1&gt;</code>; los títulos de cada sección son
+        <code>&lt;h2&gt;</code>; los de cada nota, <code>&lt;h3&gt;</code>… y así hasta el
+        <code>&lt;h6&gt;</code>, que es la letra chiquita de la esquina. El número dice la
+        importancia, no nada más el tamaño.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <rect x="40" y="15" width="480" height="200" rx="10" fill="#0d0d22" stroke="#2b2b55" stroke-width="2"/>
+          <text class="anim-conteo" x="60" y="60" font-size="30" fill="#ffb86c">h1 ¡MÉXICO CAMPEÓN!</text>
+          <text class="anim-conteo paso-2" x="60" y="100" font-size="23" fill="#ffe95c">h2 Así fue la final</text>
+          <text class="anim-conteo paso-3" x="60" y="135" font-size="18" fill="#39ff8e">h3 El gol del triunfo</text>
+          <text class="anim-conteo paso-4" x="60" y="165" font-size="15" fill="#00e5ff">h4 Declaraciones del DT</text>
+          <text class="anim-conteo paso-5" x="60" y="192" font-size="12" fill="#a3a3c8">h5 y h6: las letras chiquitas de la esquina</text>
+        </svg>
+        <p class="pie">La jerarquía de títulos, como en un periódico: del titular de portada
+          (<code>h1</code>) a la letra pequeñita (<code>h6</code>). Regla de oro:
+          <strong>solo UN <code>h1</code> por página</strong> — solo hay una portada.</p>
+      </div>
+
+      <p>Además de títulos, hoy sumas 4 poderes a tu cinturón 🛠️:</p>
+      <ul>
+        <li><code>&lt;strong&gt;</code> → pone el texto en <strong>negritas</strong>: "esto es
+          importante". </li>
+        <li><code>&lt;em&gt;</code> → le da <em>énfasis</em>, como cuando dices algo con tonito:
+          <em>"ajá, seguuuro"</em>. 😏</li>
+        <li><code>&lt;ul&gt;</code> → lista con <strong>viñetas</strong> (puntitos), cuando el orden
+          no importa (u = unordered, sin orden). Cada elemento va en un <code>&lt;li&gt;</code>.</li>
+        <li><code>&lt;ol&gt;</code> → lista <strong>numerada</strong>, cuando el orden SÍ importa
+          (o = ordered): rankings, recetas, pasos… Cada elemento también va en
+          <code>&lt;li&gt;</code>.</li>
+      </ul>
+      <p>Y el poder ninja 🥷: los <strong>comentarios</strong>. Todo lo que escribas entre
+        <code>&lt;!--</code> y <code>--&gt;</code> es <strong>invisible</strong> en la página:
+        son notitas para ti (o para otro programador que lea tu código). El navegador las ignora
+        por completo.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Una mini-revista de luchas 🤼 con todos los poderes de hoy. Ejecuta y compara el código
+        con lo que ves. Ojo con el comentario: está en el código… ¡pero no en la página!</p>
+      <div class="playground" data-mode="html" data-titulo="revista-luchas.html" data-alto="320">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Revista Lucha Libre</title>
+  </head>
+  <body>
+    <h1>🤼 LUCHA SEMANAL</h1>
+    <h2>La máscara contra cabellera del siglo</h2>
+    <p>Este viernes, <strong>El Rayo Dorado</strong> se juega la máscara
+      contra <em>el rudo más rudo</em> de la arena.</p>
+
+    <!-- Esto es un comentario: solo lo ven los programadores 🥷 -->
+
+    <h2>Top 3 movidas favoritas de la afición</h2>
+    <ol>
+      <li>La quebradora voladora</li>
+      <li>El tope suicida desde la tercera cuerda</li>
+      <li>La huracarrana clásica</li>
+    </ol>
+
+    <h3>Qué llevar a la arena</h3>
+    <ul>
+      <li>Tu máscara 😷</li>
+      <li>Cartel de apoyo</li>
+      <li>Chicharrones con salsa</li>
+    </ul>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Fíjate 🔍: el <code>&lt;ol&gt;</code> numeró la lista solito (1, 2, 3…) — tú nunca
+        escribiste los números. Si mañana insertas una movida en medio, HTML renumera todo por ti.
+        Las computadoras son buenísimas para esas talachas. 😎</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: TU TOP 5 GAMER 🎮</p>
+      <p>Construye tu ranking personal de videojuegos. Debe tener: un <code>&lt;h1&gt;</code>,
+        un párrafo de introducción con al menos un <code>&lt;strong&gt;</code>, tu
+        <strong>top 5 en lista numerada</strong>, y un comentario ninja escondido.</p>
+      <div class="playground" data-mode="html" data-titulo="mi-top-5.html" data-alto="280">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi Top 5</title>
+  </head>
+  <body>
+    <!-- TODO 1: un <h1> con el título de tu ranking -->
+
+    <!-- TODO 2: un <p> de introducción; mete un <strong> en la palabra más importante -->
+
+    <!-- TODO 3: tu top 5 de videojuegos en una lista NUMERADA (¿ul u ol? 🤔) -->
+
+    <!-- TODO 4: esconde un comentario con un mensaje secreto 🥷 -->
+
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          ¿Un ranking tiene orden? ¡Claro! El #1 no es lo mismo que el #5. Entonces te toca
+          <code>&lt;ol&gt;</code>. Su estructura: <code>&lt;ol&gt;</code>, luego un
+          <code>&lt;li&gt;juego&lt;/li&gt;</code> por cada juego, y al final la tapa
+          <code>&lt;/ol&gt;</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para la negrita, envuelve la palabra DENTRO del párrafo:
+          <code>&lt;p&gt;Estos son mis &lt;strong&gt;favoritos absolutos&lt;/strong&gt; de toda mi
+          vida&lt;/p&gt;</code>. Las cajas pueden vivir dentro de otras cajas. 📦📦
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>&lt;h1&gt;🎮 Mi Top 5 de todos los tiempos&lt;/h1&gt;
+
+&lt;p&gt;Llevo años jugando y estos son mis
+   &lt;strong&gt;favoritos absolutos&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ol&gt;                                &lt;!-- ol = con números --&gt;
+  &lt;li&gt;Minecraft&lt;/li&gt;
+  &lt;li&gt;Mario Kart&lt;/li&gt;
+  &lt;li&gt;Zelda&lt;/li&gt;
+  &lt;li&gt;FIFA&lt;/li&gt;
+  &lt;li&gt;Among Us&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- si estás leyendo esto, eres de los míos 🥷 --&gt;</code></pre>
+          Todo esto va dentro del <code>&lt;body&gt;</code>. Cada <code>li</code> es un renglón de
+          la lista, y el <code>ol</code> pone los números solito. ¡Eso! 🎉 (Con tus juegos, claro —
+          no juzgamos tu top. Bueno, poquito. 😄)
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama del periódico</strong> 📰 para la jerarquía de títulos.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n1l2">Tengo 13 años y estoy aprendiendo HTML. Ya vi h1 a h6, p, strong, em, y las listas ul y ol con li. Explícame con ejemplos de videojuegos o de un periódico deportivo cuándo conviene usar ul y cuándo ol, y cuál es la diferencia entre strong y em. Luego ponme un mini-reto: descríbeme un contenido (por ejemplo, el menú de una taquería) y pregúntame qué etiquetas usaría yo, corrigiéndome con pistas si me equivoco. No me escribas el código completo.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n1l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Convierte tu top 5 en una <strong>mini-revista gamer</strong>: agrega un
+        <code>&lt;h2&gt;</code> que diga "Reseña del #1" con un párrafo de por qué es tu favorito
+        (usa <code>&lt;em&gt;</code> al menos una vez), y otro <code>&lt;h2&gt;</code> que diga
+        "Los que me faltan por jugar" con una lista de viñetas (<code>&lt;ul&gt;</code>).
+        <strong>Jefe secreto:</strong> mete una lista DENTRO de un <code>&lt;li&gt;</code> de otra
+        lista — por ejemplo, tus personajes favoritos dentro del juego #1. Cajas dentro de cajas
+        dentro de cajas. 📦🤯</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n1-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. Vas a publicar tu receta de quesadillas (los pasos DEBEN ir en orden). ¿Qué lista usas?</p>
+          <button class="opcion"><code>&lt;ul&gt;</code>, la de viñetas</button>
+          <button class="opcion" data-ok><code>&lt;ol&gt;</code>, la numerada: el orden importa</button>
+          <button class="opcion">Puros <code>&lt;p&gt;</code>, uno por paso</button>
+          <div class="explicacion"><code>ol</code> = ordered = con orden. Para recetas, rankings y
+            pasos, numerada. Para tu lista del súper (da igual el orden), <code>ul</code>. 🧀</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué pasa con el texto dentro de <code>&lt;!-- hola profe --&gt;</code>?</p>
+          <button class="opcion">Aparece en la página con letras grises</button>
+          <button class="opcion">Hace que la página truene con un error</button>
+          <button class="opcion" data-ok>Nada: es un comentario, el navegador lo ignora y no se ve</button>
+          <div class="explicacion">Los comentarios son notitas ninja 🥷 para quien lee el código.
+            El navegador ni los voltea a ver. Úsalos para explicarte cosas a ti mismo del futuro.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Cuál es la diferencia entre <code>&lt;h1&gt;</code> y <code>&lt;h3&gt;</code>?</p>
+          <button class="opcion">Ninguna, son sinónimos</button>
+          <button class="opcion" data-ok><code>h1</code> es el titular principal (solo uno por página); <code>h3</code> es un subtítulo de menor importancia</button>
+          <button class="opcion"><code>h3</code> es tres veces más grande que <code>h1</code></button>
+          <div class="explicacion">Como en el periódico 📰: portada (<code>h1</code>), secciones
+            (<code>h2</code>), notas (<code>h3</code>)… El número marca la importancia, y entre más
+            grande el número, más chiquito el título.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n1-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Tu primera página</a>
+      <a href="leccion-3.html">Siguiente: Enlaces e imágenes ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

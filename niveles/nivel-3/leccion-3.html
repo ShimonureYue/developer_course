@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matemáticas y decisiones — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 3</span>
+    <h1>Matemáticas y decisiones ➕🚦</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Usar Python como una <strong>supercalculadora</strong> y — lo más importante —
+        escribir programas que <strong>toman decisiones solos</strong> con
+        <code>if</code> y <code>else</code>. Aquí tu código cobra vida. ⚡</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+
+      <h3>➕ Parte 1: Python es una supercalculadora</h3>
+      <p>Python conoce todas las operaciones de la escuela (y más):</p>
+      <ul>
+        <li><code>+</code> suma &nbsp;·&nbsp; <code>-</code> resta &nbsp;·&nbsp;
+          <code>*</code> multiplicación (el asterisco, no la ✕) &nbsp;·&nbsp;
+          <code>/</code> división (la diagonal)</li>
+        <li><code>%</code> el <strong>módulo</strong>: te da <strong>lo que sobra</strong> de una división 🌮</li>
+        <li><code>//</code> división entera: cuánto le toca a cada quien, sin decimales</li>
+      </ul>
+      <div class="analogia">
+        El <strong>módulo %</strong> con tacos: tienes <strong>7 tacos</strong> para <strong>2 amigos</strong>.
+        <code>7 // 2</code> = 3 → a cada quien le tocan 3 tacos.
+        <code>7 % 2</code> = 1 → <strong>sobra 1 taco</strong> (y ya sabes lo que se arma por ese taco 😤).
+        El <code>%</code> siempre te dice "¿cuánto sobró?".
+      </div>
+
+      <h3>⚖️ Parte 2: comparar cosas (y el clásico == vs =)</h3>
+      <p>Para decidir, primero hay que comparar. Estas comparaciones dan como resultado
+        <code>True</code> (cierto) o <code>False</code> (falso) — ¡el tipo <code>bool</code>
+        de la lección pasada!</p>
+      <ul>
+        <li><code>==</code> ¿son iguales? &nbsp;·&nbsp; <code>!=</code> ¿son diferentes?</li>
+        <li><code>&gt;</code> mayor que &nbsp;·&nbsp; <code>&lt;</code> menor que</li>
+        <li><code>&gt;=</code> mayor o igual &nbsp;·&nbsp; <code>&lt;=</code> menor o igual</li>
+      </ul>
+      <p>🚨 <strong>EL CLÁSICO de todos los tiempos</strong>: no confundas
+        <code>=</code> con <code>==</code>. Grábatelo con este ritmo:</p>
+      <ul>
+        <li><code>=</code> <strong>un</strong> igual = <strong>guarda</strong> ("mete esto a la caja"): <code>edad = 13</code></li>
+        <li><code>==</code> <strong>dos</strong> iguales = <strong>pregunta</strong> ("¿esto es igual a esto?"): <code>edad == 13</code></li>
+      </ul>
+      <p>Hasta los programadores con 20 años de experiencia se equivocan con esto de repente. En serio. 😅</p>
+
+      <h3>🚦 Parte 3: decisiones con if / else</h3>
+      <div class="analogia">
+        Un <code>if</code> es un <strong>semáforo</strong> 🚦 en el camino de tu programa:
+        si la condición es <code>True</code>, el programa toma un camino;
+        si es <code>False</code> (<code>else</code>), toma el otro. Nunca los dos.
+      </div>
+
+      <div class="diagrama">
+        <svg width="520" height="240" viewBox="0 0 520 240">
+          <!-- Camino de entrada -->
+          <line class="anim-recorrido" x1="260" y1="10" x2="260" y2="48" stroke="#00e5ff" stroke-width="4"/>
+          <!-- Rombo de decisión -->
+          <g class="anim-pulso">
+            <polygon points="260,50 360,95 260,140 160,95" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text class="mono" x="260" y="92" text-anchor="middle" font-size="14" fill="#ffe95c">¿edad &gt;= 12?</text>
+            <text x="260" y="112" text-anchor="middle" font-size="12" fill="#a3a3c8">la pregunta del if</text>
+          </g>
+          <!-- Camino A: verde (True) -->
+          <g class="anim-camino-a">
+            <line x1="360" y1="95" x2="440" y2="150" stroke="#39ff8e" stroke-width="4"/>
+            <rect x="370" y="155" width="140" height="52" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text x="440" y="178" text-anchor="middle" font-size="13" fill="#39ff8e">True → if</text>
+            <text x="440" y="197" text-anchor="middle" font-size="14">🎢 ¡Pásale!</text>
+          </g>
+          <!-- Camino B: rojo (False) -->
+          <g class="anim-camino-b">
+            <line x1="160" y1="95" x2="80" y2="150" stroke="#ff5c7a" stroke-width="4"/>
+            <rect x="10" y="155" width="140" height="52" rx="10" fill="none" stroke="#ff5c7a" stroke-width="3"/>
+            <text x="80" y="178" text-anchor="middle" font-size="13" fill="#ff5c7a">False → else</text>
+            <text x="80" y="197" text-anchor="middle" font-size="14">🚫 Aún no</text>
+          </g>
+        </svg>
+        <p class="pie">El camino se ilumina según la respuesta: si la condición es <code>True</code>
+          se ejecuta lo del <code>if</code>; si es <code>False</code>, lo del <code>else</code>.
+          Tu programa deja de ser una línea recta: ¡ahora se bifurca!</p>
+      </div>
+
+      <h3>➡️ La indentación: lo de adentro se recorre a la derecha</h3>
+      <p>Mira bien la forma de un <code>if</code>:</p>
+      <pre class="bloque-codigo"><code>if edad &gt;= 12:
+    print("¡Pásale!")      # ← recorrido a la derecha: está ADENTRO del if
+print("Esto pasa siempre")  # ← pegado a la izquierda: está AFUERA</code></pre>
+      <p>Esos 4 espacios se llaman <strong>indentación</strong> y en Python son LEY:
+        <strong>lo que está adentro de la decisión se recorre a la derecha</strong>.
+        Así Python sabe qué líneas dependen del semáforo y cuáles no.
+        Y no olvides los <strong>dos puntos <code>:</code></strong> al final de la línea del
+        <code>if</code> — son como decir "entonces:".</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Primero la supercalculadora. Ejecuta y luego cambia los números para repartir
+        otras cantidades de tacos:</p>
+
+      <div class="py-runner" data-titulo="taqueria.py">
+<script type="text/plain">
+tacos = 7
+amigos = 2
+
+print("Tacos:", tacos, "· Amigos:", amigos)
+print("A cada quien le tocan:", tacos // amigos, "tacos")
+print("Sobran:", tacos % amigos, "tacos 🌮")
+
+# Más operaciones:
+print("Suma:", 5 + 3)
+print("Resta:", 10 - 4)
+print("Multiplicación:", 6 * 7)
+print("División:", 10 / 4)   # ojo: da 2.5, un float
+</script>
+      </div>
+
+      <p>Ahora el semáforo 🚦. Este programa decide solo. Ejecútalo,
+        luego cambia <code>edad = 13</code> por <code>edad = 9</code> y mira cómo toma el otro camino:</p>
+
+      <div class="py-runner" data-titulo="semaforo.py">
+<script type="text/plain">
+edad = 13
+
+if edad >= 12:
+    print("✅ Ya puedes entrar a la función de las 9 pm")
+    print("(esta línea también está adentro del if)")
+else:
+    print("🚫 Aún no, campeón. Función de las 6 pm.")
+
+print("Esto se imprime SIEMPRE, porque está afuera del if")
+</script>
+      </div>
+
+      <p>🧟 Y como los errores no muerden, provoca el clásico:
+        cambia la línea 3 por <code>if edad = 12:</code> (un solo igual) y ejecuta.
+        Verás un <code>SyntaxError</code> — Python te dice que esa línea no tiene sentido,
+        porque <code>=</code> guarda, no pregunta. Vuelve a ponerle <code>==</code>… bueno,
+        <code>&gt;=</code>, y todo vuelve a la normalidad. 😄</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: LA MONTAÑA RUSA 🎢</p>
+      <p>En la feria hay una montaña rusa con DOS requisitos:
+        tener <strong>12 años o más</strong> Y medir <strong>140 cm o más</strong>.
+        Completa el programa para que decida si puedes subir.
+        Como todavía no conocemos trucos avanzados (vienen en la próxima lección 😉),
+        usa <strong>un if adentro de otro if</strong>: pasas el primer filtro, y adentro te espera el segundo.</p>
+
+      <div class="py-runner" data-titulo="montana_rusa.py">
+<script type="text/plain">
+edad = 13
+estatura = 145   # en centímetros
+
+# TODO 1: pregunta si edad >= 12
+    # TODO 2: ADENTRO (más a la derecha), pregunta si estatura >= 140
+        # TODO 3: si pasó los dos filtros: print("🎢 ¡Súbete! ¡Wooo!")
+    # TODO 4: else del segundo if: print("Te falta estatura, siguiente año 📏")
+# TODO 5: else del primer if: print("Te falta edad, ¡pero ya merito! 🎂")
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La estructura es un if dentro de otro. El segundo <code>if</code> va recorrido
+          4 espacios (está adentro del primero), y lo que está adentro del segundo va
+          recorrido 8 espacios. Cada <code>if</code> con su <code>else</code> alineado a la misma altura.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El esqueleto sin condiciones:
+          <pre class="bloque-codigo"><code>if ______:
+    if ______:
+        print("🎢 ¡Súbete! ¡Wooo!")
+    else:
+        print("Te falta estatura, siguiente año 📏")
+else:
+    print("Te falta edad, ¡pero ya merito! 🎂")</code></pre>
+          Solo te falta llenar las dos preguntas con <code>&gt;=</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>edad = 13
+estatura = 145
+
+if edad &gt;= 12:                # primer filtro: la edad
+    if estatura &gt;= 140:       # segundo filtro (adentro): la estatura
+        print("🎢 ¡Súbete! ¡Wooo!")
+    else:
+        print("Te falta estatura, siguiente año 📏")
+else:
+    print("Te falta edad, ¡pero ya merito! 🎂")</code></pre>
+          Pruébala con <code>edad = 10</code> (te frena el primer filtro),
+          y con <code>edad = 13, estatura = 130</code> (pasas el primero, te frena el segundo).
+          ¡Órale, tu programa ya toma decisiones dobles! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿<code>SyntaxError</code>? Revisa los <strong>dos puntos <code>:</code></strong> al final
+          de cada <code>if</code> y <code>else</code>, y que usaste <code>==</code> para comparar, no <code>=</code>.</li>
+        <li>¿<code>IndentationError</code>? Es el error de la indentación: algo adentro del if
+          no está recorrido a la derecha (o está recorrido de más). Alinea con 4 espacios exactos.</li>
+        <li>Vuelve a ver el <strong>diagrama del semáforo</strong> 🚦 y sigue el camino con el dedo.</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l3">Tengo 13 años y estoy aprendiendo if/else en Python. Explícame con la analogía de un semáforo: 1) la diferencia entre = y ==, 2) por qué la indentación (los 4 espacios) importa en Python y qué es un IndentationError, 3) cómo funciona un if adentro de otro if. Después ponme 3 mini-ejercicios de decisiones (sin resolverlos por mí, dame pistas si me equivoco).</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p><strong>Detector de pares e impares:</strong> crea una variable <code>numero</code> y usa el
+        módulo <code>%</code> para decidir: si <code>numero % 2 == 0</code>, imprime "es PAR ✌️";
+        si no, "es IMPAR ☝️". (Piénsalo: si al dividir entre 2 no sobra nada… es par.)
+        <strong>Jefe secreto:</strong> haz el marcador de un partido de futbol ⚽ con
+        <code>goles_america</code> y <code>goles_chivas</code>: tu programa debe declarar al ganador…
+        y ojo, también puede haber empate (necesitarás más de un if).</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n3-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuánto da <code>7 % 2</code> en Python?</p>
+          <button class="opcion">3.5, la división normal</button>
+          <button class="opcion" data-ok>1, porque el % te da lo que SOBRA de la división</button>
+          <button class="opcion">3, los tacos que le tocan a cada amigo</button>
+          <div class="explicacion">7 tacos entre 2 amigos: a cada quien le tocan 3 (<code>7 // 2</code>)
+            y <strong>sobra 1</strong> (<code>7 % 2</code>). El módulo siempre responde "¿cuánto sobró?". 🌮</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cuál es la diferencia entre <code>=</code> y <code>==</code>?</p>
+          <button class="opcion">Ninguna, son intercambiables</button>
+          <button class="opcion">== es para números grandes</button>
+          <button class="opcion" data-ok><code>=</code> guarda un valor; <code>==</code> pregunta si dos valores son iguales</button>
+          <div class="explicacion">Un igual = guardar 📦. Dos iguales = preguntar ⚖️.
+            Usar <code>=</code> en un if te da <code>SyntaxError</code> — el error más clásico del mundo.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Para qué se recorren a la derecha (indentan) las líneas dentro de un <code>if</code>?</p>
+          <button class="opcion">Para que el código se vea más bonito, es opcional</button>
+          <button class="opcion" data-ok>Para que Python sepa exactamente qué líneas dependen de la decisión</button>
+          <button class="opcion">Para separar los números del texto</button>
+          <div class="explicacion">En Python la indentación es <strong>obligatoria</strong>:
+            lo recorrido a la derecha está "adentro" del if y solo se ejecuta si la condición es
+            <code>True</code>. Si la alineación está mal → <code>IndentationError</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: Variables y constantes</a>
+      <a href="leccion-4.html">Siguiente: Decisiones avanzadas + input ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

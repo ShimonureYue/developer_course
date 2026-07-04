@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu camino de programador — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #00e5ff;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🚀 Nivel 10: Camino a Godot</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 10 · LECCIÓN 3 · 👑 JEFE FINAL DEL CURSO</span>
+    <h1>Tu camino de programador 🚀</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Mirar hacia atrás y ver <strong>todo lo que ya sabes</strong>, elegir hacia dónde
+        sigue TU camino, y armar el <strong>plan de diseño de tu siguiente proyecto</strong> —
+        el primero que harás sin que nadie te lleve de la mano. 💪</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 PRIMERO: MIRA LO QUE CONSTRUISTE</p>
+      <p>Detente un segundo. Cuando empezaste este curso no sabías qué era una variable.
+        Hoy has construido, <strong>línea por línea</strong>:</p>
+      <ul>
+        <li>🪪 Una página web personal con su propio estilo (HTML + CSS)</li>
+        <li>🔮 Un oráculo y dos juegos de consola en Python (¡con funciones!)</li>
+        <li>🌮 Un Taco Clicker en JavaScript</li>
+        <li>😼 Un Gato con marcador y tabla de récords que sobrevive al recargar</li>
+        <li>🐍 Un Snake completo con canvas y game loop</li>
+        <li>👾 Un <strong>Space Invaders</strong> con oleadas, sonidos y récord — un videojuego DE VERDAD</li>
+      </ul>
+      <div class="analogia">
+        Programar no es un destino, es un <strong>árbol de habilidades</strong> como el de tus
+        juegos favoritos: ya desbloqueaste el tronco (variables, ciclos, funciones, datos).
+        Ahora eliges qué <strong>rama</strong> subir — y todas usan lo que ya sabes.
+      </div>
+
+      <!-- ============ 📊 DIAGRAMA: los caminos que se abren ============ -->
+      <div class="diagrama">
+        <svg width="520" height="230" viewBox="0 0 520 230">
+          <!-- Punto de partida: tú -->
+          <g class="anim-pulso">
+            <circle cx="70" cy="115" r="30" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="70" y="122" text-anchor="middle" font-size="22">🧑‍💻</text>
+          </g>
+          <text class="pixel" x="70" y="175" text-anchor="middle" fill="#ffe95c">TÚ, HOY</text>
+          <!-- Camino A: juegos -->
+          <g class="anim-camino-a">
+            <path d="M 105 100 C 200 40, 300 40, 400 45" fill="none" stroke="#ff4dd8" stroke-width="3" class="anim-recorrido"/>
+            <text x="440" y="50" font-size="20">🎮</text>
+            <text class="mono" x="465" y="52" font-size="13" fill="#ff4dd8">Godot</text>
+          </g>
+          <!-- Camino B: web -->
+          <g class="anim-camino-b">
+            <path d="M 105 115 C 220 115, 300 110, 400 110" fill="none" stroke="#00e5ff" stroke-width="3" class="anim-recorrido"/>
+            <text x="440" y="117" font-size="20">🌐</text>
+            <text class="mono" x="465" y="118" font-size="13" fill="#00e5ff">Web</text>
+          </g>
+          <!-- Camino C: IA / Python -->
+          <g class="anim-camino-a">
+            <path d="M 105 130 C 200 190, 300 190, 400 178" fill="none" stroke="#39ff8e" stroke-width="3" class="anim-recorrido"/>
+            <text x="440" y="185" font-size="20">🤖</text>
+            <text class="mono" x="465" y="186" font-size="13" fill="#39ff8e">IA</text>
+          </g>
+        </svg>
+        <p class="pie">Todos los caminos salen del mismo lugar: lo que ya aprendiste.
+          No tienes que elegir para siempre — los programadores cambian de rama todo el tiempo.</p>
+      </div>
+
+      <h2>🗺️ Las ramas del árbol (todas gratis, en español)</h2>
+      <table class="tabla">
+        <thead><tr><th>Rama</th><th>¿Qué harías?</th><th>Por dónde seguir (gratis)</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>🎮 <strong>Videojuegos</strong></td>
+            <td>Juegos con física, mapas y export a PC/celular</td>
+            <td><a href="https://docs.godotengine.org/es/stable/" target="_blank" rel="noopener">Documentación oficial de Godot en español</a> (empieza por "Tu primer juego 2D") — ya instalaste Godot en la lección anterior</td>
+          </tr>
+          <tr>
+            <td>🌐 <strong>Web</strong></td>
+            <td>Páginas y apps web cada vez más pro</td>
+            <td><a href="https://developer.mozilla.org/es/" target="_blank" rel="noopener">MDN Web Docs en español</a> (la enciclopedia de la web) y <a href="https://www.freecodecamp.org/espanol/" target="_blank" rel="noopener">freeCodeCamp en español</a> (cursos completos con certificado)</td>
+          </tr>
+          <tr>
+            <td>🤖 <strong>Python e IA</strong></td>
+            <td>Programas que analizan datos y aprenden</td>
+            <td><a href="https://docs.python.org/es/3/tutorial/" target="_blank" rel="noopener">Tutorial oficial de Python en español</a> y, cuando te sientas listo, <a href="https://cs50.harvard.edu/x/" target="_blank" rel="noopener">CS50x de Harvard</a> (gratis, con subtítulos)</td>
+          </tr>
+          <tr>
+            <td>📱 <strong>Apps</strong></td>
+            <td>Aplicaciones para iPhone/iPad (¡ya tienes Mac!)</td>
+            <td><a href="https://developer.apple.com/tutorials/swiftui" target="_blank" rel="noopener">Tutoriales de SwiftUI de Apple</a> — Swift te resultará familiar: variables, funciones y ciclos son los mismos amigos</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>🐙 GitHub: tu vitrina de trofeos</h2>
+      <p>Los programadores no guardan sus proyectos en un cajón: los <strong>presumen</strong>.
+        GitHub es la red social del código — y ya la conoces, ¡de ahí descargaste este curso!</p>
+      <ol class="pasos">
+        <li>Crea tu cuenta gratis en <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (pídele ayuda a tu profe si te pide verificación).</li>
+        <li>Crea un <strong>repositorio</strong> (= carpeta pública de proyecto) llamado <code>mi-space-invaders</code>.</li>
+        <li>Sube tu archivo del juego con el botón <strong>"Add file → Upload files"</strong> (la ruta fácil; la ruta pro con <code>git</code> la aprenderás sola después 😉).</li>
+        <li>Actívale <strong>GitHub Pages</strong> (Settings → Pages → Deploy from a branch → main) y en un minuto tu juego tendrá su propia dirección en internet, para mandársela a quien quieras. 🌍</li>
+      </ol>
+      <p>Ese enlace es tu primer <strong>portafolio</strong>. Cada proyecto que subas es un trofeo más en la vitrina. 🏆</p>
+
+      <h2>🫂 Nunca programes solo</h2>
+      <p>Preguntar es de pros (lo dijimos todo el curso). Lugares buenos para seguir aprendiendo
+        acompañado: los <strong>foros de la documentación de Godot</strong>, la comunidad de
+        <strong>freeCodeCamp en español</strong>, y por supuesto tu tutor 24/7 de IA
+        (<a href="../../recursos/como-usar-ia.html">¿recuerdas cómo usarlo bien?</a>).
+        Y el mejor truco: encuentra UN amigo que también quiera programar. Todo es más fácil en co-op. 🎮</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO: un plan de diseño real ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 ASÍ SE VE UN PLAN DE DISEÑO</p>
+      <p>Antes de programar tu Space Invaders, el Nivel 9 empezó <strong>pensando</strong>:
+        qué objetos existen y qué datos tiene cada uno. Eso es un plan de diseño, y es lo que
+        los estudios hacen antes de escribir una sola línea. Ejemplo para un clon de Flappy Bird:</p>
+      <pre class="bloque-codigo"><code>PROYECTO: "Taco volador" 🌮 (tipo Flappy Bird)
+
+OBJETOS Y SUS DATOS:
+- taco:    { x, y, velocidadY }        → la gravedad lo jala, ESPACIO lo impulsa
+- tubos:   [ { x, alturaHueco } ]      → arreglo, se mueven a la izquierda
+- juego:   { puntos, record, estado }  → "inicio" / "jugando" / "gameover"
+
+PANTALLAS: título → jugando → game over (con récord en localStorage)
+
+¿QUÉ YA SÉ HACER?  → gravedad (Nivel 10), arreglos de objetos (Nivel 9),
+                     colisiones AABB (Nivel 9), récord (Nivel 7). ¡TODO! 😎</code></pre>
+      <p>¿Ves el truco? Un proyecto "nuevo" casi siempre es un <strong>remix de piezas que ya dominas</strong>.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO: el reto jefe ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ RETO JEFE 👑: EL PLAN DE TU SIGUIENTE PROYECTO</p>
+      <p>Elige TU siguiente proyecto (uno que te emocione de verdad) y escribe su plan de
+        diseño como el del ejemplo: <strong>objetos y sus datos, pantallas, y qué piezas ya
+        sabes hacer</strong>. Puede ser en papel, en notas, o en un archivo de VS Code.
+        Ideas si no se te ocurre: clon de Flappy Bird 🐤, un quiz de tu banda o equipo favorito 🎵⚽,
+        una página para tu familia 👨‍👩‍👧, un Pong para dos jugadores 🏓, o tu primer juego en Godot.</p>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Empieza por las pantallas: ¿qué ve el jugador primero? ¿Qué ve mientras juega?
+          ¿Qué ve al terminar? Eso te dice qué estados necesita tu juego.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para cada cosa que se mueve o cambia en tu proyecto, pregúntate: ¿qué datos necesita?
+          (posición x/y, velocidad, puntos, vidas…). Cada una será un objeto <code>{ }</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">GUÍA COMPLETA</span>
+          Un buen plan cabe en una hoja: (1) nombre del proyecto y una frase de qué se trata;
+          (2) lista de objetos con sus datos, como el ejemplo del taco volador;
+          (3) las 2-3 pantallas; (4) la lista "¿qué ya sé hacer?" con el nivel donde lo aprendiste;
+          (5) UNA cosa nueva que tendrás que investigar (¡solo una! así no te abrumas).
+          Cuando la tengas, enséñasela a tu profe o a un amigo: explicar tu plan en voz alta
+          es la primera prueba de que funciona.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿NO SABES QUÉ PROYECTO ELEGIR?</p>
+      <ol>
+        <li>Piensa en algo que <strong>usarías tú</strong> o regalarías a alguien. Los mejores proyectos resuelven algo tuyo.</li>
+        <li>Usa las <strong>💡 pistas</strong> de arriba para armar el plan por partes.</li>
+        <li>Pídele ideas a tu tutor de IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n10l3">Tengo entre 13 y 15 años y acabo de terminar un curso donde construí un Space Invaders con JavaScript y canvas, además de aprender Python, HTML, CSS y localStorage. Sugiéreme 5 ideas de siguiente proyecto a mi nivel (ni muy fácil ni imposible), y para la que yo elija, ayúdame a escribir su plan de diseño: objetos con sus datos, pantallas y qué habilidades ya tengo. No me des el código resuelto.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y tu profe 🧑‍🏫 conoce tus gustos mejor que cualquier IA — platícale tus ideas.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (PARA LEYENDAS)</p>
+      <p>Sube tu Space Invaders a GitHub siguiendo los 4 pasos de arriba y actívale GitHub
+        Pages. Cuando tengas el enlace, mándaselo a 3 personas que quieras impresionar.
+        <strong>Jefe secreto:</strong> agrégale al juego una pantalla de "créditos" con tu
+        nombre como desarrollador — porque eso eres ahora. 😎</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ FINAL</p>
+      <div class="quiz" data-quiz="n10-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué es lo PRIMERO que conviene hacer al empezar un proyecto nuevo?</p>
+          <button class="opcion">Escribir código lo más rápido posible</button>
+          <button class="opcion" data-ok>Pensar el plan de diseño: qué objetos existen, qué datos tienen y qué pantallas hay</button>
+          <button class="opcion">Comprar una computadora más potente</button>
+          <div class="explicacion">Pensar antes de programar te ahorra horas de confusión.
+            Así empezó tu Space Invaders en el Nivel 9 — y así empiezan los estudios profesionales.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Para qué sirve GitHub Pages?</p>
+          <button class="opcion">Para imprimir tu código en papel</button>
+          <button class="opcion">Para hacer que tu código corra más rápido</button>
+          <button class="opcion" data-ok>Para publicar tu proyecto en internet gratis, con su propia dirección para compartir</button>
+          <div class="explicacion">Subes tu proyecto a un repositorio, activas Pages, y tu juego
+            queda en línea para quien quieras. Tu portafolio empieza ahí.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Un proyecto "nuevo" casi siempre es…</p>
+          <button class="opcion" data-ok>Un remix de piezas que ya dominas, más UNA cosa nueva por investigar</button>
+          <button class="opcion">Algo 100% desconocido que hay que aprender desde cero</button>
+          <button class="opcion">Imposible sin un equipo de 20 personas</button>
+          <div class="explicacion">Gravedad, colisiones, récords, eventos… tu caja de
+            herramientas ya está llena. Cada proyecto le agrega UNA herramienta más.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🏆 CIERRE DEL CURSO ============ -->
+    <div class="panel centrado" style="border-color: var(--amarillo);">
+      <div style="font-size: 3.4rem;">🏆</div>
+      <h2 style="margin-top: 0.2em;">Llegaste al final de Code Quest</h2>
+      <p>Empezaste sin saber qué era una variable. Terminas con un videojuego tuyo,
+        hecho línea por línea, y con las bases para construir <em>lo que se te ocurra</em>.
+        Eso no lo hace cualquiera. <strong>Eres GAME DEV.</strong> 👾</p>
+      <p class="suave">Al completar esta lección ganas la medalla 🚀 <strong>Leyenda</strong> —
+        la última del curso. Revisa tu partida completa y presume tus medallas:</p>
+      <a class="btn amarillo" href="../../progreso.html">💾 Ver mi partida completa</a>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n10-l3">✅ ¡Curso completado! (+100 XP) 👑</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: Godot, tu siguiente consola</a>
+      <a href="../../progreso.html">Ver mi partida completa 🏆 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué es CSS? — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff4dd8;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎨 Nivel 2: CSS</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 2 · LECCIÓN 1</span>
+    <h1>¿Qué es CSS? 🎨✨</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir tus <strong>primeras reglas de CSS</strong>: entender la receta
+        <code>selector { propiedad: valor; }</code>, ponerla dentro de <code>&lt;style&gt;</code>,
+        y cambiar colores, fondos y tamaños de letra — incluso con
+        <strong>códigos secretos hexadecimales</strong> como <code>#ff4dd8</code>. 🕵️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Tus páginas del Nivel 1 funcionan… pero se ven en blanco y negro, con la letra de siempre.
+        Eso es porque <strong>HTML solo dice QUÉ hay</strong> en la página (un título, un párrafo,
+        una lista), pero no dice <strong>CÓMO se ve</strong>. Para eso existe
+        <strong>CSS</strong>: el lenguaje de los estilos.</p>
+      <div class="analogia">
+        <strong>HTML es el esqueleto 🦴 y CSS es la ropa 👕.</strong> El esqueleto pone la
+        estructura: cabeza, brazos, piernas. La ropa decide el estilo: ¿jersey de fútbol, sudadera
+        negra o traje de luchador con capa? La MISMA página HTML puede verse totalmente diferente
+        con solo cambiarle el CSS.
+      </div>
+      <p>Y las "prendas" se reparten con una receta de 3 partes que vas a escribir mil veces en tu
+        vida. Apréndetela como si fuera un paso de baile:</p>
+      <pre class="bloque-codigo"><code>h1 {                    ← SELECTOR: "¿a quién le pongo la ropa?" (a todos los h1)
+  color: hotpink;       ← PROPIEDAD: valor;  → "¿qué prenda? ¿de qué tipo?"
+}                       ← llaves { } = la bolsa con la ropa</code></pre>
+      <ul>
+        <li>El <strong>selector</strong> apunta a las etiquetas que quieres vestir: <code>h1</code>,
+          <code>p</code>, <code>body</code> (¡el body es la página entera!).</li>
+        <li>Cada <strong>propiedad</strong> es un tipo de prenda: <code>color</code> (color del
+          texto), <code>background-color</code> (color del fondo), <code>font-size</code> (tamaño
+          de letra), <code>font-family</code> (tipo de letra).</li>
+        <li>Después de cada valor va un <strong>punto y coma</strong> <code>;</code> — es la
+          "puntada" que cierra cada prenda. Si lo olvidas, la que sigue no funciona. 🪡</li>
+      </ul>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- Caja HTML "encuerada" -->
+          <g>
+            <rect x="30" y="60" width="170" height="90" rx="10" fill="#0d0d22" stroke="#a3a3c8" stroke-width="2"/>
+            <text x="115" y="98" text-anchor="middle" font-size="15" fill="#a3a3c8">Hola 🦴</text>
+            <text class="mono" x="115" y="128" text-anchor="middle" font-size="11" fill="#a3a3c8">&lt;h1&gt; sin estilo</text>
+          </g>
+          <!-- La "ropa" (regla CSS) viajando hacia la caja -->
+          <g class="anim-valor-entra" style="--dx: 150px;">
+            <rect x="185" y="10" width="190" height="34" rx="8" fill="#ff4dd8"/>
+            <text class="mono" x="280" y="32" text-anchor="middle" font-size="12" fill="#0a0a1a">h1 { color: #ff4dd8; }</text>
+          </g>
+          <!-- Flecha -->
+          <path class="anim-recorrido" d="M 210 105 L 340 105" fill="none" stroke="#ff4dd8" stroke-width="4"/>
+          <!-- Caja HTML ya "vestida" -->
+          <g class="anim-valor-aparece">
+            <rect x="360" y="55" width="180" height="100" rx="10" fill="#1d0f1a" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="450" y="98" text-anchor="middle" font-size="19" fill="#ff4dd8">Hola 👕✨</text>
+            <text class="mono" x="450" y="130" text-anchor="middle" font-size="11" fill="#ffb8e8">&lt;h1&gt; con su ropa CSS</text>
+          </g>
+          <text x="280" y="205" text-anchor="middle" font-size="13" fill="#a3a3c8">La regla CSS le cae al h1… ¡y se viste solo! 👔</text>
+        </svg>
+        <p class="pie">El mismo <code>&lt;h1&gt;</code>, antes y después de que la regla
+          <code>h1 { color: #ff4dd8; }</code> le pone la ropa. CSS busca a TODOS los que coincidan
+          con el selector y los viste igualito.</p>
+      </div>
+
+      <p><strong>¿Y dónde se escribe el CSS?</strong> Por ahora, en una etiqueta
+        <code>&lt;style&gt;</code> dentro del <code>&lt;head&gt;</code> (el cerebro 🧠 de tu página,
+        ¿te acuerdas?). Ahí adentro ya no escribes HTML: escribes puro CSS.</p>
+      <p><strong>¿Y los colores?</strong> Hay dos formas de pedirlos:</p>
+      <ul>
+        <li><strong>Por nombre</strong> (en inglés): <code>red</code>, <code>hotpink</code>,
+          <code>gold</code>, <code>black</code>… fácil pero limitado, como pedir "un refresco".</li>
+        <li><strong>Por código hexadecimal</strong> 🕵️: un "código secreto" de 6 caracteres como
+          <code>#ff4dd8</code>. Son 3 parejas: <code>ff</code>-<code>4d</code>-<code>d8</code> =
+          cuánto <strong>Rojo</strong>, cuánto <strong>Verde</strong> y cuánto <strong>Azul</strong>
+          lleva la mezcla (RGB). <code>00</code> es nada y <code>ff</code> es el máximo. Así,
+          <code>#ff0000</code> = puro rojo, <code>#000000</code> = negro (nada de nada) y
+          <code>#ffffff</code> = blanco (todo al máximo). Con este código puedes pedir
+          <strong>16 millones de colores exactos</strong> — por eso lo usan los diseñadores pro.</li>
+      </ul>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El experimento del antes y después 🧪. Primero, una página del Nivel 1 tal cual,
+        <strong>sin CSS</strong> (el puro esqueleto):</p>
+      <div class="playground" data-mode="html" data-titulo="antes-sin-css.html" data-alto="180">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Antes: sin CSS</title>
+  </head>
+  <body>
+    <h1>Club de gamers</h1>
+    <p>Bienvenido al club más chido del servidor.</p>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Ahora la MISMA página, pero con un <code>&lt;style&gt;</code> en el head.
+        <strong>El HTML del body no cambió NI UNA letra</strong> — solo le pusimos ropa.
+        Ejecuta, compara, y luego juega: cambia <code>#ff4dd8</code> por <code>#39ff8e</code>
+        o por <code>gold</code>, y el <code>font-size</code> por uno más grande:</p>
+      <div class="playground" data-mode="html" data-titulo="despues-con-css.html" data-alto="220">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Después: con CSS</title>
+    <style>
+      body {
+        background-color: #0a0a1a;   /* fondo azul noche */
+        font-family: Arial;          /* letra más moderna */
+      }
+      h1 {
+        color: #ff4dd8;              /* rosa neón (código secreto) */
+        font-size: 40px;
+      }
+      p {
+        color: #39ff8e;              /* verde alien */
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Club de gamers</h1>
+    <p>Bienvenido al club más chido del servidor.</p>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: el <code>&lt;style&gt;</code> vive en el <code>head</code>; cada regla
+        tiene su selector, sus llaves y sus <code>propiedad: valor;</code>; y lo que va después de
+        <code>/*</code> y <code>*/</code> son <strong>comentarios de CSS</strong>: notas para
+        humanos que el navegador ignora.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Te toca ser el estilista 💇: la página ya tiene su HTML listo, pero el
+        <code>&lt;style&gt;</code> está vacío. Completa los 3 TODOs para vestirla.</p>
+      <div class="playground" data-mode="html" data-titulo="tu-turno-estilista.html" data-alto="240">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi primera página con estilo</title>
+    <style>
+      /* TODO 1: al body, ponle un background-color oscuro
+         (prueba el código secreto #1a1a38) */
+
+      /* TODO 2: al h1, ponle color #ffe95c y font-size de 42px */
+
+      /* TODO 3: a los p, ponles color hotpink (o el que quieras) */
+
+    </style>
+  </head>
+  <body>
+    <h1>⚡ Zona de alto voltaje</h1>
+    <p>Esta página estaba en blanco y negro…</p>
+    <p>…hasta que llegó una estilista de código. 😎</p>
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La receta siempre es la misma: <code>selector { propiedad: valor; }</code>. Para el TODO 1
+          el selector es <code>body</code>, la propiedad es <code>background-color</code> y el valor
+          es <code>#1a1a38</code>. No olvides las llaves ni el punto y coma. 🪡
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Dentro de unas mismas llaves puedes poner VARIAS prendas, una por línea:
+          <code>h1 { color: #ffe95c; font-size: 42px; }</code>. Cada una con su
+          <code>;</code> al final.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>body {
+  background-color: #1a1a38;   /* 1) fondo oscuro para TODA la página */
+}
+
+h1 {
+  color: #ffe95c;              /* 2) título amarillo eléctrico… */
+  font-size: 42px;             /*    …y más grande */
+}
+
+p {
+  color: hotpink;              /* 3) TODOS los párrafos se pintan a la vez */
+}</code></pre>
+          Fíjate en el superpoder 🦸: escribiste UNA regla para <code>p</code> y se vistieron LOS DOS
+          párrafos. Con CSS vistes a todo un ejército con una sola orden.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama del h1 vistiéndose</strong> y a la receta de 3 partes. 👕</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n2l1">Tengo 13 años y hoy empecé a aprender CSS. Ya sé que HTML es el esqueleto y CSS es la ropa, y conozco la sintaxis selector { propiedad: valor; } con color, background-color, font-size y font-family. Explícame con esa misma analogía de la ropa: 1) qué pasa si olvido un punto y coma o una llave, 2) cómo funcionan los colores hexadecimales como #ff4dd8 (qué significa cada pareja de caracteres). Después ponme 3 mini-retos de adivinar qué color es un código hex (usa colores obvios como #ff0000) y corrígeme con pistas. No me des las respuestas de inmediato.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Modo científico de colores 🧪: en tu ejercicio, pon el fondo en <code>#000000</code> y el
+        h1 en <code>#ff0000</code>. Ahora sube el verde poquito a poquito: <code>#ff4000</code>,
+        <code>#ff8000</code>, <code>#ffc000</code>, <code>#ffff00</code>… ¿ves cómo el rojo se va
+        volviendo naranja y luego amarillo? Acabas de mezclar luz como lo hace tu pantalla 🌈.
+        <strong>Jefe secreto:</strong> encuentra el código hex de TU color favorito (busca en
+        internet "color picker") y guárdalo — lo vas a usar en la pelea de jefe del nivel.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n2-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En la regla <code>p { color: gold; }</code>, ¿qué es <code>p</code>?</p>
+          <button class="opcion" data-ok>El selector: apunta a quién se viste (todos los párrafos)</button>
+          <button class="opcion">La propiedad: el tipo de prenda</button>
+          <button class="opcion">Una abreviatura de "pintar"</button>
+          <div class="explicacion">La receta es <code>selector { propiedad: valor; }</code>: el
+            selector elige a quién, la propiedad qué prenda (<code>color</code>) y el valor cuál
+            (<code>gold</code>). 👕</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Dónde va la etiqueta <code>&lt;style&gt;</code> con tu CSS?</p>
+          <button class="opcion">Al final del body, para que cargue al último</button>
+          <button class="opcion" data-ok>Dentro del <code>&lt;head&gt;</code>, el cerebro invisible de la página</button>
+          <button class="opcion">En un archivo de Word aparte</button>
+          <div class="explicacion">El <code>head</code> guarda la información que no se "ve" pero
+            manda: el título de la pestaña y ahora también tus estilos. 🧠</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. El código secreto <code>#ff0000</code> es…</p>
+          <button class="opcion">Azul al máximo</button>
+          <button class="opcion" data-ok>Rojo puro: rojo al máximo (ff), nada de verde (00), nada de azul (00)</button>
+          <button class="opcion">Un error del navegador</button>
+          <div class="explicacion">Las 3 parejas son <strong>R</strong>ojo-<strong>G</strong>(verde)-<strong>B</strong>(azul):
+            <code>ff</code> = máximo, <code>00</code> = nada. <code>#ff0000</code> = pura luz roja. 🔴</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n2-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 2</a>
+      <a href="leccion-2.html">Siguiente: El modelo de caja ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

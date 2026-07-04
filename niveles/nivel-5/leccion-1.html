@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El idioma del navegador — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">⚡ Nivel 5: JavaScript</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 5 · LECCIÓN 1</span>
+    <h1>El idioma del navegador ⚡</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir tus primeras líneas de <strong>JavaScript</strong>, el lenguaje que hace que
+        las páginas web <strong>reaccionen y cobren vida</strong>. Vas a descubrir que ya sabes
+        el 80%… porque piensa igualito que Python. 🐍➡️⚡</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Ya construiste páginas con HTML y las vestiste con CSS. Pero seamos honestos:
+        hasta ahora tus páginas son como un póster pegado en la pared… bonito, pero
+        <strong>no hace nada</strong> cuando lo tocas. Hoy eso se acaba. 😎</p>
+      <div class="analogia">
+        Piensa en un <strong>robot</strong> 🤖: el <strong>HTML es su cuerpo</strong> (cabeza, brazos, botones),
+        el <strong>CSS es su pintura</strong> (colores, brillos, estilo)… y
+        <strong>JavaScript es su cerebro</strong>: lo que hace que se mueva, responda y tome decisiones.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- Tres cajas: HTML, CSS, JS -->
+          <g>
+            <rect x="20" y="20" width="150" height="54" rx="10" fill="none" stroke="#ffb86c" stroke-width="3"/>
+            <text x="95" y="43" text-anchor="middle" font-size="15" fill="#ffb86c">🧱 HTML</text>
+            <text x="95" y="63" text-anchor="middle" font-size="12" fill="#a3a3c8">estructura</text>
+          </g>
+          <g>
+            <rect x="20" y="88" width="150" height="54" rx="10" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="95" y="111" text-anchor="middle" font-size="15" fill="#ff4dd8">🎨 CSS</text>
+            <text x="95" y="131" text-anchor="middle" font-size="12" fill="#a3a3c8">estilo</text>
+          </g>
+          <g class="anim-pulso">
+            <rect x="20" y="156" width="150" height="54" rx="10" fill="#1c1a10" stroke="#ffe95c" stroke-width="3"/>
+            <text x="95" y="179" text-anchor="middle" font-size="15" fill="#ffe95c">⚡ JS</text>
+            <text x="95" y="199" text-anchor="middle" font-size="12" fill="#a3a3c8">comportamiento</text>
+          </g>
+          <!-- Flechas hacia la página -->
+          <path class="anim-recorrido" d="M 175 47 C 260 47, 280 105, 350 110" fill="none" stroke="#ffb86c" stroke-width="3"/>
+          <path class="anim-recorrido" d="M 175 115 L 350 115" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+          <path class="anim-recorrido" d="M 175 183 C 260 183, 280 125, 350 120" fill="none" stroke="#ffe95c" stroke-width="3"/>
+          <!-- La página viva -->
+          <rect x="355" y="35" width="170" height="160" rx="12" fill="#0d0d22" stroke="#00e5ff" stroke-width="3"/>
+          <rect x="370" y="52" width="140" height="18" rx="4" fill="#2b2b55"/>
+          <rect x="370" y="80" width="100" height="10" rx="4" fill="#2b2b55"/>
+          <rect x="370" y="98" width="120" height="10" rx="4" fill="#2b2b55"/>
+          <g class="anim-pulso">
+            <rect x="385" y="130" width="110" height="36" rx="8" fill="#39ff8e"/>
+            <text x="440" y="153" text-anchor="middle" font-size="13" fill="#0a0a1a">¡Tócame!</text>
+          </g>
+          <text class="anim-parpadeo" x="440" y="215" text-anchor="middle" font-size="13" fill="#39ff8e">¡La página está VIVA! ✨</text>
+        </svg>
+        <p class="pie">HTML pone las piezas, CSS las pinta… y <strong>JavaScript las hace reaccionar</strong>.
+          Los tres viven juntos en la misma página.</p>
+      </div>
+
+      <h2>🕵️ La consola: tu "modo hacker" 😎</h2>
+      <p>Los navegadores traen escondido un panel para programadores llamado
+        <strong>DevTools</strong> (herramientas de desarrollo). Ahí vive la
+        <strong>consola</strong>: un lugar donde puedes escribir JavaScript y ver
+        los mensajes de tus programas. Ábrela en Chrome en tu Mac con:</p>
+      <p style="text-align:center;"><code>⌥ option + ⌘ comando + J</code></p>
+      <p>Pruébalo AHORA MISMO en esta misma página: ábrela y escribe
+        <code>2 + 2</code> y presiona Enter. El navegador te contesta. 🤯
+        Sí: acabas de hablarle directamente al navegador. Bienvenido al modo hacker.</p>
+
+      <h2>📦 Variables y constantes… ¡ya las conoces!</h2>
+      <p>¿Te acuerdas de las cajas con etiqueta de Python? En JavaScript son
+        <strong>exactamente la misma idea</strong>, solo cambia la ropa:</p>
+      <ul>
+        <li><code>let</code> crea una <strong>variable</strong>: una caja que puedes cambiar. 📦</li>
+        <li><code>const</code> crea una <strong>constante</strong>: una caja sellada con candado. 🔒</li>
+      </ul>
+      <pre class="bloque-codigo"><code>let vidas = 3;            // caja que puede cambiar
+const VELOCIDAD_MAX = 10; // caja sellada 🔒</code></pre>
+
+      <h2>🔁 Python ↔ JavaScript: misma idea, otra ortografía</h2>
+      <table class="tabla">
+        <tr><th>¿Qué quieres hacer?</th><th>🐍 Python</th><th>⚡ JavaScript</th></tr>
+        <tr><td>Mostrar un mensaje</td><td><code>print("Hola")</code></td><td><code>console.log("Hola")</code></td></tr>
+        <tr><td>Crear una variable</td><td><code>vidas = 3</code></td><td><code>let vidas = 3;</code></td></tr>
+        <tr><td>Crear una constante</td><td><code>VIDAS_MAX = 3</code></td><td><code>const VIDAS_MAX = 3;</code></td></tr>
+        <tr><td>Verdadero / falso</td><td><code>True</code> / <code>False</code></td><td><code>true</code> / <code>false</code> (minúsculas)</td></tr>
+        <tr><td>Comentarios</td><td><code># así</code></td><td><code>// así</code></td></tr>
+        <tr><td>Nombres de variables</td><td><code>mi_puntaje</code> (snake_case 🐍)</td><td><code>miPuntaje</code> (camelCase 🐫)</td></tr>
+        <tr><td>Agrupar código</td><td>dos puntos <code>:</code> + sangría</td><td>llaves <code>{ }</code></td></tr>
+        <tr><td>Fin de línea</td><td>nada</td><td>punto y coma <code>;</code></td></tr>
+      </table>
+      <p>Fíjate en los dos últimos: JavaScript <strong>no usa</strong> los dos puntos ni la sangría
+        obligatoria de Python. En su lugar, <strong>encierra el código entre llaves <code>{ }</code></strong>
+        y termina cada instrucción con <strong>punto y coma <code>;</code></strong>
+        (como el punto final de una oración ✍️).</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Este es tu primer programa en JavaScript. Presiona <strong>▶ Ejecutar</strong> y mira
+        la consola retro de abajo. Luego cambia el nombre por el tuyo y córrelo otra vez:</p>
+
+      <div class="playground" data-mode="js" data-titulo="mi_primer_js.js">
+<script type="text/plain">
+// ¡Mi primer programa en JavaScript! ⚡
+// console.log es el print() de JavaScript
+
+let nombre = "Kai";
+let vidas = 3;
+const JUEGO = "Code Quest";
+
+console.log("Jugador:", nombre);
+console.log("Vidas:", vidas);
+console.log("Bienvenido a", JUEGO);
+
+// Las variables cambian igual que en Python:
+vidas = vidas - 1;
+console.log("¡Ouch! Ahora tienes", vidas, "vidas");
+</script>
+      </div>
+      <p>¿Viste? Se lee casi igual que Python. Solo cambió <code>print</code> por
+        <code>console.log</code>, aparecieron <code>let</code>, <code>const</code> y los
+        punto y coma. <strong>Misma idea, otra ortografía.</strong> 🐍🤝⚡</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Traduce este programa de Python a JavaScript. En Python sería:</p>
+      <pre class="bloque-codigo"><code># Versión Python 🐍
+puntos = 0
+puntos = puntos + 50
+NIVEL_MAXIMO = 10
+print("Puntos:", puntos)
+print("Nivel máximo:", NIVEL_MAXIMO)</code></pre>
+      <p>Escríbelo en JavaScript aquí abajo. Usa <code>let</code>, <code>const</code> y
+        <code>console.log</code>:</p>
+
+      <div class="playground" data-mode="js" data-titulo="traduccion.js">
+<script type="text/plain">
+// TODO 1: crea la variable puntos con valor 0 (usa let)
+
+// TODO 2: súmale 50 a puntos
+
+// TODO 3: crea la constante NIVEL_MAXIMO con valor 10 (usa const)
+
+// TODO 4: muestra puntos y NIVEL_MAXIMO con console.log
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Mira la tabla comparativa de arriba. 👀 Variable en JS:
+          <code>let nombre = valor;</code> — es como Python pero con <code>let</code> adelante
+          y <code>;</code> al final.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Sumar sobre lo que ya hay funciona igualito que en Python:
+          <code>puntos = puntos + 50;</code>. Y para mostrar:
+          <code>console.log("Puntos:", puntos);</code>
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>let puntos = 0;               // 1) caja nueva (let = puede cambiar)
+puntos = puntos + 50;         // 2) igualito que en Python
+const NIVEL_MAXIMO = 10;      // 3) caja sellada (const = candado 🔒)
+console.log("Puntos:", puntos);          // 4) el print() de JS
+console.log("Nivel máximo:", NIVEL_MAXIMO);</code></pre>
+          Compara línea por línea con la versión Python: la lógica es idéntica,
+          solo cambió el "vestuario" del código. 🎭
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Revisa la <strong>tabla Python ↔ JavaScript</strong> de arriba: casi todos los errores
+          al empezar son de "ortografía" (una llave, un punto y coma, mayúsculas). 🔎</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n5l1">Tengo 13 años, ya sé Python básico (variables, if, ciclos, funciones) y estoy empezando JavaScript. Explícame las diferencias entre Python y JavaScript para escribir variables, constantes y mostrar mensajes, con una tabla comparativa y ejemplos de videojuegos. Después ponme 2 mini-ejercicios de traducir Python a JavaScript y revisa mis respuestas. No me des las respuestas antes de que yo intente.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Crea la <strong>ficha de tu personaje</strong> en JavaScript: variables para
+        <code>nombre</code>, <code>poder</code>, <code>vidas</code> y una constante
+        <code>VELOCIDAD_MAX</code>. Muestra todo con <code>console.log</code>.
+        <strong>Jefe secreto:</strong> abre la consola de DevTools (⌥⌘J) en cualquier página
+        de internet y escribe <code>console.log("¡Estuve aquí! 😎")</code>. Acabas de
+        ejecutar TU código dentro de una página que no es tuya (tranqui: solo se ve en tu navegador).</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n5-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. De los tres lenguajes de la web, ¿cuál se encarga del <strong>comportamiento</strong> (que la página reaccione)?</p>
+          <button class="opcion">HTML: él estructura y también reacciona</button>
+          <button class="opcion" data-ok>JavaScript: es el "cerebro" que hace que la página responda</button>
+          <button class="opcion">CSS: con colores muy llamativos la página reacciona</button>
+          <div class="explicacion">HTML pone las piezas 🧱, CSS las pinta 🎨 y JavaScript
+            las hace reaccionar ⚡. Los tres trabajan en equipo en la misma página.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cómo se escribe el <code>print("Hola")</code> de Python en JavaScript?</p>
+          <button class="opcion"><code>echo("Hola");</code></button>
+          <button class="opcion"><code>print("Hola");</code></button>
+          <button class="opcion" data-ok><code>console.log("Hola");</code></button>
+          <div class="explicacion">En JavaScript los mensajes salen en la <strong>consola</strong>
+            (la de DevTools o la retro de tus playgrounds), por eso se llama <code>console.log</code>.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Quieres una caja que NUNCA cambie, como los puntos que da una estrella. ¿Qué usas en JavaScript?</p>
+          <button class="opcion"><code>let</code>, porque es para todo</button>
+          <button class="opcion" data-ok><code>const</code>, la caja sellada con candado 🔒</button>
+          <button class="opcion"><code>fixed</code>, porque queda fija</button>
+          <div class="explicacion"><code>const</code> viene de "constante": si intentas cambiarla,
+            JavaScript te marca error. <code>let</code> es para las cajas que sí cambian.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n5-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 5</a>
+      <a href="leccion-2.html">Siguiente: Funciones y eventos ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

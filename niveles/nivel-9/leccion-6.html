@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe final: tu Space Invaders completo 👑 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 6
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 6 · 👑 JEFE FINAL</span>
+    <h1>Jefe final: tu Space Invaders completo 👾👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Terminar tu proyecto final: un Space Invaders con <strong>pantalla de inicio, pausa y
+        game over</strong> 🎬, <strong>récord guardado en <code>localStorage</code></strong> 🏆,
+        <strong>tu firma de autor</strong> 🖊️… y llevártelo a un archivo real en tu compu.
+        Este es el último jefe de Code Quest. Vale <strong>150 XP</strong>. Respira. Vamos. 💪</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: LOS ESTADOS DEL JUEGO</p>
+      <p>¿Qué le falta a tu juego de la Lección 5 para sentirse "de verdad"? Piensa en
+        cualquier juego que ames: no te avienta a la acción de golpe. Hay un <strong>menú</strong>,
+        luego <strong>juegas</strong>, a veces <strong>pausas</strong>, y al morir hay una pantalla
+        de <strong>game over</strong> con tu puntuación… y la opción de revancha. Cada una de esas
+        "escenas" es un <strong>estado</strong>.</p>
+      <div class="analogia">
+        Los estados de un juego son como los <strong>actos de una obra de teatro</strong> 🎭:
+        una variable (<code>estado</code>) dice qué acto está en escena — <code>"inicio"</code>,
+        <code>"jugando"</code> o <code>"gameover"</code> — y el game loop, como director,
+        solo deja actuar a las funciones de ESE acto. ENTER cambia de acto; P congela la escena.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="230" viewBox="0 0 560 230">
+          <!-- Pantalla INICIO -->
+          <g class="anim-camino-a">
+            <rect x="20" y="50" width="140" height="100" rx="10" fill="#0a0a1a" stroke="#a78bfa" stroke-width="3"/>
+            <text x="90" y="85" text-anchor="middle" font-size="12" fill="#a78bfa">INICIO</text>
+            <text x="90" y="110" text-anchor="middle" font-size="10" fill="#a3a3c8">título + récord</text>
+            <text class="anim-parpadeo" x="90" y="132" text-anchor="middle" font-size="10" fill="#39ff8e">ENTER ▶</text>
+          </g>
+          <!-- Flecha 1 -->
+          <path class="anim-recorrido" d="M 165 100 L 205 100" fill="none" stroke="#39ff8e" stroke-width="3"/>
+          <!-- Pantalla JUGANDO -->
+          <rect x="210" y="50" width="140" height="100" rx="10" fill="#0a0a1a" stroke="#00e5ff" stroke-width="3"/>
+          <text x="280" y="85" text-anchor="middle" font-size="12" fill="#00e5ff">JUGANDO</text>
+          <text x="280" y="110" text-anchor="middle" font-size="16">🚀👾💥</text>
+          <text x="280" y="132" text-anchor="middle" font-size="10" fill="#ffe95c">P = pausa ⏸</text>
+          <!-- Flecha 2 -->
+          <path class="anim-recorrido" d="M 355 100 L 395 100" fill="none" stroke="#ff5c7a" stroke-width="3"/>
+          <!-- Pantalla GAME OVER -->
+          <g class="anim-camino-b">
+            <rect x="400" y="50" width="140" height="100" rx="10" fill="#0a0a1a" stroke="#ff5c7a" stroke-width="3"/>
+            <text x="470" y="85" text-anchor="middle" font-size="12" fill="#ff5c7a">GAME OVER</text>
+            <text x="470" y="110" text-anchor="middle" font-size="10" fill="#a3a3c8">puntos + récord 🏆</text>
+            <text class="anim-parpadeo" x="470" y="132" text-anchor="middle" font-size="10" fill="#39ff8e">ENTER ↩</text>
+          </g>
+          <!-- Flecha de revancha -->
+          <path d="M 470 155 C 470 200, 90 200, 90 155" fill="none" stroke="#3a3a6e" stroke-width="2" stroke-dasharray="6 6"/>
+          <text x="280" y="215" text-anchor="middle" font-size="11" fill="#a3a3c8">la revancha: de gameover directo a jugar otra vez 🔁</text>
+        </svg>
+        <p class="pie">Tres estados, una variable. El game loop pregunta <code>if (estado === "jugando")</code>
+          para mover el mundo, y <code>dibujar()</code> pinta la pantalla del estado actual.</p>
+      </div>
+
+      <h2>🧩 Las piezas nuevas del jefe (todas las conoces por dentro)</h2>
+      <ul>
+        <li><strong>🎬 Estados:</strong> <code>var estado = "inicio";</code> y el game loop
+          solo actualiza el mundo <code>if (estado === "jugando" &amp;&amp; !pausa)</code>. Las
+          pantallas de inicio y game over se DIBUJAN en el mismo canvas con
+          <code>fillText</code> — no hay magia, son textos sobre el espacio.</li>
+        <li><strong>⏸ Pausa:</strong> un boolean. La tecla P lo voltea:
+          <code>pausa = !pausa;</code> — cuando es <code>true</code>, el mundo se congela pero
+          se sigue dibujando (por eso ves todo quieto y el letrero encima).</li>
+        <li><strong>🏆 Récord:</strong> Nivel 7 al rescate:
+          <code>localStorage.getItem("invaders-record")</code> al arrancar, y si
+          <code>puntos &gt; record</code> al morir → <code>setItem</code>. Tu récord sobrevive
+          aunque cierres el navegador.</li>
+        <li><strong>🖊️ La firma:</strong> <code>var AUTOR = "Tu Nombre";</code> aparece en la
+          pantalla de inicio. Los créditos importan: TÚ hiciste este juego.</li>
+        <li><strong>✨ Estrellas de fondo:</strong> 40 puntitos que caen y reaparecen arriba.
+          Cero física, puro sabor espacial. (Bonus de jefe: el detalle que nadie pide y todos
+          notan.)</li>
+      </ul>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 EL JUEGO COMPLETO (¡juégalo YA!)</p>
+      <p>Aquí está: <strong>tu proyecto final, terminado y jugable</strong>. ENTER para empezar,
+        ← → para moverte, ESPACIO para disparar, P para pausar. Muere (pasa hasta en los
+        mejores juegos) y mira tu récord guardarse. Ciérrale, vuelve mañana: ahí seguirá. 💾</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong>
+        🔊 Y sube el volumen.</p>
+
+      <div class="playground" data-mode="html" data-titulo="space_invaders_completo.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l6@@
+</pre>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: HAZLO TUYO Y LLÉVATELO</p>
+      <p>La pelea final tiene 3 rondas:</p>
+      <ol class="pasos">
+        <li><strong>Fírmalo.</strong> En el playground de arriba, cambia
+          <code>var AUTOR = "Tu Nombre";</code> por TU nombre y ejecuta. Mira la pantalla de
+          inicio: <em>"un juego de …"</em>. Ese eres tú. 🖊️</li>
+        <li><strong>Ajústalo.</strong> Cambia al menos DOS números de diseño y prueba cómo se
+          siente: ¿nave más rápida? ¿invasores más valientes? ¿bajada de 25px en el borde?
+          Anota qué combinación te gustó: eso es <em>balancear un juego</em>.</li>
+        <li><strong>Llévatelo.</strong> Abajo está el código COMPLETO. Cópialo, abre
+          <strong>VS Code</strong>, pega en un archivo nuevo y guárdalo como
+          <code>space-invaders.html</code> en tu carpeta de proyectos. Doble clic → tu juego
+          corre en TU compu, sin internet, para siempre. 🚀</li>
+      </ol>
+
+      <p>📜 <strong>El código completo para copiar</strong> (unas 400 líneas — y entiendes cada una):</p>
+      <pre class="bloque-codigo" style="max-height: 420px; overflow-y: auto;"><code>@@CODE:n9l6@@</code></pre>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          ¿Guardaste el archivo pero se abre como texto? Revisa que el nombre termine en
+          <code>.html</code> (no <code>.html.txt</code>) y que copiaste TODO: desde
+          <code>&lt;!DOCTYPE html&gt;</code> hasta <code>&lt;/html&gt;</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          ¿Quieres presumirlo? Mándale el archivo a alguien o súbelo a tu USB: es UN solo
+          archivo con todo adentro (HTML + CSS + JS). En el Nivel 10 aprenderás a publicarlo
+          en internet con GitHub Pages. 🌐
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">MAPA DEL CÓDIGO (por si te pierdes en las 400 líneas)</span>
+          El archivo tiene 5 zonas, en orden: <strong>1)</strong> datos y estado (AUTOR, estado,
+          récord, nave, arreglos), <strong>2)</strong> sonido (<code>beep</code>),
+          <strong>3)</strong> cambios de estado (<code>empezarJuego</code>,
+          <code>terminarJuego</code>) y teclado, <strong>4)</strong> reglas del mundo (todas las
+          funciones <code>mover…</code> y <code>revisar…</code>), <strong>5)</strong> dibujo
+          (todas las <code>dibujar…</code>) y el game loop <code>cuadro()</code> que dirige la
+          orquesta. Cuando un juego crece, ORDENARLO así es lo que te salva. 🗂️
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿ENTER no arranca? Haz clic dentro de la vista previa primero. 🖱️</li>
+        <li>¿Cambiaste algo y murió todo? <strong>🔄 Reiniciar</strong> restaura el código y
+          vuelve a empezar. Cambia UNA cosa a la vez.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l6">Tengo 13 años y acabo de terminar mi primer videojuego completo: un Space Invaders en JavaScript con canvas, estados (inicio, jugando, gameover), pausa, récord en localStorage y sonidos con WebAudio. Quiero mejorarlo por mi cuenta. Primero hazme 3 preguntas sobre cómo funciona mi juego para comprobar que de verdad lo entiendo. Después ayúdame a planear UNA mejora que yo elija (escudos destructibles, nave nodriza de bonus o power-ups): dame el plan por pasos y pistas, pero deja que el código lo escriba yo. Si me atoro te iré pegando mis avances.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l6').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DE JEFE (OPCIONALES, PARA LEYENDAS)</p>
+      <p>Tu juego está completo… pero un game dev nunca deja de iterar. Tres mejoras clásicas
+        del Space Invaders original, ordenadas de menor a mayor dificultad:</p>
+      <ul>
+        <li><strong>🛡️ Escudos:</strong> 4 bloques verdes entre tú y la invasión. Cada uno es un
+          objeto <code>{x, y, ancho, alto, vida: 4}</code> en un arreglo. Las balas (tuyas Y
+          enemigas) les restan <code>vida</code> con <code>chocan()</code>; en 0, desaparecen.
+          Dibújalos más transparentes conforme pierden vida.</li>
+        <li><strong>🛸 Nave nodriza:</strong> cada tanto (azar, como el contraataque) cruza una
+          nave por arriba de la pantalla: <code>{x: -60, y: 30, ancho: 50, alto: 20, velocidad: 2}</code>.
+          Si le das: +50 puntos y un <code>beep(1200, 0.3)</code> especial. Si cruza completa,
+          se va — el clásico "¿la sigo o me concentro?".</li>
+        <li><strong>⚡ Power-ups:</strong> al morir, algunos invasores (10% de azar) sueltan una
+          cápsula que cae. Si la atrapas con la nave: 10 segundos de disparo doble
+          (cuenta cuadros: <code>600</code>). Necesitarás otro arreglo, otro chocan… puras
+          piezas que ya dominas.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ (el último del proyecto 🥁)</p>
+      <div class="quiz" data-quiz="n9-l6" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cómo logra el juego mostrar "pantallas" diferentes (menú, juego, game over) en un solo canvas?</p>
+          <button class="opcion">Usa tres archivos HTML distintos y salta entre ellos</button>
+          <button class="opcion" data-ok>Una variable <code>estado</code> dice en qué escena estamos, y tanto el game loop como dibujar() deciden qué actualizar y pintar según su valor</button>
+          <button class="opcion">El canvas guarda las tres pantallas y el navegador elige una</button>
+          <div class="explicacion">Una variable + ifs = máquina de estados 🎬. Los juegos
+            profesionales usan exactamente esta idea (con más estados: menús, niveles,
+            cinemáticas…).</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Por qué el récord sigue ahí aunque cierres el navegador y regreses mañana?</p>
+          <button class="opcion">Porque la variable record es global</button>
+          <button class="opcion">Porque el juego lo reenvía a un servidor de internet</button>
+          <button class="opcion" data-ok>Porque se guardó con localStorage, la memoria persistente del navegador que aprendiste en el Nivel 7</button>
+          <div class="explicacion">Las variables mueren al cerrar la página; <code>localStorage</code>
+            sobrevive. Por eso ahí guardamos récords… y por eso Code Quest recuerda tu XP. 💾</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. La pausa hace <code>pausa = !pausa;</code> ¿Qué significa el signo <code>!</code>?</p>
+          <button class="opcion">Que la variable es importante</button>
+          <button class="opcion" data-ok>"Lo contrario de": si pausa era false se vuelve true, y si era true se vuelve false — un interruptor</button>
+          <button class="opcion">Que la variable no puede cambiarse después</button>
+          <div class="explicacion"><code>!</code> es el "no" lógico. Voltear un boolean con
+            <code>x = !x</code> es EL patrón de los interruptores: pausa, música on/off,
+            modo oscuro… 🔀</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🏆 CIERRE ÉPICO ============ -->
+    <div class="panel" style="text-align:center; border-color: #a78bfa;">
+      <div style="font-size: 3.5rem; line-height:1;">👾</div>
+      <h2 style="margin: 10px 0 4px;">LO HICISTE.</h2>
+      <p style="max-width: 620px; margin: 12px auto;">Empezaste este curso sin saber qué era una
+        etiqueta HTML. Hoy <strong>diseñaste, programaste, balanceaste y firmaste un videojuego
+        completo</strong>: objetos, arreglos, ciclos anidados, colisiones, estados, sonido
+        sintetizado y datos persistentes. Eso no es "seguir un tutorial" — eso es ser
+        <strong>GAME DEV</strong>. 🏅</p>
+      <div class="medallas-fila" style="justify-content:center;">
+        <div class="medalla ganada">
+          <div class="icono">👾</div>
+          <div class="nombre">GAME DEV</div>
+        </div>
+      </div>
+      <p style="max-width: 620px; margin: 12px auto;">¿Recuerdas el Space Invaders del Arcade,
+        el que jugaste cuando empezabas? Ve a <a href="../../arcade/space-invaders.html">compararlo
+        con el tuyo</a> 👀 — ahora puedes leer su código completo como quien lee un cómic.
+        Y con tus mejoras… <em>el tuyo puede quedar mejor</em>. 😏</p>
+      <p class="suave">Presiona el botón de abajo para reclamar tus <strong>150 XP</strong> —
+        la recompensa más grande de todo Code Quest.</p>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l6">👑 ¡JEFE FINAL VENCIDO! (+150 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-5.html">◀ Anterior: Que se sienta juego</a>
+      <a href="../nivel-10/index.html">Siguiente nivel: 🚀 ¡Sigue jugando! ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

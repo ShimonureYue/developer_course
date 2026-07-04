@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El game loop: 60 dibujos por segundo — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🖌️ Nivel 8: Canvas</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 8 · LECCIÓN 2</span>
+    <h1>El game loop: 60 dibujos por segundo 🎬</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Descubrir el truco detrás de TODA animación (<strong>borrar + dibujar muy
+        rápido</strong>), programar tu primer <strong>game loop</strong> con
+        <code>requestAnimationFrame</code>, y hacer que un cuadrito rebote solo por la
+        pantalla como el logo de DVD 📀.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Te voy a contar un secreto que arruina la magia (o la hace mejor 😏):
+        <strong>en los videojuegos NADA se mueve</strong>. Nunca. Lo que pasa es que la
+        pantalla se borra y se vuelve a dibujar, con todo un poquito más allá,
+        unas <strong>60 veces por segundo</strong>. Tu cerebro hace el resto:
+        ve movimiento donde solo hay fotos rapidísimas.</p>
+      <div class="analogia">
+        Es un <strong>flipbook</strong> 📖: ese cuadernito con un dibujo en la esquina de
+        cada hoja. Cada página es CASI igual a la anterior, pero el monito está un
+        milímetro más allá. Pasas las hojas rápido con el pulgar y… ¡el monito corre!
+        Un videojuego es un flipbook de 60 páginas por segundo, y cada página la dibuja
+        tu código.
+      </div>
+
+      <p>A ese ciclo infinito se le llama <strong>game loop</strong> (ciclo de juego),
+        y es el corazón 💓 de todo videojuego, desde Snake hasta el shooter más pesado.
+        Siempre tiene los mismos 3 pasos:</p>
+
+      <div class="diagrama">
+        <svg width="480" height="260" viewBox="0 0 480 260">
+          <!-- Anillo del ciclo: los "dashes" viajan alrededor -->
+          <circle class="anim-recorrido" cx="240" cy="130" r="85" fill="none" stroke="#39ff8e" stroke-width="4"/>
+          <!-- Flechas de sentido -->
+          <polygon points="240,36 254,45 240,54" fill="#39ff8e"/>
+          <polygon points="240,224 226,215 240,206" fill="#39ff8e"/>
+          <!-- Centro: el corazón del juego -->
+          <text class="anim-girar lento" x="240" y="138" text-anchor="middle" font-size="26">⚙️</text>
+          <text x="240" y="170" text-anchor="middle" font-size="11" fill="#a3a3c8">60 vueltas</text>
+          <text x="240" y="186" text-anchor="middle" font-size="11" fill="#a3a3c8">por segundo</text>
+          <!-- Los 3 pasos -->
+          <g class="anim-pulso">
+            <rect x="150" y="6" width="180" height="34" rx="8" fill="none" stroke="#00e5ff" stroke-width="2"/>
+            <text x="240" y="28" text-anchor="middle" font-size="13" fill="#00e5ff">1️⃣ ACTUALIZAR (mover)</text>
+          </g>
+          <rect x="352" y="112" width="122" height="48" rx="8" fill="none" stroke="#ff4dd8" stroke-width="2"/>
+          <text x="413" y="132" text-anchor="middle" font-size="12" fill="#ff4dd8">2️⃣ DIBUJAR</text>
+          <text x="413" y="150" text-anchor="middle" font-size="11" fill="#ff4dd8">(borrar + pintar)</text>
+          <rect x="6" y="112" width="122" height="48" rx="8" fill="none" stroke="#ffe95c" stroke-width="2"/>
+          <text x="67" y="132" text-anchor="middle" font-size="12" fill="#ffe95c">3️⃣ ESPERAR</text>
+          <text x="67" y="150" text-anchor="middle" font-size="11" fill="#ffe95c">(1/60 de segundo)</text>
+        </svg>
+        <p class="pie">El game loop da vueltas sin parar: <strong>actualizar</strong> (cambiar
+          los números: <code>x = x + velocidad</code>) → <strong>dibujar</strong> (borrar todo
+          y pintar de nuevo) → <strong>esperar</strong> un instante → repetir. 💓</p>
+      </div>
+
+      <p>¿Y cómo se hace ese ciclo en JavaScript? Con
+        <code>requestAnimationFrame(miFuncion)</code>, que significa:
+        <em>"Navegador, justo antes de pintar el siguiente cuadro, llama a
+        <code>miFuncion</code>"</em>. Si adentro de <code>miFuncion</code> vuelves a pedir
+        <code>requestAnimationFrame(miFuncion)</code>… ya armaste el ciclo infinito. 🔁</p>
+      <p>Y el movimiento es de risa: si en cada vuelta haces
+        <code>x = x + 3</code>, el cuadrito aparece 3 píxeles más allá en cada cuadro.
+        60 cuadros después, avanzó 180 píxeles. ¡Eso ES moverse! Y para
+        <strong>rebotar</strong>, solo necesitas un <code>if</code>: "si tocas el borde,
+        voltea la velocidad" (<code>vx = -vx</code>).</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: EL PROTECTOR DE PANTALLA DVD 📀</p>
+      <p>El clásico de clásicos: un logo que rebota eternamente por la pantalla
+        (y toda la humanidad esperando que pegue justo en la esquina 🙏). Presiona
+        <strong>▶ Ejecutar</strong> y luego experimenta: sube la velocidad a
+        <code>vx = 8</code>, agranda el cuadro, o comenta la línea que borra el fondo
+        para ver qué pasa (spoiler: arte accidental 🎨):</p>
+
+      <div class="playground" data-mode="html" data-titulo="dvd_rebotando.html" data-alto="380">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 10px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="400" height="260"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // El estado del "juego": dónde está y qué tan rápido va
+    var x = 50;
+    var y = 80;
+    var vx = 3;      // velocidad horizontal (píxeles por cuadro)
+    var vy = 2;      // velocidad vertical
+    var TAM = 46;    // tamaño del cuadro
+
+    // PASO 1: actualizar (mover y rebotar)
+    function actualizar() {
+      x = x + vx;
+      y = y + vy;
+
+      // ¿Tocó el borde izquierdo o derecho? ¡Voltea la velocidad!
+      if (x &lt; 0 || x + TAM &gt; canvas.width) vx = -vx;
+      // ¿Tocó arriba o abajo?
+      if (y &lt; 0 || y + TAM &gt; canvas.height) vy = -vy;
+    }
+
+    // PASO 2: dibujar (borrar TODO y pintar de nuevo)
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);  // ¡la goma! 🧽
+
+      ctx.fillStyle = "#ff4dd8";
+      ctx.fillRect(x, y, TAM, TAM);
+      ctx.fillStyle = "#0d0d22";
+      ctx.font = "bold 13px monospace";
+      ctx.fillText("DVD", x + 9, y + 28);
+    }
+
+    // PASO 3: el ciclo que nunca termina 🔁
+    function cicloDeJuego() {
+      actualizar();
+      dibujar();
+      requestAnimationFrame(cicloDeJuego);  // "llámame en el siguiente cuadro"
+    }
+
+    cicloDeJuego();  // ¡enciende el motor!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🧪 Experimento: cambia el color de fondo de la "goma" por
+        <code>"rgba(13, 13, 34, 0.15)"</code> (una goma medio transparente)…
+        y el cuadro dejará una estela fantasma. 👻</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: HAZLO REBOTAR</p>
+      <p>Aquí tienes un cuadrito con game loop… pero <strong>sin rebotes</strong>:
+        avanza a la derecha y se fuga del lienzo para siempre 🏃💨. Tu misión:
+        completa los TODO para que rebote en los 4 bordes, como el DVD.</p>
+
+      <div class="playground" data-mode="html" data-titulo="rebota_rebota.html" data-alto="380">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 10px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="400" height="260"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    var x = 20;
+    var y = 110;
+    var vx = 3;
+    var vy = 0;   // TODO 1: ponle velocidad vertical (prueba con 2)
+    var TAM = 40;
+
+    function actualizar() {
+      x = x + vx;
+      y = y + vy;
+
+      // TODO 2: rebote horizontal — si x &lt; 0 o si x + TAM &gt; canvas.width,
+      //         voltea la velocidad: vx = -vx;
+
+      // TODO 3: rebote vertical — lo mismo pero con y, vy y canvas.height
+    }
+
+    function dibujar() {
+      ctx.fillStyle = "#0d0d22";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00e5ff";
+      ctx.fillRect(x, y, TAM, TAM);
+    }
+
+    function cicloDeJuego() {
+      actualizar();
+      dibujar();
+      requestAnimationFrame(cicloDeJuego);
+    }
+
+    cicloDeJuego();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Mira el ejemplo del DVD de arriba: el rebote horizontal es UNA línea con un
+          <code>if</code>. La condición pregunta si se pasó del borde izquierdo
+          (<code>x &lt; 0</code>) <strong>o</strong> del derecho
+          (<code>x + TAM &gt; canvas.width</code>). El "o" en JavaScript es <code>||</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          <code>if (x &lt; 0 || x + TAM &gt; canvas.width) vx = -vx;</code> —
+          eso resuelve el TODO 2. Para el TODO 3, cambia <code>x → y</code>,
+          <code>vx → vy</code> y <code>canvas.width → canvas.height</code>.
+          Y no olvides el TODO 1: con <code>vy = 0</code> jamás rebotará arriba/abajo
+          porque nunca sube ni baja.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>var vy = 2;   // TODO 1: ahora también se mueve en vertical
+
+function actualizar() {
+  x = x + vx;
+  y = y + vy;
+
+  // TODO 2: si toca izquierda o derecha, la velocidad se voltea
+  if (x &lt; 0 || x + TAM &gt; canvas.width) vx = -vx;
+
+  // TODO 3: igual pero en vertical
+  if (y &lt; 0 || y + TAM &gt; canvas.height) vy = -vy;
+}</code></pre>
+          ¿Por qué <code>x + TAM</code> y no solo <code>x</code>? Porque <code>x</code> es la
+          esquina IZQUIERDA del cuadro: su lado derecho está en <code>x + TAM</code>.
+          Si comparas solo <code>x</code>, el cuadro se entierra en la pared antes de
+          rebotar. Y <code>vx = -vx</code> es el truco estrella: 3 se vuelve -3
+          (ahora va a la izquierda), y -3 se vuelve 3 (de regreso). ↔️
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿El cuadro deja una mancha larga? Te falta la <strong>goma</strong> 🧽:
+          el <code>fillRect</code> gigante que borra todo al inicio de <code>dibujar()</code>.</li>
+        <li>¿No se mueve nada? Revisa que <code>cicloDeJuego()</code> se llame al final,
+          y que ADENTRO tenga su <code>requestAnimationFrame(cicloDeJuego)</code>.</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio.</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n8l2">Tengo 13 años y estoy aprendiendo a animar en canvas con JavaScript. Ya entendí que la animación es borrar y volver a dibujar muy rápido, y estoy usando requestAnimationFrame con un cuadrito que rebota (vx = -vx). Explícame con la analogía del flipbook por qué hay que borrar todo el lienzo en cada cuadro y qué pasaría si no lo hago. Después hazme 2 preguntas para comprobar que entendí. No me des código resuelto de tareas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        dos ojos ven más rebotes que uno.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Nivel DVD legendario 📀: 1) haz que el cuadro <strong>cambie de color en cada
+        rebote</strong> — crea un arreglo <code>var colores = ["#00e5ff", "#ff4dd8",
+        "#39ff8e", "#ffe95c"]</code> y elige uno al azar cuando la velocidad se voltee;
+        2) agrega un <strong>segundo cuadro</strong> con su propia posición y velocidad;
+        3) dibuja un <strong>círculo</strong> rebotando en lugar del cuadro (ojo: en un
+        círculo, la <code>x</code> es su CENTRO, así que rebota cuando
+        <code>x - radio &lt; 0</code> o <code>x + radio &gt; canvas.width</code>).
+        <strong>Jefe secreto:</strong> detecta el rebote en la esquina exacta y celebra
+        con un mensaje gigante. 🎉</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n8-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuál es el truco detrás de toda animación en canvas?</p>
+          <button class="opcion">Los objetos tienen una propiedad "mover" que los desplaza</button>
+          <button class="opcion" data-ok>Borrar todo y volver a dibujar, con pequeños cambios, muchas veces por segundo</button>
+          <button class="opcion">El canvas graba un video y lo reproduce</button>
+          <div class="explicacion">Como un flipbook 📖: nada se mueve de verdad, son
+            "fotos" casi iguales pasando rapidísimo. Tu cerebro inventa el movimiento.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>requestAnimationFrame(cicloDeJuego)</code>?</p>
+          <button class="opcion" data-ok>Le pide al navegador que llame a cicloDeJuego justo antes del siguiente cuadro (~60 veces/s)</button>
+          <button class="opcion">Ejecuta cicloDeJuego 60 veces seguidas de inmediato</button>
+          <button class="opcion">Pausa la animación hasta que el usuario haga clic</button>
+          <div class="explicacion">Es una cita con el navegador: "avísame antes de pintar el
+            siguiente cuadro". Si adentro vuelves a pedir otra cita, se forma el ciclo
+            infinito del game loop. 🔁</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Si un cuadro va a la derecha con <code>vx = 4</code> y hacemos <code>vx = -vx</code>, ¿qué pasa?</p>
+          <button class="opcion">El cuadro se detiene</button>
+          <button class="opcion">El cuadro desaparece porque la velocidad no puede ser negativa</button>
+          <button class="opcion" data-ok>Ahora vx vale -4 y el cuadro avanza hacia la izquierda: ¡rebotó!</button>
+          <div class="explicacion">Velocidad negativa = misma rapidez, dirección contraria.
+            Voltear el signo es la forma más simple (y más usada) de rebotar. ↔️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n8-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Tu lienzo de píxeles</a>
+      <a href="leccion-3.html">Siguiente: Tomar el control ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

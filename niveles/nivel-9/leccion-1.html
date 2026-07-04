@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diseño de tu juego — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 1</span>
+    <h1>Diseño de tu juego: piensa antes de programar 📐</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Diseñar tu Space Invaders <strong>en papel antes que en código</strong> (qué objetos
+        existen y qué datos guarda cada uno) y construir el <strong>esqueleto del juego</strong>:
+        el canvas espacial, el game loop y tu nave moviéndose con ← → sin escaparse
+        de la pantalla. 🚀</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: PRIMERO SE PIENSA, LUEGO SE TECLEA</p>
+      <p>Los estudios de videojuegos no abren el editor y empiezan a teclear como locos.
+        Primero responden una pregunta: <strong>¿quiénes viven en este juego y qué necesita
+        saber cada uno?</strong> A eso se le llama <em>diseño</em>, y es el superpoder que
+        separa a quien copia código de quien CREA juegos.</p>
+      <div class="analogia">
+        Diseñar un juego es como planear una <strong>obra de teatro escolar</strong> 🎭:
+        antes del estreno haces la lista de personajes y qué necesita cada uno
+        (vestuario, posición en el escenario, diálogos). En tu juego, los personajes son
+        <strong>objetos</strong> y sus necesidades son <strong>datos</strong>: <code>x</code>,
+        <code>y</code>, <code>ancho</code>, <code>alto</code>, <code>velocidad</code>…
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="240" viewBox="0 0 560 240">
+          <!-- Ficha 1: la nave -->
+          <g class="anim-pulso">
+            <rect x="20" y="40" width="160" height="150" rx="12" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="100" y="72" text-anchor="middle" font-size="26">🚀</text>
+            <text x="100" y="98" text-anchor="middle" font-size="14" fill="#00e5ff">nave</text>
+            <text class="mono" x="36" y="124" font-size="12" fill="#a3a3c8">x, y</text>
+            <text class="mono" x="36" y="144" font-size="12" fill="#a3a3c8">ancho, alto</text>
+            <text class="mono" x="36" y="164" font-size="12" fill="#a3a3c8">velocidad</text>
+          </g>
+          <!-- Ficha 2: la bala -->
+          <g class="anim-pulso" style="animation-delay: 0.5s;">
+            <rect x="200" y="40" width="160" height="150" rx="12" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="280" y="72" text-anchor="middle" font-size="26">🔸</text>
+            <text x="280" y="98" text-anchor="middle" font-size="14" fill="#ffe95c">bala (¡muchas!)</text>
+            <text class="mono" x="216" y="124" font-size="12" fill="#a3a3c8">x, y</text>
+            <text class="mono" x="216" y="144" font-size="12" fill="#a3a3c8">ancho, alto</text>
+            <text class="mono" x="216" y="164" font-size="12" fill="#a3a3c8">velocidad ⬆️</text>
+          </g>
+          <!-- Ficha 3: el invasor -->
+          <g class="anim-pulso" style="animation-delay: 1s;">
+            <rect x="380" y="40" width="160" height="150" rx="12" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="460" y="72" text-anchor="middle" font-size="26">👾</text>
+            <text x="460" y="98" text-anchor="middle" font-size="14" fill="#ff4dd8">invasor (¡x32!)</text>
+            <text class="mono" x="396" y="124" font-size="12" fill="#a3a3c8">x, y</text>
+            <text class="mono" x="396" y="144" font-size="12" fill="#a3a3c8">ancho, alto</text>
+            <text class="mono" x="396" y="164" font-size="12" fill="#a3a3c8">vivo ✅/❌</text>
+          </g>
+          <text x="280" y="225" text-anchor="middle" font-size="13" fill="#a3a3c8">los 3 actores de tu juego, con su ficha de datos 🎭</text>
+        </svg>
+        <p class="pie">Cada actor es un <strong>objeto</strong> como los del Nivel 7: una ficha con
+          datos. La nave es UNA, pero balas e invasores serán <strong>arreglos</strong> de objetos.</p>
+      </div>
+
+      <h2>📋 La tabla de diseño de Space Invaders</h2>
+      <p>Esta tabla ES el plano de todo el nivel. Cada lección construye una fila:</p>
+      <table class="tabla">
+        <tr><th>Objeto</th><th>¿Cuántos hay?</th><th>Sus datos</th><th>¿Qué hace?</th></tr>
+        <tr>
+          <td>🚀 <code>nave</code></td>
+          <td>1 (eres tú)</td>
+          <td><code>x, y, ancho, alto, velocidad</code></td>
+          <td>Se mueve con ← → y dispara con ESPACIO</td>
+        </tr>
+        <tr>
+          <td>🔸 <code>balas</code></td>
+          <td>0, 1, 5… ¡las que dispares! (arreglo)</td>
+          <td><code>x, y, ancho, alto, velocidad</code></td>
+          <td>Nacen en el cañón, suben y desaparecen arriba</td>
+        </tr>
+        <tr>
+          <td>👾 <code>invasores</code></td>
+          <td>32: 4 filas × 8 columnas (arreglo)</td>
+          <td><code>x, y, ancho, alto, vivo</code></td>
+          <td>Marchan en bloque, bajan al tocar el borde</td>
+        </tr>
+      </table>
+      <p>¿Notas algo? <strong>Todos tienen <code>x, y, ancho, alto</code></strong>. Ese cuarteto
+        no es casualidad: en la Lección 4 será la clave para detectar choques. 🕵️</p>
+
+      <h2>🗺️ El plan de las 6 lecciones</h2>
+      <ol class="pasos">
+        <li><strong>Hoy:</strong> diseño + esqueleto (canvas, game loop, nave que se mueve). 📐</li>
+        <li><strong>¡Fuego!</strong> — balas como arreglo de objetos. 🔫</li>
+        <li><strong>La invasión</strong> — 32 invasores con ciclos anidados. 👾</li>
+        <li><strong>Colisiones</strong> — balas que destruyen, puntos y explosiones. 💥</li>
+        <li><strong>Que se sienta juego</strong> — vidas, contraataque, oleadas y sonido. ❤️🔊</li>
+        <li><strong>JEFE FINAL</strong> — pantallas, pausa, récord y tu firma. 👑</li>
+      </ol>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: EL ESQUELETO VIVO</p>
+      <p>Aquí está la primera pieza: el <strong>espacio</strong> (canvas de 480×520), la
+        <strong>nave</strong> (su objeto-ficha) y el <strong>game loop</strong> que ya conoces de
+        Snake: <em>actualizar → dibujar → repetir</em>, ~60 veces por segundo. Pruébala con
+        las flechas ← → e intenta sacarla de la pantalla (spoiler: no vas a poder 😏).</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="invaders_etapa1.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l1@@
+</pre>
+      </div>
+
+      <p>Fíjate en tres detalles de programador pro:</p>
+      <ul>
+        <li><code>var teclas = {}</code> — el <strong>tablero de teclas</strong> de Snake: apunta
+          cuáles están presionadas AHORA. Así el movimiento es suave aunque dejes la tecla apretada.</li>
+        <li><code>e.preventDefault()</code> — evita que las flechas y ESPACIO muevan la página
+          mientras juegas. Detallito que se siente muchísimo.</li>
+        <li>Las <strong>paredes invisibles</strong>: dos <code>if</code> que regresan a la nave si
+          intenta escapar. Sin ellas, tu nave se iría a explorar otro sitio web. 🛸</li>
+      </ul>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Te toca: en esta versión la nave <strong>solo sabe ir a la izquierda</strong> y además
+        se escapa de la pantalla. Completa <code>moverNave()</code>: agrega el movimiento a la
+        derecha y las dos paredes invisibles. (Recuerda: 🖱️ clic en la vista previa antes de
+        usar el teclado.)</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa1.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l1-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          El movimiento a la derecha es el ESPEJO del de la izquierda: mismo <code>if</code>,
+          pero preguntando por <code>teclas["ArrowRight"]</code> y <strong>sumando</strong> la
+          velocidad en vez de restarla.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Pared izquierda: <code>if (nave.x &lt; 0) nave.x = 0;</code> — ¿y la derecha? El borde
+          no es <code>canvas.width</code>: es <code>canvas.width - nave.ancho</code>, porque la
+          <code>x</code> de la nave es su esquina IZQUIERDA y la nave mide 60 de ancho.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function moverNave() {
+  if (teclas["ArrowLeft"]) {
+    nave.x = nave.x - nave.velocidad;   // ← resta: hacia la izquierda
+  }
+  if (teclas["ArrowRight"]) {
+    nave.x = nave.x + nave.velocidad;   // → suma: hacia la derecha
+  }
+  // Pared izquierda: si se pasó de 0, la regresamos a 0
+  if (nave.x &lt; 0) nave.x = 0;
+  // Pared derecha: su esquina izquierda no puede pasar de
+  // canvas.width - nave.ancho (si no, se saldría media nave)
+  if (nave.x &gt; canvas.width - nave.ancho) {
+    nave.x = canvas.width - nave.ancho;
+  }
+}</code></pre>
+          Este patrón (mover y luego "recortar" contra los bordes) lo vas a usar en TODOS
+          tus juegos futuros. Guárdalo en tu cerebro para siempre. 🧠
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿El teclado no responde? <strong>Haz clic dentro de la vista previa</strong> primero. 🖱️</li>
+        <li>Vuelve al ejemplo de arriba y compara tu <code>moverNave()</code> con el suyo, línea por línea. 🔍</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l1">Tengo 13 años y estoy construyendo Space Invaders en JavaScript con canvas. Mi nave es un objeto con x, y, ancho, alto y velocidad, y la muevo con las flechas usando un objeto "teclas". Voy a pegarte mi función moverNave(): ayúdame a encontrar el error guiándome con preguntas, sin darme el código corregido completo. También explícame por qué el límite derecho es canvas.width menos el ancho de la nave, con un dibujo de texto si puedes.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <ul>
+        <li><strong>🏎️ Turbo:</strong> sube <code>nave.velocidad</code> a 10. ¿Se siente mejor o
+          peor de controlar? Los game devs ajustan estos números cientos de veces: se llama
+          <em>game feel</em>.</li>
+        <li><strong>🎨 Tu nave, tus reglas:</strong> cámbiale el color y la forma en
+          <code>dibujarNave()</code> agregando más <code>fillRect</code> (¿alitas? ¿doble cañón?).</li>
+        <li><strong>📐 Jefe secreto:</strong> en tu cuaderno, haz la tabla de diseño de OTRO juego
+          que te guste (¿un juego de esquivar meteoritos? ☄️). Objetos, cuántos, datos, qué hacen.
+          Acabas de dar tu primer paso como diseñador de juegos.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n9-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué conviene diseñar los objetos ANTES de programar?</p>
+          <button class="opcion">Porque el navegador lo exige para poder ejecutar el código</button>
+          <button class="opcion" data-ok>Porque saber qué objetos existen y qué datos necesitan te da un plano: escribes menos código a lo loco</button>
+          <button class="opcion">Solo es costumbre; los profesionales empiezan tecleando directamente</button>
+          <div class="explicacion">El diseño es el plano del arquitecto 📐: puedes construir sin él,
+            pero el resultado se cae. Con la tabla de diseño, cada lección de este nivel ya sabe
+            exactamente qué construir.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. La nave está en <code>nave.x = 430</code>, mide 60 de ancho y el canvas mide 480. ¿Qué pasa?</p>
+          <button class="opcion">Nada: 430 es menor que 480, está adentro</button>
+          <button class="opcion" data-ok>Se sale: su borde derecho está en 430 + 60 = 490, y el límite es 480. Hay que regresarla a x = 420</button>
+          <button class="opcion">El canvas se agranda automáticamente para que quepa</button>
+          <div class="explicacion"><code>x</code> es la esquina IZQUIERDA del rectángulo. Por eso la
+            pared derecha se calcula como <code>canvas.width - nave.ancho</code> = 480 − 60 = 420.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace el objeto <code>teclas</code> en nuestro juego?</p>
+          <button class="opcion" data-ok>Apunta qué teclas están presionadas en este momento, para que el game loop las revise en cada cuadro</button>
+          <button class="opcion">Guarda el récord de puntos del jugador</button>
+          <button class="opcion">Hace que el teclado escriba más rápido</button>
+          <div class="explicacion">Con <code>keydown</code> apuntamos <code>true</code> y con
+            <code>keyup</code> apuntamos <code>false</code>. El game loop pregunta 60 veces por
+            segundo "¿sigue presionada?" — así el movimiento es suave y continuo. 🎹</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 9</a>
+      <a href="leccion-2.html">Siguiente: ¡Fuego! ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

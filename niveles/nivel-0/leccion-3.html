@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu partida guardada — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🌮 Nivel 0: prepara tu equipo</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 0 · LECCIÓN 3</span>
+    <h1>Tu partida guardada 💾🎮</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Dominar tu plataforma: cómo funcionan el <strong>XP</strong>, las
+        <strong>medallas</strong> y los <strong>rangos</strong>, dónde se guarda tu progreso,
+        y cómo <strong>llevarte tu partida</strong> a otra computadora como todo un gamer. 🕹️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Code Quest funciona como tu videojuego favorito: cada cosa que logras te da
+        <strong>XP</strong> (puntos de experiencia). Completar una lección da <strong>50 XP</strong>
+        (los jefes 👑 dan 100), dominar un mini-quiz da <strong>20 XP</strong>, y hasta las
+        casillas del checklist dan XP. Con el XP subes de <strong>rango</strong>:</p>
+      <table class="tabla">
+        <tr><th>Rango</th><th>XP necesario</th></tr>
+        <tr><td>🥚 Novato</td><td>0 (aquí empiezas)</td></tr>
+        <tr><td>🐣 Aprendiz</td><td>400</td></tr>
+        <tr><td>😎 Hacker</td><td>1200</td></tr>
+        <tr><td>🧑‍💻 Desarrollador</td><td>2200</td></tr>
+        <tr><td>🏆 GAME DEV</td><td>3200 (el rango máximo)</td></tr>
+      </table>
+      <p>Además, al terminar TODAS las lecciones de un nivel ganas su <strong>medalla</strong> 🏅
+        (la de este nivel es <strong>🛠️ Equipo listo</strong>) y en el <strong>mapa</strong> 🗺️
+        ves qué niveles llevas completados. Todo tu avance vive en tu
+        <strong>partida guardada</strong>.</p>
+      <div class="analogia">
+        Tu progreso se guarda como en las consolas de antes: <strong>en la memoria de ESTA
+        computadora</strong>, no en internet. El navegador tiene un cajoncito llamado
+        <strong>localStorage</strong> (memoria local) donde Code Quest apunta tu XP y tus medallas.
+        Es como la <strong>memory card</strong> 🗂️ de una consola: si juegas en OTRA compu,
+        esa memory card no está ahí… a menos que te la lleves tú. 😉
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="200" viewBox="0 0 560 200">
+          <!-- La partida que viaja hacia la memoria -->
+          <g class="anim-valor-entra" style="--dx: 200px;">
+            <rect x="30" y="75" width="150" height="50" rx="10" fill="#ffe95c"/>
+            <text x="105" y="98" text-anchor="middle" fill="#0a0a1a" font-size="14">tu partida 🎮</text>
+            <text x="105" y="116" text-anchor="middle" fill="#0a0a1a" font-size="12">XP · medallas · lecciones</text>
+          </g>
+          <!-- La caja localStorage -->
+          <g class="anim-pulso">
+            <rect x="270" y="50" width="200" height="110" rx="12" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <rect x="290" y="36" width="160" height="26" rx="6" fill="#00e5ff"/>
+            <text x="370" y="54" text-anchor="middle" fill="#0a0a1a" font-size="13">localStorage</text>
+          </g>
+          <text class="anim-valor-aparece" x="370" y="115" text-anchor="middle" font-size="28">💾</text>
+          <text x="370" y="145" text-anchor="middle" font-size="12" fill="#a3a3c8">la "memory card" del navegador</text>
+          <text x="370" y="190" text-anchor="middle" font-size="13" fill="#a3a3c8">Cada vez que ganas XP, tu partida se guarda aquí. Solita. ✨</text>
+        </svg>
+        <p class="pie">Tu partida <strong>entra a la memoria del navegador</strong> cada vez que
+          logras algo. En el Nivel 7 vas a aprender a usar esta misma magia (localStorage)
+          en TUS propios juegos. 🤯</p>
+      </div>
+
+      <p>Dos consecuencias importantes de que se guarde en TU computadora:</p>
+      <ul>
+        <li>✅ <strong>No necesitas cuenta ni contraseña</strong>: abre el curso y ahí está tu avance.</li>
+        <li>⚠️ Si <strong>cambias de computadora</strong> (o borras los datos del navegador),
+          tu partida no te sigue sola. Para eso existe el botón <strong>💾 descargar partida</strong>. 👇</li>
+      </ul>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Levanta la vista: <strong>arriba de esta página</strong> está tu tablero de gamer 🕹️.
+        Identifica cada pieza:</p>
+      <ol class="pasos">
+        <li><strong>🥚 Tu rango actual</strong> — junto al logo. Ahorita seguro dice "Novato".
+          Disfrútalo: nadie se queda de huevo para siempre. 😄</li>
+        <li><strong>La barra de XP</strong> — se va llenando con cada logro y te dice cuánto falta
+          para el siguiente rango. Cuando ganas XP aparece un aviso verde abajo
+          (así 👉 <button class="pg-btn" onclick="CodeQuest.toast('👀 Así se ven los avisos de XP — este fue de mentiritas 😄')">probar aviso</button>).</li>
+        <li><strong>Los enlaces del menú</strong> — 🗺️ Mapa (tu vista general), 👾 Arcade (los
+          juegos que construirás), 📚 Recursos y <strong>💾 Mi progreso</strong>.</li>
+      </ol>
+      <p>La página <a href="../../progreso.html">💾 Mi progreso</a> es tu centro de control:
+        ahí ves tus medallas, tu XP total y los tres botones clave:</p>
+      <ul>
+        <li><strong>💾 Guardar partida</strong>: descarga un archivito
+          (<code>mi-partida-codequest.json</code>) con TODO tu avance. Es tu memory card portátil.</li>
+        <li><strong>📂 Cargar partida</strong>: en otra Mac, abres el curso, vas a Mi progreso,
+          eliges tu archivo… y tu XP, medallas y lecciones aparecen como por arte de magia. 🪄</li>
+        <li><strong>🔁 Reiniciar</strong>: borra todo para empezar de cero (¡usa Guardar antes,
+          por si te arrepientes!).</li>
+      </ul>
+      <p>Y un secreto del mapa: el botón <strong>"▶ Continuar"</strong> de la página de inicio
+        siempre sabe cuál es tu siguiente lección pendiente. Cierra todo hoy, vuelve mañana,
+        presiona Continuar y caes exactamente donde ibas. Como el "Continue" de las maquinitas,
+        pero sin echarle monedas. 🪙😄</p>
+      <p>Ah, y súper importante: <strong>aquí nada se bloquea</strong> 🔓. Puedes regresar a
+        cualquier lección terminada para repasarla cuando tengas dudas, o asomarte a niveles
+        futuros por curiosidad. El XP de cada lección y quiz se gana una sola vez, pero repasar
+        es gratis e infinito.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: RESPALDA TU PARTIDA</p>
+      <p>Misión de hoy: hacer tu primer respaldo, como los pros.</p>
+      <ol class="pasos">
+        <li>Abre <a href="../../progreso.html">💾 Mi progreso</a> (se abre en esta misma pestaña;
+          puedes volver aquí con la flecha ◀ del navegador).</li>
+        <li>Presiona <strong>💾 Guardar partida</strong>. Se descargará
+          <code>mi-partida-codequest.json</code> a tu carpeta Descargas.</li>
+        <li>Encuentra el archivo en <strong>Finder → Descargas</strong> y ábrelo con doble clic
+          (o clic derecho → Abrir con → TextEdit). Échale un ojo: ¡ese texto ES tu partida!
+          ¿Alcanzas a ver tu número de <code>xp</code> y las lecciones en <code>true</code>? 🕵️</li>
+        <li>Guarda ese archivo en un lugar seguro (Documentos, una USB, tu Drive…). Ahora tu
+          progreso puede viajar contigo a cualquier Mac.</li>
+      </ol>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          ¿No encuentras el botón? En la página Mi progreso, baja un poco: los botones de
+          <strong>guardar</strong>, <strong>cargar</strong> y <strong>reiniciar</strong> están
+          juntos. El de reiniciar NO lo toques hoy (y si lo tocas, te pregunta antes de borrar, uf 😮‍💨).
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          ¿No aparece el archivo? Revisa el botón de descargas de Chrome (arriba a la derecha ⬇️)
+          o abre Finder → Descargas y ordena por "Fecha de adición" para ver lo más reciente primero.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          El camino completo: <strong>Mi progreso → 💾 Guardar partida → Finder → Descargas →
+          mi-partida-codequest.json</strong>. Por dentro, el archivo se ve más o menos así:
+          <pre class="bloque-codigo"><code>{
+  "version": 1,
+  "xp": 130,
+  "lecciones": { "n0-l1": true, "n0-l2": true },
+  "quizzes": { "n0-l1": true },
+  "checklist": { "n0-chrome": true, "n0-vscode": true }
+}</code></pre>
+          Ese formato se llama <strong>JSON</strong> y lo aprenderás en el Nivel 7. Para cargarlo
+          en otra Mac: abre el curso allá → Mi progreso → <strong>📂 Cargar partida</strong> →
+          elige este archivo → ¡pum! 💥 Tu XP y medallas de vuelta.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve a ver el <strong>diagrama de la memory card</strong> 💾 de arriba.</li>
+        <li>Usa las <strong>💡 pistas</strong> de la misión (pedirlas no cuesta XP).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n0l3">Tengo 13 años y uso una plataforma de aprendizaje que guarda mi progreso en el localStorage del navegador y me deja descargarlo como un archivo .json. Explícame con una analogía de videojuegos (como una memory card) qué es el localStorage, por qué mi progreso no aparece si abro la página en otra computadora, y qué es un archivo .json. Después hazme 2 preguntas para ver si entendí. Sin tecnicismos sin explicar, por favor.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n0l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Haz cuentas de gamer 🧮: si cada lección normal da 50 XP, los jefes dan 100 y cada quiz
+        da 20… ¿cuánto XP puedes juntar en el Nivel 0 completito (recuerda las 6 casillas de
+        10 XP de la lección 1)? ¿Y te alcanza para llegar a 🐣 <strong>Aprendiz</strong> (400 XP)
+        solo con este nivel, o necesitas empezar el Nivel 1? Apunta tu predicción y compárala
+        con tu barra de XP al terminar el nivel. 📈</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n0-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Dónde se guarda tu progreso de Code Quest?</p>
+          <button class="opcion">En internet, en los servidores de Code Quest</button>
+          <button class="opcion" data-ok>En la memoria del navegador de MI computadora (localStorage)</button>
+          <button class="opcion">En una hoja de cálculo que revisa el profe</button>
+          <div class="explicacion">Tu partida vive en el <strong>localStorage</strong>: el cajoncito
+            de memoria del navegador de TU compu. Como una memory card 💾 — por eso no aparece
+            solita en otra máquina.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Mañana te toca trabajar en OTRA Mac. ¿Cómo te llevas tu avance?</p>
+          <button class="opcion">Ni modo, hay que empezar desde cero 😭</button>
+          <button class="opcion">Me aprendo mi XP de memoria y lo escribo allá</button>
+          <button class="opcion" data-ok>Hoy descargo mi partida 💾 en Mi progreso, y allá la cargo con 📂</button>
+          <div class="explicacion">¡Eso! El archivo <code>mi-partida-codequest.json</code> es tu
+            memory card portátil: guárdalo, llévalo y cárgalo en la otra Mac desde la página
+            💾 Mi progreso.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Terminaste una lección pero te quedó una duda. ¿Puedes volver a verla?</p>
+          <button class="opcion" data-ok>Sí, siempre: aquí nada se bloquea y repasar es gratis</button>
+          <button class="opcion">No, las lecciones completadas se cierran para siempre</button>
+          <button class="opcion">Solo si pago 100 XP de multa</button>
+          <div class="explicacion">Repasa todo lo que quieras 🔓. El XP se gana una sola vez,
+            pero volver a una lección cuando tienes dudas es EXACTAMENTE lo que hacen los buenos
+            programadores.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n0-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: ¿Qué es programar?</a>
+      <a href="leccion-4.html">Siguiente: Conoce tu base 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+</body>
+</html>

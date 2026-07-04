@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: púlelo hasta que brille ✨ — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #00e5ff;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎮 Nivel 6: Tu primer videojuego</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 6 · LECCIÓN 4 · 👑 JEFE</span>
+    <h1>Jefe: púlelo hasta que brille ✨👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Convertir tu Gato "que funciona" en un Gato <strong>que se siente juego</strong>:
+        marcador de victorias ❌ vs ⭕, mensaje de victoria con fiesta, la
+        <strong>línea ganadora brillando</strong> ✨ y el botón <strong>"jugar otra vez"</strong> 🔄.
+        Al final tendrás tu PRIMER videojuego completo, pulido y presumible. 😼</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Confesión de game developer 🤫: la diferencia entre un juego "meh" y un juego que la
+        gente AMA casi nunca son las reglas… es el <strong>pulido</strong>. Los profesionales
+        le llaman <em>game feel</em>: que el juego te responda, te festeje, te invite a la
+        revancha. Tu Gato ya sabe jugar; hoy le enseñamos a EMOCIONAR.</p>
+      <div class="analogia">
+        Tu juego es como un <strong>puesto de esquites</strong> 🌽: el maíz ya está cocido
+        (las reglas funcionan), pero nadie hace fila si no le pones limón, chile y queso
+        (marcador, brillos y revancha). El sabor está en los detalles… y los detalles
+        también se programan.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="240" viewBox="0 0 560 240">
+          <!-- El ciclo del pulido: victoria → marcador → revancha → estado limpio -->
+          <g class="anim-pulso">
+            <rect x="40" y="20" width="200" height="56" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text x="140" y="44" text-anchor="middle" font-size="13" fill="#39ff8e">🏆 ¡victoria!</text>
+            <text x="140" y="62" text-anchor="middle" font-size="11" fill="#a3a3c8">mensaje + línea que brilla ✨</text>
+          </g>
+          <rect x="330" y="20" width="195" height="56" rx="10" fill="none" stroke="#ffe95c" stroke-width="3"/>
+          <text x="427" y="44" text-anchor="middle" font-size="13" fill="#ffe95c">📊 marcador +1</text>
+          <text class="mono" x="427" y="62" text-anchor="middle" font-size="11" fill="#a3a3c8">❌ 2 — 1 ⭕</text>
+
+          <rect x="330" y="160" width="195" height="56" rx="10" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+          <text x="427" y="184" text-anchor="middle" font-size="13" fill="#ff4dd8">🔄 "jugar otra vez"</text>
+          <text x="427" y="202" text-anchor="middle" font-size="11" fill="#a3a3c8">clic del jugador</text>
+
+          <rect x="40" y="160" width="200" height="56" rx="10" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <text x="140" y="184" text-anchor="middle" font-size="13" fill="#00e5ff">📦 estado limpio</text>
+          <text class="mono" x="140" y="202" text-anchor="middle" font-size="11" fill="#a3a3c8">tablero vacío + pintar()</text>
+
+          <!-- flechas del ciclo -->
+          <path class="anim-recorrido" d="M 245 48 L 325 48" fill="none" stroke="#ffe95c" stroke-width="2.5"/>
+          <path class="anim-recorrido" d="M 427 80 L 427 155" fill="none" stroke="#ff4dd8" stroke-width="2.5"/>
+          <path class="anim-recorrido" d="M 325 188 L 245 188" fill="none" stroke="#00e5ff" stroke-width="2.5"/>
+          <path class="anim-recorrido" d="M 140 155 L 140 80" fill="none" stroke="#39ff8e" stroke-width="2.5"/>
+          <text class="anim-parpadeo" x="283" y="128" text-anchor="middle" font-size="16" fill="#ffe95c">✨ la revancha infinita ✨</text>
+        </svg>
+        <p class="pie">El ciclo del pulido: alguien gana → el marcador lo recuerda → el botón 🔄
+          limpia el ESTADO (¡pero NO el marcador!) → y se juega otra vez. Fíjate: el marcador
+          sobrevive porque el reinicio no lo toca.</p>
+      </div>
+
+      <h2>🗺️ El plan de batalla (4 mejoras)</h2>
+      <ol class="pasos">
+        <li><strong>Marcador 📊:</strong> dos variables nuevas de ESTADO, <code>victoriasX</code>
+          y <code>victoriasO</code>, que <code>pintar()</code> muestra como
+          <code>"❌ 2 — 1 ⭕"</code>. No se borran entre partidas.</li>
+        <li><strong>Mensaje de victoria 🎉:</strong> "🏆 ¡Ganó ❌! 🎉" bien grandote — eso ya casi
+          lo tienes de la lección pasada.</li>
+        <li><strong>Línea ganadora brillante ✨:</strong> una clase CSS <code>.ganadora</code> con
+          animación, que le "pegamos" a las 3 casillas del combo ganador.</li>
+        <li><strong>Jugar otra vez 🔄:</strong> un botón que regresa el ESTADO al inicio…
+          y repinta. ¡Reiniciar un juego es solo reiniciar sus datos!</li>
+      </ol>
+
+      <h2>✨ Herramienta nueva: <code>classList</code>, la pegadora de stickers</h2>
+      <p>Ya sabías cambiar textos con <code>textContent</code>. Hoy aprendes a ponerle y
+        quitarle <strong>clases CSS</strong> a un elemento, como si fueran stickers:</p>
+      <pre class="bloque-codigo"><code>boton.classList.add("ganadora");     // le pega el sticker ✨ (el CSS hace el resto)
+boton.classList.remove("ganadora");  // se lo despega</code></pre>
+      <p>Con esto, "iluminar la línea ganadora" es solo pegarle el sticker a 3 casillas.
+        El brillo, el color y la animación viven en el CSS — cada quien su chamba. 🎨</p>
+
+      <h2>🔍 Mejora del árbitro: ahora nos dice DÓNDE</h2>
+      <p>Tu <code>checarGanador()</code> devolvía QUIÉN ganó ("❌" o "⭕"). Pero para iluminar
+        la línea necesitamos saber DÓNDE fue. Mejora de jefe: que devuelva el
+        <strong>combo completo</strong> (las 3 posiciones), o <code>null</code> si no hay
+        ganador. <code>null</code> es la palabra de JavaScript para <strong>"nada"</strong> —
+        una caja sin nada adentro:</p>
+      <pre class="bloque-codigo"><code>function checarGanador() {
+  for (let i = 0; i &lt; COMBOS.length; i++) {
+    let combo = COMBOS[i];
+    let a = combo[0];
+    let b = combo[1];
+    let c = combo[2];
+    if (tablero[a] !== "" &amp;&amp; tablero[a] === tablero[b] &amp;&amp; tablero[a] === tablero[c]) {
+      return combo;   // ¡las 3 casillas ganadoras! por ejemplo [0, 4, 8]
+    }
+  }
+  return null;        // null = "nada": no hay ganador
+}</code></pre>
+      <p>¿Y quién ganó entonces? Fácil: el que acaba de tirar — o sea, <code>turno</code>,
+        porque todavía no lo cambiamos. 😏</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR (¡el jefe ya vencido!)</p>
+      <p>Así se ve el Gato final. <strong>Juégalo primero</strong>: gana varias veces, mira el
+        marcador acumularse, la línea brillar ✨ y la revancha con 🔄. Luego lee el código:
+        conoces CADA pieza, hoy solo brillan más:</p>
+
+      <div class="playground" data-mode="html" data-titulo="gato_final_demo.html" data-alto="560">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #061520; color: #eaeaf5; font-family: sans-serif; text-align: center; }
+    h1 { color: #00e5ff; letter-spacing: 4px; margin-bottom: 2px; }
+    #marcador { font-size: 1.1rem; color: #ffe95c; margin: 4px 0; }
+    #mensaje { font-size: 1.2rem; min-height: 1.5em; margin: 6px 0 10px; }
+    #tablero { display: grid; grid-template-columns: repeat(3, 100px);
+               grid-template-rows: repeat(3, 100px); gap: 10px; justify-content: center; }
+    .casilla { font-size: 3rem; background: #0d2b3d; border: 3px solid #00e5ff;
+               border-radius: 12px; cursor: pointer; }
+    .casilla:hover { background: #14587a; }
+    /* el sticker de la victoria ✨ */
+    .ganadora {
+      background: #0e4429;
+      border-color: #39ff8e;
+      box-shadow: 0 0 18px #39ff8e;
+      animation: brillar 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes brillar {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+    #reiniciar { margin-top: 14px; padding: 10px 20px; font-size: 1rem; border-radius: 10px;
+                 border: 2px solid #ff4dd8; background: #2b1025; color: #ff4dd8; cursor: pointer; }
+    #reiniciar:hover { background: #47183c; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 EL GATO&lt;/h1&gt;
+  &lt;p id="marcador"&gt;❌ 0 — 0 ⭕&lt;/p&gt;
+  &lt;p id="mensaje"&gt;Turno de: ❌&lt;/p&gt;
+  &lt;div id="tablero"&gt;
+    &lt;button class="casilla" id="c0"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c1"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c2"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c3"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c4"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c5"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c6"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c7"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c8"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button id="reiniciar"&gt;🔄 Jugar otra vez&lt;/button&gt;
+
+  &lt;script&gt;
+    // ===== 📦 ESTADO =====
+    let tablero = ["", "", "", "", "", "", "", "", ""];
+    let turno = "❌";
+    let juegoTerminado = false;
+    let victoriasX = 0;   // 📊 el marcador vive entre partidas
+    let victoriasO = 0;
+
+    const COMBOS = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],   // filas
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],   // columnas
+      [0, 4, 8], [2, 4, 6]               // diagonales
+    ];
+
+    // ===== 🖌️ DIBUJAR =====
+    function pintar() {
+      for (let i = 0; i &lt; 9; i++) {
+        document.getElementById("c" + i).textContent = tablero[i];
+      }
+      document.getElementById("marcador").textContent =
+        "❌ " + victoriasX + " — " + victoriasO + " ⭕";
+    }
+
+    // ===== 🔍 EL ÁRBITRO (mejorado: devuelve el combo, o null) =====
+    function checarGanador() {
+      for (let i = 0; i &lt; COMBOS.length; i++) {
+        let combo = COMBOS[i];
+        let a = combo[0];
+        let b = combo[1];
+        let c = combo[2];
+        if (tablero[a] !== "" &amp;&amp; tablero[a] === tablero[b] &amp;&amp; tablero[a] === tablero[c]) {
+          return combo;   // ¡las 3 casillas ganadoras!
+        }
+      }
+      return null;        // null = "nada": no hay ganador
+    }
+
+    function tableroLleno() {
+      for (let i = 0; i &lt; 9; i++) {
+        if (tablero[i] === "") { return false; }
+      }
+      return true;
+    }
+
+    // ===== 🕹️ REACCIONAR =====
+    function jugar(i) {
+      if (juegoTerminado) { return; }
+      if (tablero[i] !== "") { return; }
+      tablero[i] = turno;
+      pintar();
+
+      let combo = checarGanador();
+      if (combo !== null) {
+        juegoTerminado = true;
+        document.getElementById("mensaje").textContent = "🏆 ¡Ganó " + turno + "! 🎉";
+        if (turno === "❌") {
+          victoriasX = victoriasX + 1;
+        } else {
+          victoriasO = victoriasO + 1;
+        }
+        for (let j = 0; j &lt; 3; j++) {   // ✨ ilumina la línea ganadora
+          document.getElementById("c" + combo[j]).classList.add("ganadora");
+        }
+        pintar();   // repinta para que el marcador se actualice
+      } else if (tableroLleno()) {
+        juegoTerminado = true;
+        document.getElementById("mensaje").textContent = "😼 ¡Gato! Empate.";
+      } else {
+        if (turno === "❌") { turno = "⭕"; } else { turno = "❌"; }
+        document.getElementById("mensaje").textContent = "Turno de: " + turno;
+      }
+    }
+
+    for (let i = 0; i &lt; 9; i++) {
+      document.getElementById("c" + i).addEventListener("click", function () {
+        jugar(i);
+      });
+    }
+
+    // ===== 🔄 JUGAR OTRA VEZ =====
+    document.getElementById("reiniciar").addEventListener("click", function () {
+      tablero = ["", "", "", "", "", "", "", "", ""];   // estado al inicio
+      turno = "❌";
+      juegoTerminado = false;
+      for (let i = 0; i &lt; 9; i++) {                     // despega los stickers ✨
+        document.getElementById("c" + i).classList.remove("ganadora");
+      }
+      document.getElementById("mensaje").textContent = "Turno de: " + turno;
+      pintar();   // ¡repintar! si no, los símbolos viejos se quedan en pantalla
+    });
+
+    pintar();   // primer dibujo del marcador
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p>El detalle más importante está en el reinicio: NO borra los botones uno por uno…
+        <strong>reinicia el ESTADO y llama a <code>pintar()</code></strong>. Como la pantalla
+        siempre es un espejo del estado, limpiar los datos limpia el tablero. Ese es el patrón
+        secreto trabajando para ti. 🪞</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: LA PELEA CON EL JEFE 🥊</p>
+      <p>Este es TU Gato de la Lección 3, con el HTML del marcador y del botón 🔄 ya puestos,
+        el CSS de <code>.ganadora</code> listo y el árbitro ya mejorado (devuelve el combo o
+        <code>null</code>). Te toca el pulido: sigue los TODO y ejecuta después de cada mejora.
+        SIN copiar el demo de arriba — esa es la pelea:</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_gato_final.html" data-alto="560">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { background: #061520; color: #eaeaf5; font-family: sans-serif; text-align: center; }
+    h1 { color: #00e5ff; letter-spacing: 4px; margin-bottom: 2px; }
+    #marcador { font-size: 1.1rem; color: #ffe95c; margin: 4px 0; }
+    #mensaje { font-size: 1.2rem; min-height: 1.5em; margin: 6px 0 10px; }
+    #tablero { display: grid; grid-template-columns: repeat(3, 100px);
+               grid-template-rows: repeat(3, 100px); gap: 10px; justify-content: center; }
+    .casilla { font-size: 3rem; background: #0d2b3d; border: 3px solid #00e5ff;
+               border-radius: 12px; cursor: pointer; }
+    .casilla:hover { background: #14587a; }
+    .ganadora {
+      background: #0e4429;
+      border-color: #39ff8e;
+      box-shadow: 0 0 18px #39ff8e;
+      animation: brillar 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes brillar {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+    #reiniciar { margin-top: 14px; padding: 10px 20px; font-size: 1rem; border-radius: 10px;
+                 border: 2px solid #ff4dd8; background: #2b1025; color: #ff4dd8; cursor: pointer; }
+    #reiniciar:hover { background: #47183c; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;😼 EL GATO&lt;/h1&gt;
+  &lt;p id="marcador"&gt;❌ 0 — 0 ⭕&lt;/p&gt;
+  &lt;p id="mensaje"&gt;Turno de: ❌&lt;/p&gt;
+  &lt;div id="tablero"&gt;
+    &lt;button class="casilla" id="c0"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c1"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c2"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c3"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c4"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c5"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c6"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c7"&gt;&lt;/button&gt;
+    &lt;button class="casilla" id="c8"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button id="reiniciar"&gt;🔄 Jugar otra vez&lt;/button&gt;
+
+  &lt;script&gt;
+    // ===== 📦 ESTADO =====
+    let tablero = ["", "", "", "", "", "", "", "", ""];
+    let turno = "❌";
+    let juegoTerminado = false;
+    // TODO 1: crea victoriasX y victoriasO, las dos empezando en 0
+
+    const COMBOS = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8],
+      [0, 3, 6], [1, 4, 7], [2, 5, 8],
+      [0, 4, 8], [2, 4, 6]
+    ];
+
+    // ===== 🖌️ DIBUJAR =====
+    function pintar() {
+      for (let i = 0; i &lt; 9; i++) {
+        document.getElementById("c" + i).textContent = tablero[i];
+      }
+      // TODO 2: pon el marcador en el elemento "marcador":
+      //         "❌ " + victoriasX + " — " + victoriasO + " ⭕"
+    }
+
+    // ===== 🔍 EL ÁRBITRO (ya mejorado 😎: devuelve el combo, o null) =====
+    function checarGanador() {
+      for (let i = 0; i &lt; COMBOS.length; i++) {
+        let combo = COMBOS[i];
+        let a = combo[0];
+        let b = combo[1];
+        let c = combo[2];
+        if (tablero[a] !== "" &amp;&amp; tablero[a] === tablero[b] &amp;&amp; tablero[a] === tablero[c]) {
+          return combo;
+        }
+      }
+      return null;
+    }
+
+    function tableroLleno() {
+      for (let i = 0; i &lt; 9; i++) {
+        if (tablero[i] === "") { return false; }
+      }
+      return true;
+    }
+
+    // ===== 🕹️ REACCIONAR =====
+    function jugar(i) {
+      if (juegoTerminado) { return; }
+      if (tablero[i] !== "") { return; }
+      tablero[i] = turno;
+      pintar();
+
+      let combo = checarGanador();
+      if (combo !== null) {
+        juegoTerminado = true;
+        document.getElementById("mensaje").textContent = "🏆 ¡Ganó " + turno + "! 🎉";
+        // TODO 3: súmale 1 victoria al que ganó
+        //         (if turno === "❌" → victoriasX… else → victoriasO…)
+        // TODO 4: ilumina la línea: for con j de 0 a 2 →
+        //         document.getElementById("c" + combo[j]).classList.add("ganadora")
+        pintar();
+      } else if (tableroLleno()) {
+        juegoTerminado = true;
+        document.getElementById("mensaje").textContent = "😼 ¡Gato! Empate.";
+      } else {
+        if (turno === "❌") { turno = "⭕"; } else { turno = "❌"; }
+        document.getElementById("mensaje").textContent = "Turno de: " + turno;
+      }
+    }
+
+    for (let i = 0; i &lt; 9; i++) {
+      document.getElementById("c" + i).addEventListener("click", function () {
+        jugar(i);
+      });
+    }
+
+    // ===== 🔄 JUGAR OTRA VEZ =====
+    document.getElementById("reiniciar").addEventListener("click", function () {
+      // TODO 5: regresa el ESTADO al inicio: tablero con 9 "" otra vez,
+      //         turno en "❌" y juegoTerminado en false
+      //         (¡pero NO toques victoriasX ni victoriasO!)
+      // TODO 6: despega el sticker: for de 0 a 8 →
+      //         document.getElementById("c" + i).classList.remove("ganadora")
+      // TODO 7: mensaje "Turno de: ❌"… y ¡pintar()!
+    });
+
+    pintar();
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Ve mejora por mejora y prueba entre cada una: primero el marcador (TODO 1 y 2:
+          dos <code>let</code> nuevas y una línea en <code>pintar()</code>), luego la victoria
+          (TODO 3 y 4), y al final la revancha (TODO 5 a 7). Los jefes se vencen por partes. 🥊
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El reinicio es literalmente volver a escribir el estado inicial:
+          <code>tablero = ["", "", "", "", "", "", "", "", ""];</code>,
+          <code>turno = "❌";</code>, <code>juegoTerminado = false;</code>. Después el
+          <code>for</code> que quita la clase <code>"ganadora"</code> de los 9 botones, y
+          cierras con <code>pintar()</code>. Si se te olvida <code>pintar()</code>, los datos
+          estarán limpios… pero la pantalla seguirá mostrando la partida vieja. 🪞
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN COMPLETA EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// TODO 1 — el marcador es ESTADO que sobrevive entre partidas
+let victoriasX = 0;
+let victoriasO = 0;
+
+// TODO 2 — dentro de pintar(), después del for:
+document.getElementById("marcador").textContent =
+  "❌ " + victoriasX + " — " + victoriasO + " ⭕";
+
+// TODO 3 y 4 — dentro del if (combo !== null):
+if (turno === "❌") {
+  victoriasX = victoriasX + 1;
+} else {
+  victoriasO = victoriasO + 1;
+}
+for (let j = 0; j &lt; 3; j++) {
+  document.getElementById("c" + combo[j]).classList.add("ganadora");
+}
+pintar();   // (ya estaba) repinta para mostrar el marcador nuevo
+
+// TODO 5, 6 y 7 — el botón de revancha:
+document.getElementById("reiniciar").addEventListener("click", function () {
+  tablero = ["", "", "", "", "", "", "", "", ""];
+  turno = "❌";
+  juegoTerminado = false;
+  for (let i = 0; i &lt; 9; i++) {
+    document.getElementById("c" + i).classList.remove("ganadora");
+  }
+  document.getElementById("mensaje").textContent = "Turno de: " + turno;
+  pintar();
+});</code></pre>
+          Lo más fino del diseño: <code>victoriasX</code> y <code>victoriasO</code> son estado
+          que el reinicio NO toca — por eso el marcador se acumula partida tras partida.
+          Y <code>combo[j]</code> te da las 3 posiciones ganadoras, así que
+          <code>"c" + combo[j]</code> es el id exacto de cada casilla a iluminar. ✨
+          ¡FELICIDADES: acabas de terminar tu primer videojuego completo! 🎮👑
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿El marcador no cambia? Seguro sumaste la victoria pero no llamaste a
+          <code>pintar()</code> — recuerda: los datos cambian, el espejo se repinta. 🪞</li>
+        <li>¿El reinicio deja símbolos en pantalla? Te faltó <code>pintar()</code> al final.
+          ¿Deja casillas verdes brillando? Te faltó el <code>classList.remove</code>. ✨</li>
+        <li>Compara con el <strong>demo jugable</strong>, usa las <strong>💡 pistas</strong>
+          y pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n6l4">Tengo 13 años y acabo de terminar mi primer videojuego en JavaScript: el gato (tres en línea) con arreglo de 9 casillas, detección de ganador con combinaciones, marcador de victorias, línea ganadora resaltada con classList y botón de reinicio. Voy a pegarte mi código: primero dime 3 cosas que hice BIEN, luego ayúdame a encontrar bugs guiándome con preguntas (sin darme el código corregido). Al final, sugiéreme 3 mejoras ordenadas de fácil a difícil, por ejemplo un modo contra la computadora con jugadas aleatorias.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n6l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETOS DE JEFE ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETOS DE JEFE (OPCIONALES)</p>
+      <ul>
+        <li><strong>🤖 Modo vs computadora:</strong> después de la jugada de ❌ (si el juego no
+          terminó), que la compu juegue ⭕ solita en una casilla libre al azar. Pista con
+          una herramienta nueva, <code>filter</code>, que se queda solo con lo que cumple
+          la condición:
+          <pre class="bloque-codigo"><code>let indices = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let libres = indices.filter(function (i) {
+  return tablero[i] === "";      // solo los índices de casillas vacías
+});
+let eleccion = libres[Math.floor(Math.random() * libres.length)];
+jugar(eleccion);                 // ¡la compu tira! 🤖</code></pre></li>
+        <li><strong>🔊 Sonidito de victoria:</strong> dentro del <code>if</code> de victoria, dale
+          fanfarria: <code>new Audio("https://actions.google.com/sounds/v1/cartoon/congratulations.ogg").play()</code>. 🎺</li>
+        <li><strong>😼 Contador de empates:</strong> una variable <code>empates</code> que suba
+          con cada gato y aparezca en el marcador: <code>"❌ 2 — 1 ⭕ · 😼 3"</code>.
+          ¿Qué línea de <code>pintar()</code> tienes que tocar?</li>
+      </ul>
+      <p>😼 <strong>Dato de Arcade:</strong> en <a href="../../arcade/gato.html">el Arcade del
+        curso vive la versión final del Gato</a> — ábrela y compárala con la tuya: ¿qué
+        detallito extra le pondrías tú? Y guarda bien tu <code>mi_gato_final.html</code>,
+        porque en el <strong>Nivel 7</strong> 💾 le vas a poner una <strong>tabla de
+        récords</strong> que recuerde el marcador aunque cierres el navegador. 🏆</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n6-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace exactamente el botón "jugar otra vez"?</p>
+          <button class="opcion">Recarga la página completa del navegador</button>
+          <button class="opcion" data-ok>Regresa el ESTADO a sus valores iniciales y llama a <code>pintar()</code> para que la pantalla lo refleje</button>
+          <button class="opcion">Borra el texto de los 9 botones, uno por uno, y ya</button>
+          <div class="explicacion">Reiniciar un juego = reiniciar sus DATOS 📦 (tablero, turno,
+            juegoTerminado) y repintar. Si solo borraras los botones, el arreglo seguiría
+            lleno y no podrías volver a tirar. El estado manda, la pantalla obedece. 🪞</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Por qué el marcador NO se borra al jugar otra vez?</p>
+          <button class="opcion" data-ok>Porque el reinicio no toca <code>victoriasX</code> ni <code>victoriasO</code>: son estado que sobrevive entre partidas</button>
+          <button class="opcion">Porque los marcadores no se pueden borrar en JavaScript</button>
+          <button class="opcion">Porque está guardado en el HTML y el HTML nunca cambia</button>
+          <div class="explicacion">Fue una decisión de diseño tuya 😎: el reinicio limpia el
+            tablero y el turno, pero deja las victorias en paz. Tú eliges qué parte del
+            estado vive y qué parte muere en cada revancha.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace <code>casilla.classList.add("ganadora")</code>?</p>
+          <button class="opcion">Crea una clase nueva dentro del CSS</button>
+          <button class="opcion" data-ok>Le "pega" la clase CSS <code>ganadora</code> al elemento, y el CSS se encarga del brillo y la animación</button>
+          <button class="opcion">Declara al jugador como ganador de la partida</button>
+          <div class="explicacion">Es la pegadora de stickers ✨: JavaScript solo pone (o quita,
+            con <code>remove</code>) la etiqueta; los estilos y la animación ya estaban
+            escritos en el CSS. JS decide CUÁNDO, CSS decide CÓMO se ve. 🎨</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n6-l4">👑 ¡Jefe vencido! Lección completada (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: ¿Quién ganó?</a>
+      <a href="../nivel-7/index.html">Siguiente nivel: 💾 Datos: la memoria de tus juegos ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

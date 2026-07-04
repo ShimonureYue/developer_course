@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuleta de JavaScript ⚡ — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .tabla td:first-child { white-space: nowrap; }
+
+    /* Al imprimir: fondo blanco, texto negro y sin decoraciones 🖨️ */
+    @media print {
+      body { background: #fff !important; color: #000; font-size: 12px; }
+      .estrellas, .cq-header, .cq-toast, .no-imprimir, footer { display: none !important; }
+      h1, h2, h3, strong, em, a { color: #000 !important; text-shadow: none !important; }
+      p, li, td { color: #000 !important; }
+      .tabla th { color: #000 !important; border-bottom-color: #999; }
+      .tabla td { border-bottom-color: #ccc; }
+      code { background: #f2f2f2; color: #000; border-color: #ccc; }
+      .panel { background: #fff; border-color: #ccc; }
+      pre.bloque-codigo { background: #f7f7f7; border-color: #ccc; color: #000; }
+      pre.bloque-codigo code { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">⚡</div>
+      <h1>CHULETA DE JAVASCRIPT</h1>
+      <p class="suave">Todo lo que aprendes de los <a href="../niveles/nivel-5/index.html">Niveles 5</a> al <a href="../niveles/nivel-9/index.html">9</a>, en una sola hoja.</p>
+      <button class="btn fantasma no-imprimir" onclick="window.print()">🖨️ IMPRIMIR ESTA CHULETA</button>
+    </section>
+
+    <h2>📦 Lo básico</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>let vidas = 3;</code></td><td>Variable que PUEDE cambiar</td><td><code>let puntos = 0;</code></td></tr>
+      <tr><td><code>const MAX = 5;</code></td><td>Constante: NO puede cambiar</td><td><code>const CELDA = 20;</code></td></tr>
+      <tr><td><code>console.log(...)</code></td><td>Escribe en la consola (F12 o Cmd+Option+J para verla)</td><td><code>console.log("hola");</code></td></tr>
+      <tr><td><code>// nota</code></td><td>Comentario de una línea</td><td><code>// arreglar luego</code></td></tr>
+      <tr><td><code>===</code> / <code>!==</code></td><td>¿Es igual? / ¿Es diferente? (en JS usa SIEMPRE el triple <code>===</code>)</td><td><code>vidas === 0</code></td></tr>
+      <tr><td><code>&amp;&amp;</code> / <code>||</code> / <code>!</code></td><td>Y / O / NO</td><td><code>vivo &amp;&amp; puntos &gt; 0</code></td></tr>
+    </table>
+
+    <h2>🚦 Decisiones y ciclos</h2>
+<pre class="bloque-codigo"><code>if (vidas === 0) {
+  console.log("Game over 💀");
+} else if (vidas === 1) {
+  console.log("¡Aguas! ⚠️");
+} else {
+  console.log("Todo bien 😎");
+}
+
+for (let i = 0; i &lt; 5; i++) {   // repite 5 veces: i = 0, 1, 2, 3, 4
+  console.log(i);
+}
+
+while (vidas &gt; 0) {             // repite MIENTRAS sea verdad
+  jugar();
+}</code></pre>
+
+    <h2>🧩 Funciones</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>function nombre() { }</code></td><td>Define una función</td><td><code>function disparar() { ... }</code></td></tr>
+      <tr><td><code>function suma(a, b) { }</code></td><td>Con parámetros</td><td><code>function suma(a, b) { return a + b; }</code></td></tr>
+      <tr><td><code>return valor;</code></td><td>Devuelve el resultado y termina</td><td><code>return a + b;</code></td></tr>
+      <tr><td><code>nombre();</code></td><td>Llama (ejecuta) la función</td><td><code>let total = suma(2, 3);</code></td></tr>
+    </table>
+
+    <h2>🌳 El DOM: tocar la página</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>document.getElementById("id")</code></td><td>Encuentra UN elemento por su id</td><td><code>const boton = document.getElementById("btn");</code></td></tr>
+      <tr><td><code>.textContent</code></td><td>Lee o cambia su TEXTO</td><td><code>titulo.textContent = "¡Ganaste!";</code></td></tr>
+      <tr><td><code>.style</code></td><td>Cambia su CSS desde JS</td><td><code>caja.style.background = "red";</code></td></tr>
+      <tr><td><code>.classList.add / .remove / .toggle</code></td><td>Pone o quita clases CSS</td><td><code>caja.classList.add("ganadora");</code></td></tr>
+      <tr><td><code>.addEventListener("click", fn)</code></td><td>Escucha un evento: "cuando pase ESTO, haz AQUELLO"</td><td><code>boton.addEventListener("click", disparar);</code></td></tr>
+      <tr><td><code>"keydown"</code></td><td>Evento de tecla presionada (trae <code>evento.key</code>)</td><td><code>document.addEventListener("keydown", mover);</code></td></tr>
+    </table>
+
+    <h2>⏱️ Tiempo: intervalos</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>setInterval(fn, ms)</code></td><td>Ejecuta la función CADA tantos milisegundos (¡el corazón de Snake!)</td><td><code>const id = setInterval(paso, 150);</code></td></tr>
+      <tr><td><code>clearInterval(id)</code></td><td>Detiene ese intervalo (guárdalo en una variable para poder pararlo)</td><td><code>clearInterval(id);</code></td></tr>
+      <tr><td><code>setTimeout(fn, ms)</code></td><td>Ejecuta la función UNA vez, después de esperar</td><td><code>setTimeout(explotar, 500);</code></td></tr>
+    </table>
+
+    <h2>📋 Arreglos y objetos</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>let lista = [a, b, c];</code></td><td>Arreglo (la "lista" de JS)</td><td><code>let balas = [];</code></td></tr>
+      <tr><td><code>lista[0]</code></td><td>Primer elemento (desde 0, como en Python)</td><td><code>balas[0]</code></td></tr>
+      <tr><td><code>lista.length</code></td><td>Cuántos elementos tiene</td><td><code>balas.length</code></td></tr>
+      <tr><td><code>lista.push(x)</code></td><td>Agrega al final</td><td><code>balas.push(nueva);</code></td></tr>
+      <tr><td><code>{ clave: valor }</code></td><td>Objeto: una "ficha" con datos nombrados</td><td><code>let nave = { x: 240, vidas: 3 };</code></td></tr>
+      <tr><td><code>objeto.clave</code></td><td>Lee o cambia un dato del objeto</td><td><code>nave.x = nave.x + 5;</code></td></tr>
+    </table>
+
+    <h2>💾 JSON y localStorage: la memoria del navegador</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>JSON.stringify(obj)</code></td><td>Objeto → texto (para poder guardarlo)</td><td><code>JSON.stringify(marcador)</code></td></tr>
+      <tr><td><code>JSON.parse(texto)</code></td><td>Texto → objeto (para recuperarlo)</td><td><code>JSON.parse(crudo)</code></td></tr>
+      <tr><td><code>localStorage.setItem(clave, texto)</code></td><td>Guarda; sobrevive aunque cierres el navegador</td><td><code>localStorage.setItem("record", "120");</code></td></tr>
+      <tr><td><code>localStorage.getItem(clave)</code></td><td>Recupera (o da <code>null</code> si no existe)</td><td><code>localStorage.getItem("record")</code></td></tr>
+      <tr><td><code>localStorage.removeItem(clave)</code></td><td>Borra esa clave</td><td><code>localStorage.removeItem("record");</code></td></tr>
+    </table>
+
+    <h2>🖌️ Canvas básico</h2>
+<pre class="bloque-codigo"><code>const lienzo = document.getElementById("lienzo");
+const ctx = lienzo.getContext("2d");    // ctx = tu "pincel"</code></pre>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>ctx.fillStyle = color</code></td><td>Elige el color del pincel</td><td><code>ctx.fillStyle = "#39ff8e";</code></td></tr>
+      <tr><td><code>ctx.fillRect(x, y, ancho, alto)</code></td><td>Dibuja un rectángulo relleno</td><td><code>ctx.fillRect(20, 20, 40, 40);</code></td></tr>
+      <tr><td><code>ctx.clearRect(0, 0, w, h)</code></td><td>Borra el lienzo (¡al inicio de cada frame!)</td><td><code>ctx.clearRect(0, 0, 440, 440);</code></td></tr>
+      <tr><td><code>ctx.arc(x, y, radio, 0, Math.PI * 2)</code></td><td>Traza un círculo (con <code>beginPath</code> antes y <code>fill</code> después)</td><td><code>ctx.beginPath(); ctx.arc(50, 50, 10, 0, Math.PI * 2); ctx.fill();</code></td></tr>
+      <tr><td><code>ctx.fillText(texto, x, y)</code></td><td>Escribe texto en el lienzo</td><td><code>ctx.fillText("GAME OVER", 100, 200);</code></td></tr>
+      <tr><td><code>ctx.shadowBlur / shadowColor</code></td><td>El brillo neón de tus juegos ✨</td><td><code>ctx.shadowBlur = 12;</code></td></tr>
+    </table>
+
+    <h2>🔄 Python ↔ JavaScript: el traductor</h2>
+    <p>Ya sabes Python, así que JS es 80% traducción. Compara:</p>
+    <table class="tabla">
+      <tr><th>Idea</th><th>Python 🐍</th><th>JavaScript ⚡</th></tr>
+      <tr><td>Mostrar algo</td><td><code>print("hola")</code></td><td><code>console.log("hola");</code></td></tr>
+      <tr><td>Variable</td><td><code>vidas = 3</code></td><td><code>let vidas = 3;</code></td></tr>
+      <tr><td>Constante</td><td><code>MAX = 5</code> (convención)</td><td><code>const MAX = 5;</code> (el lenguaje la protege)</td></tr>
+      <tr><td>Comentario</td><td><code># nota</code></td><td><code>// nota</code></td></tr>
+      <tr><td>¿Es igual?</td><td><code>==</code></td><td><code>===</code></td></tr>
+      <tr><td>Verdadero / falso</td><td><code>True</code> / <code>False</code></td><td><code>true</code> / <code>false</code> (minúsculas)</td></tr>
+      <tr><td>Y / O / NO</td><td><code>and</code> / <code>or</code> / <code>not</code></td><td><code>&amp;&amp;</code> / <code>||</code> / <code>!</code></td></tr>
+      <tr><td>Decisión</td><td><code>if x &gt; 5:</code> … <code>elif</code> … <code>else:</code></td><td><code>if (x &gt; 5) { }</code> … <code>else if</code> … <code>else { }</code></td></tr>
+      <tr><td>Repetir 5 veces</td><td><code>for i in range(5):</code></td><td><code>for (let i = 0; i &lt; 5; i++) { }</code></td></tr>
+      <tr><td>Mientras</td><td><code>while vidas &gt; 0:</code></td><td><code>while (vidas &gt; 0) { }</code></td></tr>
+      <tr><td>Función</td><td><code>def saludar(nombre):</code></td><td><code>function saludar(nombre) { }</code></td></tr>
+      <tr><td>Lista / arreglo</td><td><code>[1, 2, 3]</code></td><td><code>[1, 2, 3]</code> (¡igualito!)</td></tr>
+      <tr><td>Tamaño de la lista</td><td><code>len(lista)</code></td><td><code>lista.length</code></td></tr>
+      <tr><td>Agregar al final</td><td><code>lista.append(x)</code></td><td><code>lista.push(x);</code></td></tr>
+      <tr><td>Preguntar al usuario</td><td><code>input("¿Nombre? ")</code></td><td><code>prompt("¿Nombre?");</code></td></tr>
+      <tr><td>Bloques de código</td><td>Indentación (espacios)</td><td>Llaves <code>{ }</code> (y <code>;</code> al final)</td></tr>
+    </table>
+
+    <div class="panel">
+      <h3 style="margin-top: 0;">🚑 Si JS no hace nada…</h3>
+      <ul>
+        <li>Abre la consola (clic derecho → Inspeccionar → Console): los errores aparecen en rojo ahí.</li>
+        <li>¿El <code>&lt;script&gt;</code> está HASTA ABAJO del body? Si corre antes de que exista el HTML, <code>getElementById</code> devuelve <code>null</code>.</li>
+        <li>Mayúsculas importan: es <code>getElementById</code>, no <code>getelementbyid</code>.</li>
+      </ul>
+    </div>
+
+    <p class="centrado no-imprimir">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

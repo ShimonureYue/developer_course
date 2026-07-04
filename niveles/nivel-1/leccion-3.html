@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enlaces e imágenes — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffb86c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧱 Nivel 1: HTML</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 1 · LECCIÓN 3</span>
+    <h1>Enlaces e imágenes 🔗🖼️</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Conectar páginas con <code>&lt;a href&gt;</code>, abrir enlaces en pestaña nueva con
+        <code>target="_blank"</code>, mostrar imágenes con <code>&lt;img src alt&gt;</code>,
+        y entender las <strong>rutas relativas</strong> como direcciones de tu colonia. 🏘️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>¿Por qué se llama "la web" (telaraña 🕸️)? Porque internet no es una lista de páginas
+        sueltas: es <strong>millones de páginas conectadas entre sí</strong> por enlaces. Cada vez
+        que haces clic en algo azul y subrayado, saltas por un hilo de esa telaraña. Y hoy TÚ vas
+        a tejer tus propios hilos.</p>
+      <div class="analogia">
+        La etiqueta <code>&lt;a&gt;</code> es un <strong>portal</strong> 🌀: el atributo
+        <code>href</code> dice A DÓNDE lleva el portal, y el texto entre las etiquetas es lo que
+        el usuario ve y toca. <code>&lt;a href="https://ejemplo.com"&gt;¡Entra aquí!&lt;/a&gt;</code>
+        = portal hacia ejemplo.com con el letrero "¡Entra aquí!".
+      </div>
+
+      <div class="diagrama">
+        <svg width="600" height="210" viewBox="0 0 600 210">
+          <!-- Página A -->
+          <g class="anim-pulso">
+            <rect x="40" y="40" width="180" height="130" rx="10" fill="#0d0d22" stroke="#00e5ff" stroke-width="3"/>
+            <rect x="40" y="40" width="180" height="28" rx="10" fill="#1a1a38"/>
+            <text x="130" y="60" text-anchor="middle" font-size="12" fill="#a3a3c8">pagina-1.html</text>
+            <text x="130" y="105" text-anchor="middle" font-size="14" fill="#eaeaf5">Mi página</text>
+            <text x="130" y="140" text-anchor="middle" font-size="14" fill="#00e5ff" text-decoration="underline">ver mi top 5 →</text>
+          </g>
+          <!-- Hilo del enlace -->
+          <path class="anim-recorrido" d="M 225 140 C 300 140 300 105 375 105" fill="none" stroke="#ffe95c" stroke-width="4"/>
+          <!-- Página B -->
+          <rect x="380" y="40" width="180" height="130" rx="10" fill="#0d0d22" stroke="#39ff8e" stroke-width="3"/>
+          <rect x="380" y="40" width="180" height="28" rx="10" fill="#1a1a38"/>
+          <text x="470" y="60" text-anchor="middle" font-size="12" fill="#a3a3c8">top-5.html</text>
+          <text x="470" y="105" text-anchor="middle" font-size="14" fill="#eaeaf5">🎮 Mi Top 5</text>
+          <text x="470" y="140" text-anchor="middle" font-size="13" fill="#a3a3c8">1. Minecraft…</text>
+          <!-- Cursor -->
+          <text class="anim-parpadeo" x="240" y="165" font-size="20">👆</text>
+          <text x="300" y="200" text-anchor="middle" font-size="13" fill="#a3a3c8">Un clic viaja por el hilo: así se teje la telaraña 🕸️</text>
+        </svg>
+        <p class="pie">El enlace de <code>pagina-1.html</code> apunta a <code>top-5.html</code>.
+          Con millones de hilos como este está tejida TODA la web.</p>
+      </div>
+
+      <p><strong>¿Y las direcciones?</strong> El <code>href</code> (y el <code>src</code> de las
+        imágenes) aceptan dos tipos de dirección, igualito que cuando invitas a alguien a tu
+        casa 🏘️:</p>
+      <ul>
+        <li><strong>Ruta completa</strong> (absoluta): con todo y "ciudad" —
+          <code>https://ejemplo.com/pagina.html</code>. Sirve desde cualquier lugar del mundo.</li>
+        <li><strong>Ruta relativa</strong>: como decirle a tu vecino "es la puerta de al lado".
+          <code>top-5.html</code> = "está en mi misma carpeta" (mismo edificio 🏢).
+          <code>fotos/gato.png</code> = "entra a la carpeta fotos, ahí está" (el departamento de
+          abajo). <code>../index.html</code> = "sal de esta carpeta y búscalo afuera"
+          (el edificio de junto — los dos puntitos <code>..</code> significan "carpeta de
+          arriba").</li>
+      </ul>
+      <p>Dos poderes más para cerrar 💥:</p>
+      <ul>
+        <li><code>target="_blank"</code> en un <code>&lt;a&gt;</code> → el portal abre en
+          <strong>pestaña nueva</strong>, y tu página se queda abierta atrás. Ideal para mandar a
+          la gente a otros sitios sin que abandonen el tuyo.</li>
+        <li><code>&lt;img src="…" alt="…"&gt;</code> → muestra una imagen. <code>src</code> es la
+          dirección de la imagen y <code>alt</code> es el <strong>texto de respaldo</strong>: se ve
+          si la imagen no carga, y lo leen en voz alta los lectores de pantalla de personas con
+          debilidad visual. Ojo: <code>&lt;img&gt;</code> es de las pocas etiquetas
+          <strong>sin tapa</strong> — no existe <code>&lt;/img&gt;</code> porque no lleva nada
+          adentro: ella misma ES el contenido. 🖼️</li>
+      </ul>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Ejecuta y prueba los dos enlaces (el segundo abre pestaña nueva 👀). La primera imagen
+        viene de internet (<code>placekitten</code> presta fotos de gatitos — si no carga o no hay
+        internet, verás su texto <code>alt</code>: ¡para eso es!). La segunda "imagen" es un truco
+        de emoji gigante que jamás falla:</p>
+      <div class="playground" data-mode="html" data-titulo="portales.html" data-alto="320">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mis portales</title>
+  </head>
+  <body>
+    <h1>🌀 Mis portales favoritos</h1>
+
+    <p>Visita <a href="https://es.wikipedia.org">Wikipedia</a>
+       para saber de todo.</p>
+
+    <p>Aprende algoritmos en
+       <a href="https://es.khanacademy.org" target="_blank">Khan Academy</a>
+       (este abre en pestaña nueva 😉).</p>
+
+    <h2>Mi gato programador</h2>
+    <img src="https://placekitten.com/240/180"
+         alt="Foto de un gatito muy serio revisando código">
+
+    <h2>Mi avatar (a prueba de fallas)</h2>
+    <p style="font-size: 80px; margin: 0;">🐱‍👤</p>
+  </body>
+</html>
+</script>
+      </div>
+      <p><strong>Recomendación pro</strong> 📸: cuando hagas TU página, lo mejor es usar
+        <strong>tus propias imágenes</strong> — guárdalas en una carpeta junto a tu HTML (por
+        ejemplo <code>fotos/mi-avatar.png</code>) y úsalas con ruta relativa:
+        <code>&lt;img src="fotos/mi-avatar.png" alt="mi avatar"&gt;</code>. Así tu página funciona
+        aunque no haya internet, y nadie te puede borrar la imagen. Mientras tanto, los emojis
+        gigantes son tus mejores amigos. 😄</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Construye tu "página de salidas" 🚪: un mini-directorio con tus 3 sitios favoritos y tu
+        avatar. Completa los TODOs:</p>
+      <div class="playground" data-mode="html" data-titulo="mis-enlaces.html" data-alto="280">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mis enlaces</title>
+  </head>
+  <body>
+    <h1>🚪 Por aquí me la vivo</h1>
+
+    <!-- TODO 1: un enlace normal a tu sitio favorito -->
+
+    <!-- TODO 2: un enlace a otro sitio que abra en PESTAÑA NUEVA -->
+
+    <!-- TODO 3: una imagen con src y alt
+         (usa https://placekitten.com/200/200 o un emoji gigante) -->
+
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La receta del portal: <code>&lt;a href="https://sitio.com"&gt;texto que se ve&lt;/a&gt;</code>.
+          El <code>href</code> va DENTRO de la etiqueta de apertura, con comillas. No olvides
+          escribir la dirección completa con su <code>https://</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Para pestaña nueva, agrega el segundo atributo separado por un espacio:
+          <code>&lt;a href="https://sitio.com" target="_blank"&gt;…&lt;/a&gt;</code>. Y la imagen no
+          lleva tapa: <code>&lt;img src="dirección" alt="descripción"&gt;</code> y ya.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>&lt;p&gt;Mis videos: &lt;a href="https://www.youtube.com"&gt;YouTube&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Para investigar:
+   &lt;a href="https://es.wikipedia.org" target="_blank"&gt;
+     Wikipedia (pestaña nueva)
+   &lt;/a&gt;&lt;/p&gt;
+
+&lt;img src="https://placekitten.com/200/200"
+     alt="un gatito espía muy tierno"&gt;</code></pre>
+          Punto por punto: <code>href</code> = a dónde va el portal; <code>target="_blank"</code> =
+          ábrelo en pestaña nueva; <code>src</code> = de dónde sale la imagen; <code>alt</code> =
+          qué decir si la imagen no llega. Si tus 3 TODOs funcionan: ¡ya conectaste tu página con
+          el mundo! 🌎🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve al <strong>diagrama de las dos páginas conectadas</strong>. 🕸️</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n1l3">Tengo 13 años y estoy aprendiendo HTML. Ya conozco la etiqueta a con href y target="_blank", y la etiqueta img con src y alt. Lo que más trabajo me cuesta son las RUTAS RELATIVAS (cuándo escribir solo el nombre del archivo, cuándo carpeta/archivo y cuándo ../archivo). Explícamelas con la analogía de las direcciones de una colonia o un edificio, con 3 ejemplos concretos de carpetas. Después dibújame en texto una estructura de carpetas pequeña y hazme 3 preguntas de qué ruta usaría, corrigiéndome con pistas. No me des las respuestas de inmediato.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n1l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Detective de rutas 🕵️: abre esta misma lección en VS Code
+        (<code>niveles/nivel-1/leccion-3.html</code>) y busca los <code>href</code> de la miga de
+        pan de hasta arriba. ¿Por qué el enlace al Mapa dice <code>../../index.html</code>
+        (dos brincos de carpeta) y el del Nivel 1 solo <code>index.html</code>? Explícaselo a un
+        compañero con la analogía de los edificios. Si puedes explicarlo, lo dominaste. 🧠✨</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n1-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace <code>target="_blank"</code> en un enlace?</p>
+          <button class="opcion">Deja el enlace en blanco, sin texto</button>
+          <button class="opcion" data-ok>Abre el destino en una pestaña nueva</button>
+          <button class="opcion">Borra la página a la que apunta</button>
+          <div class="explicacion">Pestaña nueva 🪟: el visitante conoce el otro sitio sin
+            abandonar tu página. Muy usado para enlaces que van "hacia afuera" de tu sitio.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Para qué sirve el <code>alt</code> de una imagen?</p>
+          <button class="opcion">Es el título que flota sobre la imagen al pasar el mouse</button>
+          <button class="opcion">Hace la imagen más grande (alt = altura)</button>
+          <button class="opcion" data-ok>Es el texto de respaldo: se muestra si la imagen no carga y lo leen los lectores de pantalla</button>
+          <div class="explicacion">El <code>alt</code> es tu red de seguridad 🥅 y un gesto de
+            buena onda: personas con debilidad visual "escuchan" tus imágenes gracias a él.
+            Nunca lo dejes vacío.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Tu archivo <code>pagina.html</code> y tu foto <code>perro.png</code> están en la MISMA carpeta. ¿Qué <code>src</code> usas?</p>
+          <button class="opcion" data-ok><code>src="perro.png"</code> — misma carpeta, solo el nombre (mismo edificio 🏢)</button>
+          <button class="opcion"><code>src="C:/MiPC/Descargas/perro.png"</code> con la ruta de MI compu</button>
+          <button class="opcion"><code>src="../perro.png"</code> por si acaso, con puntitos</button>
+          <div class="explicacion">Misma carpeta = mismo edificio: basta el nombre. Las rutas de TU
+            computadora solo funcionan en TU computadora 💻 — en cuanto compartas la página,
+            se rompen. Y <code>../</code> saldría de la carpeta a buscar donde no está.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n1-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: Textos con poder</a>
+      <a href="leccion-4.html">Siguiente: Jefe — Mi tarjeta de gamer 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

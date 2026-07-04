@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godot: tu siguiente consola — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #00e5ff;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🚀 Nivel 10: Camino a Godot</a> › Lección 2
+    </p>
+    <span class="etiqueta-leccion">NIVEL 10 · LECCIÓN 2</span>
+    <h1>Godot: tu siguiente consola 🎮🤖</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Entender qué es un <strong>motor de juegos</strong> y por qué existen, instalar
+        <strong>Godot</strong> (gratis y ligero) en tu Mac, y descubrir que su lenguaje,
+        <strong>GDScript, es casi Python</strong> — o sea que ya lo hablas. 🐍→🤖</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: ¿QUÉ ES UN MOTOR DE JUEGOS?</p>
+      <p>Para tu Space Invaders construiste TODO a mano: el game loop, las colisiones, el
+        teclado, el sonido… Fue perfecto para aprender (ahora sabes qué hay bajo el cofre 🔧).
+        Pero imagina construir así un juego con mapas gigantes, física realista, luces,
+        animaciones y versión para celular. Años. Por eso existen los
+        <strong>motores de juegos</strong>: Unity, Unreal, Godot…</p>
+      <div class="analogia">
+        Hasta hoy cocinaste <strong>haciendo hasta la estufa</strong> 🔥: armaste el fuego, el
+        comal y las ollas (game loop, colisiones, sonido). Un motor de juegos es llegar a una
+        <strong>cocina industrial equipada</strong> 👨‍🍳: estufas, hornos, batidoras y utensilios
+        listos. Tú pones lo importante — la receta y el sazón — y como YA sabes cocinar a
+        leña, ninguna máquina te asusta.
+      </div>
+
+      <p>¿Y por qué <strong>Godot</strong>? Tres razones perfectas para ti:
+        es <strong>100% gratis y de código abierto</strong> (sin licencias ni cuentas),
+        es <strong>ligerito</strong> (~150 MB; corre feliz en tu Mac mini), y su lenguaje
+        <strong>GDScript se parece tanto a Python</strong> que vas a sentir que hiciste trampa. 😏
+        Con Godot se han hecho juegos comerciales de verdad, como Brotato o Cassette Beasts.</p>
+
+      <h2>🎭 Las 3 palabras mágicas de Godot: escena, nodo y señal</h2>
+      <p>Godot organiza los juegos como una obra de teatro:</p>
+      <ul>
+        <li><strong>Nodo</strong> 🎭 — cada actor y cada pieza de utilería: un sprite (dibujo),
+          una cámara, un sonido, un detector de colisiones. Cada nodo hace UNA cosa bien.</li>
+        <li><strong>Escena</strong> 🎬 — un grupo de nodos que actúan juntos: tu "Jugador" es
+          una escena hecha de sprite + colisión + script. Las escenas se reutilizan: ¿30
+          invasores? Una escena "Invasor" instanciada 30 veces (¡adiós ciclos anidados a mano!).</li>
+        <li><strong>Señal</strong> 📣 — el grito entre actores: cuando algo pasa ("¡me
+          golpearon!", "¡botón presionado!"), el nodo emite una señal y otro nodo reacciona.
+          Es el <code>addEventListener</code> de Godot: eventos, como en JavaScript.</li>
+      </ul>
+
+      <div class="diagrama">
+        <svg width="560" height="250" viewBox="0 0 560 250">
+          <!-- Escena raíz -->
+          <g class="anim-pulso">
+            <rect x="200" y="18" width="160" height="40" rx="10" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="280" y="43" text-anchor="middle" font-size="13" fill="#00e5ff">🎬 Escena: Jugador</text>
+          </g>
+          <!-- Ramas -->
+          <path d="M 280 58 L 130 105" stroke="#3a3a6e" stroke-width="2"/>
+          <path d="M 280 58 L 280 105" stroke="#3a3a6e" stroke-width="2"/>
+          <path d="M 280 58 L 430 105" stroke="#3a3a6e" stroke-width="2"/>
+          <!-- Nodos hijos -->
+          <rect x="55" y="105" width="150" height="38" rx="8" fill="none" stroke="#ff4dd8" stroke-width="2"/>
+          <text x="130" y="129" text-anchor="middle" font-size="12" fill="#ff4dd8">🖼️ Sprite2D (dibujo)</text>
+          <rect x="205" y="105" width="150" height="38" rx="8" fill="none" stroke="#39ff8e" stroke-width="2"/>
+          <text x="280" y="129" text-anchor="middle" font-size="12" fill="#39ff8e">🛡️ Colisión</text>
+          <rect x="355" y="105" width="150" height="38" rx="8" fill="none" stroke="#ffe95c" stroke-width="2"/>
+          <text x="430" y="129" text-anchor="middle" font-size="12" fill="#ffe95c">📜 Script (GDScript)</text>
+          <!-- Señal -->
+          <path class="anim-recorrido" d="M 280 143 C 280 185, 430 160, 430 143" fill="none" stroke="#ff5c7a" stroke-width="2"/>
+          <g class="anim-parpadeo">
+            <text x="330" y="185" text-anchor="middle" font-size="12" fill="#ff5c7a">📣 señal: "¡choqué!"</text>
+          </g>
+          <text x="280" y="225" text-anchor="middle" font-size="12" fill="#a3a3c8">el nodo de colisión GRITA la señal → el script la escucha y decide qué hacer</text>
+        </svg>
+        <p class="pie">Una escena es un arbolito de nodos. Cada nodo hace una cosa; las señales
+          los comunican. ¿Te suena? Es el DOM + eventos que ya conoces, versión videojuego.</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR: GDSCRIPT vs PYTHON, LADO A LADO</p>
+      <p>Este es el MISMO programa — la ficha de un jugador que recibe daño — escrito en los
+        dos idiomas. Búscale las 7 diferencias… spoiler: casi no hay. 👀</p>
+
+      <table class="tabla">
+        <tr><th>🐍 Python (ya lo hablas)</th><th>🤖 GDScript (lo hablarás en 5 minutos)</th></tr>
+        <tr>
+          <td><pre class="bloque-codigo" style="margin:0;"><code>vidas = 3
+velocidad = 300
+
+def recibir_dano(golpe):
+    global vidas
+    vidas = vidas - golpe
+    if vidas &lt;= 0:
+        print("game over")
+    else:
+        print("quedan", vidas)
+
+for i in range(3):
+    recibir_dano(1)</code></pre></td>
+          <td><pre class="bloque-codigo" style="margin:0;"><code>var vidas = 3
+var velocidad = 300
+
+func recibir_dano(golpe):
+    vidas = vidas - golpe
+    if vidas &lt;= 0:
+        print("game over")
+    else:
+        print("quedan ", vidas)
+
+for i in range(3):
+    recibir_dano(1)</code></pre></td>
+        </tr>
+      </table>
+
+      <p>El diccionario completo para traducirte a GDScript:</p>
+      <table class="tabla">
+        <tr><th>Idea</th><th>🐍 Python</th><th>🤖 GDScript</th></tr>
+        <tr><td>Definir función</td><td><code>def saludar():</code></td><td><code>func saludar():</code></td></tr>
+        <tr><td>Crear variable</td><td><code>vidas = 3</code></td><td><code>var vidas = 3</code> (como en JS ⚡)</td></tr>
+        <tr><td>Decisiones</td><td><code>if / elif / else</code></td><td><code>if / elif / else</code> (¡idéntico!)</td></tr>
+        <tr><td>Ciclos</td><td><code>for i in range(10):</code></td><td><code>for i in range(10):</code> (¡idéntico!)</td></tr>
+        <tr><td>"Yo mismo"</td><td><code>self</code></td><td><code>self</code> — el nodo dueño del script</td></tr>
+        <tr><td>Hablarle a otro</td><td>—</td><td><code>$Nodo</code> — como tu <code>getElementById</code> 🌳</td></tr>
+        <tr><td>Sangría obligatoria</td><td>Sí ✅</td><td>Sí ✅ (los dos regañan igual)</td></tr>
+      </table>
+
+      <p>Y así se ve un script REAL de Godot — el movimiento de un personaje. Nota: esto no
+        corre en el navegador (GDScript vive dentro de Godot), pero apuesto a que lo LEES
+        completo sin ayuda:</p>
+      <pre class="bloque-codigo"><code># jugador.gd — se pega a un nodo y el nodo cobra vida
+extends CharacterBody2D          # "soy un personaje con física"
+
+var velocidad = 300
+
+func _process(delta):            # ¡EL GAME LOOP! Godot la llama cada cuadro
+    var direccion = Input.get_axis("ui_left", "ui_right")   # ← → como tu objeto teclas
+    velocity.x = direccion * velocidad
+    move_and_slide()             # mover + chocar contra paredes… ¡en UNA línea!
+
+func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
+    print("¡choqué con algo!")   # (tu chocan() ahora es automática)</code></pre>
+      <p>¿Viste la línea <code>move_and_slide()</code>? Movimiento + colisiones + resbalar por
+        paredes: todo lo que programaste a mano en el Nivel 9, en una llamada. ESO regala un
+        motor. Y tú, a diferencia de quien empieza ahí, <strong>sabes qué hace por dentro</strong>. 🧠</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: INSTALA TU NUEVA CONSOLA</p>
+      <p>El mismo ritual del Nivel 0, ya eres veterano en esto. Marca cada paso al completarlo
+        (se guardan en tu partida 💾):</p>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" data-check="n10-godot-1">
+          <div class="paso-texto"><strong>Descarga Godot:</strong> entra a
+            <a href="https://godotengine.org/download/macos/" target="_blank" rel="noopener">godotengine.org/download/macos ↗</a>
+            y baja <strong>Godot Engine</strong> (la versión normal, NO la ".NET"). Es un ZIP de
+            ~150 MB.</div>
+        </li>
+        <li>
+          <input type="checkbox" data-check="n10-godot-2">
+          <div class="paso-texto"><strong>Instálalo:</strong> descomprime el ZIP (doble clic) y
+            <strong>arrastra Godot a la carpeta Aplicaciones</strong> 📁 — el mismo ritual de
+            arrastrar que hiciste con VS Code en el Nivel 0.</div>
+        </li>
+        <li>
+          <input type="checkbox" data-check="n10-godot-3">
+          <div class="paso-texto"><strong>Ábrelo:</strong> primera vez → clic derecho sobre
+            Godot → <strong>Abrir</strong> → Abrir (el guardián de seguridad de macOS, ya lo
+            conoces 🛡️). Debe aparecer el Gestor de Proyectos.</div>
+        </li>
+        <li>
+          <input type="checkbox" data-check="n10-godot-4">
+          <div class="paso-texto"><strong>Crea tu primer proyecto:</strong> botón
+            <strong>+ Crear</strong> → nómbralo <code>hola-godot</code> → elige una carpeta
+            dentro de tus proyectos → <strong>Crear y Editar</strong>. Bienvenido al editor:
+            esa es tu nueva nave. 🚀</div>
+        </li>
+        <li>
+          <input type="checkbox" data-check="n10-godot-5">
+          <div class="paso-texto"><strong>Tu primera escena:</strong> en el panel Escena, clic en
+            <strong>Otro Nodo</strong> → busca y elige <code>Label</code> (un nodo de texto) →
+            en el Inspector (derecha), escribe en su propiedad <strong>Text</strong>:
+            <code>¡Hola, Godot! Vengo de Code Quest 👾</code>. Guarda la escena (⌘S) y presiona
+            <strong>▶</strong> (arriba a la derecha) para ejecutar. ¡Tu primer proyecto de
+            Godot corre! 🎉</div>
+        </li>
+      </ul>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          ¿macOS dice <em>"no se puede abrir porque proviene de un desarrollador no
+          identificado"</em>? No es un error tuyo: es el guardián del Nivel 0. Clic
+          <strong>derecho</strong> sobre la app → Abrir → Abrir. Solo la primera vez.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          ¿El editor te pregunta por el "renderizador"? Elige <strong>Compatibilidad
+          (Compatibility)</strong>: es el modo más ligero y perfecto para juegos 2D.
+          ¿Todo en inglés? En Editor → Editor Settings → Interface → Editor Language
+          puedes poner español.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">¿Y DESPUÉS QUÉ? (TU RUTA EN GODOT)</span>
+          Con el proyecto creado, tu siguiente movida es el tutorial oficial
+          <strong>"Tu primer juego 2D"</strong> (está en el reto de abajo 👇): construyes un
+          juego de esquivar enemigos en ~2 horas, y de paso reconocerás TODO — game loop
+          (<code>_process</code>), teclado (<code>Input</code>), colisiones (señales), marcador,
+          pantallas… Es tu Space Invaders, con cocina industrial. 👨‍🍳
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿La descarga no abre? Búscala en tu carpeta <strong>Descargas</strong> y dale doble
+          clic al ZIP primero. 📂</li>
+        <li>¿El editor te abruma? Normal: es una cabina de avión ✈️. Hoy solo necesitas 3
+          paneles: Escena (izquierda), Inspector (derecha) y el botón ▶.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n10l2">Tengo 13 años, sé Python y JavaScript (acabo de terminar mi propio Space Invaders con canvas), y estoy empezando con Godot 4 en Mac. Explícame como a alguien de mi edad: 1) qué es un nodo, una escena y una señal, usando una analogía de teatro; 2) en qué se parece GDScript a Python con un ejemplo cortito de cada uno; 3) qué pasos sigo para hacer que un sprite se mueva con las flechas. Si te pregunto errores del editor, pídeme capturas o el texto exacto del error antes de responder.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL): TU PRIMER JUEGO EN GODOT</p>
+      <p>El tutorial oficial de Godot,
+        <a href="https://docs.godotengine.org/es/stable/getting_started/first_2d_game/index.html" target="_blank" rel="noopener">
+        "Tu primer juego 2D" ↗</a> (documentación oficial, en español, gratis), te lleva a
+        construir <em>Dodge the Creeps</em>: un jueguito de esquivar monstruos. Hazlo con tu
+        mentalidad de etapas: una sección por sesión. Cuando lo termines, el reto DE VERDAD:
+        <strong>recrea tu Space Invaders en Godot</strong>. Ya conoces el diseño de memoria —
+        nave, balas, invasores — solo cambia la cocina. 👾</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n10-l2" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Para qué sirve un motor de juegos como Godot?</p>
+          <button class="opcion">Para jugar juegos que otros hicieron</button>
+          <button class="opcion" data-ok>Trae listas las piezas que todo juego repite (física, colisiones, sonido, cámaras) para que tú te concentres en TU juego</button>
+          <button class="opcion">Para que los juegos no necesiten código</button>
+          <div class="explicacion">Es la cocina industrial 👨‍🍳: no cocina por ti, pero ya no
+            tienes que fabricar la estufa. Y como tú SÍ fabricaste una (Nivel 9), entiendes
+            qué te está regalando.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En Godot, ¿qué es una SEÑAL?</p>
+          <button class="opcion">Un tipo de dibujo animado</button>
+          <button class="opcion">El cable que conecta la compu con el control</button>
+          <button class="opcion" data-ok>Un aviso que un nodo emite cuando algo pasa ("¡me tocaron!") para que otros nodos reaccionen — como los eventos de JavaScript</button>
+          <div class="explicacion">Señal = grito entre actores 📣. Si dominaste
+            <code>addEventListener</code>, ya dominas la idea: algo pasa → alguien escucha →
+            código reacciona.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿En qué se parecen GDScript y Python?</p>
+          <button class="opcion" data-ok>En casi todo lo importante: sangría, if/elif/else, for con range, print… GDScript cambia def por func y usa var</button>
+          <button class="opcion">Solo en el nombre</button>
+          <button class="opcion">En nada: hay que aprender desde cero</button>
+          <div class="explicacion">Por eso este curso te enseñó Python primero 😉: tu Nivel 3
+            y 4 fueron, en secreto, tu curso de introducción a GDScript.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n10-l2">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-1.html">◀ Anterior: Retos legendarios</a>
+      <a href="leccion-3.html">Siguiente: Tu camino de programador 👑 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+</body>
+</html>

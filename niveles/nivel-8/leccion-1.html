@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu lienzo de píxeles — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🖌️ Nivel 8: Canvas</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 8 · LECCIÓN 1</span>
+    <h1>Tu lienzo de píxeles 🖌️</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Dibujar con código sobre un <strong>&lt;canvas&gt;</strong>: rectángulos con
+        <code>fillRect</code>, colores con <code>fillStyle</code>, círculos con
+        <code>arc</code>… y entender el <strong>sistema de coordenadas</strong> de los
+        videojuegos (spoiler: la Y está al revés que en mate 🙃).</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Todo lo que has hecho en la web hasta ahora usa piezas prefabricadas: botones,
+        párrafos, tablas. Pero un videojuego no está hecho de botones: está hecho de
+        <strong>dibujos que cambian muy rápido</strong>. Para eso existe
+        <code>&lt;canvas&gt;</code>, una etiqueta de HTML que es literalmente eso:
+        un <strong>lienzo en blanco</strong> donde tu JavaScript dibuja lo que quiera.</p>
+      <div class="analogia">
+        Un <strong>canvas</strong> es como una <strong>hoja cuadriculada gigante</strong> 📐:
+        cada cuadrito (píxel) tiene su dirección, como en Batalla Naval 🚢 — columna
+        <code>x</code> y fila <code>y</code>. Tú le das órdenes al pincel:
+        "píntame un rectángulo verde en la casilla (40, 60)". El pincel obedece. Siempre.
+      </div>
+
+      <p>Para dibujar necesitas 2 pasos y 3 herramientas:</p>
+      <ol>
+        <li><strong>Agarrar los pinceles:</strong> <code>var ctx = canvas.getContext("2d");</code>
+          — <code>ctx</code> (de "contexto") es tu caja de pinceles 🖌️.</li>
+        <li><strong>Elegir color:</strong> <code>ctx.fillStyle = "#39ff8e";</code>
+          — el pincel se queda con ese color hasta que lo cambies.</li>
+        <li><strong>Pintar:</strong> <code>ctx.fillRect(x, y, ancho, alto);</code>
+          pinta un rectángulo relleno, y <code>ctx.arc(...)</code> dibuja círculos.</li>
+      </ol>
+
+      <p>Pero OJO 👀, aquí viene lo más importante de la lección. En la clase de mate,
+        la Y crece hacia <em>arriba</em>. En canvas (y en casi TODOS los videojuegos),
+        <strong>el punto (0,0) está en la esquina superior IZQUIERDA</strong> y
+        <strong>la Y crece hacia ABAJO</strong>. ¡Al revés que en mate! Es como leer:
+        empiezas arriba a la izquierda y bajas.</p>
+
+      <div class="diagrama">
+        <svg width="500" height="240" viewBox="0 0 500 240">
+          <!-- Eje X -->
+          <line x1="100" y1="26" x2="410" y2="26" stroke="#00e5ff" stroke-width="3"/>
+          <polygon points="410,20 424,26 410,32" fill="#00e5ff"/>
+          <text x="255" y="16" text-anchor="middle" font-size="13" fill="#00e5ff">x crece hacia la derecha →</text>
+          <!-- Eje Y -->
+          <line x1="86" y1="40" x2="86" y2="210" stroke="#ff4dd8" stroke-width="3"/>
+          <polygon points="80,210 86,224 92,210" fill="#ff4dd8"/>
+          <text x="60" y="130" text-anchor="middle" font-size="13" fill="#ff4dd8" transform="rotate(-90 60 130)">y crece hacia ABAJO ↓</text>
+          <!-- El lienzo -->
+          <rect x="100" y="40" width="300" height="170" rx="6" fill="#0a0a1a" stroke="#39ff8e" stroke-width="3"/>
+          <!-- Origen -->
+          <circle cx="100" cy="40" r="6" fill="#ffe95c"/>
+          <text x="112" y="58" font-size="13" fill="#ffe95c">(0, 0) ¡aquí empieza todo!</text>
+          <!-- Líneas guía animadas hacia el punto -->
+          <line class="anim-recorrido" x1="250" y1="40" x2="250" y2="140" stroke="#ffe95c" stroke-width="2"/>
+          <line class="anim-recorrido" x1="100" y1="140" x2="250" y2="140" stroke="#ffe95c" stroke-width="2"/>
+          <!-- El punto -->
+          <circle class="anim-pulso" cx="250" cy="140" r="8" fill="#ff4dd8"/>
+          <text class="anim-valor-aparece" x="262" y="136" font-size="14" fill="#eaeaf5">(150, 100)</text>
+          <text class="anim-valor-aparece mono" x="262" y="156" font-size="11" fill="#a3a3c8">150 a la derecha, 100 hacia abajo</text>
+        </svg>
+        <p class="pie">El punto <code>(150, 100)</code> está a <strong>150 píxeles a la derecha</strong>
+          y <strong>100 píxeles hacia abajo</strong> desde la esquina superior izquierda.
+          Grábatelo: <strong>más Y = más abajo</strong>. Te va a salvar mil veces. 🧠</p>
+      </div>
+
+      <p>Y una cosa más: el pincel pinta <strong>en orden</strong>, como calcomanías.
+        Lo que dibujes después queda <strong>encima</strong> de lo que dibujaste antes.
+        Por eso los juegos pintan primero el fondo y al final al personaje. 🎨</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Aquí está un canvas con las 3 herramientas en acción. Presiona
+        <strong>▶ Ejecutar</strong> y luego juega: cambia números, cambia colores,
+        rompe cosas (romper es aprender 😏). Por ejemplo: ¿qué pasa si al círculo
+        le pones <code>y = 50</code>? ¿Sube o baja?</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_lienzo.html" data-alto="420">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 10px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="400" height="300"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    // 1) Agarrar el lienzo y los pinceles
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // 2) Un rectángulo cian: fillRect(x, y, ancho, alto)
+    ctx.fillStyle = "#00e5ff";
+    ctx.fillRect(40, 40, 120, 80);
+
+    // 3) Otro rosa, MÁS ABAJO (más y = más abajo, ¿recuerdas?)
+    ctx.fillStyle = "#ff4dd8";
+    ctx.fillRect(40, 160, 120, 80);
+
+    // 4) Un círculo amarillo: arc(x, y, radio, 0, Math.PI * 2)
+    //    Math.PI * 2 = "dale la vuelta completa"
+    ctx.beginPath();
+    ctx.arc(290, 100, 50, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffe95c";
+    ctx.fill();
+
+    // 5) Un cuadrito encima del círculo: lo de después queda ENCIMA 🎨
+    ctx.fillStyle = "#0a0a1a";
+    ctx.fillRect(270, 80, 15, 15);
+    ctx.fillRect(305, 80, 15, 15);
+
+    // 6) Hasta puedes escribir texto
+    ctx.fillStyle = "#39ff8e";
+    ctx.font = "20px monospace";
+    ctx.fillText("¡Hola, canvas!", 220, 200);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p class="suave">🔍 Fíjate: el círculo con ojitos quedó porque el orden importa —
+        primero el círculo amarillo, luego los cuadritos oscuros encima.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: TU PERSONAJE PIXELADO</p>
+      <p>Vas a dibujar una <strong>carita de creeper</strong> 🟩 (o el personaje pixelado
+        que tú quieras) usando puros rectángulos. Ya te dejé la cara verde lista;
+        tú completa los <strong>ojos</strong> y la <strong>boca</strong>. Guíate con las
+        coordenadas del comentario: la cara va de (120, 60) a (280, 220).</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_creeper.html" data-alto="400">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #14142e; text-align: center; }
+    canvas { background: #0d0d22; border: 3px solid #39ff8e; border-radius: 8px; margin-top: 10px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="400" height="280"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // La cara: un cuadrado verde de 160x160 que empieza en (120, 60)
+    ctx.fillStyle = "#39ff8e";
+    ctx.fillRect(120, 60, 160, 160);
+
+    // TODO 1: los ojos 👀 — dos cuadrados oscuros (color "#0a0a1a")
+    //         de 40x40. Sugerencia: uno en (140, 100) y otro en (220, 100).
+
+    // TODO 2: la boca 😮 — el creeper tiene una boca en forma de "n" al revés:
+    //         un rectángulo de 40x60 en (180, 140)
+    //         + uno de 20x40 en (160, 160)
+    //         + uno de 20x40 en (220, 160).
+
+    // TODO 3 (toque final): dale tu firma con ctx.fillText() donde tú quieras.
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Cada rectángulo son 2 líneas: primero el color con <code>ctx.fillStyle = "#0a0a1a";</code>
+          y luego <code>ctx.fillRect(x, y, ancho, alto);</code>. Como los dos ojos son del
+          mismo color, ¡puedes poner el color una sola vez y pintar los dos!
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El primer ojo es <code>ctx.fillRect(140, 100, 40, 40);</code>. El segundo es igual
+          pero empieza en <code>x = 220</code>. La boca son 3 rectángulos con las medidas
+          exactas que dice el TODO 2 — cópialas tal cual y luego ajusta a tu gusto.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>// Los ojos: mismo color, dos rectángulos
+ctx.fillStyle = "#0a0a1a";
+ctx.fillRect(140, 100, 40, 40);   // ojo izquierdo
+ctx.fillRect(220, 100, 40, 40);   // ojo derecho
+
+// La boca: 3 piezas que juntas forman la "n" invertida
+ctx.fillRect(180, 140, 40, 60);   // centro (más alto)
+ctx.fillRect(160, 160, 20, 40);   // pata izquierda
+ctx.fillRect(220, 160, 20, 40);   // pata derecha
+
+// La firma
+ctx.fillStyle = "#ffe95c";
+ctx.font = "16px monospace";
+ctx.fillText("hecho por mí 😎", 130, 255);</code></pre>
+          Fíjate cómo TODO son coordenadas: los ojos están a la misma altura
+          (<code>y = 100</code>) pero en distinta columna (<code>x = 140</code> y
+          <code>x = 220</code>). Los personajes pixelados son puro Batalla Naval. 🚢
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿No aparece nada? Revisa que uses <code>ctx.</code> antes de cada orden
+          y que los paréntesis estén completos.</li>
+        <li>¿El dibujo salió donde no era? Vuelve al <strong>diagrama de coordenadas</strong>:
+          más Y = más abajo. 🙃</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n8l1">Tengo 13 años y estoy aprendiendo a dibujar en el canvas de HTML con JavaScript: getContext("2d"), fillRect, fillStyle y arc. Me confunde el sistema de coordenadas donde (0,0) está arriba a la izquierda y la Y crece hacia abajo. Explícamelo con un dibujo de texto y ejemplos cortos, y luego hazme 3 preguntas tipo "¿dónde quedaría este punto?" para practicar. No me resuelvas mis tareas completas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        comparar creepers también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Dibuja una <strong>escena nocturna completa</strong> 🌙: cielo oscuro de fondo
+        (un rectángulo gigante que cubra todo), una luna con <code>arc</code>, estrellas
+        (cuadritos blancos de 2x2 regados por arriba) y tu creeper parado sobre un piso
+        verde. <strong>Jefe secreto:</strong> dibuja las estrellas con un ciclo
+        <code>for</code> y <code>Math.random() * 400</code> para que cada ejecución
+        acomode las estrellas en lugares distintos. ✨</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n8-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En un canvas, ¿dónde está el punto (0, 0)?</p>
+          <button class="opcion">En el centro del lienzo</button>
+          <button class="opcion" data-ok>En la esquina superior izquierda</button>
+          <button class="opcion">En la esquina inferior izquierda, como en mate</button>
+          <div class="explicacion">El origen está arriba a la izquierda, y la Y crece hacia
+            ABAJO. Es al revés que en la clase de mate, pero igual que leer un libro:
+            empiezas arriba y vas bajando. 📖</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué dibuja <code>ctx.fillRect(50, 80, 100, 30)</code>?</p>
+          <button class="opcion">Un rectángulo que va del punto (50, 80) al punto (100, 30)</button>
+          <button class="opcion" data-ok>Un rectángulo de 100 de ancho y 30 de alto, cuya esquina superior izquierda está en (50, 80)</button>
+          <button class="opcion">Un rectángulo de 50x80 pintado 100 veces</button>
+          <div class="explicacion">El orden es <code>fillRect(x, y, ancho, alto)</code>:
+            los primeros dos números dicen DÓNDE empieza (su esquina superior izquierda)
+            y los otros dos CUÁNTO mide. 📐</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Si dibujas un círculo amarillo y DESPUÉS un cuadrado rojo encima, ¿qué se ve?</p>
+          <button class="opcion">El círculo tapa al cuadrado, porque los círculos ganan</button>
+          <button class="opcion" data-ok>El cuadrado tapa al círculo: lo que se dibuja después queda encima</button>
+          <button class="opcion">Se mezclan los colores y sale naranja</button>
+          <div class="explicacion">El canvas pinta como calcomanías: en orden. Por eso los
+            juegos dibujan primero el fondo y al final al personaje. 🎨</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n8-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Volver al Nivel 8</a>
+      <a href="leccion-2.html">Siguiente: El game loop ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

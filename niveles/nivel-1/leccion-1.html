@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu primera página — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffb86c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🧱 Nivel 1: HTML</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 1 · LECCIÓN 1</span>
+    <h1>Tu primera página 🧱✨</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir tu <strong>primera página web</strong> con HTML: entender qué son las
+        <strong>etiquetas</strong>, la estructura <code>html / head / body</code>, y usar
+        <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> para poner tu propio texto en pantalla.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p><strong>HTML</strong> es el idioma con el que se construyen TODAS las páginas web del
+        planeta. YouTube, TikTok, la página de tu escuela… todas son HTML por dentro. Y la buena
+        noticia: no es un idioma de matemáticas raras, es un idioma de <strong>cajas con
+        etiqueta</strong>. 📦</p>
+      <div class="analogia">
+        Una <strong>etiqueta HTML</strong> es una caja con nombre: se abre con
+        <code>&lt;nombre&gt;</code> y se cierra con <code>&lt;/nombre&gt;</code> (fíjate en la
+        diagonal <code>/</code>, es la "tapa" de la caja). Lo que pongas entre la apertura y el
+        cierre es lo que va <strong>dentro de la caja</strong>.
+      </div>
+      <p>Por ejemplo: <code>&lt;h1&gt;Hola&lt;/h1&gt;</code> significa
+        <em>"caja de título grande, adentro dice Hola"</em>. Y
+        <code>&lt;p&gt;¿Qué onda?&lt;/p&gt;</code> es <em>"caja de párrafo, adentro dice
+        ¿Qué onda?"</em>. Fácil, ¿no? 😎</p>
+      <p>Ahora, toda página HTML tiene la misma estructura básica de tres cajas grandes, y se
+        entiende perfecto si la piensas como un cuerpo humano:</p>
+      <ul>
+        <li><code>&lt;html&gt;</code> es <strong>todo el cuerpo</strong>: la caja que envuelve absolutamente todo.</li>
+        <li><code>&lt;head&gt;</code> es <strong>el cerebro</strong> 🧠: información importante que
+          <strong>no se ve</strong> en la página (como el título de la pestaña).</li>
+        <li><code>&lt;body&gt;</code> es <strong>el cuerpo visible</strong> 💪: TODO lo que sí
+          aparece en pantalla vive aquí.</li>
+      </ul>
+
+      <div class="diagrama">
+        <svg width="560" height="260" viewBox="0 0 560 260">
+          <!-- Caja html (raíz) -->
+          <g class="anim-pulso">
+            <rect x="205" y="20" width="150" height="50" rx="10" fill="none" stroke="#ffb86c" stroke-width="3"/>
+            <text class="mono" x="280" y="50" text-anchor="middle" font-size="18" fill="#ffb86c">&lt;html&gt;</text>
+          </g>
+          <!-- Ramas -->
+          <path class="anim-recorrido" d="M 245 70 L 150 120" fill="none" stroke="#a3a3c8" stroke-width="3"/>
+          <path class="anim-recorrido" d="M 315 70 L 410 120" fill="none" stroke="#a3a3c8" stroke-width="3"/>
+          <!-- Caja head -->
+          <g class="anim-valor-aparece">
+            <rect x="60" y="125" width="180" height="90" rx="10" fill="none" stroke="#a78bfa" stroke-width="3"/>
+            <text class="mono" x="150" y="155" text-anchor="middle" font-size="16" fill="#a78bfa">&lt;head&gt;</text>
+            <text x="150" y="180" text-anchor="middle" font-size="22">🧠</text>
+            <text x="150" y="205" text-anchor="middle" font-size="12" fill="#a3a3c8">invisible: título, config</text>
+          </g>
+          <!-- Caja body -->
+          <g class="anim-valor-aparece">
+            <rect x="320" y="125" width="180" height="90" rx="10" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text class="mono" x="410" y="155" text-anchor="middle" font-size="16" fill="#39ff8e">&lt;body&gt;</text>
+            <text x="410" y="180" text-anchor="middle" font-size="22">💪</text>
+            <text x="410" y="205" text-anchor="middle" font-size="12" fill="#a3a3c8">visible: títulos, texto…</text>
+          </g>
+          <text x="280" y="248" text-anchor="middle" font-size="13" fill="#a3a3c8">Toda página web del mundo tiene este esqueleto</text>
+        </svg>
+        <p class="pie"><code>&lt;html&gt;</code> envuelve todo; <code>&lt;head&gt;</code> es el
+          cerebro invisible 🧠 y <code>&lt;body&gt;</code> es lo que la gente ve 💪.
+          ¡Ya conoces la anatomía de internet!</p>
+      </div>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Esta es una página web completita, de verdad. Abajo del código ves la
+        <strong>vista previa</strong>: así se vería en Chrome. Presiona
+        <strong>▶ Ejecutar</strong> y luego juega: cambia el texto del <code>&lt;h1&gt;</code>,
+        vuelve a ejecutar, y mira cómo cambia la página. 🪄</p>
+      <div class="playground" data-mode="html" data-titulo="mi-primera-pagina.html" data-alto="200">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi primera página</title>
+  </head>
+  <body>
+    <h1>¡Hola, mundo! 🌎</h1>
+    <p>Esta página la hice yo, con mis propias manos.</p>
+    <p>Hoy: una página. Mañana: mi propio videojuego. 👾</p>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: la primera línea <code>&lt;!DOCTYPE html&gt;</code> solo le avisa al
+        navegador "esto es HTML moderno" (se pone siempre y ya). El <code>&lt;title&gt;</code>
+        está en el <code>head</code>: por eso no aparece en la página — aparecería en la
+        <strong>pestaña</strong> del navegador. Y todo lo visible está dentro del
+        <code>body</code>. Tal como en el diagrama. 😉</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Te toca construir una página desde (casi) cero. Completa los 3 TODOs:
+        ponle un título de pestaña, un <code>&lt;h1&gt;</code> con tu nombre,
+        y un párrafo que diga tu comida favorita. 🌮</p>
+      <div class="playground" data-mode="html" data-titulo="tu-turno.html" data-alto="200">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <!-- TODO 1: pon un título de pestaña dentro de <title> y </title> -->
+
+  </head>
+  <body>
+    <!-- TODO 2: escribe un <h1> con tu nombre -->
+
+    <!-- TODO 3: escribe un <p> con tu comida favorita -->
+
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Recuerda: toda etiqueta es una caja que se abre y se cierra. El título de pestaña se
+          escribe <code>&lt;title&gt;Mi página&lt;/title&gt;</code> y va DENTRO del
+          <code>head</code>. Las otras dos cajas van dentro del <code>body</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          Las dos cajas visibles son: <code>&lt;h1&gt;Tu Nombre&lt;/h1&gt;</code> y
+          <code>&lt;p&gt;Me encantan los tacos al pastor&lt;/p&gt;</code>. Revisa que ninguna se
+          quede sin su tapa <code>&lt;/…&gt;</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;La página de Dana&lt;/title&gt;   &lt;!-- se ve en la PESTAÑA --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Dana Ramírez&lt;/h1&gt;              &lt;!-- título grande visible --&gt;
+    &lt;p&gt;Mi comida favorita: tacos de canasta 🧺&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          Cada caja abre y cierra: <code>title</code> dentro del cerebro (<code>head</code>),
+          y <code>h1</code> + <code>p</code> dentro del cuerpo visible (<code>body</code>).
+          Si tu página muestra tu nombre en grande: ¡Órale, ya eres constructor web! 🎉
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Vuelve a ver el <strong>diagrama del esqueleto</strong> html → head/body. 🦴</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n1l1">Tengo 13 años y hoy escribí mi primera página HTML. Explícame con la analogía de "cajas con etiqueta" qué son las etiquetas HTML, y con la analogía del cuerpo humano para qué sirven html, head y body. Después muéstrame un error típico de principiante (como olvidar cerrar una etiqueta) y pregúntame si puedo encontrarlo yo. No me resuelvas ejercicios de mi curso, mejor guíame con preguntas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n1l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>En tu página del ejercicio: 1) agrega DOS párrafos más (tu juego favorito y tu canción
+        del momento 🎵); 2) haz el experimento del científico loco 🧪: bórrale la tapa
+        <code>&lt;/h1&gt;</code> al título y ejecuta. ¿Qué le pasa al resto de la página?
+        Ahora ya sabes reconocer el error de "caja sin cerrar" — lo verás mil veces en tu vida
+        de programador y ya no te asustará. 😌</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n1-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cómo se cierra la etiqueta <code>&lt;p&gt;</code>?</p>
+          <button class="opcion">Con otra <code>&lt;p&gt;</code> igual</button>
+          <button class="opcion" data-ok>Con <code>&lt;/p&gt;</code> — la diagonal es la "tapa" de la caja</button>
+          <button class="opcion">No se cierra, se cierra sola</button>
+          <div class="explicacion">La diagonal <code>/</code> convierte la etiqueta en tapa:
+            <code>&lt;p&gt;</code> abre la caja y <code>&lt;/p&gt;</code> la cierra. 📦</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Quieres que en la página se VEA el texto "Bienvenidos a mi mundo". ¿Dónde lo pones?</p>
+          <button class="opcion">En el <code>&lt;head&gt;</code>, que para eso es la cabeza</button>
+          <button class="opcion" data-ok>En el <code>&lt;body&gt;</code>: ahí vive todo lo visible</button>
+          <button class="opcion">Fuera de <code>&lt;html&gt;</code>, para que resalte</button>
+          <div class="explicacion">El <code>head</code> es el cerebro invisible 🧠 (título de
+            pestaña, configuración). Todo lo que se ve en pantalla va en el <code>body</code> 💪.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace <code>&lt;h1&gt;Tacos&lt;/h1&gt;</code>?</p>
+          <button class="opcion" data-ok>Muestra "Tacos" como título grande en la página</button>
+          <button class="opcion">Ordena una torta de tacos a domicilio 🌮</button>
+          <button class="opcion">Cambia el nombre de la pestaña a "Tacos"</button>
+          <div class="explicacion"><code>h1</code> es la caja de "título principal": su contenido
+            se ve en grande y con importancia. (El nombre de la pestaña sería
+            <code>&lt;title&gt;</code>, en el head.)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n1-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Volver al Nivel 1</a>
+      <a href="leccion-2.html">Siguiente: Textos con poder ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

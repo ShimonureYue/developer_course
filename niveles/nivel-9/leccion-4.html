@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colisiones y explosiones — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 4</span>
+    <h1>Colisiones y explosiones: la matemática de los juegos 💥</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir la función <strong><code>chocan(a, b)</code></strong> — el detector de choques
+        que usan (con maquillaje) casi todos los videojuegos 2D del planeta — para que tus
+        balas <strong>destruyan invasores</strong>: +10 puntos, explosión 💥 y marcador en pantalla.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: ¿CUÁNDO SE TOCAN DOS RECTÁNGULOS?</p>
+      <p>Todo en tu juego es un rectángulo con <code>x, y, ancho, alto</code> (¿recuerdas la
+        tabla de diseño? esto era a propósito 😏). La técnica se llama <strong>AABB</strong>, y
+        su truco genial es preguntar al revés: en lugar de "¿se tocan?", pregunta
+        <strong>"¿hay forma de que NO se toquen?"</strong>.</p>
+      <div class="analogia">
+        Piensa en dos coches en una <strong>foto aérea de un estacionamiento</strong> 🚗🚙.
+        Es seguro que NO chocan si pasa cualquiera de estas 4 cosas: uno está totalmente a la
+        <strong>izquierda</strong> del otro, totalmente a la <strong>derecha</strong>, totalmente
+        <strong>arriba</strong> o totalmente <strong>abajo</strong>. ¿Ninguna de las 4 se cumple?
+        Entonces no hay escapatoria: <strong>se están tocando</strong>. 💥
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="240" viewBox="0 0 560 240">
+          <!-- Caso NO chocan -->
+          <g>
+            <rect x="30" y="60" width="70" height="50" rx="6" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="65" y="90" text-anchor="middle" font-size="13" fill="#ffe95c">a</text>
+            <rect x="140" y="70" width="80" height="55" rx="6" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="180" y="102" text-anchor="middle" font-size="13" fill="#ff4dd8">b</text>
+            <!-- hueco entre ambos -->
+            <path class="anim-recorrido" d="M 108 45 L 108 140" fill="none" stroke="#39ff8e" stroke-width="2"/>
+            <text x="125" y="165" text-anchor="middle" font-size="12" fill="#39ff8e">hay escapatoria ✅</text>
+            <text class="mono" x="125" y="188" text-anchor="middle" font-size="11" fill="#a3a3c8">a.x + a.ancho &lt; b.x</text>
+            <text x="125" y="212" text-anchor="middle" font-size="12" fill="#a3a3c8">→ NO chocan</text>
+          </g>
+          <!-- Caso SÍ chocan -->
+          <g class="anim-pulso">
+            <rect x="330" y="65" width="80" height="55" rx="6" fill="none" stroke="#ffe95c" stroke-width="3"/>
+            <text x="352" y="86" text-anchor="middle" font-size="13" fill="#ffe95c">a</text>
+            <rect x="385" y="90" width="85" height="58" rx="6" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+            <text x="450" y="130" text-anchor="middle" font-size="13" fill="#ff4dd8">b</text>
+            <text x="398" y="112" text-anchor="middle" font-size="18">💥</text>
+          </g>
+          <text x="400" y="188" text-anchor="middle" font-size="12" fill="#ff5c7a">ninguna de las 4 escapatorias ❌</text>
+          <text x="400" y="212" text-anchor="middle" font-size="12" fill="#a3a3c8">→ ¡CHOCAN!</text>
+        </svg>
+        <p class="pie">Las 4 escapatorias: <em>a</em> totalmente a la izquierda, a la derecha,
+          arriba o abajo de <em>b</em>. Si TODAS fallan, los rectángulos se superponen sí o sí.</p>
+      </div>
+
+      <h2>🧮 Las 4 escapatorias, en código</h2>
+      <pre class="bloque-codigo"><code>function chocan(a, b) {
+  var aEstaALaIzquierda = a.x + a.ancho &lt; b.x;   // mi borde derecho ni llega a b
+  var aEstaALaDerecha   = a.x &gt; b.x + b.ancho;   // empiezo después de que b termina
+  var aEstaArriba       = a.y + a.alto &lt; b.y;    // mi parte de abajo ni llega a b
+  var aEstaAbajo        = a.y &gt; b.y + b.alto;    // empiezo debajo del final de b
+
+  if (aEstaALaIzquierda || aEstaALaDerecha || aEstaArriba || aEstaAbajo) {
+    return false;   // hay escapatoria → imposible que se toquen
+  }
+  return true;      // no hay escapatoria… ¡CHOCAN! 💥
+}</code></pre>
+      <p>Lo hermoso: <code>chocan(a, b)</code> no sabe qué es una bala ni qué es un invasor.
+        Solo entiende rectángulos. Por eso la MISMA función servirá en la Lección 5 para
+        "bala enemiga vs tu nave", y en cualquier juego que hagas después. Eso es una
+        <strong>función bien diseñada</strong>: hace una cosa, y la hace para siempre. 🧩</p>
+
+      <h2>🔍 ¿Y quién choca con quién?</h2>
+      <p><code>revisarChoques()</code> compara <strong>cada bala contra cada invasor</strong>
+        (¡otra vez ciclos anidados! hoy todo se conecta). Cuando hay choque: el invasor muere
+        (<code>vivo = false</code> — te dije que ese dato serviría 😉), la bala se manda a
+        <code>y = -100</code> para que el filtro de la Lección 2 la barra, se suman 10 puntos
+        y nace una explosión con su cuenta regresiva de cuadros.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR (¡por fin puedes defenderte!)</p>
+      <p>Dispara: 💥 + 10 puntos por invasor. Fíjate cómo la explosión aparece y se apaga
+        (cada una nace con <code>tiempo: 18</code> cuadros y se va restando hasta que el filtro
+        la barre — el MISMO patrón de las balas, ¿lo reconoces?).</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="invaders_etapa4.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l4@@
+</pre>
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>En esta versión tus balas <strong>atraviesan a los invasores como fantasmas</strong> 👻,
+        porque <code>chocan()</code> siempre responde <code>false</code>. Escribe tú la detección
+        AABB completa (las 4 escapatorias, el <code>||</code> y los dos <code>return</code>).
+        Sabrás que lo lograste cuando veas el primer 💥.</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa4.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l4-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Son 4 variables (una por escapatoria), un <code>if</code> con tres <code>||</code>
+          ("o"), y dos <code>return</code>. Las fórmulas exactas están en los comentarios TODO
+          — tu chamba es convertirlas en código y entender POR QUÉ funcionan.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          No olvides <strong>borrar el <code>return false;</code> del final</strong>. En una
+          función, <code>return</code> termina la ejecución: si tu código nuevo está DESPUÉS de
+          ese return, jamás se ejecutará. (Este es uno de los bugs más clásicos del mundo. 🐛)
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function chocan(a, b) {
+  // Las 4 formas de estar SEGUROS de que NO se tocan:
+  var aEstaALaIzquierda = a.x + a.ancho &lt; b.x;
+  var aEstaALaDerecha   = a.x &gt; b.x + b.ancho;
+  var aEstaArriba       = a.y + a.alto &lt; b.y;
+  var aEstaAbajo        = a.y &gt; b.y + b.alto;
+
+  // ¿Alguna escapatoria? → no chocan
+  if (aEstaALaIzquierda || aEstaALaDerecha || aEstaArriba || aEstaAbajo) {
+    return false;
+  }
+  // Sin escapatoria → se superponen
+  return true;
+}</code></pre>
+          Léela como detective 🕵️: "¿puedo demostrar que están separados? ¿No? Entonces se
+          tocan". Preguntar por el caso contrario hace el código más simple — un truco mental
+          que usarás mil veces más.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Nada explota? Revisa que hayas borrado el <code>return false;</code> del final del
+          TODO — si sigue ahí arriba de tu código o tu código está después de un return, la
+          función "se sale" antes de tiempo. 🐛</li>
+        <li>¿Explota TODO al disparar? Revisa los signos: confundir <code>&lt;</code> con
+          <code>&gt;</code> en una escapatoria hace que casi todo "choque".</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l4">Tengo 13 años y estoy programando las colisiones de mi Space Invaders en JavaScript. Uso detección AABB entre rectángulos con x, y, ancho y alto: reviso las 4 formas en que NO pueden chocar (izquierda, derecha, arriba, abajo) y si ninguna se cumple, chocan. Voy a pegarte mi función chocan(a, b): ayúdame a probarla con ejemplos concretos de coordenadas (dame casos que deberían dar true y casos que deberían dar false) y guíame con preguntas si tiene errores, sin corregírmela tú directo.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <ul>
+        <li><strong>💎 Puntos por fila:</strong> los invasores de arriba deberían valer más
+          (están más lejos). Guarda la fila en la ficha del invasor y da
+          <code>puntos = puntos + (4 - inv.fila) * 10;</code></li>
+        <li><strong>🎆 Mejor explosión:</strong> haz que el 💥 crezca: dibuja con
+          <code>ctx.font = (30 - ex.tiempo) + "px sans-serif"</code> — entre menos tiempo le
+          queda, más grande se ve.</li>
+        <li><strong>🏁 Jefe secreto — ¿victoria?:</strong> cuando TODOS estén muertos
+          (<code>invasores.every(function (inv) { return !inv.vivo; })</code>), dibuja
+          "¡GANASTE!" con <code>fillText</code> gigante. En la próxima lección lo haremos
+          en serio con oleadas.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n9-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Cuál es la idea central de la detección AABB?</p>
+          <button class="opcion">Comparar los colores de los dos objetos píxel por píxel</button>
+          <button class="opcion" data-ok>Buscar las 4 formas en que dos rectángulos NO pueden tocarse; si ninguna se cumple, chocan</button>
+          <button class="opcion">Medir la distancia entre los centros y compararla con 10</button>
+          <div class="explicacion">Preguntar "¿hay escapatoria?" es mucho más simple que listar
+            todas las formas de tocarse. Cuatro comparaciones y listo: por eso AABB mueve casi
+            todos los juegos 2D. 🎮</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Si <code>a.x + a.ancho &lt; b.x</code> es verdadero, ¿qué sabemos con seguridad?</p>
+          <button class="opcion" data-ok>Que el borde derecho de <em>a</em> está antes de que empiece <em>b</em>: a está totalmente a la izquierda → NO chocan</button>
+          <button class="opcion">Que a está tocando el borde izquierdo de b</button>
+          <button class="opcion">Que a es más angosto que b</button>
+          <div class="explicacion">Es la escapatoria de la izquierda: si mi lado derecho
+            (<code>x + ancho</code>) ni siquiera alcanza el inicio del otro (<code>b.x</code>),
+            hay aire entre los dos. ✅</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Al chocar, hacemos <code>balas[i].y = -100;</code> ¿Por qué funciona eso para "eliminar" la bala?</p>
+          <button class="opcion">Porque -100 es un código especial de JavaScript para borrar</button>
+          <button class="opcion" data-ok>Porque la manda fuera de la pantalla, y el filter de moverBalas() la barre en el siguiente cuadro</button>
+          <button class="opcion">Porque las balas con y negativa explotan automáticamente</button>
+          <div class="explicacion">¡Reutilizamos la limpieza que YA construimos en la Lección 2!
+            En vez de escribir otro sistema para borrar balas, la mandamos a donde el barrendero
+            ya trabaja. Los buenos programas reusan sus piezas. 🧹</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l4">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: La invasión</a>
+      <a href="leccion-5.html">Siguiente: Que se sienta juego ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

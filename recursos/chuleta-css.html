@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuleta de CSS 🎨 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .tabla td:first-child { white-space: nowrap; }
+
+    /* Al imprimir: fondo blanco, texto negro y sin decoraciones 🖨️ */
+    @media print {
+      body { background: #fff !important; color: #000; font-size: 12px; }
+      .estrellas, .cq-header, .cq-toast, .no-imprimir, footer { display: none !important; }
+      h1, h2, h3, strong, em, a { color: #000 !important; text-shadow: none !important; }
+      p, li, td { color: #000 !important; }
+      .tabla th { color: #000 !important; border-bottom-color: #999; }
+      .tabla td { border-bottom-color: #ccc; }
+      code { background: #f2f2f2; color: #000; border-color: #ccc; }
+      .panel { background: #fff; border-color: #ccc; }
+      pre.bloque-codigo { background: #f7f7f7; border-color: #ccc; color: #000; }
+      pre.bloque-codigo code { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 50px;">
+    <section class="centrado" style="padding: 40px 0 0;">
+      <div style="font-size: 3rem;">🎨</div>
+      <h1>CHULETA DE CSS</h1>
+      <p class="suave">Todo lo que aprendes en el <a href="../niveles/nivel-2/index.html">Nivel 2</a>, en una sola hoja.</p>
+      <button class="btn fantasma no-imprimir" onclick="window.print()">🖨️ IMPRIMIR ESTA CHULETA</button>
+    </section>
+
+    <h2>📐 La sintaxis (siempre es igual)</h2>
+<pre class="bloque-codigo"><code>selector {
+  propiedad: valor;   /* cada regla termina en ; */
+}</code></pre>
+    <p>Y se conecta al HTML con esta línea dentro del <code>&lt;head&gt;</code>:
+      <code>&lt;link rel="stylesheet" href="estilos.css"&gt;</code></p>
+
+    <h2>🎯 Selectores: ¿a quién le pego el estilo?</h2>
+    <table class="tabla">
+      <tr><th>Selector</th><th>¿A quién elige?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>p</code></td><td>TODAS las etiquetas de ese tipo</td><td><code>p { color: red; }</code></td></tr>
+      <tr><td><code>.tarjeta</code></td><td>Todo lo que tenga <code>class="tarjeta"</code></td><td><code>.tarjeta { padding: 20px; }</code></td></tr>
+      <tr><td><code>#logo</code></td><td>EL elemento con <code>id="logo"</code> (solo hay uno)</td><td><code>#logo { width: 100px; }</code></td></tr>
+      <tr><td><code>p, h1</code></td><td>Varios a la vez, separados por coma</td><td><code>p, h1 { margin: 0; }</code></td></tr>
+    </table>
+
+    <h2>🌈 Color y texto</h2>
+    <table class="tabla">
+      <tr><th>Propiedad</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>color</code></td><td>Color del texto</td><td><code>color: #00e5ff;</code></td></tr>
+      <tr><td><code>background-color</code></td><td>Color del fondo</td><td><code>background-color: black;</code></td></tr>
+      <tr><td><code>font-family</code></td><td>El tipo de letra</td><td><code>font-family: 'Nunito', sans-serif;</code></td></tr>
+      <tr><td><code>font-size</code></td><td>Tamaño de la letra</td><td><code>font-size: 24px;</code></td></tr>
+      <tr><td><code>font-weight</code></td><td>Grosor: <code>bold</code> = negritas</td><td><code>font-weight: bold;</code></td></tr>
+      <tr><td><code>text-align</code></td><td>Alineación: <code>left</code>, <code>center</code>, <code>right</code></td><td><code>text-align: center;</code></td></tr>
+    </table>
+
+    <h2>📦 El modelo de caja (todo elemento es una caja)</h2>
+    <p>De adentro hacia afuera: <strong>contenido → padding → border → margin</strong>.</p>
+    <table class="tabla">
+      <tr><th>Propiedad</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>width</code> / <code>height</code></td><td>Ancho y alto de la caja</td><td><code>width: 300px;</code></td></tr>
+      <tr><td><code>padding</code></td><td>Aire ADENTRO, entre el borde y el contenido</td><td><code>padding: 20px;</code></td></tr>
+      <tr><td><code>border</code></td><td>El borde: grosor, estilo y color</td><td><code>border: 2px solid cyan;</code></td></tr>
+      <tr><td><code>margin</code></td><td>Aire AFUERA, que separa de otras cajas</td><td><code>margin: 16px;</code></td></tr>
+    </table>
+
+    <h2>✨ Esquinas, sombras y neón</h2>
+    <table class="tabla">
+      <tr><th>Propiedad</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>border-radius</code></td><td>Redondea las esquinas</td><td><code>border-radius: 12px;</code></td></tr>
+      <tr><td><code>box-shadow</code></td><td>Sombra de la caja (x, y, difuminado, color). ¡Con colores brillantes se ve neón!</td><td><code>box-shadow: 0 0 20px cyan;</code></td></tr>
+      <tr><td><code>text-shadow</code></td><td>Sombra del texto</td><td><code>text-shadow: 0 0 10px lime;</code></td></tr>
+    </table>
+
+    <h2>🧲 Flexbox básico: acomodar cosas en fila</h2>
+    <table class="tabla">
+      <tr><th>Propiedad</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>display: flex</code></td><td>Convierte la caja en "acomodadora" de sus hijos</td><td><code>display: flex;</code></td></tr>
+      <tr><td><code>justify-content</code></td><td>Reparte a lo LARGO: <code>center</code>, <code>space-between</code>…</td><td><code>justify-content: center;</code></td></tr>
+      <tr><td><code>align-items</code></td><td>Alinea a lo ANCHO (vertical en una fila)</td><td><code>align-items: center;</code></td></tr>
+      <tr><td><code>gap</code></td><td>Espacio entre los hijos</td><td><code>gap: 16px;</code></td></tr>
+    </table>
+
+    <h2>🪄 Magia: hover y transiciones</h2>
+    <table class="tabla">
+      <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
+      <tr><td><code>selector:hover</code></td><td>Estilos SOLO cuando el mouse está encima</td><td><code>.btn:hover { background: lime; }</code></td></tr>
+      <tr><td><code>transition</code></td><td>Que el cambio sea suave, no de golpe</td><td><code>transition: background 0.3s;</code></td></tr>
+      <tr><td><code>cursor: pointer</code></td><td>El cursor se vuelve manita 👆</td><td><code>cursor: pointer;</code></td></tr>
+    </table>
+
+    <div class="panel">
+      <h3 style="margin-top: 0;">🚑 Si el estilo no aparece…</h3>
+      <ul>
+        <li>¿Pusiste el <code>;</code> al final y cerraste la llave <code>}</code>?</li>
+        <li>¿El <code>&lt;link&gt;</code> apunta al archivo correcto? Revisa el nombre EXACTO.</li>
+        <li>¿Escribiste la clase igual en los dos lados? <code>.tarjeta</code> en CSS necesita <code>class="tarjeta"</code> en HTML.</li>
+      </ul>
+    </div>
+
+    <p class="centrado no-imprimir">
+      <a class="btn fantasma" href="index.html">⬅️ VOLVER A RECURSOS</a>
+    </p>
+  </main>
+
+  <script>window.CQ_BASE = "../";</script>
+  <script src="../assets/js/progress.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La invasión: ciclos anidados — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #a78bfa;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">👾 Nivel 9: Space Invaders</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 9 · LECCIÓN 3</span>
+    <h1>La invasión: 32 enemigos con ciclos anidados 👾</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Crear la formación completa de invasores (<strong>4 filas × 8 columnas = 32
+        enemigos</strong>) con <strong>ciclos anidados</strong>, y hacer que marchen como un solo
+        bloque: derecha… borde… ¡TODOS bajan y dan media vuelta! 🫡</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO: CICLOS ANIDADOS (¡PARA ESTO SIRVEN!)</p>
+      <p>Cuando aprendiste ciclos en Python te dijimos que servían para repetir. Hoy descubres
+        su verdadero poder: <strong>un ciclo ADENTRO de otro</strong> genera cuadrículas enteras.
+        ¿Escribir 32 invasores a mano? Serían como 200 líneas aburridísimas. ¿Con ciclos
+        anidados? <strong>6 líneas.</strong> 🤯</p>
+      <div class="analogia">
+        Un ciclo anidado funciona como <strong>acomodar sillas para un festival</strong> 🪑:
+        el ciclo de afuera dice "vamos con la fila 0, la 1, la 2, la 3…" y el de adentro,
+        POR CADA fila, coloca las 8 sillas una por una. Fila por fila, silla por silla:
+        4 × 8 = 32 sillas sin acomodar ninguna a mano.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="260" viewBox="0 0 560 260">
+          <!-- Fila 0 -->
+          <g class="anim-conteo">
+            <rect x="60" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="110" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="160" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="210" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="260" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="310" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="360" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="410" y="30" width="34" height="24" rx="4" fill="#ff4dd8"/>
+            <text class="mono" x="470" y="48" font-size="12" fill="#a3a3c8">fila 0</text>
+          </g>
+          <!-- Fila 1 -->
+          <g class="anim-conteo paso-2">
+            <rect x="60" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="110" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="160" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="210" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="260" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="310" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="360" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="410" y="75" width="34" height="24" rx="4" fill="#ff4dd8"/>
+            <text class="mono" x="470" y="93" font-size="12" fill="#a3a3c8">fila 1</text>
+          </g>
+          <!-- Fila 2 -->
+          <g class="anim-conteo paso-3">
+            <rect x="60" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="110" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="160" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="210" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="260" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="310" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="360" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="410" y="120" width="34" height="24" rx="4" fill="#ff4dd8"/>
+            <text class="mono" x="470" y="138" font-size="12" fill="#a3a3c8">fila 2</text>
+          </g>
+          <!-- Fila 3 -->
+          <g class="anim-conteo paso-4">
+            <rect x="60" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="110" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="160" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="210" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="260" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="310" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="360" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/><rect x="410" y="165" width="34" height="24" rx="4" fill="#ff4dd8"/>
+            <text class="mono" x="470" y="183" font-size="12" fill="#a3a3c8">fila 3</text>
+          </g>
+          <g class="anim-conteo paso-5">
+            <text class="mono" x="280" y="225" text-anchor="middle" font-size="14" fill="#39ff8e">¡32 invasores con 6 líneas de código! 🤯</text>
+          </g>
+          <text class="mono" x="280" y="250" text-anchor="middle" font-size="12" fill="#a3a3c8">for (fila…) → for (columna…) → push(invasor)</text>
+        </svg>
+        <p class="pie">El ciclo de afuera genera cada FILA; el de adentro coloca las 8 COLUMNAS de
+          esa fila. La posición se calcula multiplicando: <code>x = 40 + columna * 50</code>,
+          <code>y = 50 + fila * 45</code>.</p>
+      </div>
+
+      <h2>🫡 Marchar en bloque: el truco de la banderita</h2>
+      <p>El movimiento clásico de los invasores parece complicado, pero es un truco elegante
+        de 3 pasos que se repite cada cuadro:</p>
+      <ol class="pasos">
+        <li>Todos avanzan hacia el mismo lado: <code>inv.x + velocidad * direccion</code>
+          (dirección <code>1</code> = derecha, <code>-1</code> = izquierda).</li>
+        <li>Mientras avanzan, levantamos una <strong>banderita</strong> si ALGUNO tocó la pared:
+          <code>tocanBorde = true</code>.</li>
+        <li>Si la banderita se levantó: TODOS bajan 18 píxeles y la dirección se voltea
+          multiplicando por −1. Media vuelta, ¡marchen! 🎺</li>
+      </ol>
+      <p>Fíjate que el invasor tiene un dato nuevo en su ficha: <code>vivo: true</code>. Todavía
+        no sirve para nada… pero en la próxima lección, cuando tus balas empiecen a darles,
+        será la diferencia entre dibujarse o no. Los diseñadores piensan una lección adelante. 😉</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Ahí vienen. 😱 Observa la marcha: derecha → borde → TODOS bajan → izquierda → borde →
+        bajan… Cada invasor es pixel-art hecho con puros <code>fillRect</code>: cuerpo, dos
+        antenitas y dos ojos. (Todavía no puedes destruirlos: tus balas los atraviesan.
+        Eso se arregla en la Lección 4. 💥)</p>
+      <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu teclado.</strong></p>
+
+      <div class="playground" data-mode="html" data-titulo="invaders_etapa3.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l3@@
+</pre>
+      </div>
+
+      <p>Juega con los números de <code>crearInvasores()</code>: ¿5 filas? ¿6 columnas?
+        ¿Separación de 60 en vez de 50? Un solo cambio de número redibuja toda la formación —
+        ese es el poder de generar con ciclos en lugar de escribir a mano.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>La pantalla está vacía porque <code>crearInvasores()</code> no crea nada. 🏜️ Escribe
+        los <strong>dos ciclos anidados</strong> que fabrican la formación de 4 filas × 8
+        columnas. Cuando ejecutes y aparezcan los 32 marchando, respira ese poder. 😤</p>
+
+      <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa3.html" data-alto="545">
+<pre class="codigo-inicial" hidden>
+@@CODE:n9l3-turno@@
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          La estructura es: <code>for (var fila = 0; fila &lt; 4; fila++) { for (var columna = 0;
+          columna &lt; 8; columna++) { … } }</code>. El <code>push</code> va en el centro, dentro
+          de AMBOS ciclos (revisa que tus llaves <code>{ }</code> cierren bien).
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El objeto que se mete al arreglo ya te lo dejamos comentado en el TODO 3: descoméntalo.
+          Lee sus cuentas: <code>x: 40 + columna * 50</code> — la columna 0 queda en 40, la 1 en
+          90, la 2 en 140… ¿Ves cómo el ciclo "acomoda las sillas"? 🪑
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>function crearInvasores() {
+  invasores = [];
+  for (var fila = 0; fila &lt; 4; fila++) {          // filas: 0,1,2,3
+    for (var columna = 0; columna &lt; 8; columna++) { // columnas: 0…7
+      invasores.push({
+        x: 40 + columna * 50,   // cada columna, 50px más a la derecha
+        y: 50 + fila * 45,      // cada fila, 45px más abajo
+        ancho: 34,
+        alto: 26,
+        vivo: true              // (nos servirá en la Lección 4 💥)
+      });
+    }
+  }
+}</code></pre>
+          El ciclo de adentro corre COMPLETO (8 veces) por CADA vuelta del de afuera:
+          fila 0 → 8 invasores, fila 1 → 8 más… total 4 × 8 = 32 objetos en el arreglo.
+          Cuadrículas, tableros, mapas de plataformas: todo se genera así.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>¿Solo aparece UNA fila (o una columna)? Uno de tus ciclos no está anidado: revisa
+          que el <code>for</code> de columnas esté ADENTRO de las llaves del de filas. 🔍</li>
+        <li>¿No aparece nada? Abre la consola del navegador (clic derecho → Inspeccionar):
+          un error de sintaxis detiene todo el programa.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n9l3">Tengo 13 años y estoy haciendo Space Invaders en JavaScript. Necesito crear 32 invasores (4 filas por 8 columnas) con dos ciclos for anidados que hacen push de objetos {x, y, ancho, alto, vivo} a un arreglo. Voy a pegarte mi función crearInvasores(): si tiene errores, guíame con preguntas para que yo los encuentre. Después explícame los ciclos anidados con la analogía que quieras y ponme un mini ejercicio de práctica.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <ul>
+        <li><strong>👾 Estilo emoji:</strong> en <code>dibujarInvasores()</code>, cambia el
+          pixel-art por <code>ctx.font = "26px sans-serif"; ctx.fillText("👾", inv.x, inv.y + 22);</code>
+          ¿Cuál look te gusta más para TU juego?</li>
+        <li><strong>🌈 Filas de colores:</strong> guarda la fila en la ficha
+          (<code>fila: fila</code> dentro del push) y en el dibujo elige el color según
+          <code>inv.fila</code>. Formación arcoíris.</li>
+        <li><strong>😈 Jefe secreto:</strong> haz que bajen 40px en lugar de 18 cuando toquen el
+          borde. ¿Cuántas pasadas tardan en llegar hasta tu nave? Acabas de descubrir cómo se
+          controla la DIFICULTAD.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n9-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. En los ciclos anidados de <code>crearInvasores()</code>, ¿cuántas veces se ejecuta el <code>push</code>?</p>
+          <button class="opcion">4 veces: una por fila</button>
+          <button class="opcion">12 veces: 4 + 8</button>
+          <button class="opcion" data-ok>32 veces: el ciclo de adentro corre completo (8) por cada una de las 4 vueltas del de afuera → 4 × 8</button>
+          <div class="explicacion">Los ciclos anidados MULTIPLICAN: afuera × adentro. Por eso con
+            2 numeritos controlas el tamaño de toda la invasión.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Para qué sirve la variable <code>tocanBorde</code> en <code>moverInvasores()</code>?</p>
+          <button class="opcion" data-ok>Es una banderita: si CUALQUIER invasor tocó la pared, después del recorrido TODOS bajan y cambian de dirección juntos</button>
+          <button class="opcion">Cuenta cuántos invasores quedan vivos</button>
+          <button class="opcion">Hace que el invasor que tocó la pared rebote él solo</button>
+          <div class="explicacion">Si cada invasor rebotara por su cuenta, la formación se
+            desarmaría en segundos. La banderita hace que la DECISIÓN sea de todo el bloque:
+            uno toca, todos giran. 🫡</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Con <code>x: 40 + columna * 50</code>, ¿dónde queda el invasor de la columna 3?</p>
+          <button class="opcion">En x = 43</button>
+          <button class="opcion" data-ok>En x = 190, porque 40 + 3 × 50 = 190</button>
+          <button class="opcion">En x = 350</button>
+          <div class="explicacion">La fórmula convierte el NÚMERO de columna en PÍXELES:
+            40 de margen + 50 por cada columna anterior. Mismo truco para la <code>y</code>
+            con las filas. 📐</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n9-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: ¡Fuego!</a>
+      <a href="leccion-4.html">Siguiente: Colisiones y explosiones ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El DOM: tocar la página con código — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">⚡ Nivel 5: JavaScript</a> › Lección 3
+    </p>
+    <span class="etiqueta-leccion">NIVEL 5 · LECCIÓN 3</span>
+    <h1>El DOM: tocar la página con código 🌳</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Usar JavaScript para <strong>cambiar la página en vivo</strong>: textos, colores y
+        estilos. Vas a construir un <strong>contador de aplausos 👏</strong> y un botón de
+        <strong>modo oscuro 🌙</strong>, como los de las apps de verdad.</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Cuando el navegador lee tu HTML, arma en su memoria un <strong>mapa de toda la página</strong>:
+        cada etiqueta se vuelve una "caja" conectada con las demás, como un árbol genealógico.
+        Ese mapa se llama <strong>DOM</strong> (Document Object Model, o en español:
+        "el modelo de la página"). Lo importante: <strong>JavaScript puede tocar cualquier caja
+        del árbol</strong> y cambiarla al instante. 🪄</p>
+      <div class="analogia">
+        El DOM es como un <strong>árbol de Navidad</strong> 🎄: cada etiqueta HTML es un adorno
+        colgado en una rama. JavaScript es tu mano: puede <strong>agarrar cualquier adorno</strong>,
+        cambiarle el color, el texto… o ponerle luces. ✨
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="250" viewBox="0 0 560 250">
+          <!-- Líneas del árbol -->
+          <line x1="280" y1="52" x2="280" y2="88" stroke="#2b2b55" stroke-width="3"/>
+          <line x1="280" y1="120" x2="140" y2="170" stroke="#2b2b55" stroke-width="3"/>
+          <line x1="280" y1="120" x2="280" y2="170" stroke="#2b2b55" stroke-width="3"/>
+          <line x1="280" y1="120" x2="420" y2="170" stroke="#2b2b55" stroke-width="3"/>
+          <!-- Nodo raíz -->
+          <rect x="230" y="20" width="100" height="34" rx="8" fill="none" stroke="#00e5ff" stroke-width="3"/>
+          <text class="mono" x="280" y="42" text-anchor="middle" font-size="14" fill="#00e5ff">&lt;html&gt;</text>
+          <!-- body -->
+          <rect x="230" y="88" width="100" height="34" rx="8" fill="none" stroke="#a78bfa" stroke-width="3"/>
+          <text class="mono" x="280" y="110" text-anchor="middle" font-size="14" fill="#a78bfa">&lt;body&gt;</text>
+          <!-- Hijos -->
+          <g class="anim-parpadeo">
+            <rect x="85" y="170" width="110" height="34" rx="8" fill="#1c1a10" stroke="#ffe95c" stroke-width="3"/>
+            <text class="mono" x="140" y="192" text-anchor="middle" font-size="14" fill="#ffe95c">&lt;h1&gt;</text>
+          </g>
+          <rect x="225" y="170" width="110" height="34" rx="8" fill="none" stroke="#39ff8e" stroke-width="3"/>
+          <text class="mono" x="280" y="192" text-anchor="middle" font-size="14" fill="#39ff8e">&lt;button&gt;</text>
+          <rect x="365" y="170" width="110" height="34" rx="8" fill="none" stroke="#ff4dd8" stroke-width="3"/>
+          <text class="mono" x="420" y="192" text-anchor="middle" font-size="14" fill="#ff4dd8">&lt;p&gt;</text>
+          <!-- Mano de JS apuntando al nodo iluminado -->
+          <text x="35" y="150" font-size="26">🪄</text>
+          <text x="120" y="235" text-anchor="middle" font-size="12" fill="#ffe95c">¡JS lo encontró y lo está cambiando!</text>
+        </svg>
+        <p class="pie">La página como árbol de cajas: <code>&lt;html&gt;</code> arriba y cada etiqueta
+          colgando adentro. JavaScript puede "prender" ✨ cualquier caja: eso que parpadea es tu
+          <code>&lt;h1&gt;</code> siendo modificado en vivo.</p>
+      </div>
+
+      <h2>🧰 Tu kit de herramientas DOM</h2>
+      <table class="tabla">
+        <tr><th>Herramienta</th><th>¿Qué hace?</th><th>Ejemplo</th></tr>
+        <tr><td><code>document.getElementById("x")</code></td><td>Encuentra la caja con <code>id="x"</code> 🔍</td><td><code>let titulo = document.getElementById("titulo");</code></td></tr>
+        <tr><td><code>.textContent</code></td><td>Lee o cambia el texto de la caja ✏️</td><td><code>titulo.textContent = "¡Nuevo texto!";</code></td></tr>
+        <tr><td><code>.style</code></td><td>Cambia el CSS de la caja 🎨</td><td><code>titulo.style.color = "hotpink";</code></td></tr>
+        <tr><td><code>.classList</code></td><td>Pone o quita clases CSS 🏷️</td><td><code>document.body.classList.toggle("oscuro");</code></td></tr>
+      </table>
+      <p>Con <code>.classList</code> tienes tres jugadas: <code>.add("clase")</code> la pone,
+        <code>.remove("clase")</code> la quita, y <code>.toggle("clase")</code> es el interruptor:
+        si está, la quita; si no está, la pone. 💡 Perfecto para un modo oscuro.</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>El famoso <strong>contador de aplausos</strong> 👏 (como el de muchas apps).
+        Cada clic cambia una variable Y actualiza el texto en pantalla.
+        Ejecuta y aplaude sin miedo:</p>
+
+      <div class="playground" data-mode="html" data-titulo="aplausos.html" data-alto="260">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; text-align: center; padding-top: 20px; }
+    #boton-aplauso { font-size: 2rem; padding: 10px 25px; cursor: pointer; border-radius: 12px; }
+    #contador { font-size: 1.5rem; font-weight: bold; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;button id="boton-aplauso"&gt;👏 Aplaudir&lt;/button&gt;
+  &lt;p id="contador"&gt;0 aplausos&lt;/p&gt;
+
+  &lt;script&gt;
+    let aplausos = 0;   // el dato vive en una variable…
+
+    let boton = document.getElementById("boton-aplauso");
+    let contador = document.getElementById("contador");
+
+    boton.addEventListener("click", function () {
+      aplausos = aplausos + 1;                        // 1) cambia el dato
+      contador.textContent = aplausos + " aplausos";  // 2) actualiza la pantalla
+      if (aplausos === 10) {
+        contador.style.color = "hotpink";             // 3) ¡premio a los 10! 🎉
+        contador.textContent = aplausos + " aplausos 🔥 ¡ERES LEYENDA!";
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+      <p>Fíjate en el patrón de oro 🥇: <strong>1)</strong> cambias la variable,
+        <strong>2)</strong> actualizas la pantalla con <code>textContent</code>. Ese par de pasos
+        es el corazón de TODAS las apps (y de los juegos que vas a hacer en el Nivel 6 😉).
+        ¿Y esa función sin nombre dentro del <code>addEventListener</code>? Se llama
+        <strong>función anónima</strong>: una función exprés que escribes ahí mismo porque
+        solo se usa en ese lugar.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Construye el <strong>interruptor de modo oscuro / claro</strong> 🌙☀️. El CSS ya tiene
+        una clase <code>.oscuro</code> lista; tú conecta el botón para que
+        <strong>ponga y quite</strong> esa clase del <code>body</code>:</p>
+
+      <div class="playground" data-mode="html" data-titulo="modo_oscuro.html" data-alto="260">
+<pre class="codigo-inicial" hidden>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; text-align: center; padding-top: 20px;
+           background: white; color: #222; transition: 0.4s; }
+    body.oscuro { background: #0a0a1a; color: #eaeaf5; }
+    #interruptor { font-size: 1.2rem; padding: 10px 20px; cursor: pointer; border-radius: 12px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Mi página camaleón 🦎&lt;/h1&gt;
+  &lt;button id="interruptor"&gt;🌙 Cambiar modo&lt;/button&gt;
+
+  &lt;script&gt;
+    // TODO 1: busca el botón "interruptor" con getElementById
+
+    // TODO 2: escúchale el clic con addEventListener
+
+    // TODO 3: adentro, usa document.body.classList.toggle("oscuro")
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Son los mismos 3 pasos del botón de la lección pasada: agarrar el botón,
+          escuchar el clic, hacer algo. Lo único nuevo es el "hacer algo":
+          <code>classList.toggle</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          El esqueleto: <code>document.getElementById("interruptor").addEventListener("click",
+          function () { … });</code> y adentro de las llaves va el toggle sobre
+          <code>document.body</code>.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>let interruptor = document.getElementById("interruptor"); // 1) agarra el botón
+
+interruptor.addEventListener("click", function () {       // 2) escucha el clic
+  document.body.classList.toggle("oscuro");               // 3) pone/quita la clase
+});</code></pre>
+          <code>toggle</code> = interruptor de luz 💡: primer clic pone la clase
+          <code>oscuro</code> (y el CSS pinta todo oscuro), segundo clic la quita.
+          Tú no cambias colores a mano: cambias la CLASE y el CSS hace el resto. Equipo perfecto.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Mira el <strong>árbol del DOM</strong> de arriba 🌳: ¿qué caja quieres tocar y cuál es su <code>id</code>?</li>
+        <li>Error clásico: escribir mal el id. <code>"interruptor"</code> y <code>"Interruptor"</code>
+          NO son lo mismo para JavaScript.</li>
+        <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n5l3">Tengo 13 años y estoy aprendiendo el DOM en JavaScript. Explícame con la analogía de un árbol qué es el DOM, y para qué sirven getElementById, textContent, style y classList, con ejemplos cortos. Luego reto: dime 3 cosas divertidas que podría cambiar de una página con esas herramientas y déjame intentar escribir el código yo solo. Revisa mis intentos sin darme la solución completa a la primera.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Combina las dos prácticas: en tu página de modo oscuro, agrega el contador de aplausos.
+        <strong>Jefe secreto:</strong> haz que el emoji del botón cambie según el modo:
+        <code>🌙</code> cuando está claro y <code>☀️</code> cuando está oscuro
+        (pista: cambia el <code>textContent</code> del botón dentro del mismo evento, con un
+        <code>if</code>). Doble jefe 👑👑: a los 20 aplausos, cambia el tamaño de letra del
+        contador con <code>.style.fontSize = "2rem"</code>.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n5-l3" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué es el DOM?</p>
+          <button class="opcion">Un lenguaje de programación nuevo</button>
+          <button class="opcion" data-ok>El mapa en forma de árbol que el navegador arma con tu página, y que JS puede tocar</button>
+          <button class="opcion">Una carpeta donde se guardan las imágenes</button>
+          <div class="explicacion">El navegador convierte tu HTML en un árbol de cajas 🌳.
+            JavaScript agarra cualquier caja y la cambia en vivo: eso es "tocar el DOM".</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. Quieres cambiar el texto de <code>&lt;p id="marcador"&gt;</code> a "10 puntos". ¿Cuál línea es correcta?</p>
+          <button class="opcion" data-ok><code>document.getElementById("marcador").textContent = "10 puntos";</code></button>
+          <button class="opcion"><code>document.cambiarTexto("marcador", "10 puntos");</code></button>
+          <button class="opcion"><code>marcador.print("10 puntos");</code></button>
+          <div class="explicacion">Primero encuentras la caja con <code>getElementById</code>,
+            luego le cambias su <code>textContent</code>. Buscar ➡️ cambiar: siempre en ese orden.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. ¿Qué hace <code>document.body.classList.toggle("oscuro")</code>?</p>
+          <button class="opcion">Borra la clase "oscuro" para siempre</button>
+          <button class="opcion">Pinta el body de negro directamente</button>
+          <button class="opcion" data-ok>Si el body tiene la clase "oscuro" se la quita, y si no la tiene se la pone</button>
+          <div class="explicacion"><code>toggle</code> = interruptor de luz 💡. JS solo mueve el
+            interruptor (la clase); el CSS decide cómo se ve cada modo.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n5-l3">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-2.html">◀ Anterior: Funciones y eventos</a>
+      <a href="leccion-4.html">Siguiente: Decisiones y ciclos en JS ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefe: tu tarjeta con estilo — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ff4dd8;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🎨 Nivel 2: CSS</a> › Lección 4
+    </p>
+    <span class="etiqueta-leccion">NIVEL 2 · LECCIÓN 4 · 👑 PELEA DE JEFE</span>
+    <h1>Tu tarjeta con estilo 🎨👑</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Transformar tu <strong>tarjeta de gamer del Nivel 1</strong> con un tema visual completo
+        que TÚ elijas — retro neón, kawaii pastel, terror o deportivo — usando todo tu arsenal CSS:
+        colores hex, modelo de caja, flexbox, <code>:hover</code> y <code>transition</code>. 💅</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL PLAN DE BATALLA</p>
+      <p>Este jefe no te pide nada nuevo: te pide <strong>criterio de diseñador</strong>. Los
+        diseñadores de verdad no eligen colores al azar: eligen una <strong>paleta</strong> (un
+        equipo de 4-5 colores que combinan) y la usan en TODA la página. Eso es lo que hace que un
+        diseño se vea profesional y no como piñata. 🪅</p>
+      <div class="analogia">
+        Darle un tema a tu página es como elegir la <strong>skin de tu personaje</strong> 🎮: el
+        personaje (tu HTML) es el mismo, pero la skin (tu CSS) lo transforma por completo. Hoy tu
+        tarjeta se gana su skin legendaria.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="240" viewBox="0 0 560 240">
+          <!-- Tarjeta sin estilo -->
+          <g>
+            <rect x="30" y="40" width="170" height="150" rx="6" fill="#f5f5f5" stroke="#a3a3c8" stroke-width="2"/>
+            <rect x="45" y="55" width="110" height="14" rx="3" fill="#555"/>
+            <rect x="45" y="80" width="140" height="8" rx="3" fill="#999"/>
+            <rect x="45" y="95" width="120" height="8" rx="3" fill="#999"/>
+            <rect x="45" y="115" width="90" height="8" rx="3" fill="#999"/>
+            <rect x="45" y="130" width="100" height="8" rx="3" fill="#999"/>
+            <text x="115" y="215" text-anchor="middle" font-size="13" fill="#a3a3c8">Nivel 1: funciona 😐</text>
+          </g>
+          <!-- Flecha CSS -->
+          <path class="anim-recorrido" d="M 215 115 L 335 115" fill="none" stroke="#ff4dd8" stroke-width="5"/>
+          <text x="275" y="98" text-anchor="middle" font-size="15" fill="#ff4dd8">CSS 🪄</text>
+          <!-- Tarjeta con skin -->
+          <g class="anim-pulso">
+            <rect x="355" y="30" width="180" height="170" rx="16" fill="#12081f" stroke="#ff4dd8" stroke-width="4"/>
+            <circle cx="445" cy="72" r="22" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="445" y="80" text-anchor="middle" font-size="20">😼</text>
+            <rect x="385" y="105" width="120" height="12" rx="4" fill="#ff4dd8"/>
+            <rect x="385" y="127" width="120" height="7" rx="3" fill="#39ff8e"/>
+            <rect x="385" y="141" width="100" height="7" rx="3" fill="#39ff8e"/>
+            <rect x="395" y="160" width="100" height="22" rx="11" fill="#00e5ff"/>
+            <text x="445" y="176" text-anchor="middle" font-size="11" fill="#0a0a1a">mis enlaces</text>
+          </g>
+          <text class="anim-valor-aparece" x="445" y="222" text-anchor="middle" font-size="13" fill="#ff4dd8">Nivel 2: skin legendaria ✨</text>
+        </svg>
+        <p class="pie">El MISMO HTML de tu tarjeta, antes y después del CSS. Ni una etiqueta cambió:
+          todo el poder está en el <code>&lt;style&gt;</code>. 🪄</p>
+      </div>
+
+      <p><strong>Elige tu tema</strong> — aquí van 4 paletas listas para copiar. Escoge UNA (o
+        invéntate la tuya con su mismo formato):</p>
+      <table class="tabla">
+        <tr>
+          <th>Tema</th>
+          <th>Fondo</th>
+          <th>Tarjeta</th>
+          <th>Título</th>
+          <th>Texto</th>
+          <th>Acento (bordes/brillos)</th>
+        </tr>
+        <tr>
+          <td>🕹️ Retro neón</td>
+          <td><code>#0a0a1a</code></td>
+          <td><code>#12081f</code></td>
+          <td><code>#ff4dd8</code></td>
+          <td><code>#eaeaf5</code></td>
+          <td><code>#00e5ff</code></td>
+        </tr>
+        <tr>
+          <td>🌸 Kawaii pastel</td>
+          <td><code>#fff0f6</code></td>
+          <td><code>#ffffff</code></td>
+          <td><code>#d6336c</code></td>
+          <td><code>#5c4a52</code></td>
+          <td><code>#ffb3d1</code></td>
+        </tr>
+        <tr>
+          <td>🧟 Terror</td>
+          <td><code>#050505</code></td>
+          <td><code>#120a0a</code></td>
+          <td><code>#ff2222</code></td>
+          <td><code>#b8b8b8</code></td>
+          <td><code>#5c0000</code></td>
+        </tr>
+        <tr>
+          <td>⚽ Deportivo</td>
+          <td><code>#0b2818</code></td>
+          <td><code>#0e3520</code></td>
+          <td><code>#ffe95c</code></td>
+          <td><code>#ffffff</code></td>
+          <td><code>#39ff8e</code></td>
+        </tr>
+      </table>
+      <p>La estrategia del jefe, en 4 movimientos: 1️⃣ pinta el <code>body</code> (fondo + letra),
+        2️⃣ convierte tu contenido en UNA tarjeta (una caja <code>.tarjeta</code> con padding,
+        borde, esquinas y sombra), 3️⃣ pinta títulos y textos con tu paleta, 4️⃣ agrega la magia
+        (<code>:hover</code> + <code>transition</code>). Ejecuta después de cada movimiento. ⚔️</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>La tarjeta de Kai (¿te acuerdas de él?) ya con su skin <strong>retro neón</strong>.
+        Ejecuta, pasa el mouse por el avatar y los enlaces 🐭, y estudia cómo cada movimiento del
+        plan aparece en el CSS:</p>
+      <div class="playground" data-mode="html" data-titulo="tarjeta-kai-neon.html" data-alto="420">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Tarjeta de gamer — Kai</title>
+    <style>
+      /* 1️⃣ el escenario: fondo y letra de toda la página */
+      body {
+        background-color: #0a0a1a;
+        font-family: Arial;
+        color: #eaeaf5;
+      }
+      /* 2️⃣ la tarjeta: una caja con las 3 capas + lujos */
+      .tarjeta {
+        background-color: #12081f;
+        padding: 24px;
+        border: 3px solid #ff4dd8;
+        border-radius: 18px;
+        box-shadow: 0 0 30px #ff4dd8;
+        max-width: 420px;
+        margin: 30px auto;        /* auto = centrada en la página */
+      }
+      /* 3️⃣ la paleta en títulos y textos */
+      h1 { color: #ff4dd8; }
+      h2 { color: #00e5ff; }
+      a  { color: #39ff8e; }
+      /* el avatar, centrado con flexbox */
+      .avatar {
+        display: flex;
+        justify-content: center;
+        font-size: 80px;
+        margin: 0;
+        transition: all 0.4s;
+      }
+      /* 4️⃣ la magia 🪄 */
+      .avatar:hover { transform: scale(1.2) rotate(-8deg); }
+      a:hover { background-color: #39ff8e; color: #0a0a1a; }
+    </style>
+  </head>
+  <body>
+    <div class="tarjeta">
+      <h1>🎮 KaiMaster_07</h1>
+      <p class="avatar">🐱‍👤</p>
+      <p>¡Qué onda! Soy Kai, tengo 13 años y vivo en Guadalajara.</p>
+      <h2>🏆 Mi top 3</h2>
+      <ol>
+        <li>The Legend of Zelda</li>
+        <li>Minecraft</li>
+        <li>Mario Kart</li>
+      </ol>
+      <h2>🔗 Mis enlaces</h2>
+      <p><a href="https://es.wikipedia.org" target="_blank">Wikipedia</a></p>
+      <p><a href="https://scratch.mit.edu" target="_blank">Scratch</a></p>
+    </div>
+  </body>
+</html>
+</script>
+      </div>
+      <p>Cosas para notar 🔍: TODO el HTML es el del Nivel 1 (solo envuelto en un
+        <code>&lt;div class="tarjeta"&gt;</code> y con la clase <code>avatar</code>).
+        El truco <code>margin: 30px auto;</code> centra la tarjeta horizontalmente. Y el
+        <code>:hover</code> del avatar usa <code>transform</code> para que gire y crezca. 😼</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: ¡PELEA DE JEFE!</p>
+      <p>Aquí está una tarjeta de gamer con su HTML listo (¡cámbialo por TUS datos — o pega tu
+        tarjeta del Nivel 1!) y un <code>&lt;style&gt;</code> con los 4 movimientos como TODOs.
+        Elige tu paleta de la tabla de arriba y ¡a vestir a tu campeón! ⚔️</p>
+      <div class="playground" data-mode="html" data-titulo="mi-tarjeta-con-estilo.html" data-alto="420">
+<script type="text/plain"><!DOCTYPE html>
+<html>
+  <head>
+    <title>Mi tarjeta de gamer</title>
+    <style>
+      /* ===== ELIGE TU PALETA en la tabla de la lección ===== */
+
+      /* TODO 1: viste el body: background-color (color "Fondo"
+         de tu paleta), color (color "Texto") y font-family */
+
+      /* TODO 2: crea la regla .tarjeta con:
+         background-color (color "Tarjeta"), padding de 24px,
+         border de 3px solid (color "Acento"), border-radius,
+         box-shadow con tu acento, max-width: 420px
+         y margin: 30px auto; para centrarla */
+
+      /* TODO 3: pinta h1 con tu color "Título" y
+         h2 y a con tu color "Acento" */
+
+      /* TODO 4: la magia: dale al .avatar display: flex con
+         justify-content: center, font-size de 80px y
+         transition: all 0.4s;  Luego crea .avatar:hover
+         con transform: scale(1.2); */
+
+    </style>
+  </head>
+  <body>
+    <div class="tarjeta">
+      <h1>🎮 TU_NOMBRE_GAMER</h1>
+      <p class="avatar">😎</p>
+      <p>Preséntate aquí: quién eres, de dónde, qué te gusta.</p>
+      <h2>🏆 Mi top de juegos</h2>
+      <ol>
+        <li>Juego 1</li>
+        <li>Juego 2</li>
+        <li>Juego 3</li>
+      </ol>
+      <h2>🚀 Quiero construir…</h2>
+      <p>Tu sueño de programador va aquí.</p>
+      <h2>🔗 Mis enlaces</h2>
+      <p><a href="https://es.wikipedia.org" target="_blank">Wikipedia</a></p>
+      <p><a href="https://www.youtube.com" target="_blank">YouTube</a></p>
+    </div>
+  </body>
+</html>
+</script>
+      </div>
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Movimiento por movimiento, ejecutando cada vez. El TODO 1 son 3 prendas para el
+          <code>body</code>: <code>background-color: …;</code>, <code>color: …;</code> y
+          <code>font-family: Arial;</code>. Copia los códigos hex de tu paleta TAL CUAL, con todo
+          y <code>#</code>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La tarjeta es puro repaso de la Lección 2:
+          <code>.tarjeta { padding: 24px; border: 3px solid #00e5ff; border-radius: 18px;
+          box-shadow: 0 0 30px #00e5ff; max-width: 420px; margin: 30px auto; }</code>
+          (con TU color de acento). Y recuerda: <code>.avatar:hover</code> se escribe pegadito,
+          sin espacios.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA (tema retro neón)</span>
+          <pre class="bloque-codigo"><code>/* 1️⃣ el escenario */
+body {
+  background-color: #0a0a1a;   /* fondo de mi paleta */
+  color: #eaeaf5;              /* color de texto */
+  font-family: Arial;
+}
+
+/* 2️⃣ la tarjeta (modelo de caja completo) */
+.tarjeta {
+  background-color: #12081f;
+  padding: 24px;               /* aire adentro */
+  border: 3px solid #00e5ff;   /* acento */
+  border-radius: 18px;         /* esquinas suaves */
+  box-shadow: 0 0 30px #00e5ff;/* resplandor neón */
+  max-width: 420px;
+  margin: 30px auto;           /* auto = centrada ↔ */
+}
+
+/* 3️⃣ la paleta en los textos */
+h1 { color: #ff4dd8; }
+h2 { color: #00e5ff; }
+a  { color: #00e5ff; }
+
+/* 4️⃣ la magia */
+.avatar {
+  display: flex;
+  justify-content: center;     /* avatar al centro */
+  font-size: 80px;
+  transition: all 0.4s;        /* cambios suavecitos */
+}
+.avatar:hover { transform: scale(1.2); }  /* ¡crece al tocarlo! */</code></pre>
+          Si tu tarjeta tiene fondo con tema, caja con resplandor, textos con paleta y un avatar
+          que reacciona… <strong>el jefe cayó y tu tarjeta tiene skin legendaria</strong>. 👑🎨
+          Cambia el HTML por tus datos reales y presúmela.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Sigue los <strong>4 movimientos en orden</strong>, ejecutando después de cada uno. ⚔️</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n2l4">Tengo 13 años y estoy en mi proyecto final de CSS básico: darle un tema visual a mi tarjeta de presentación de gamer. Sé usar selectores de etiqueta y de clase, colores hex, padding/border/margin, border-radius, box-shadow, display:flex con justify-content y align-items, :hover y transition. Voy a pegarte mi código abajo. NO me lo reescribas completo: 1) dime si algo de mi CSS no se está aplicando y por qué (llave sin cerrar, punto y coma faltante, selector mal escrito), 2) dame UNA sugerencia de diseño para que mi paleta se vea más pro, explicándome la razón. Guíame con pistas, no con soluciones. Mi código:</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>4. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+        preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Modo overkill 💥: 1) dale al avatar un hover más dramático:
+        <code>transform: scale(1.3) rotate(10deg);</code>; 2) sombras neón DOBLES — se pueden
+        apilar separándolas con coma:
+        <code>box-shadow: 0 0 15px #ff4dd8, 0 0 40px #00e5ff;</code> 🌆; 3) haz que los enlaces
+        se vuelvan botones-píldora al hover (fondo de acento + <code>border-radius: 50px</code> +
+        padding). <strong>Jefe secreto:</strong> hazle una segunda skin a tu tarjeta con OTRA
+        paleta de la tabla y pregúntale a tu banda cuál se ve mejor — acabas de hacer tu primera
+        "prueba con usuarios", como los estudios de videojuegos. 🎮</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n2-l4" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Por qué los diseñadores eligen una PALETA en vez de usar 20 colores al azar?</p>
+          <button class="opcion">Porque los navegadores solo soportan 5 colores por página</button>
+          <button class="opcion" data-ok>Porque un equipo pequeño de colores que combinan, repetido en toda la página, se ve profesional y con identidad</button>
+          <button class="opcion">Para ahorrar tinta de la impresora</button>
+          <div class="explicacion">Pocos colores + bien repetidos = identidad visual. Muchos colores
+            al azar = piñata 🪅. Por eso las marcas famosas se reconocen solo por sus colores.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Qué hace <code>margin: 30px auto;</code> en tu <code>.tarjeta</code>?</p>
+          <button class="opcion" data-ok>30px arriba y abajo, y <code>auto</code> reparte los lados por igual: ¡tarjeta centrada horizontalmente!</button>
+          <button class="opcion">Pone el margen en modo automático: el navegador elige un número al azar</button>
+          <button class="opcion">Hace que la tarjeta se mueva sola por la pantalla</button>
+          <div class="explicacion"><code>auto</code> en los lados dice "repártanse el espacio
+            sobrante mitad y mitad" → la caja queda centrada. Es el hermano del truco flexbox para
+            centrar. 🎯</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Tu <code>.avatar:hover</code> no funciona. ¿Cuál es el error más probable?</p>
+          <button class="opcion">Los emojis no pueden recibir estilos</button>
+          <button class="opcion">Falta conectar el mouse por Bluetooth</button>
+          <button class="opcion" data-ok>Algo mal escrito: un espacio antes de <code>:hover</code>, la clase con otro nombre, o una llave sin cerrar más arriba</button>
+          <div class="explicacion">El 90% de los "no funciona" en CSS son de dedo 🖐️:
+            <code>.avatar :hover</code> (espacio de más), <code>class="Avatar"</code> (mayúscula
+            distinta) o una <code>}</code> olvidada que rompe todo lo que sigue. Revisa con calma,
+            línea por línea.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n2-l4">👑 ¡Jefe derrotado! (+100 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="leccion-3.html">◀ Anterior: Acomodar cosas + magia</a>
+      <a href="../nivel-3/index.html">Siguiente: Nivel 3 — Python 🐍 ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/playground.js"></script>
+</body>
+</html>
