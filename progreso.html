@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi progreso 💾 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 60px;">
+    <h1 style="margin-top: 40px;">💾 Mi partida guardada</h1>
+    <p class="suave">Tu progreso vive en <strong>esta computadora</strong>, en la memoria del navegador
+      (se llama <code>localStorage</code> — lo vas a aprender en el Nivel 7 😉).
+      Si vas a cambiar de computadora o quieres un respaldo, descarga tu partida.</p>
+
+    <!-- Resumen -->
+    <section class="panel">
+      <div id="resumen" style="display: flex; gap: 30px; flex-wrap: wrap; align-items: center;"></div>
+    </section>
+
+    <!-- Guardar / cargar -->
+    <section class="panel">
+      <h2 style="margin-top: 0.3em;">🎮 Guardar y cargar partida</h2>
+      <p class="suave">Como en los videojuegos: guarda tu avance en un archivo, o carga uno que hayas guardado antes
+        (por ejemplo, si vienes de otra Mac).</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+        <button class="btn" onclick="CodeQuest.exportarPartida()">💾 Guardar partida (descargar archivo)</button>
+        <button class="btn amarillo" onclick="document.getElementById('archivo-partida').click()">📂 Cargar partida (subir archivo)</button>
+        <input type="file" id="archivo-partida" accept=".json" style="display: none;">
+        <button class="btn fantasma" style="color: var(--rojo); border-color: var(--rojo);" onclick="CodeQuest.reiniciarPartida()">🗑️ Empezar de cero</button>
+      </div>
+    </section>
+
+    <!-- Medallas -->
+    <section>
+      <h2>🏅 Mis medallas</h2>
+      <div id="vitrina-medallas" class="medallas-fila"></div>
+    </section>
+
+    <!-- Detalle por nivel -->
+    <section>
+      <h2>📋 Lección por lección</h2>
+      <p class="suave">Las lecciones ✅ ya dieron su XP, pero puedes <strong>volver a entrar a cualquiera</strong> para repasar.</p>
+      <div id="detalle-niveles"></div>
+    </section>
+  </main>
+
+  <script>window.CQ_BASE = "";</script>
+  <script src="assets/js/progress.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var CQ = window.CodeQuest;
+
+      // ---- Resumen: rango, XP, conteos ----
+      var totalLecciones = 0, hechas = 0;
+      CQ.CURSO.forEach(function (nivel) {
+        var p = CQ.progresoNivel(nivel);
+        totalLecciones += p.total;
+        hechas += p.hechas;
+      });
+      var rango = CQ.rangoActual();
+      document.getElementById("resumen").innerHTML =
+        '<div class="centrado"><div style="font-size:3.4rem;">' + rango.emoji + '</div>' +
+        '<div class="pixel" style="font-size:0.7rem;color:var(--amarillo);">' + rango.nombre + "</div></div>" +
+        '<div><div class="pixel" style="font-size:1.1rem;color:var(--verde);">' + CQ.xpTotal() + " XP</div>" +
+        '<div class="suave">' + hechas + " de " + totalLecciones + " lecciones completadas</div></div>";
+
+      // ---- Vitrina de medallas ----
+      var vitrina = document.getElementById("vitrina-medallas");
+      CQ.CURSO.forEach(function (nivel) {
+        var ganada = CQ.nivelCompletado(nivel);
+        var div = document.createElement("div");
+        div.className = "medalla" + (ganada ? " ganada" : "");
+        div.innerHTML = '<div class="icono">' + nivel.medalla.emoji + '</div>' +
+          '<div class="nombre">' + nivel.medalla.nombre + "</div>";
+        vitrina.appendChild(div);
+      });
+
+      // ---- Detalle por nivel ----
+      var detalle = document.getElementById("detalle-niveles");
+      CQ.CURSO.forEach(function (nivel, i) {
+        var panel = document.createElement("div");
+        panel.className = "panel";
+        panel.style.borderColor = CQ.nivelCompletado(nivel) ? "var(--verde)" : "var(--panel-borde)";
+        var filas = nivel.lecciones.map(function (l) {
+          var ok = CQ.leccionCompletada(l.id);
+          return '<li style="margin:6px 0;">' + (ok ? "✅" : "⬜") +
+            ' <a href="niveles/' + nivel.carpeta + "/" + l.archivo + '">' + l.titulo + "</a>" +
+            ' <span class="suave">· ' + l.xp + " XP</span></li>";
+        }).join("");
+        panel.innerHTML = '<h3 style="margin-top:0;">' + nivel.emoji + " Nivel " + i + ": " + nivel.titulo + "</h3>" +
+          '<ul style="list-style:none;padding-left:6px;">' + filas + "</ul>";
+        detalle.appendChild(panel);
+      });
+
+      // ---- Cargar partida desde archivo ----
+      document.getElementById("archivo-partida").addEventListener("change", function (e) {
+        if (e.target.files && e.target.files[0]) {
+          CQ.importarPartida(e.target.files[0]);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

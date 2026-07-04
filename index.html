@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Quest 🕹️ — Aprende a programar creando videojuegos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor">
+    <!-- ============ HÉROE ============ -->
+    <section class="centrado" style="padding: 60px 0 30px;">
+      <div style="font-size: 4rem;">🕹️</div>
+      <h1 style="font-size: 2rem; margin: 18px 0 8px;">CODE QUEST</h1>
+      <p class="pixel" style="font-size: 0.7rem; color: var(--cian); line-height: 2;">
+        APRENDE A PROGRAMAR CREANDO TUS PROPIOS VIDEOJUEGOS
+      </p>
+      <p style="max-width: 640px; margin: 18px auto; font-size: 1.1rem;">
+        Empiezas sin saber <strong>nada</strong> de programación.
+        Terminas con <strong>tu propio Space Invaders</strong> 👾 hecho por ti,
+        línea por línea. En el camino: páginas web, Python, JavaScript,
+        bases de datos… y muchos tacos 🌮.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 26px;">
+        <a id="btn-continuar" class="btn verde" href="niveles/nivel-0/leccion-1.html">▶ Comenzar la aventura</a>
+        <a class="btn fantasma" href="arcade/index.html">👾 Ver el Arcade</a>
+      </div>
+    </section>
+
+    <!-- ============ LO QUE VAS A CONSTRUIR ============ -->
+    <section class="panel centrado">
+      <h2 style="margin-top: 0.4em;">🎮 Esto lo vas a construir TÚ</h2>
+      <p class="suave">No es broma. Al final del curso, estos tres juegos van a ser tuyos — y sabrás cómo funciona cada línea.</p>
+      <div style="display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin-top: 10px;">
+        <a href="arcade/gato.html" style="text-decoration: none;" class="pixel">
+          <div style="font-size: 3rem;">😼</div><span style="font-size: 0.6rem; color: var(--cian);">GATO</span>
+        </a>
+        <a href="arcade/snake.html" style="text-decoration: none;" class="pixel">
+          <div style="font-size: 3rem;">🐍</div><span style="font-size: 0.6rem; color: var(--verde);">SNAKE</span>
+        </a>
+        <a href="arcade/space-invaders.html" style="text-decoration: none;" class="pixel">
+          <div style="font-size: 3rem;">👾</div><span style="font-size: 0.6rem; color: var(--magenta);">SPACE INVADERS</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ MAPA DE NIVELES ============ -->
+    <section>
+      <h2>🗺️ Mapa de la aventura</h2>
+      <p class="suave">Avanza a tu propio ritmo. Nada está bloqueado: puedes repasar cualquier
+        lección cuando quieras, sobre todo si tienes dudas. Tu progreso se guarda solo en esta computadora
+        (y puedes llevártelo a otra desde <a href="progreso.html">💾 Mi progreso</a>).</p>
+      <div id="mapa-niveles" class="mapa"></div>
+    </section>
+  </main>
+
+  <footer class="centrado suave" style="padding: 30px; font-size: 0.85rem;">
+    Hecho con 💛 para futuros game devs de México ·
+    <a href="recursos/guia-profe.html">Guía para el profe</a>
+  </footer>
+
+  <script>window.CQ_BASE = "";</script>
+  <script src="assets/js/progress.js"></script>
+</body>
+</html>

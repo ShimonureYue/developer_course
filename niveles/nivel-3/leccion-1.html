@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola, Python — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #39ff8e;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🐍 Nivel 3: Python I</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 3 · LECCIÓN 1</span>
+    <h1>Hola, Python 🐍👋</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Escribir y ejecutar tu <strong>primer programa en Python</strong> aquí mismo, en esta página,
+        y aprender a leer los errores sin miedo (spoiler: los errores no muerden 😄).</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Hasta ahora construiste páginas con HTML y CSS. Pero hoy empieza <strong>LA PROGRAMACIÓN DE VERDAD</strong>:
+        vas a darle <strong>órdenes</strong> a la computadora y ella va a obedecerte. 😎</p>
+      <p><strong>Python</strong> es un lenguaje de programación. ¿Y qué tan importante es?
+        Pues mira quién lo usa todos los días:</p>
+      <ul>
+        <li>📸 <strong>Instagram</strong> — sus servidores corren con Python</li>
+        <li>🎵 <strong>Spotify</strong> — lo usa para recomendarte música</li>
+        <li>🚀 <strong>la NASA</strong> — sí, la de los cohetes, lo usa para analizar datos del espacio</li>
+        <li>▶️ <strong>YouTube</strong> — también nació con mucho Python adentro</li>
+      </ul>
+      <p>Y lo mejor: Python es famoso porque <strong>se lee casi como si fuera inglés</strong>.
+        Por eso es el lenguaje favorito para empezar. (Dato curioso: se llama Python por un grupo de
+        comediantes ingleses, Monty Python, no por la serpiente 🐍… pero la serpiente se quedó de mascota.)</p>
+
+      <div class="analogia">
+        Python es como un <strong>traductor superveloz</strong>: tú escribes instrucciones en su idioma,
+        él las traduce a "idioma computadora" y la máquina las obedece al instante.
+        Tu primera instrucción va a ser <code>print()</code>, que significa:
+        <strong>"muestra esto en la pantalla"</strong>.
+      </div>
+
+      <div class="diagrama">
+        <svg width="560" height="180" viewBox="0 0 560 180">
+          <!-- Tu código -->
+          <g>
+            <rect x="10" y="55" width="155" height="70" rx="10" fill="none" stroke="#00e5ff" stroke-width="3"/>
+            <text x="88" y="45" text-anchor="middle" font-size="13" fill="#00e5ff">1. tu código</text>
+            <text class="mono" x="88" y="96" text-anchor="middle" font-size="13" fill="#eaeaf5">print("hola")</text>
+          </g>
+          <!-- Camino animado 1 -->
+          <line class="anim-recorrido" x1="170" y1="90" x2="228" y2="90" stroke="#39ff8e" stroke-width="4"/>
+          <!-- Python -->
+          <g class="anim-pulso">
+            <rect x="233" y="48" width="122" height="84" rx="12" fill="none" stroke="#39ff8e" stroke-width="3"/>
+            <text x="294" y="88" text-anchor="middle" font-size="28">🐍</text>
+            <text x="294" y="118" text-anchor="middle" font-size="12" fill="#39ff8e">2. Python traduce</text>
+          </g>
+          <!-- Camino animado 2 -->
+          <line class="anim-recorrido" x1="360" y1="90" x2="418" y2="90" stroke="#39ff8e" stroke-width="4"/>
+          <!-- Pantalla -->
+          <g>
+            <rect x="423" y="45" width="127" height="90" rx="10" fill="#050510" stroke="#a78bfa" stroke-width="3"/>
+            <text x="486" y="35" text-anchor="middle" font-size="13" fill="#a78bfa">3. la pantalla</text>
+            <text class="mono anim-valor-aparece" x="440" y="95" font-size="15" fill="#39ff8e">hola</text>
+            <rect class="anim-parpadeo" x="485" y="82" width="9" height="16" fill="#39ff8e"/>
+          </g>
+        </svg>
+        <p class="pie">El viaje de tu programa: tú escribes la instrucción, Python 🐍 la traduce
+          y el resultado aparece en la pantalla. Ese viaje pasa <strong>cada vez</strong> que presionas ▶ Ejecutar.</p>
+      </div>
+
+      <p>Una regla de oro desde hoy: los <strong>textos</strong> siempre van
+        <strong>entre comillas</strong>. <code>"hola"</code> es un texto.
+        Sin comillas, Python cree que le hablas de otra cosa (y se confunde, ya lo verás abajo 👀).</p>
+    </div>
+
+    <!-- ============ 👀 EJEMPLO VIVO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
+      <p>Este es tu primer programa de Python. Presiona <strong>▶ Ejecutar</strong>
+        (la primera vez tarda un poquito mientras carga el motor de Python 🐍, aguanta unos segundos):</p>
+
+      <div class="py-runner" data-titulo="hola.py">
+<script type="text/plain">
+# Todo lo que empieza con # es un comentario: Python lo ignora,
+# es una notita para humanos como tú y como yo 📝
+
+print("¡Hola, mundo!")
+print("Soy tu primer programa de Python")
+print("🐍🐍🐍")
+</script>
+      </div>
+
+      <p>¿Viste? Cada <code>print()</code> escribe <strong>una línea</strong> en la consola
+        (esa pantallita negra de abajo). ¡Órale, ya ejecutaste Python de verdad! 🎉
+        Ahora cambia los textos entre comillas por lo que TÚ quieras y vuelve a ejecutar.</p>
+      <p>💡 <code>print()</code> también sabe de números y de matemáticas (los números van
+        <strong>sin</strong> comillas porque no son texto):</p>
+
+      <div class="py-runner" data-titulo="numeros.py">
+<script type="text/plain">
+print("Mi año de nacimiento más o menos:")
+print(2026 - 13)
+
+print("¿Cuántos segundos tiene un día?")
+print(60 * 60 * 24)
+</script>
+      </div>
+    </div>
+
+    <!-- ============ 🧟 LOS ERRORES NO MUERDEN ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">🧟 LOS ERRORES NO MUERDEN</p>
+      <p>Te voy a contar un secreto de programadores: <strong>TODOS nos equivocamos, todos los días</strong>.
+        La diferencia entre un principiante y un pro no es equivocarse menos…
+        es saber <strong>leer el error</strong> para arreglarlo rápido.</p>
+      <p>Vamos a romper un programa <strong>a propósito</strong> 😈. Este <code>print</code> quiere
+        mostrar la palabra hola, pero se le olvidaron las comillas. Ejecútalo y mira qué pasa:</p>
+
+      <div class="py-runner" data-titulo="error_a_proposito.py">
+<script type="text/plain">
+# Este programa tiene un error A PROPÓSITO. ¡Ejecútalo sin miedo!
+print(hola)
+</script>
+      </div>
+
+      <p>Salió un texto rojo que termina más o menos así:</p>
+      <pre class="bloque-codigo"><code>NameError: name 'hola' is not defined</code></pre>
+      <p>Así se lee un error de Python, como detective 🕵️:</p>
+      <ol>
+        <li>No entres en pánico. El rojo no significa "reprobaste", significa "te tengo una pista".</li>
+        <li><strong>Lee la ÚLTIMA línea primero</strong>: ahí está el resumen del problema.</li>
+        <li><code>NameError</code> = "error de nombre". Python dice: <em>"me hablaste de algo llamado
+          <code>hola</code> y yo no conozco a ningún <code>hola</code>"</em>. Claro: sin comillas,
+          Python pensó que <code>hola</code> era el nombre de algo guardado (¡eso lo aprenderás en la
+          próxima lección!), no un texto.</li>
+        <li>La cura: ponle sus comillas → <code>print("hola")</code>. Arréglalo arriba y ejecuta otra vez. ✅</li>
+      </ol>
+      <div class="analogia">
+        Un error de Python es como cuando tu mamá te dice exactamente qué hiciste mal:
+        incómodo por dos segundos… pero es <strong>justo la información que necesitas</strong> para arreglarlo. 😅
+      </div>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO</p>
+      <p>Escribe un programa que se presente por ti. Debe imprimir <strong>3 líneas</strong>:</p>
+      <ol>
+        <li>Tu nombre (por ejemplo: <code>Me llamo Dani</code>)</li>
+        <li>Tu comida favorita (🌮 los tacos son una respuesta muy válida)</li>
+        <li>Tu videojuego favorito 🎮</li>
+      </ol>
+
+      <div class="py-runner" data-titulo="me_presento.py">
+<script type="text/plain">
+# TODO 1: imprime tu nombre
+
+# TODO 2: imprime tu comida favorita
+
+# TODO 3: imprime tu videojuego favorito
+</script>
+      </div>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          Necesitas tres <code>print()</code>, uno por línea. Recuerda: el texto va
+          <strong>adentro de los paréntesis y entre comillas</strong>.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          La primera línea sería: <code>print("Me llamo Dani")</code> — pero con TU nombre.
+          Las otras dos son iguales, solo cambia el texto.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          <pre class="bloque-codigo"><code>print("Me llamo Dani")            # línea 1: tu nombre
+print("Mi comida favorita: tacos al pastor 🌮")  # línea 2
+print("Mi juego favorito: Minecraft 🎮")         # línea 3</code></pre>
+          Cada <code>print()</code> es una orden independiente: Python las ejecuta
+          <strong>de arriba hacia abajo</strong>, una por una, como una lista de pendientes.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
+      <ol>
+        <li>Revisa que cada texto tenga sus <strong>comillas de abrir y de cerrar</strong> <code>"así"</code>.</li>
+        <li>Revisa los <strong>paréntesis</strong>: <code>print(</code> abre y <code>)</code> cierra.</li>
+        <li>Si sale texto rojo, <strong>lee la última línea</strong>: es la pista del detective. 🕵️</li>
+        <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
+        <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
+      </ol>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n3l1">Tengo 13 años y hoy escribí mi primer programa en Python con print(). Explícame como si fuera principiante total: 1) por qué los textos llevan comillas, 2) qué significa el error NameError: name 'hola' is not defined y cómo leer un error de Python paso a paso. Usa ejemplos divertidos. Al final hazme 2 preguntas para ver si entendí. No me resuelvas tareas completas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — preguntar en voz alta también es programar.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Haz <strong>arte con puro print()</strong> 🎨: dibuja una pirámide, tu inicial gigante
+        o una carita, usando símbolos como <code>*</code>, <code>#</code> o emojis. Por ejemplo:</p>
+      <pre class="bloque-codigo"><code>print("   🌮")
+print("  🌮🌮")
+print(" 🌮🌮🌮")
+print("🌮🌮🌮🌮")</code></pre>
+      <p><strong>Jefe secreto:</strong> diseña el cartel de un concierto imaginario de tu banda favorita,
+        con líneas de adorno tipo <code>=====</code> arriba y abajo. Todo con <code>print()</code>.</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n3-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Qué hace la instrucción <code>print("buenas")</code>?</p>
+          <button class="opcion">Imprime la página en una impresora 🖨️</button>
+          <button class="opcion" data-ok>Muestra el texto <code>buenas</code> en la pantalla</button>
+          <button class="opcion">Guarda el texto en la computadora</button>
+          <div class="explicacion">Aunque <code>print</code> significa "imprimir" en inglés,
+            en Python quiere decir <strong>"muestra esto en la pantalla"</strong>. Nada de papel. 😄</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. ¿Cuál de estas líneas está escrita CORRECTAMENTE?</p>
+          <button class="opcion">print(hola amigos)</button>
+          <button class="opcion">print "hola amigos"</button>
+          <button class="opcion" data-ok>print("hola amigos")</button>
+          <div class="explicacion">Un <code>print</code> completo necesita sus dos cosas:
+            <strong>paréntesis</strong> para envolver y <strong>comillas</strong> para el texto.
+            Sin comillas → <code>NameError</code>. Sin paréntesis → <code>SyntaxError</code>.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. Te sale un error rojo gigante. ¿Qué haces primero?</p>
+          <button class="opcion">Cerrar la página, esto no es lo mío 😭</button>
+          <button class="opcion">Borrar todo el programa y empezar de cero</button>
+          <button class="opcion" data-ok>Leer la ÚLTIMA línea del error: ahí está la pista</button>
+          <div class="explicacion">La última línea es el resumen del detective 🕵️:
+            te dice el <strong>tipo</strong> de error y qué confundió a Python.
+            Equivocarse es parte del juego: cada error te sube de nivel.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n3-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Portada del Nivel 3</a>
+      <a href="leccion-2.html">Siguiente: Variables y constantes ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+  <script src="../../assets/js/python-runner.js"></script>
+</body>
+</html>

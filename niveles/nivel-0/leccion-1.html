@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prepara tu Mac — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+</head>
+<body>
+  <main class="leccion" style="--color-nivel: #ffe95c;">
+
+    <p class="miga">
+      <a href="../../index.html">🗺️ Mapa</a> ›
+      <a href="index.html">🌮 Nivel 0: prepara tu equipo</a> › Lección 1
+    </p>
+    <span class="etiqueta-leccion">NIVEL 0 · LECCIÓN 1</span>
+    <h1>Prepara tu Mac 💻🛠️</h1>
+
+    <!-- ============ 🎯 OBJETIVO ============ -->
+    <div class="bloque objetivo">
+      <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
+      <p>Dejar tu Mac lista para programar: instalar <strong>Google Chrome</strong>,
+        instalar <strong>VS Code</strong>, descargar el proyecto del curso y verificar que
+        todo funciona. Cero experiencia necesaria: te llevamos clic por clic. 🖱️</p>
+    </div>
+
+    <!-- ============ 🧠 CONCEPTO ============ -->
+    <div class="bloque concepto">
+      <p class="titulo-bloque">🧠 EL CONCEPTO</p>
+      <p>Antes de cocinar unos tacos épicos necesitas tu puesto listo: la plancha, el cuchillo
+        y los ingredientes. Programar es igual: antes de escribir tu primer código, necesitas
+        tus <strong>herramientas</strong> instaladas. Hoy solo son dos (más el proyecto del curso):</p>
+      <div class="analogia">
+        <strong>Google Chrome</strong> es tu <strong>tele donde ves el resultado</strong> 📺
+        (ahí "viven" las páginas web que vas a crear), y <strong>VS Code</strong> es tu
+        <strong>taller donde las construyes</strong> 🔧 (ahí escribes el código).
+      </div>
+
+      <div class="diagrama">
+        <svg width="640" height="190" viewBox="0 0 640 190">
+          <!-- Camino de instalación -->
+          <path class="anim-recorrido" d="M 60 120 L 190 120 L 320 120 L 450 120 L 580 120"
+                fill="none" stroke="#ffe95c" stroke-width="4"/>
+          <!-- Estación 1: Chrome -->
+          <g class="anim-pulso">
+            <circle cx="60" cy="120" r="30" fill="#14142e" stroke="#00e5ff" stroke-width="3"/>
+            <text x="60" y="130" text-anchor="middle" font-size="26">🌐</text>
+          </g>
+          <text x="60" y="175" text-anchor="middle" font-size="13" fill="#a3a3c8">Chrome</text>
+          <!-- Estación 2: VS Code -->
+          <circle cx="190" cy="120" r="30" fill="#14142e" stroke="#00e5ff" stroke-width="3"/>
+          <text x="190" y="130" text-anchor="middle" font-size="26">📝</text>
+          <text x="190" y="175" text-anchor="middle" font-size="13" fill="#a3a3c8">VS Code</text>
+          <!-- Estación 3: proyecto -->
+          <circle cx="320" cy="120" r="30" fill="#14142e" stroke="#ff4dd8" stroke-width="3"/>
+          <text x="320" y="130" text-anchor="middle" font-size="26">📦</text>
+          <text x="320" y="175" text-anchor="middle" font-size="13" fill="#a3a3c8">Proyecto</text>
+          <!-- Estación 4: abrir -->
+          <circle cx="450" cy="120" r="30" fill="#14142e" stroke="#39ff8e" stroke-width="3"/>
+          <text x="450" y="130" text-anchor="middle" font-size="26">🚀</text>
+          <text x="450" y="175" text-anchor="middle" font-size="13" fill="#a3a3c8">Abrir</text>
+          <!-- Meta -->
+          <g class="anim-parpadeo">
+            <circle cx="580" cy="120" r="30" fill="#14142e" stroke="#ffe95c" stroke-width="3"/>
+            <text x="580" y="130" text-anchor="middle" font-size="26">🏁</text>
+          </g>
+          <text x="580" y="175" text-anchor="middle" font-size="13" fill="#ffe95c">¡Listo!</text>
+          <text x="320" y="40" text-anchor="middle" font-size="16" fill="#eaeaf5">Tu camino de instalación de HOY</text>
+        </svg>
+        <p class="pie">Cinco estaciones y llegas a la meta 🏁. La línea punteada se mueve
+          porque TÚ te vas a mover por ella. Cada estación te da <strong>+10 XP</strong>.</p>
+      </div>
+
+      <p>Y no te preocupes: <strong>no puedes descomponer nada</strong>. Lo peor que puede pasar
+        es que algo no abra a la primera… y para eso está la sección 🚑 Auxilio de abajo.</p>
+    </div>
+
+    <!-- ============ 👀 LA MISIÓN PASO A PASO ============ -->
+    <div class="bloque ejemplo">
+      <p class="titulo-bloque">👀 LA MISIÓN, PASO A PASO</p>
+      <p>Sigue cada paso con calma. Marca la casilla en la sección <strong>✏️ TU TURNO</strong>
+        de abajo cada vez que termines uno (¡y gana XP!).</p>
+
+      <h3>🌐 Paso 1: instala Google Chrome</h3>
+      <ol class="pasos">
+        <li>Abre <strong>Safari</strong> (la brújula azul 🧭 que ya viene en toda Mac) y escribe en
+          la barra de arriba: <code>google.com/chrome</code>. Presiona <kbd>Enter</kbd>.</li>
+        <li>Haz clic en el botón grande <strong>"Descargar Chrome"</strong>. Se bajará un archivo
+          que termina en <code>.dmg</code> (piensa en él como una <strong>caja de regalo 🎁</strong>
+          que trae el programa adentro).</li>
+        <li>Cuando termine, haz clic en el botón de <strong>Descargas</strong> de Safari
+          (la flechita ⬇️ arriba a la derecha) y luego en <code>googlechrome.dmg</code>.</li>
+        <li>Se abre una ventana con el <strong>ícono de Chrome</strong> y una carpeta que dice
+          <strong>Aplicaciones</strong>. <strong>Arrastra</strong> el ícono de Chrome encima de la
+          carpeta Aplicaciones y suéltalo. ¡Eso es instalar en Mac! Así de fácil. 🎉</li>
+        <li>Cierra esa ventana. Abre <strong>Launchpad</strong> (el cohete 🚀 del Dock o junta
+          4 dedos en el trackpad), busca <strong>Chrome</strong> y ábrelo. La primera vez preguntará
+          si quieres abrirlo: dile que <strong>Abrir</strong>.</li>
+      </ol>
+
+      <h3>📝 Paso 2: instala VS Code (tu taller de código)</h3>
+      <p>Primero, un dato de tu Mac. Haz clic en la <strong>manzanita 🍎 de la esquina superior
+        izquierda</strong> → <strong>"Acerca de esta Mac"</strong>. Fíjate en una línea:</p>
+      <ul>
+        <li>Si dice <strong>"Chip: Apple M1 / M2 / M3 / M4"</strong> → tu Mac es
+          <strong>Apple Silicon</strong> 🍏 (las más nuevas).</li>
+        <li>Si dice <strong>"Procesador: Intel"</strong> → tu Mac es <strong>Intel</strong> 💠
+          (las más veteranas).</li>
+      </ul>
+      <ol class="pasos">
+        <li>Ahora sí: en <strong>Chrome</strong> (¡estrena tu instalación!) ve a
+          <code>code.visualstudio.com</code>.</li>
+        <li>Haz clic en <strong>"Download Mac Universal"</strong> (funciona en Apple Silicon
+          e Intel por igual — por eso dice "Universal" 😉). Se baja un archivo <code>.zip</code>
+          (una <strong>carpeta comprimida</strong>, como una mochila apretadita 🎒).</li>
+        <li>Abre tu carpeta <strong>Descargas</strong> (en el Dock, junto al bote de basura) y haz
+          <strong>doble clic</strong> en el zip. macOS lo "desempaca" solo y aparece
+          <strong>Visual Studio Code</strong> (un ícono azul).</li>
+        <li><strong>Arrastra ese ícono azul a la carpeta Aplicaciones</strong> (ábrela desde
+          Finder → Aplicaciones, en la barra lateral). Esto es importante: si lo dejas en
+          Descargas, un día lo borras sin querer. 😅</li>
+      </ol>
+
+      <h3>🔓 Paso 3: el primer arranque (y el aviso "miedoso" de macOS)</h3>
+      <ol class="pasos">
+        <li>Abre VS Code desde Aplicaciones (doble clic al ícono azul).</li>
+        <li>macOS te mostrará un aviso tipo: <em>"Visual Studio Code es una app descargada de
+          internet. ¿Estás seguro de que quieres abrirla?"</em> — <strong>tranquilo/a</strong> 🧘:
+          es el guardia de seguridad de tu Mac haciendo su trabajo. Le pregunta lo mismo a TODO
+          lo que llega de internet. VS Code lo hace Microsoft y lo usan millones de programadores.
+          Haz clic en <strong>"Abrir"</strong>.</li>
+        <li>VS Code abre con una pantalla de bienvenida. Si te pregunta por el tema, elige
+          <strong>Dark</strong> 😎 (los programadores amamos el modo oscuro). ¡Ya tienes taller!</li>
+      </ol>
+
+      <h3>📦 Paso 4: consigue el proyecto del curso</h3>
+      <p>El curso completo vive en una carpeta llamada <code>developer_course</code>. Tu profe te
+        dirá la dirección exacta en GitHub (una página donde los programadores guardan sus
+        proyectos). Hay dos rutas, elige la tuya:</p>
+
+      <p><strong>🟢 RUTA FÁCIL (recomendada para hoy):</strong></p>
+      <ol class="pasos">
+        <li>Abre en Chrome la página de GitHub del curso (la dirección te la da tu profe).</li>
+        <li>Busca el botón <strong>verde</strong> que dice <strong>"Code"</strong> y haz clic.</li>
+        <li>En el menú que se abre, elige <strong>"Download ZIP"</strong>. Se descarga la mochila
+          🎒 con todo el curso.</li>
+        <li>Ve a <strong>Descargas</strong>, haz <strong>doble clic</strong> al zip para
+          desempacarlo, y <strong>arrastra la carpeta</strong> resultante a
+          <strong>Documentos</strong> (en la barra lateral del Finder). Así siempre sabrás
+          dónde está.</li>
+      </ol>
+
+      <p><strong>🔵 RUTA PRO (opcional, para valientes):</strong> usa la
+        <strong>Terminal</strong>: una app donde le hablas a tu Mac <em>escribiendo comandos</em>
+        en vez de hacer clics. Se ve como pantalla de hacker 🕶️ y viene en toda Mac
+        (Launchpad → busca "Terminal"). Escribe estas dos líneas (presiona <kbd>Enter</kbd>
+        después de cada una):</p>
+      <pre class="bloque-codigo"><code>xcode-select --install
+git clone URL-QUE-TE-DA-TU-PROFE</code></pre>
+      <p>La primera instala las herramientas de programador de Apple (acepta el aviso y espera
+        unos minutos). La segunda "clona" (copia) el proyecto a tu Mac. Si esta ruta te da
+        curiosidad pero respeto, no pasa nada: la ruta fácil te deja exactamente igual de bien. 👍</p>
+
+      <h3>🚀 Paso 5: abre el proyecto</h3>
+      <ol class="pasos">
+        <li>Abre <strong>VS Code</strong> → menú <strong>File</strong> (Archivo) →
+          <strong>Open Folder…</strong> (Abrir carpeta) → busca <code>developer_course</code>
+          en Documentos → <strong>Abrir</strong>. Si pregunta si confías en los autores, dile
+          <strong>"Yes, I trust"</strong>: el autor eres tú ahora. 😄
+          A la izquierda verás TODOS los archivos del curso. Ese panel será tu mejor amigo.</li>
+        <li>Ahora en <strong>Finder</strong>, entra a la carpeta <code>developer_course</code> y
+          haz <strong>clic derecho</strong> (o clic con dos dedos) sobre <code>index.html</code> →
+          <strong>Abrir con</strong> → <strong>Google Chrome</strong>.</li>
+      </ol>
+
+      <h3>🏁 Paso 6: verificación final</h3>
+      <p>Si en Chrome ves <strong>el mapa de niveles de Code Quest con estrellitas de fondo</strong> ✨…
+        <strong>¡estás dentro!</strong> 🎉 Esa página que estás viendo AHORITA salió de la carpeta
+        que acabas de descargar. Ya tienes montado tu propio laboratorio de programación.</p>
+    </div>
+
+    <!-- ============ ✏️ TU TURNO: CHECKLIST ============ -->
+    <div class="bloque tu-turno">
+      <p class="titulo-bloque">✏️ TU TURNO: MARCA TU AVANCE</p>
+      <p>Ve marcando cada casilla cuando la termines. El sistema <strong>guarda tus palomitas
+        automáticamente</strong> y cada una te da <strong>+10 XP</strong>. 💪</p>
+      <ul class="checklist">
+        <li><input type="checkbox" data-check="n0-chrome" data-xp="10">
+          <span class="paso-texto">🌐 Instalé <strong>Google Chrome</strong> y lo abrí (arrastré el ícono a Aplicaciones).</span></li>
+        <li><input type="checkbox" data-check="n0-vscode" data-xp="10">
+          <span class="paso-texto">📝 Descargué <strong>VS Code</strong>, lo desempaqué y lo moví a Aplicaciones.</span></li>
+        <li><input type="checkbox" data-check="n0-abrir-vscode" data-xp="10">
+          <span class="paso-texto">🔓 Abrí VS Code por primera vez y le dije <strong>"Abrir"</strong> al aviso de seguridad sin miedo.</span></li>
+        <li><input type="checkbox" data-check="n0-proyecto" data-xp="10">
+          <span class="paso-texto">📦 Descargué el <strong>proyecto del curso</strong> (ZIP o git clone) y lo guardé en Documentos.</span></li>
+        <li><input type="checkbox" data-check="n0-abrir-curso" data-xp="10">
+          <span class="paso-texto">🚀 Abrí la carpeta en <strong>VS Code</strong> y abrí <code>index.html</code> en Chrome.</span></li>
+        <li><input type="checkbox" data-check="n0-verificado" data-xp="10">
+          <span class="paso-texto">🏁 ¡Veo el <strong>mapa de niveles con estrellas</strong>! Estoy dentro. 🎉</span></li>
+      </ul>
+
+      <div class="pistas">
+        <div class="pista">
+          <span class="pista-titulo">PISTA 1</span>
+          ¿Perdido/a entre ventanas? Todo lo que descargas cae en la carpeta
+          <strong>Descargas</strong>: ábrela desde el Dock (junto al bote de basura 🗑️) o en
+          Finder → barra lateral → Descargas. Empieza siempre por ahí.
+        </div>
+        <div class="pista">
+          <span class="pista-titulo">PISTA 2</span>
+          En Mac, "instalar" casi siempre es <strong>arrastrar el ícono del programa a la carpeta
+          Aplicaciones</strong>. Si un archivo es <code>.dmg</code>, ábrelo con doble clic primero;
+          si es <code>.zip</code>, el doble clic lo desempaca solo.
+        </div>
+        <div class="pista solucion">
+          <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
+          El camino completo, en resumen:
+          <pre class="bloque-codigo"><code>1) Safari → google.com/chrome → Descargar → abrir .dmg → arrastrar a Aplicaciones
+2) Chrome → code.visualstudio.com → Download Mac Universal → doble clic al .zip
+   → arrastrar VS Code a Aplicaciones
+3) Abrir VS Code → aviso de seguridad → "Abrir"
+4) GitHub del curso → botón verde Code → Download ZIP → doble clic → mover a Documentos
+5) VS Code → File → Open Folder → developer_course
+   Finder → index.html → clic derecho → Abrir con → Chrome
+6) ¿Ves el mapa con estrellas? ✅ ¡Misión cumplida!</code></pre>
+          Si algún paso se atoró, revisa la sección 🚑 de abajo: ahí están los 5 tropiezos
+          más comunes con su cura.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 🚑 ¿ATORADO? + AUXILIO ============ -->
+    <div class="bloque atorado">
+      <p class="titulo-bloque">🚑 AUXILIO: LOS 5 TROPIEZOS CLÁSICOS EN MAC</p>
+      <ol>
+        <li><strong>El .dmg no abre o "desapareció".</strong> Seguro se descargó pero no lo has
+          abierto: ve a <strong>Finder → Descargas</strong> y dale doble clic. Si Safari lo bloqueó,
+          descárgalo otra vez y elige "Permitir".</li>
+        <li><strong>"No se puede abrir porque proviene de un desarrollador no identificado".</strong>
+          Haz <strong>clic derecho</strong> sobre la app → <strong>Abrir</strong> → botón
+          <strong>Abrir</strong>. Con eso macOS lo recuerda y no vuelve a preguntar. (Solo haz esto
+          con apps que descargaste de su página oficial, como aquí. 😉)</li>
+        <li><strong>"No encuentro mi carpeta Descargas".</strong> Abre <strong>Finder</strong>
+          (la carita feliz del Dock 😊) y mira la <strong>barra lateral izquierda</strong>: ahí está
+          "Descargas". Si no aparece, menú Finder → Configuración → Barra lateral → activa Descargas.</li>
+        <li><strong>Abrí index.html… ¡y se abrió TextEdit con puro texto raro!</strong> No pasa nada:
+          TextEdit muestra el código en vez de la página. Ciérralo, haz <strong>clic derecho</strong>
+          en <code>index.html</code> → <strong>Abrir con → Google Chrome</strong>. Chrome sí sabe
+          "cocinar" ese código y mostrarte la página.</li>
+        <li><strong>La página se ve sin colores, con letras feas.</strong> Casi seguro es que
+          <strong>no hay internet</strong>: las letras bonitas del curso se descargan de la red la
+          primera vez. Conéctate al WiFi y recarga con <kbd>⌘R</kbd>. El curso funciona igual, solo
+          se ve más elegante con internet. ✨</li>
+      </ol>
+      <p>¿Nada de esto fue tu problema? Pregúntale a una IA, describe lo que ves en pantalla: 👇</p>
+      <div class="bloque-ia">
+        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n0l1">Tengo 13 años, uso una Mac y estoy instalando Google Chrome y Visual Studio Code por primera vez para un curso de programación. Me atoré en este paso: [DESCRIBE AQUÍ QUÉ VES EN TU PANTALLA]. Explícame qué hacer con pasos muy simples, uno por uno, sin palabras técnicas.</div>
+        <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n0l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
+        <div class="enlaces-ia">
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Abrir Claude ↗</a>
+          <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
+        </div>
+      </div>
+      <p>Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 — pedir ayuda
+        también es de programadores pros.</p>
+    </div>
+
+    <!-- ============ 🔥 RETO EXTRA ============ -->
+    <div class="bloque reto">
+      <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
+      <p>Deja tu base de operaciones como de profesional: 1) <strong>ancla Chrome y VS Code al
+        Dock</strong> (con la app abierta: clic derecho en su ícono del Dock → Opciones →
+        Mantener en el Dock); 2) en VS Code entra a la vista de temas
+        (<kbd>⌘K</kbd> y luego <kbd>⌘T</kbd>) y <strong>elige el tema de colores que más te
+        guste</strong>; 3) explora el panel de archivos del curso en VS Code: ¿cuántas carpetas
+        de niveles encuentras? 👀</p>
+    </div>
+
+    <!-- ============ ❓ MINI-QUIZ ============ -->
+    <div class="bloque quiz-bloque">
+      <p class="titulo-bloque">❓ MINI-QUIZ</p>
+      <div class="quiz" data-quiz="n0-l1" data-xp="20">
+        <div class="pregunta">
+          <p class="enunciado">1. ¿Para qué te servirá <strong>Google Chrome</strong> en este curso?</p>
+          <button class="opcion">Para escribir el código de mis programas</button>
+          <button class="opcion" data-ok>Para VER las páginas web y juegos que yo construya</button>
+          <button class="opcion">Para descomprimir archivos .zip</button>
+          <div class="explicacion">Chrome es tu "tele" 📺: ahí se muestran (y cobran vida) las
+            páginas que escribas. El código lo escribirás en VS Code, tu taller. 🔧</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">2. En Mac, ¿cómo se instala una app que vino en un archivo <code>.dmg</code>?</p>
+          <button class="opcion">Se deja el archivo en Descargas y ya quedó</button>
+          <button class="opcion">Hay que escribir comandos en la Terminal a fuerza</button>
+          <button class="opcion" data-ok>Se abre el .dmg y se arrastra el ícono a la carpeta Aplicaciones</button>
+          <div class="explicacion">¡Arrastrar y soltar! 🎁 El .dmg es la caja de regalo; el programa
+            queda instalado cuando lo sueltas dentro de Aplicaciones.</div>
+        </div>
+        <div class="pregunta">
+          <p class="enunciado">3. macOS te dice: "Esta app se descargó de internet, ¿seguro que quieres abrirla?" ¿Qué significa?</p>
+          <button class="opcion">Que la app tiene virus y debes borrarla ya</button>
+          <button class="opcion" data-ok>Es el aviso normal de seguridad: si la bajaste de su página oficial, dale "Abrir"</button>
+          <button class="opcion">Que tu Mac es demasiado vieja para ese programa</button>
+          <div class="explicacion">Es el guardia de la puerta 💂 preguntando "¿lo conoces?". Como
+            descargaste VS Code de su página oficial, puedes decirle "Abrir" con confianza.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ✅ COMPLETAR + NAVEGACIÓN ============ -->
+    <div class="zona-completar">
+      <button class="btn-completar" data-leccion="n0-l1">✅ ¡Lección completada! (+50 XP)</button>
+    </div>
+    <nav class="nav-leccion">
+      <a href="index.html">◀ Volver al Nivel 0</a>
+      <a href="leccion-2.html">Siguiente: ¿Qué es programar? ▶</a>
+    </nav>
+  </main>
+
+  <script>window.CQ_BASE = "../../";</script>
+  <script src="../../assets/js/progress.js"></script>
+  <script src="../../assets/js/hints.js"></script>
+  <script src="../../assets/js/quiz.js"></script>
+</body>
+</html>

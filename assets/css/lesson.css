@@ -1,0 +1,317 @@
+/* ============================================================
+   CODE QUEST — Estilos de las páginas de lección
+   Cada bloque de la plantilla pedagógica tiene su estilo aquí.
+   ============================================================ */
+
+.leccion {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 30px 22px 80px;
+}
+
+/* Miga de pan (breadcrumb) */
+.miga {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+.miga a { color: var(--texto-suave); text-decoration: none; }
+.miga a:hover { color: var(--cian); }
+
+/* Etiqueta del número de lección */
+.etiqueta-leccion {
+  display: inline-block;
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  color: var(--bg);
+  background: var(--color-nivel, var(--cian));
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Bloques de la plantilla ---------- */
+.bloque {
+  border-radius: 14px;
+  border: 2px solid var(--panel-borde);
+  background: var(--panel);
+  padding: 20px 26px;
+  margin: 26px 0;
+}
+.bloque > h2:first-child, .bloque > h3:first-child { margin-top: 0.3em; }
+
+.bloque.objetivo   { border-color: var(--amarillo); background: #1c1a10; }
+.bloque.concepto   { border-color: var(--cian); }
+.bloque.ejemplo    { border-color: var(--verde); }
+.bloque.tu-turno   { border-color: var(--magenta); }
+.bloque.atorado    { border-color: var(--naranja); background: #1d150e; }
+.bloque.reto       { border-color: var(--rojo); }
+.bloque.quiz-bloque{ border-color: var(--morado); }
+
+.bloque .titulo-bloque {
+  font-family: var(--fuente-pixel);
+  font-size: 0.75rem;
+  margin: 0 0 14px;
+  line-height: 1.8;
+}
+.bloque.objetivo    .titulo-bloque { color: var(--amarillo); }
+.bloque.concepto    .titulo-bloque { color: var(--cian); }
+.bloque.ejemplo     .titulo-bloque { color: var(--verde); }
+.bloque.tu-turno    .titulo-bloque { color: var(--magenta); }
+.bloque.atorado     .titulo-bloque { color: var(--naranja); }
+.bloque.reto        .titulo-bloque { color: var(--rojo); }
+.bloque.quiz-bloque .titulo-bloque { color: var(--morado); }
+
+/* Analogía destacada */
+.analogia {
+  border-left: 5px solid var(--amarillo);
+  background: #1d1b0f;
+  border-radius: 0 10px 10px 0;
+  padding: 12px 18px;
+  margin: 16px 0;
+  font-size: 1.02rem;
+}
+.analogia::before { content: "💡 "; }
+
+/* ---------- Playground / editores ---------- */
+.playground, .py-runner, .sql-runner { margin: 18px 0; }
+.pg-marco {
+  border: 2px solid var(--panel-borde);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d0d22;
+}
+.pg-barra {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  background: #1a1a38;
+  border-bottom: 2px solid var(--panel-borde);
+}
+.pg-barra .pg-titulo {
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  color: var(--texto-suave);
+  margin-right: auto;
+}
+.pg-btn {
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #0a0a1a;
+  background: var(--verde);
+}
+.pg-btn.secundario { background: #3a3a6e; color: var(--texto); }
+.pg-btn:hover { filter: brightness(1.15); }
+
+.CodeMirror {
+  height: auto;
+  min-height: 120px;
+  font-size: 15px;
+  line-height: 1.6;
+  background: #0d0d22 !important;
+}
+
+.pg-preview {
+  width: 100%;
+  border: none;
+  background: #ffffff;
+  min-height: 160px;
+  display: block;
+}
+.pg-preview.oscuro { background: #0d0d22; }
+
+/* Consola retro (salida de Python y JS) */
+.consola {
+  background: #050510;
+  color: var(--verde);
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 0.9rem;
+  padding: 14px 16px;
+  min-height: 60px;
+  max-height: 320px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-top: 2px solid var(--panel-borde);
+}
+.consola .error { color: var(--rojo); }
+.consola .aviso { color: var(--amarillo); }
+.consola:empty::before { content: "▸ la salida de tu programa aparecerá aquí…"; color: #3f3f70; }
+
+/* Tabla de resultados SQL */
+.sql-resultado { padding: 12px 16px; overflow-x: auto; border-top: 2px solid var(--panel-borde); }
+
+/* ---------- Pistas progresivas ---------- */
+.pistas { margin: 16px 0; }
+.pistas .pista {
+  display: none;
+  border-left: 5px solid var(--naranja);
+  background: #1d150e;
+  border-radius: 0 10px 10px 0;
+  padding: 12px 18px;
+  margin: 10px 0;
+}
+.pistas .pista.visible { display: block; animation: aparecer 0.4s ease; }
+.pistas .pista.solucion { border-left-color: var(--verde); background: #0e1d14; }
+.pistas .pista .pista-titulo {
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  color: var(--naranja);
+  display: block;
+  margin-bottom: 6px;
+}
+.pistas .pista.solucion .pista-titulo { color: var(--verde); }
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Bloque "Pregúntale a una IA" ---------- */
+.bloque-ia {
+  border: 2px dashed var(--morado);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: #16112b;
+}
+.bloque-ia .prompt-ia {
+  background: #0d0d22;
+  border: 1px solid var(--panel-borde);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: 'Menlo', monospace;
+  font-size: 0.85rem;
+  color: var(--texto);
+  margin: 10px 0;
+}
+.enlaces-ia { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+
+/* ---------- Quiz ---------- */
+.quiz .pregunta { margin: 18px 0 26px; }
+.quiz .pregunta p.enunciado { font-weight: 800; font-size: 1.05rem; }
+.quiz .opcion {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--fuente-cuerpo);
+  font-size: 1rem;
+  color: var(--texto);
+  background: #1d1d3f;
+  border: 2px solid var(--panel-borde);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.quiz .opcion:hover { border-color: var(--morado); }
+.quiz .opcion.correcta { border-color: var(--verde); background: #0e1d14; }
+.quiz .opcion.incorrecta { border-color: var(--rojo); background: #23101a; animation: sacudir 0.3s; }
+.quiz .explicacion {
+  display: none;
+  border-left: 5px solid var(--morado);
+  background: #16112b;
+  border-radius: 0 10px 10px 0;
+  padding: 10px 16px;
+  margin-top: 8px;
+}
+.quiz .explicacion.visible { display: block; animation: aparecer 0.4s; }
+@keyframes sacudir {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ---------- Completar lección y navegación ---------- */
+.zona-completar { text-align: center; margin: 44px 0 26px; }
+.btn-completar {
+  font-family: var(--fuente-pixel);
+  font-size: 0.8rem;
+  background: var(--verde);
+  color: #0a0a1a;
+  border: none;
+  border-radius: 12px;
+  padding: 20px 30px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #1da35c, 0 0 24px #39ff8e44;
+  transition: transform 0.08s, box-shadow 0.08s, filter 0.2s;
+}
+.btn-completar:hover { filter: brightness(1.1); }
+.btn-completar:active { transform: translateY(5px); box-shadow: 0 1px 0 #1da35c; }
+.btn-completar.ya-completada {
+  background: #2a2a52;
+  color: var(--verde);
+  box-shadow: none;
+  cursor: default;
+}
+
+.nav-leccion {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.nav-leccion a {
+  font-family: var(--fuente-pixel);
+  font-size: 0.6rem;
+  color: var(--cian);
+  text-decoration: none;
+  border: 2px solid var(--panel-borde);
+  border-radius: 10px;
+  padding: 14px 18px;
+  background: var(--panel);
+  line-height: 1.8;
+}
+.nav-leccion a:hover { border-color: var(--cian); }
+
+/* ---------- Checklist interactivo (Nivel 0) ---------- */
+.checklist { list-style: none; padding: 0; }
+.checklist li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 2px solid var(--panel-borde);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 12px 0;
+}
+.checklist input[type="checkbox"] {
+  width: 26px; height: 26px;
+  accent-color: var(--verde);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.checklist li.hecho { border-color: var(--verde); }
+.checklist li.hecho .paso-texto { opacity: 0.75; }
+
+/* Pasos numerados */
+.pasos { counter-reset: paso; list-style: none; padding: 0; }
+.pasos > li {
+  counter-increment: paso;
+  position: relative;
+  padding: 6px 0 6px 58px;
+  margin: 14px 0;
+}
+.pasos > li::before {
+  content: counter(paso);
+  position: absolute;
+  left: 0; top: 6px;
+  width: 38px; height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-pixel);
+  font-size: 0.8rem;
+  color: var(--bg);
+  background: var(--cian);
+  border-radius: 10px;
+  box-shadow: 0 0 12px #00e5ff44;
+}

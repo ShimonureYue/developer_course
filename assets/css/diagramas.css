@@ -1,0 +1,156 @@
+/* ============================================================
+   CODE QUEST — Diagramas animados de conceptos
+   Cada concepto tiene su animación hecha SOLO con SVG + CSS.
+   Los alumnos pueden inspeccionar este archivo y aprender de él.
+   ============================================================ */
+
+.diagrama {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #0d0d22;
+  border: 2px solid var(--panel-borde);
+  border-radius: 14px;
+  padding: 22px 16px 14px;
+  margin: 18px 0;
+}
+.diagrama svg { max-width: 100%; height: auto; overflow: visible; }
+.diagrama .pie {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  text-align: center;
+  max-width: 560px;
+}
+
+/* Textos dentro de los SVG */
+.diagrama text {
+  font-family: var(--fuente-cuerpo);
+  font-weight: 800;
+  fill: var(--texto);
+}
+.diagrama text.mono { font-family: 'Menlo', monospace; font-weight: 400; }
+.diagrama text.pixel { font-family: var(--fuente-pixel); font-size: 9px; }
+
+/* ---------- Animaciones reutilizables ---------- */
+
+/* Un valor que "entra" a una caja (variable) */
+@keyframes valor-entra {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 1; }
+  60%  { transform: translate(var(--dx, 120px), var(--dy, 0px)); opacity: 1; }
+  80%  { transform: translate(var(--dx, 120px), var(--dy, 0px)) scale(0.75); opacity: 1; }
+  100% { transform: translate(var(--dx, 120px), var(--dy, 0px)) scale(0.75); opacity: 0; }
+}
+.anim-valor-entra { animation: valor-entra 3.2s ease-in-out infinite; }
+
+/* Aparecer dentro de la caja después de que el valor "entró" */
+@keyframes valor-aparece {
+  0%, 55% { opacity: 0; }
+  70%, 92% { opacity: 1; }
+  100% { opacity: 1; }
+}
+.anim-valor-aparece { animation: valor-aparece 3.2s ease-in-out infinite; }
+
+/* Latido / pulso de atención */
+@keyframes pulso {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+}
+.anim-pulso { animation: pulso 1.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+/* Candado que se sacude cuando intentas cambiar una constante */
+@keyframes sacudida {
+  0%, 88%, 100% { transform: rotate(0); }
+  90% { transform: rotate(-8deg); }
+  93% { transform: rotate(8deg); }
+  96% { transform: rotate(-5deg); }
+}
+.anim-sacudida { animation: sacudida 3s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+/* Flecha que gira (ciclos / game loop) */
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.anim-girar { animation: girar 3s linear infinite; transform-origin: center; transform-box: fill-box; }
+.anim-girar.lento { animation-duration: 6s; }
+
+/* Punto que recorre un camino (flujo del programa) */
+.anim-recorrido {
+  stroke-dasharray: 8 8;
+  animation: recorrer 1.2s linear infinite;
+}
+@keyframes recorrer {
+  to { stroke-dashoffset: -16; }
+}
+
+/* Semáforo del if/else: alterna entre dos caminos */
+@keyframes camino-a {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0.15; }
+  100% { opacity: 1; }
+}
+@keyframes camino-b {
+  0%, 45% { opacity: 0.15; }
+  50%, 95% { opacity: 1; }
+  100% { opacity: 0.15; }
+}
+.anim-camino-a { animation: camino-a 4s ease-in-out infinite; }
+.anim-camino-b { animation: camino-b 4s ease-in-out infinite; }
+
+/* Contador de un ciclo: números que aparecen uno tras otro */
+@keyframes conteo {
+  0%, 100% { opacity: 0; }
+  10%, 22% { opacity: 1; }
+}
+.anim-conteo { opacity: 0; animation: conteo 4s linear infinite; }
+.anim-conteo.paso-2 { animation-delay: 0.8s; }
+.anim-conteo.paso-3 { animation-delay: 1.6s; }
+.anim-conteo.paso-4 { animation-delay: 2.4s; }
+.anim-conteo.paso-5 { animation-delay: 3.2s; }
+
+/* Máquina de funciones: ingrediente entra, platillo sale */
+@keyframes ingrediente-entra {
+  0%   { transform: translate(0,0); opacity: 0; }
+  10%  { opacity: 1; }
+  45%  { transform: translate(var(--dx, 110px), 0); opacity: 1; }
+  55%  { transform: translate(var(--dx, 110px), 0); opacity: 0; }
+  100% { opacity: 0; }
+}
+.anim-ingrediente { animation: ingrediente-entra 4s ease-in-out infinite; }
+
+@keyframes platillo-sale {
+  0%, 50% { transform: translate(0,0); opacity: 0; }
+  60%  { opacity: 1; }
+  95%  { transform: translate(var(--dx, 110px), 0); opacity: 1; }
+  100% { transform: translate(var(--dx, 110px), 0); opacity: 0; }
+}
+.anim-platillo { animation: platillo-sale 4s ease-in-out infinite; }
+
+/* La máquina "trabaja" a la mitad del ciclo */
+@keyframes maquina-trabaja {
+  0%, 40%, 60%, 100% { transform: scale(1); }
+  45%, 55% { transform: scale(1.05) rotate(1deg); }
+  50% { transform: scale(1.05) rotate(-1deg); }
+}
+.anim-maquina { animation: maquina-trabaja 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+/* Parpadeo suave (cursores, señales) */
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+.anim-parpadeo { animation: parpadeo 1.2s ease-in-out infinite; }
+
+/* Barrita que crece (barras de progreso, XP, vida) */
+@keyframes crecer-x {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.anim-crecer { animation: crecer-x 2.4s ease-in-out infinite alternate; transform-origin: left center; transform-box: fill-box; }
+
+/* Accesibilidad: si el alumno prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .diagrama [class*="anim-"] { animation: none !important; opacity: 1 !important; }
+}
