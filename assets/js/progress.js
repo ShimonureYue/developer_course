@@ -16,7 +16,7 @@
       titulo: "Paso 0: prepara tu equipo",
       medalla: { emoji: "🛠️", nombre: "Equipo listo" },
       lecciones: [
-        { id: "n0-l1", archivo: "leccion-1.html", titulo: "Prepara tu Mac", xp: 50 },
+        { id: "n0-l1", archivo: "leccion-1.html", titulo: "Prepara tu computadora", xp: 50 },
         { id: "n0-l2", archivo: "leccion-2.html", titulo: "¿Qué es programar?", xp: 50 },
         { id: "n0-l3", archivo: "leccion-3.html", titulo: "Tu partida guardada", xp: 50 },
         { id: "n0-l4", archivo: "leccion-4.html", titulo: "Conoce tu base 👑", xp: 100, jefe: true }

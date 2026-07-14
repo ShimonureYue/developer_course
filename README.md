@@ -27,7 +27,8 @@ en su propio navegador.
 
 1. Comparte el repositorio con los alumnos.
 2. Ellos lo descargan (botón verde **Code → Download ZIP**) o lo clonan con git —
-   la **Lección 1 del Nivel 0** los guía paso a paso, asumiendo que su Mac no tiene nada instalado.
+   la **Lección 1 del Nivel 0** los guía paso a paso (Mac y Windows), asumiendo que
+   su computadora no tiene nada instalado.
 3. Abren `index.html` con doble clic. Listo.
 
 > 💡 Las dos opciones se combinan bien: publica la página para el día a día,
@@ -38,7 +39,10 @@ en su propio navegador.
 - **Internet**: la página descarga de internet el motor de Python (Pyodide),
   el editor de código con colores (CodeMirror), la mini base de datos (sql.js)
   y las tipografías. Sin internet, los textos se leen pero los editores interactivos no corren.
-- **Un navegador moderno**: Chrome o Safari en macOS funcionan perfecto.
+- **Un navegador moderno**: Chrome, Edge o Safari funcionan perfecto.
+- **Cualquier computadora**: Mac (Intel o Apple Silicon M1–M4) y Windows por igual,
+  porque todo corre dentro del navegador. Las lecciones de instalación (Nivel 0)
+  y los atajos de teclado cubren los dos sistemas.
 - Nada más. No se instala Python, ni Node, ni ningún programa para *ver* el curso.
 
 ## 🗺️ Estructura del curso

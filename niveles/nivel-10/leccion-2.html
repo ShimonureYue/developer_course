@@ -25,7 +25,7 @@
     <div class="bloque objetivo">
       <p class="titulo-bloque">🎯 HOY VAS A LOGRAR…</p>
       <p>Entender qué es un <strong>motor de juegos</strong> y por qué existen, instalar
-        <strong>Godot</strong> (gratis y ligero) en tu Mac, y descubrir que su lenguaje,
+        <strong>Godot</strong> (gratis y ligero) en tu computadora, y descubrir que su lenguaje,
         <strong>GDScript, es casi Python</strong> — o sea que ya lo hablas. 🐍→🤖</p>
     </div>
 
@@ -47,7 +47,7 @@
 
       <p>¿Y por qué <strong>Godot</strong>? Tres razones perfectas para ti:
         es <strong>100% gratis y de código abierto</strong> (sin licencias ni cuentas),
-        es <strong>ligerito</strong> (~150 MB; corre feliz en tu Mac mini), y su lenguaje
+        es <strong>ligerito</strong> (~150 MB; corre feliz hasta en computadoras modestas), y su lenguaje
         <strong>GDScript se parece tanto a Python</strong> que vas a sentir que hiciste trampa. 😏
         Con Godot se han hecho juegos comerciales de verdad, como Brotato o Cassette Beasts.</p>
 
@@ -172,21 +172,26 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
         <li>
           <input type="checkbox" data-check="n10-godot-1">
           <div class="paso-texto"><strong>Descarga Godot:</strong> entra a
-            <a href="https://godotengine.org/download/macos/" target="_blank" rel="noopener">godotengine.org/download/macos ↗</a>
-            y baja <strong>Godot Engine</strong> (la versión normal, NO la ".NET"). Es un ZIP de
-            ~150 MB.</div>
+            <a href="https://godotengine.org/download/" target="_blank" rel="noopener">godotengine.org/download ↗</a>
+            (detecta solo si tienes Mac o Windows) y baja <strong>Godot Engine</strong>
+            (la versión normal, NO la ".NET"). Es un ZIP de ~150 MB.</div>
         </li>
         <li>
           <input type="checkbox" data-check="n10-godot-2">
-          <div class="paso-texto"><strong>Instálalo:</strong> descomprime el ZIP (doble clic) y
-            <strong>arrastra Godot a la carpeta Aplicaciones</strong> 📁 — el mismo ritual de
-            arrastrar que hiciste con VS Code en el Nivel 0.</div>
+          <div class="paso-texto"><strong>Instálalo:</strong> descomprime el ZIP (doble clic).
+            En <strong>Mac</strong>: arrastra Godot a la carpeta Aplicaciones 📁 — el mismo
+            ritual de arrastrar que hiciste con VS Code en el Nivel 0. En <strong>Windows</strong>:
+            mueve la carpeta descomprimida a Documentos; adentro está <code>Godot.exe</code>,
+            que se abre con doble clic (no necesita instalación).</div>
         </li>
         <li>
           <input type="checkbox" data-check="n10-godot-3">
-          <div class="paso-texto"><strong>Ábrelo:</strong> primera vez → clic derecho sobre
-            Godot → <strong>Abrir</strong> → Abrir (el guardián de seguridad de macOS, ya lo
-            conoces 🛡️). Debe aparecer el Gestor de Proyectos.</div>
+          <div class="paso-texto"><strong>Ábrelo:</strong> primera vez en <strong>Mac</strong> →
+            clic derecho sobre Godot → <strong>Abrir</strong> → Abrir (el guardián de seguridad
+            de macOS, ya lo conoces 🛡️). En <strong>Windows</strong>, si aparece el aviso azul
+            "Windows protegió tu equipo" → clic en <strong>Más información</strong> →
+            <strong>Ejecutar de todas formas</strong> (es el mismo guardián, versión Windows).
+            Debe aparecer el Gestor de Proyectos.</div>
         </li>
         <li>
           <input type="checkbox" data-check="n10-godot-4">
@@ -200,7 +205,7 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
           <div class="paso-texto"><strong>Tu primera escena:</strong> en el panel Escena, clic en
             <strong>Otro Nodo</strong> → busca y elige <code>Label</code> (un nodo de texto) →
             en el Inspector (derecha), escribe en su propiedad <strong>Text</strong>:
-            <code>¡Hola, Godot! Vengo de Code Quest 👾</code>. Guarda la escena (⌘S) y presiona
+            <code>¡Hola, Godot! Vengo de Code Quest 👾</code>. Guarda la escena (⌘S / Ctrl+S) y presiona
             <strong>▶</strong> (arriba a la derecha) para ejecutar. ¡Tu primer proyecto de
             Godot corre! 🎉</div>
         </li>
@@ -212,6 +217,8 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
           ¿macOS dice <em>"no se puede abrir porque proviene de un desarrollador no
           identificado"</em>? No es un error tuyo: es el guardián del Nivel 0. Clic
           <strong>derecho</strong> sobre la app → Abrir → Abrir. Solo la primera vez.
+          ¿Windows muestra "Windows protegió tu equipo"? Mismo guardián: <strong>Más
+          información → Ejecutar de todas formas</strong>. Solo la primera vez también.
         </div>
         <div class="pista">
           <span class="pista-titulo">PISTA 2</span>
@@ -243,7 +250,7 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
       </ol>
       <div class="bloque-ia">
         <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
-        <div class="prompt-ia" id="prompt-ia-n10l2">Tengo 13 años, sé Python y JavaScript (acabo de terminar mi propio Space Invaders con canvas), y estoy empezando con Godot 4 en Mac. Explícame como a alguien de mi edad: 1) qué es un nodo, una escena y una señal, usando una analogía de teatro; 2) en qué se parece GDScript a Python con un ejemplo cortito de cada uno; 3) qué pasos sigo para hacer que un sprite se mueva con las flechas. Si te pregunto errores del editor, pídeme capturas o el texto exacto del error antes de responder.</div>
+        <div class="prompt-ia" id="prompt-ia-n10l2">Tengo 13 años, sé Python y JavaScript (acabo de terminar mi propio Space Invaders con canvas), y estoy empezando con Godot 4 en mi computadora [ESCRIBE: Mac o Windows]. Explícame como a alguien de mi edad: 1) qué es un nodo, una escena y una señal, usando una analogía de teatro; 2) en qué se parece GDScript a Python con un ejemplo cortito de cada uno; 3) qué pasos sigo para hacer que un sprite se mueva con las flechas. Si te pregunto errores del editor, pídeme capturas o el texto exacto del error antes de responder.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
           <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
