@@ -310,10 +310,97 @@
   }
 
   function reiniciarPartida() {
-    if (!confirm("¿Seguro que quieres borrar TODO tu progreso? Esta acción no se puede deshacer.\n\nTip: primero guarda tu partida con 💾 por si te arrepientes.")) return;
-    partida = partidaNueva();
+    modalConfirmar({
+      titulo: "⚠️ ¿BORRAR TU PARTIDA?",
+      mensaje: "Vas a borrar TODO: tu XP, tus medallas y el código que escribiste en los ejercicios. Es como borrar un save de un videojuego: no se puede deshacer.\n\nTip: primero guarda tu partida con 💾 Exportar, por si te arrepientes.",
+      textoConfirmar: "🗑️ Sí, borrar todo",
+      textoCancelar: "↩ ¡No, espera!"
+    }, function () {
+      partida = partidaNueva();
+      guardar(partida);
+      location.reload();
+    });
+  }
+
+  // ---------- Guardado automático del código de los ejercicios ----------
+  // Cada editor (playground, Python, SQL) guarda lo que el alumno escribe
+  // dentro de la partida, así también viaja al exportar/importar.
+
+  // Identifica la página actual de forma estable (funciona igual en
+  // el sitio publicado y abriendo el archivo local).
+  function paginaActual() {
+    var ruta = location.pathname.replace(/\\/g, "/");
+    var m = ruta.match(/(niveles\/nivel-\d+\/[^\/]+)\.html$/);
+    if (m) return m[1];
+    var partes = ruta.split("/").filter(Boolean);
+    return partes.slice(-2).join("/").replace(/\.html$/, "");
+  }
+
+  // Clave única para un ejercicio: página + tipo de editor + número,
+  // o un nombre propio si el ejercicio trae data-guardar="...".
+  function claveEjercicio(tipo, indice, personalizada) {
+    return paginaActual() + "::" + (personalizada || tipo + indice);
+  }
+
+  function guardarCodigo(clave, texto) {
+    partida.extra.codigo = partida.extra.codigo || {};
+    if (texto === null || texto === undefined) {
+      delete partida.extra.codigo[clave];
+    } else {
+      partida.extra.codigo[clave] = texto;
+    }
     guardar(partida);
-    location.reload();
+  }
+
+  function codigoGuardado(clave) {
+    var caja = partida.extra.codigo;
+    return caja && typeof caja[clave] === "string" ? caja[clave] : null;
+  }
+
+  // ---------- Modal de confirmación (estilo "borrar save") ----------
+  function modalConfirmar(opciones, alConfirmar) {
+    var viejo = document.querySelector(".cq-modal-fondo");
+    if (viejo) viejo.remove();
+
+    var fondo = document.createElement("div");
+    fondo.className = "cq-modal-fondo";
+    var modal = document.createElement("div");
+    modal.className = "cq-modal";
+    modal.setAttribute("role", "alertdialog");
+    modal.innerHTML =
+      '<div class="cq-modal-titulo"></div>' +
+      '<p class="cq-modal-mensaje"></p>' +
+      '<div class="cq-modal-botones">' +
+      '<button type="button" class="cq-modal-btn cancelar"></button>' +
+      '<button type="button" class="cq-modal-btn peligro"></button>' +
+      "</div>";
+    modal.querySelector(".cq-modal-titulo").textContent = opciones.titulo || "⚠️ ¿Estás seguro?";
+    modal.querySelector(".cq-modal-mensaje").textContent = opciones.mensaje || "";
+    var btnCancelar = modal.querySelector(".cancelar");
+    var btnConfirmar = modal.querySelector(".peligro");
+    btnCancelar.textContent = opciones.textoCancelar || "↩ Cancelar";
+    btnConfirmar.textContent = opciones.textoConfirmar || "🗑️ Sí, borrar";
+    fondo.appendChild(modal);
+    document.body.appendChild(fondo);
+
+    function cerrar() {
+      fondo.remove();
+      document.removeEventListener("keydown", conEscape);
+    }
+    function conEscape(e) {
+      if (e.key === "Escape") cerrar();
+    }
+    btnCancelar.addEventListener("click", cerrar);
+    fondo.addEventListener("click", function (e) {
+      if (e.target === fondo) cerrar();
+    });
+    btnConfirmar.addEventListener("click", function () {
+      cerrar();
+      if (alConfirmar) alConfirmar();
+    });
+    document.addEventListener("keydown", conEscape);
+    // El botón seguro queda seleccionado: Enter por accidente no borra nada
+    btnCancelar.focus();
   }
 
   // ---------- Interfaz: header con XP ----------
@@ -515,6 +602,10 @@
     exportarPartida: exportarPartida,
     importarPartida: importarPartida,
     reiniciarPartida: reiniciarPartida,
+    claveEjercicio: claveEjercicio,
+    guardarCodigo: guardarCodigo,
+    codigoGuardado: codigoGuardado,
+    modalConfirmar: modalConfirmar,
     toast: toast,
     confetti: confetti,
     cargarScript: cargarScript,

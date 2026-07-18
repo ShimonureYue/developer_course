@@ -32,13 +32,15 @@
   }
 
   // Crea un editor: CodeMirror si hay internet, textarea simple si no.
-  function crearEditor(contenedor, codigo, modo) {
+  // alCambiar se avisa cada vez que el alumno escribe (para autoguardar).
+  function crearEditor(contenedor, codigo, modo, alCambiar) {
     var editor = { valor: function () { return area.value; }, poner: function (v) { area.value = v; } };
     var area = document.createElement("textarea");
     area.value = codigo;
     area.spellcheck = false;
     area.style.cssText = "width:100%;min-height:160px;background:#0d0d22;color:#eaeaf5;border:none;padding:12px;font-family:Menlo,monospace;font-size:14px;resize:vertical;";
     contenedor.appendChild(area);
+    if (alCambiar) area.addEventListener("input", alCambiar);
 
     cargarCodeMirror().then(function () {
       var cm = CodeMirror.fromTextArea(area, {
@@ -51,6 +53,7 @@
       });
       editor.valor = function () { return cm.getValue(); };
       editor.poner = function (v) { cm.setValue(v); };
+      if (alCambiar) cm.on("change", alCambiar);
     }).catch(function () { /* sin internet: el textarea sigue funcionando */ });
 
     return editor;
@@ -78,7 +81,7 @@
       "<\/script><script>\n" + escaparScript(codigoUsuario) + "\n<\/script></body></html>";
   }
 
-  function montar(caja) {
+  function montar(caja, indice) {
     var modo = caja.getAttribute("data-mode") || "html";
     var titulo = caja.getAttribute("data-titulo") || (modo === "js" ? "programa.js" : "pagina.html");
     var alto = caja.getAttribute("data-alto") || "220";
@@ -86,11 +89,16 @@
     var codigoInicial = fuente ? fuente.textContent.replace(/^\n/, "") : "";
     caja.innerHTML = "";
 
+    var clave = CodeQuest.claveEjercicio("pg", indice, caja.getAttribute("data-guardar"));
+    var guardadoPrevio = CodeQuest.codigoGuardado(clave);
+
     var marco = document.createElement("div");
     marco.className = "pg-marco";
     var barra = document.createElement("div");
     barra.className = "pg-barra";
-    barra.innerHTML = '<span class="pg-titulo">📝 ' + titulo + "</span>";
+    barra.innerHTML = '<span class="pg-titulo">📝 ' + titulo + "</span>" +
+      '<span class="pg-guardado" aria-live="polite"></span>';
+    var aviso = barra.querySelector(".pg-guardado");
 
     var btnCorrer = document.createElement("button");
     btnCorrer.className = "pg-btn";
@@ -102,9 +110,32 @@
     barra.appendChild(btnReiniciar);
     marco.appendChild(barra);
 
+    // Autoguardado: espera a que dejes de escribir y guarda tu código
+    var timerGuardar = null;
+    var timerAviso = null;
+    function guardarAhora() {
+      clearTimeout(timerGuardar);
+      timerGuardar = null;
+      var actual = editor.valor();
+      CodeQuest.guardarCodigo(clave, actual === codigoInicial ? null : actual);
+      if (actual !== codigoInicial) {
+        aviso.textContent = "💾 guardado";
+        aviso.classList.add("visible");
+        clearTimeout(timerAviso);
+        timerAviso = setTimeout(function () { aviso.classList.remove("visible"); }, 1600);
+      }
+    }
+    function programarGuardado() {
+      clearTimeout(timerGuardar);
+      timerGuardar = setTimeout(guardarAhora, 700);
+    }
+    window.addEventListener("pagehide", function () {
+      if (timerGuardar) guardarAhora();
+    });
+
     var zonaEditor = document.createElement("div");
     marco.appendChild(zonaEditor);
-    var editor = crearEditor(zonaEditor, codigoInicial, modo);
+    var editor = crearEditor(zonaEditor, guardadoPrevio !== null ? guardadoPrevio : codigoInicial, modo, programarGuardado);
 
     var preview = document.createElement("iframe");
     preview.className = "pg-preview" + (modo === "js" ? " oscuro" : "");
@@ -120,11 +151,37 @@
       preview.srcdoc = modo === "js" ? docConsolaJS(codigo) : codigo;
     }
 
-    btnCorrer.addEventListener("click", ejecutar);
-    btnReiniciar.addEventListener("click", function () {
-      editor.poner(codigoInicial);
+    btnCorrer.addEventListener("click", function () {
+      guardarAhora();
       ejecutar();
     });
+
+    btnReiniciar.addEventListener("click", function () {
+      // Si no ha cambiado nada, no hay progreso que perder: reinicia y ya
+      if (editor.valor() === codigoInicial) {
+        editor.poner(codigoInicial);
+        ejecutar();
+        return;
+      }
+      CodeQuest.modalConfirmar({
+        titulo: "⚠️ ¿REINICIAR EJERCICIO?",
+        mensaje: "Vas a borrar TU código de este ejercicio y volverá el código original. Es como borrar un save: no se puede deshacer.",
+        textoConfirmar: "🗑️ Sí, borrar mi código",
+        textoCancelar: "↩ ¡No, espera!"
+      }, function () {
+        editor.poner(codigoInicial);
+        CodeQuest.guardarCodigo(clave, null);
+        ejecutar();
+        CodeQuest.toast("🔄 Ejercicio reiniciado");
+      });
+    });
+
+    // Si había código guardado, avísale al alumno que no se perdió nada
+    if (guardadoPrevio !== null) {
+      aviso.textContent = "💾 tu avance se restauró";
+      aviso.classList.add("visible");
+      timerAviso = setTimeout(function () { aviso.classList.remove("visible"); }, 3000);
+    }
 
     // Que se vea el resultado desde el principio
     if (caja.getAttribute("data-auto") !== "no") ejecutar();

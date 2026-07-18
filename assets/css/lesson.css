@@ -108,6 +108,17 @@
 .pg-btn.secundario { background: #3a3a6e; color: var(--texto); }
 .pg-btn:hover { filter: brightness(1.15); }
 
+/* Avisito "💾 guardado" en la barra del editor */
+.pg-guardado {
+  font-family: var(--fuente-pixel);
+  font-size: 0.5rem;
+  color: var(--verde);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  white-space: nowrap;
+}
+.pg-guardado.visible { opacity: 1; }
+
 .CodeMirror {
   height: auto;
   min-height: 120px;

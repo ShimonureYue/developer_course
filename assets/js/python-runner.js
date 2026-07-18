@@ -53,17 +53,22 @@
       .then(function () { return CodeQuest.cargarScript(CM_BASE + "mode/python/python.min.js"); });
   }
 
-  function montar(caja) {
+  function montar(caja, indice) {
     var titulo = caja.getAttribute("data-titulo") || "programa.py";
     var fuente = caja.querySelector("script[type='text/plain']");
     var codigoInicial = fuente ? fuente.textContent.replace(/^\n/, "") : "";
     caja.innerHTML = "";
 
+    var clave = CodeQuest.claveEjercicio("py", indice, caja.getAttribute("data-guardar"));
+    var guardadoPrevio = CodeQuest.codigoGuardado(clave);
+
     var marco = document.createElement("div");
     marco.className = "pg-marco";
     var barra = document.createElement("div");
     barra.className = "pg-barra";
-    barra.innerHTML = '<span class="pg-titulo">🐍 ' + titulo + "</span>";
+    barra.innerHTML = '<span class="pg-titulo">🐍 ' + titulo + "</span>" +
+      '<span class="pg-guardado" aria-live="polite"></span>';
+    var aviso = barra.querySelector(".pg-guardado");
 
     var btnCorrer = document.createElement("button");
     btnCorrer.className = "pg-btn";
@@ -75,13 +80,37 @@
     barra.appendChild(btnReiniciar);
     marco.appendChild(barra);
 
+    // Autoguardado: espera a que dejes de escribir y guarda tu código
+    var timerGuardar = null;
+    var timerAviso = null;
+    function guardarAhora() {
+      clearTimeout(timerGuardar);
+      timerGuardar = null;
+      var actual = editor.valor();
+      CodeQuest.guardarCodigo(clave, actual === codigoInicial ? null : actual);
+      if (actual !== codigoInicial) {
+        aviso.textContent = "💾 guardado";
+        aviso.classList.add("visible");
+        clearTimeout(timerAviso);
+        timerAviso = setTimeout(function () { aviso.classList.remove("visible"); }, 1600);
+      }
+    }
+    function programarGuardado() {
+      clearTimeout(timerGuardar);
+      timerGuardar = setTimeout(guardarAhora, 700);
+    }
+    window.addEventListener("pagehide", function () {
+      if (timerGuardar) guardarAhora();
+    });
+
     var zonaEditor = document.createElement("div");
     marco.appendChild(zonaEditor);
 
     var area = document.createElement("textarea");
-    area.value = codigoInicial;
+    area.value = guardadoPrevio !== null ? guardadoPrevio : codigoInicial;
     area.spellcheck = false;
     area.style.cssText = "width:100%;min-height:160px;background:#0d0d22;color:#eaeaf5;border:none;padding:12px;font-family:Menlo,monospace;font-size:14px;resize:vertical;";
+    area.addEventListener("input", programarGuardado);
     zonaEditor.appendChild(area);
 
     var editor = { valor: function () { return area.value; }, poner: function (v) { area.value = v; } };
@@ -95,6 +124,7 @@
       });
       editor.valor = function () { return cm.getValue(); };
       editor.poner = function (v) { cm.setValue(v); };
+      cm.on("change", programarGuardado);
     }).catch(function () { /* sin internet: el textarea sigue sirviendo */ });
 
     var consola = document.createElement("div");
@@ -139,11 +169,35 @@
         });
     }
 
-    btnCorrer.addEventListener("click", ejecutar);
-    btnReiniciar.addEventListener("click", function () {
-      editor.poner(codigoInicial);
-      consola.innerHTML = "";
+    btnCorrer.addEventListener("click", function () {
+      guardarAhora();
+      ejecutar();
     });
+
+    btnReiniciar.addEventListener("click", function () {
+      if (editor.valor() === codigoInicial) {
+        consola.innerHTML = "";
+        return;
+      }
+      CodeQuest.modalConfirmar({
+        titulo: "⚠️ ¿REINICIAR EJERCICIO?",
+        mensaje: "Vas a borrar TU código de este ejercicio y volverá el código original. Es como borrar un save: no se puede deshacer.",
+        textoConfirmar: "🗑️ Sí, borrar mi código",
+        textoCancelar: "↩ ¡No, espera!"
+      }, function () {
+        editor.poner(codigoInicial);
+        CodeQuest.guardarCodigo(clave, null);
+        consola.innerHTML = "";
+        CodeQuest.toast("🔄 Ejercicio reiniciado");
+      });
+    });
+
+    // Si había código guardado, avísale al alumno que no se perdió nada
+    if (guardadoPrevio !== null) {
+      aviso.textContent = "💾 tu avance se restauró";
+      aviso.classList.add("visible");
+      timerAviso = setTimeout(function () { aviso.classList.remove("visible"); }, 3000);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", function () {
