@@ -373,6 +373,152 @@ pre.bloque-codigo code { background: none; border: none; padding: 0; }
   to { transform: scale(1); }
 }
 
+/* ---------- Botones chiquitos (editores, baúl, avisos) ---------- */
+.pg-btn {
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #0a0a1a;
+  background: var(--verde);
+}
+.pg-btn.secundario { background: #3a3a6e; color: var(--texto); }
+.pg-btn:hover { filter: brightness(1.15); }
+a.pg-btn { display: inline-block; text-decoration: none; }
+.pg-btn:disabled { cursor: wait; }
+
+/* Variante amable del modal (respaldos, medallas): cian en vez de rojo */
+.cq-modal.amistoso {
+  border-color: var(--cian);
+  box-shadow: 0 0 30px #00e5ff44, 0 0 60px #00e5ff1a;
+}
+.cq-modal.amistoso .cq-modal-titulo { color: var(--cian); }
+.cq-modal-btn.principal { background: var(--verde); color: #0a0a1a; }
+.cq-modal-btn.secundario {
+  background: transparent;
+  border: 2px solid var(--panel-borde);
+  color: var(--texto-suave);
+}
+.cq-modal-btn.principal:focus-visible {
+  outline: 3px solid var(--cian);
+  outline-offset: 2px;
+}
+
+/* ---------- Racha de días 🔥 (en el header) ---------- */
+.cq-racha {
+  font-family: var(--fuente-pixel);
+  font-size: 0.55rem;
+  color: var(--naranja);
+  white-space: nowrap;
+  cursor: help;
+}
+.cq-racha[hidden] { display: none; }
+
+/* ---------- Logro desbloqueado (esquina, estilo consola) ---------- */
+.cq-logro {
+  position: fixed;
+  top: 76px;
+  right: 18px;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 320px;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 2px solid var(--amarillo);
+  border-radius: 12px;
+  box-shadow: 0 0 20px #ffe95c44;
+  color: var(--texto);
+  text-decoration: none;
+  transform: translateX(120%);
+  transition: transform 0.4s ease;
+}
+.cq-logro.visible { transform: translateX(0); }
+.cq-logro-emoji { font-size: 2rem; line-height: 1; }
+.cq-logro-arriba {
+  display: block;
+  font-family: var(--fuente-pixel);
+  font-size: 0.5rem;
+  color: var(--amarillo);
+  margin-bottom: 4px;
+}
+.cq-logro-texto { display: block; font-weight: 800; line-height: 1.3; }
+
+/* ---------- Recordatorio de respaldo (en el mapa) ---------- */
+.cq-recordatorio {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #00e5ff12;
+  border: 2px dashed var(--cian);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 10px 0 18px;
+}
+.cq-recordatorio p { margin: 0; flex: 1; min-width: 220px; font-size: 0.95rem; }
+
+/* ---------- Logros (en Mi progreso) ---------- */
+.logros-fila { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.logro {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--panel);
+  border: 2px solid var(--panel-borde);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.logro .icono { font-size: 1.8rem; filter: grayscale(1) opacity(0.35); }
+.logro .nombre { font-weight: 800; color: var(--texto-suave); line-height: 1.3; }
+.logro .descripcion { font-size: 0.8rem; color: var(--texto-suave); line-height: 1.4; }
+.logro.ganado { border-color: var(--amarillo); }
+.logro.ganado .icono { filter: none; }
+.logro.ganado .nombre { color: var(--amarillo); }
+
+/* ---------- Mi baúl de código ---------- */
+.baul-ejercicio {
+  background: var(--panel);
+  border: 2px solid var(--panel-borde);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+.baul-cabeza { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.baul-nombre { font-family: var(--fuente-pixel); font-size: 0.6rem; color: var(--cian); margin-right: auto; }
+.baul-botones { display: flex; flex-wrap: wrap; gap: 8px; }
+.baul-ejercicio details { margin-top: 8px; }
+.baul-ejercicio summary { cursor: pointer; color: var(--texto-suave); font-size: 0.9rem; }
+.baul-ejercicio pre {
+  background: #0d0d22;
+  border: 2px solid var(--panel-borde);
+  border-radius: 10px;
+  padding: 12px 16px;
+  max-height: 340px;
+  overflow: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ---------- Tu avance dentro del nivel ---------- */
+.cq-ruta-nivel { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 6px 0 2px; }
+.cq-ruta-texto { font-size: 0.85rem; color: var(--texto-suave); margin-right: 4px; }
+.cq-punto {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--panel-borde);
+  background: transparent;
+  display: inline-block;
+}
+.cq-punto.hecho { background: var(--verde); border-color: var(--verde); }
+.cq-punto.actual { border-color: var(--color-nivel, var(--cian)); box-shadow: 0 0 8px var(--color-nivel, var(--cian)); }
+.cq-punto:hover { transform: scale(1.25); }
+li.cq-hecha > a { color: var(--verde); }
+
 /* ---------- Confetti ---------- */
 .cq-confetti {
   position: fixed;
@@ -406,6 +552,7 @@ pre.bloque-codigo code { background: none; border: none; padding: 0; }
 .tabla td { padding: 9px 12px; border-bottom: 1px solid #22224a; }
 
 @media (max-width: 640px) {
+  .cq-logro { left: 12px; right: 12px; max-width: none; top: auto; bottom: 90px; }
   body { font-size: 16px; }
   h1 { font-size: 1.15rem; }
   h2 { font-size: 0.95rem; }

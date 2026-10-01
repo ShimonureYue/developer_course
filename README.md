@@ -67,13 +67,27 @@ en su propio navegador.
 
 ```
 index.html          → portada con el mapa de niveles
-progreso.html       → partida guardada del alumno (XP, medallas, exportar/importar)
+progreso.html       → partida guardada del alumno (XP, medallas, logros, exportar/importar)
+baul.html           → "Mi baúl de código": todo lo que el alumno ha programado
 niveles/nivel-N/    → lecciones de cada nivel
 arcade/             → los 3 juegos terminados, jugables desde el día 1
 recursos/           → chuletas, glosario, guía de IA, guía del profe
 assets/             → estilos y componentes (editores, quizzes, pistas, progreso)
 niveles/plantilla-leccion.html → plantilla de referencia para crear nuevas lecciones
+herramientas/       → scripts del profe para revisar y publicar (no se publican)
+CLAUDE.md           → notas para trabajar el curso con Claude Code (reglas y procedimientos)
 ```
+
+## 🛡️ Redes de seguridad y motivación
+
+- **Las partidas se cuidan solas**: copia de respaldo antes de cargar/borrar (se recupera en
+  *Mi progreso*), varias pestañas abiertas no se pisan, recordatorios para descargar la partida,
+  y un "escudo" para que `localStorage.clear()` en los ejercicios no borre la partida.
+- **Ciclos infinitos**: en Python un guardián detiene el programa a los 5 segundos; en JavaScript,
+  si un ejercicio congeló la página, al volver ya no se ejecuta solo.
+- **Errores que enseñan**: pista del detective en español (`assets/js/errores.js`) y errores de
+  JavaScript visibles debajo de la vista previa, con número de línea.
+- **Motivación**: racha de días 🔥, logros 🏆 (sin XP) y `baul.html` 🧰 con todo el código del alumno.
 
 ## 🧑‍🏫 Para dar la clase
 
@@ -86,3 +100,34 @@ Todo es HTML/CSS/JS puro — se edita con cualquier editor. El temario
 (niveles, lecciones, XP) vive en un solo lugar: `assets/js/progress.js`.
 Si agregas una lección: crea el archivo HTML copiando la plantilla y añade
 su entrada en ese temario.
+
+⚠️ El código que escriben los alumnos se guarda por **posición del editor en la página**
+("el 2º editor de Python de la lección 3"). Si a una lección que ya usan tus alumnos le
+agregas un editor, ponlo **al final**, o dale un nombre propio con `data-guardar="mi-nombre"`.
+Si lo pones antes de otros, el código guardado aparecería en el ejercicio equivocado.
+
+🔄 Las páginas piden los archivos de `assets/` con una etiqueta de versión (`progress.js?v=2`).
+Si cambias un `.js` o `.css`, sube ese número en todas las páginas (por ejemplo a `?v=3`):
+así los navegadores de los alumnos no mezclan una página nueva con un archivo viejo guardado.
+
+## ✅ Revisar y publicar
+
+Antes de publicar un cambio, revisa que ninguna página tenga errores (abre todas en Chrome):
+
+```bash
+cd herramientas && npm install     # solo la primera vez
+node revisar-paginas.js            # tu copia local
+```
+
+Para publicar en **rogeliovargas.com/code-quest/** (S3 + CloudFront):
+
+```bash
+python3 herramientas/publicar.py ~/respaldo-code-quest              # simulación: muestra qué cambiaría
+python3 herramientas/publicar.py ~/respaldo-code-quest --de-verdad  # publica
+```
+
+El script guarda primero una copia de lo publicado, regenera el zip para compartir,
+**solo escribe dentro de `code-quest/`** (nunca borra ni toca lo demás del sitio) y
+verifica que lo subido sea idéntico. Después corre
+`node revisar-paginas.js https://rogeliovargas.com/code-quest/`. Si quieres que todos
+vean el cambio al instante, invalida `/code-quest/*` en la consola de CloudFront.

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css?v=2">
 </head>
 <body>
   <div class="estrellas"></div>
@@ -34,12 +34,34 @@
         <input type="file" id="archivo-partida" accept=".json" style="display: none;">
         <button class="btn fantasma" style="color: var(--rojo); border-color: var(--rojo);" onclick="CodeQuest.reiniciarPartida()">🗑️ Empezar de cero</button>
       </div>
+      <p id="ultimo-respaldo" class="suave" style="margin-bottom: 0;"></p>
+      <!-- Solo aparece si hay una copia de respaldo (se crea sola antes de cargar o borrar) -->
+      <div id="zona-respaldo" class="cq-recordatorio" hidden style="margin-top: 16px;">
+        <p id="texto-respaldo"></p>
+        <button class="pg-btn" onclick="CodeQuest.recuperarRespaldo()">↩ Recuperar mi partida anterior</button>
+      </div>
     </section>
 
     <!-- Medallas -->
     <section>
       <h2>🏅 Mis medallas</h2>
       <div id="vitrina-medallas" class="medallas-fila"></div>
+    </section>
+
+    <!-- Logros -->
+    <section id="logros">
+      <h2>🏆 Mis logros</h2>
+      <p class="suave">Medallitas extra por hábitos de programador: equivocarte, pedir ayuda, practicar seguido.
+        No dan XP… dan presunción. 😎</p>
+      <div id="vitrina-logros" class="logros-fila"></div>
+    </section>
+
+    <!-- Mi código -->
+    <section class="panel centrado">
+      <p style="font-size: 2.4rem; margin: 0;">🧰</p>
+      <p>Todo lo que has programado en el curso vive en <strong>tu baúl de código</strong>:
+        ahí lo puedes ver, copiar y descargar como archivos.</p>
+      <a class="btn" href="baul.html">🧰 Abrir mi baúl de código</a>
     </section>
 
     <!-- Detalle por nivel -->
@@ -51,7 +73,7 @@
   </main>
 
   <script>window.CQ_BASE = "";</script>
-  <script src="assets/js/progress.js"></script>
+  <script src="assets/js/progress.js?v=2"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       var CQ = window.CodeQuest;
@@ -69,6 +91,44 @@
         '<div class="pixel" style="font-size:0.7rem;color:var(--amarillo);">' + rango.nombre + "</div></div>" +
         '<div><div class="pixel" style="font-size:1.1rem;color:var(--verde);">' + CQ.xpTotal() + " XP</div>" +
         '<div class="suave">' + hechas + " de " + totalLecciones + " lecciones completadas</div></div>";
+      if (CQ.rachaActual) {
+        var racha = CQ.rachaActual();
+        var stats = CQ.estadisticas();
+        document.getElementById("resumen").innerHTML +=
+          '<div><div class="pixel" style="font-size:1.1rem;color:var(--naranja);">🔥 ' + racha + (racha === 1 ? " día" : " días") + "</div>" +
+          '<div class="suave">de racha · tu récord: ' + CQ.mejorRacha() + "</div></div>" +
+          '<div><div class="pixel" style="font-size:1.1rem;color:var(--cian);">▶ ' + stats.ejecuciones + "</div>" +
+          '<div class="suave">programas ejecutados</div></div>';
+
+        // ---- ¿Cuándo respaldé? ----
+        var ultimo = CQ.ultimoRespaldo();
+        var dias = ultimo ? Math.floor((Date.now() - ultimo) / 86400000) : null;
+        document.getElementById("ultimo-respaldo").textContent = ultimo
+          ? "💾 Tu último respaldo fue " + (dias === 0 ? "hoy" : dias === 1 ? "ayer" : "hace " + dias + " días") + "."
+          : "💾 Todavía no has descargado tu partida. ¡Hazlo de vez en cuando, por si acaso!";
+
+        // ---- Copia de respaldo para deshacer ----
+        var respaldo = CQ.leerRespaldo();
+        if (respaldo) {
+          document.getElementById("zona-respaldo").hidden = false;
+          document.getElementById("texto-respaldo").textContent =
+            "↩ Hay una copia de tu partida anterior, guardada el " + new Date(respaldo.fecha).toLocaleString("es-MX") +
+            " (" + respaldo.motivo + "): " + respaldo.partida.xp + " XP y " +
+            Object.keys(respaldo.partida.lecciones).length + " lecciones.";
+        }
+
+        // ---- Vitrina de logros ----
+        var vitrinaLogros = document.getElementById("vitrina-logros");
+        CQ.LOGROS.forEach(function (l) {
+          var div = document.createElement("div");
+          div.className = "logro" + (CQ.logroGanado(l.id) ? " ganado" : "");
+          div.innerHTML = '<div class="icono"></div><div><div class="nombre"></div><div class="descripcion"></div></div>';
+          div.querySelector(".icono").textContent = l.emoji;
+          div.querySelector(".nombre").textContent = l.nombre;
+          div.querySelector(".descripcion").textContent = l.descripcion;
+          vitrinaLogros.appendChild(div);
+        });
+      }
 
       // ---- Vitrina de medallas ----
       var vitrina = document.getElementById("vitrina-medallas");
@@ -103,6 +163,8 @@
         if (e.target.files && e.target.files[0]) {
           CQ.importarPartida(e.target.files[0]);
         }
+        // Así puedes volver a elegir el mismo archivo si cancelaste
+        e.target.value = "";
       });
     });
   </script>

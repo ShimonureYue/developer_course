@@ -1,0 +1,8 @@
+{
+  "name": "code-quest-herramientas",
+  "private": true,
+  "description": "Scripts del profe para revisar el curso (no se publican)",
+  "dependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}
