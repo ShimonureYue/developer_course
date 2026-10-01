@@ -74,6 +74,8 @@ arcade/             → los 3 juegos terminados, jugables desde el día 1
 recursos/           → chuletas, glosario, guía de IA, guía del profe
 assets/             → estilos y componentes (editores, quizzes, pistas, progreso)
 niveles/plantilla-leccion.html → plantilla de referencia para crear nuevas lecciones
+herramientas/       → scripts del profe para revisar y publicar (no se publican)
+CLAUDE.md           → notas para trabajar el curso con Claude Code (reglas y procedimientos)
 ```
 
 ## 🛡️ Redes de seguridad y motivación
@@ -107,3 +109,25 @@ Si lo pones antes de otros, el código guardado aparecería en el ejercicio equi
 🔄 Las páginas piden los archivos de `assets/` con una etiqueta de versión (`progress.js?v=2`).
 Si cambias un `.js` o `.css`, sube ese número en todas las páginas (por ejemplo a `?v=3`):
 así los navegadores de los alumnos no mezclan una página nueva con un archivo viejo guardado.
+
+## ✅ Revisar y publicar
+
+Antes de publicar un cambio, revisa que ninguna página tenga errores (abre todas en Chrome):
+
+```bash
+cd herramientas && npm install     # solo la primera vez
+node revisar-paginas.js            # tu copia local
+```
+
+Para publicar en **rogeliovargas.com/code-quest/** (S3 + CloudFront):
+
+```bash
+python3 herramientas/publicar.py ~/respaldo-code-quest              # simulación: muestra qué cambiaría
+python3 herramientas/publicar.py ~/respaldo-code-quest --de-verdad  # publica
+```
+
+El script guarda primero una copia de lo publicado, regenera el zip para compartir,
+**solo escribe dentro de `code-quest/`** (nunca borra ni toca lo demás del sitio) y
+verifica que lo subido sea idéntico. Después corre
+`node revisar-paginas.js https://rogeliovargas.com/code-quest/`. Si quieres que todos
+vean el cambio al instante, invalida `/code-quest/*` en la consola de CloudFront.
