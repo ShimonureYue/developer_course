@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css">
-  <link rel="stylesheet" href="../../assets/css/lesson.css">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff5c7a;">
@@ -106,6 +106,9 @@ let copia = JSON.parse(texto);       // 📂 desempacar → el objeto de vuelta,
         <strong>Local Storage</strong> y busca la clave <code>codequest-partida</code>:
         ahí está tu partida, empacada en JSON. Hasta puedes leer el código que lo hace en
         <code>assets/js/progress.js</code>. 😎</p>
+      <p>🛡️ Y tranquilo: los editores del curso traen un <strong>escudo</strong>. Si experimentas con
+        <code>localStorage.clear()</code> (que borra TODO), solo se borran tus datos de práctica:
+        Code Quest no deja que nadie toque las claves que empiezan con <code>codequest-</code>.</p>
     </div>
 
     <!-- ============ 👀 EJEMPLO ============ -->
@@ -305,9 +308,9 @@ localStorage.setItem("mi-nota", caja.value);</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js"></script>
-  <script src="../../assets/js/hints.js"></script>
-  <script src="../../assets/js/quiz.js"></script>
-  <script src="../../assets/js/playground.js"></script>
+  <script src="../../assets/js/progress.js?v=2"></script>
+  <script src="../../assets/js/hints.js?v=2"></script>
+  <script src="../../assets/js/quiz.js?v=2"></script>
+  <script src="../../assets/js/playground.js?v=2"></script>
 </body>
 </html>

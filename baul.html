@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi baúl de código 🧰 — Code Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css?v=2">
+</head>
+<body>
+  <div class="estrellas"></div>
+
+  <main class="contenedor" style="padding-bottom: 60px;">
+    <h1 style="margin-top: 40px;">🧰 Mi baúl de código</h1>
+    <p class="suave">Aquí está <strong>todo lo que has programado</strong> en los ejercicios del curso.
+      Cada vez que escribes en un editor, tu código se guarda solito y aparece aquí.
+      Puedes descargarlo como archivo para enseñárselo a quien quieras, o abrirlo en VS Code. 😎</p>
+
+    <section class="panel" id="resumen-baul"></section>
+
+    <div id="lista-baul"></div>
+  </main>
+
+  <script>window.CQ_BASE = "";</script>
+  <script src="assets/js/progress.js?v=2"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var CQ = window.CodeQuest;
+      var resumen = document.getElementById("resumen-baul");
+      var lista = document.getElementById("lista-baul");
+
+      // Por si el navegador aún trae una versión vieja de progress.js
+      if (!CQ.listarCodigo) {
+        resumen.innerHTML = "<p>🔄 Esta página es nueva y tu navegador trae una versión vieja del curso. " +
+          "Recarga con <strong>⌘+Shift+R</strong> (Mac) o <strong>Ctrl+Shift+R</strong> (Windows).</p>";
+        return;
+      }
+
+      var ejercicios = CQ.listarCodigo();
+      var EXTENSION = { py: ".py", sql: ".sql" };
+
+      function nombreArchivo(e) {
+        if (e.info.titulo) return e.info.titulo;
+        if (EXTENSION[e.tipo]) return "ejercicio-" + (e.numero + 1) + EXTENSION[e.tipo];
+        return "ejercicio-" + (e.numero + 1) + (/<\w/.test(e.texto) ? ".html" : ".js");
+      }
+
+      function esPagina(e) {
+        return e.info.modo === "html" || (!e.info.modo && /\.html$/.test(nombreArchivo(e)));
+      }
+
+      function descargar(e) {
+        var blob = new Blob([e.texto], { type: "text/plain;charset=utf-8" });
+        var enlace = document.createElement("a");
+        enlace.href = URL.createObjectURL(blob);
+        enlace.download = nombreArchivo(e);
+        document.body.appendChild(enlace);
+        enlace.click();
+        enlace.remove();
+        CQ.toast("⬇️ " + nombreArchivo(e) + " está en tu carpeta de Descargas");
+      }
+
+      // Abre tu página o juego en una pestaña nueva, en grande.
+      // Lleva el mismo escudo que los editores para cuidar tu partida.
+      function abrirEnGrande(e) {
+        var ventana = window.open("", "_blank");
+        if (!ventana) {
+          CQ.toast("Tu navegador bloqueó la pestaña nueva 🙈");
+          return;
+        }
+        ventana.document.open();
+        ventana.document.write(CQ.conEscudo(e.texto));
+        ventana.document.close();
+      }
+
+      if (ejercicios.length === 0) {
+        resumen.innerHTML = '<p style="font-size:2.4rem;margin:0;" class="centrado">📭</p>' +
+          '<p class="centrado">Tu baúl está vacío… ¡por ahora! Ve a cualquier lección, cambia el código de un ' +
+          'ejercicio y aquí aparecerá. <br><a class="btn verde" style="margin-top:14px;" href="index.html">🗺️ Ir al mapa</a></p>';
+        return;
+      }
+
+      var lineas = ejercicios.reduce(function (suma, e) { return suma + e.texto.split("\n").length; }, 0);
+      resumen.innerHTML =
+        '<div style="display:flex;gap:30px;flex-wrap:wrap;align-items:center;">' +
+        '<div><div class="pixel" style="font-size:1.1rem;color:var(--verde);">' + ejercicios.length + "</div>" +
+        '<div class="suave">ejercicios con tu código</div></div>' +
+        '<div><div class="pixel" style="font-size:1.1rem;color:var(--cian);">' + lineas + "</div>" +
+        '<div class="suave">líneas de código escritas por ti 💪</div></div></div>';
+
+      var nivelActual = null;
+      ejercicios.forEach(function (e) {
+        // Un título por nivel
+        var nivel = e.nivel ? e.nivel.id : "otros";
+        if (nivel !== nivelActual) {
+          nivelActual = nivel;
+          var h2 = document.createElement("h2");
+          h2.textContent = e.nivel
+            ? e.nivel.emoji + " Nivel " + CQ.CURSO.indexOf(e.nivel) + ": " + e.nivel.titulo
+            : "📦 Otros ejercicios";
+          lista.appendChild(h2);
+        }
+
+        var tarjeta = document.createElement("div");
+        tarjeta.className = "baul-ejercicio";
+        tarjeta.innerHTML =
+          '<div class="baul-cabeza"><span class="baul-nombre"></span><div class="baul-botones"></div></div>' +
+          '<div class="suave baul-leccion" style="font-size:0.9rem;"></div>' +
+          "<details><summary>👀 Ver código</summary><pre><code></code></pre></details>";
+        tarjeta.querySelector(".baul-nombre").textContent = nombreArchivo(e);
+        tarjeta.querySelector("code").textContent = e.texto;
+        var fecha = e.info.fecha ? " · guardado el " + new Date(e.info.fecha).toLocaleDateString("es-MX") : "";
+        tarjeta.querySelector(".baul-leccion").textContent =
+          (e.leccion ? "📖 " + e.leccion.titulo : "📖 " + e.pagina) + fecha;
+
+        var botones = tarjeta.querySelector(".baul-botones");
+        function boton(texto, clase, accion) {
+          var b = document.createElement(accion.href ? "a" : "button");
+          b.className = "pg-btn" + (clase ? " " + clase : "");
+          b.textContent = texto;
+          if (accion.href) {
+            b.href = accion.href;
+            b.style.textDecoration = "none";
+          } else {
+            b.addEventListener("click", accion);
+          }
+          botones.appendChild(b);
+        }
+        boton("▶ Ir al ejercicio", "", { href: e.pagina + ".html#" + e.ancla });
+        if (esPagina(e)) boton("⛶ Abrir en grande", "secundario", function () { abrirEnGrande(e); });
+        boton("⬇️ Descargar", "secundario", function () { descargar(e); });
+        boton("📋 Copiar", "secundario", function () {
+          navigator.clipboard.writeText(e.texto).then(function () { CQ.toast("📋 ¡Código copiado!"); });
+        });
+        lista.appendChild(tarjeta);
+      });
+    });
+  </script>
+</body>
+</html>

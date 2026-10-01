@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/main.css?v=2">
   <style>
     .tabla td:first-child { white-space: nowrap; }
   </style>
@@ -123,6 +123,53 @@
         (además, los récords del Arcade viven en el mismo navegador).</p>
     </div>
 
+    <h2>🛡️ Redes de seguridad (para que nadie pierda su trabajo)</h2>
+    <div class="panel">
+      <ul style="margin-top: 0;">
+        <li><strong>Copia de respaldo automática:</strong> antes de "Cargar partida" o "Empezar de cero",
+          el curso guarda una copia de la partida anterior. Si un alumno cargó el archivo equivocado
+          o borró todo por accidente, en <a href="../progreso.html">💾 Mi progreso</a> aparece el botón
+          <strong>"↩ Recuperar mi partida anterior"</strong>.</li>
+        <li><strong>Recordatorios de respaldo:</strong> al ganar una medalla, y en el mapa si llevan más de
+          7 días sin descargar su partida, el curso les sugiere descargarla. Aun así, el ritual de cierre de arriba
+          sigue siendo lo más seguro.</li>
+        <li><strong>Varias pestañas:</strong> si un alumno tiene dos lecciones abiertas, ya no se pisan entre sí.</li>
+        <li><strong>Ciclos infinitos:</strong> en Python, un <em>guardián</em> detiene el programa después de 5 segundos
+          corriendo sin parar y lo explica. En JavaScript, si un ejercicio congeló la página, al volver ya no se
+          ejecuta solo: el alumno ve un aviso, arregla su código y le da ▶. Si en Python la ventanita de
+          <code>input()</code> no deja de salir, <strong>Cancelar</strong> detiene el programa.</li>
+        <li><strong>Escudo de la partida:</strong> aunque un alumno escriba <code>localStorage.clear()</code> en un
+          ejercicio (Nivel 7), su partida no se borra.</li>
+        <li>Si alguna vez la partida de un navegador se daña (muy raro), el curso la aparta en la clave
+          <code>codequest-partida-danada</code> en vez de borrarla, por si hay que rescatarla con DevTools.</li>
+      </ul>
+    </div>
+
+    <h2>🕵️ Ayudas nuevas para que los errores enseñen</h2>
+    <div class="panel">
+      <ul style="margin-top: 0;">
+        <li><strong>Pista del detective:</strong> debajo de los errores comunes de Python, JavaScript y SQL aparece
+          una explicación en español. El error original se sigue mostrando: leerlo es parte de aprender.</li>
+        <li><strong>Errores visibles en las páginas:</strong> en los ejercicios HTML con JavaScript (Niveles 5–9),
+          los errores aparecen en rojo debajo de la vista previa, con su número de línea.</li>
+        <li><strong>⌘+Enter / Ctrl+Enter</strong> ejecuta el código, y <strong>⛶</strong> abre la vista previa en
+          pantalla completa (ideal para jugar Snake o Space Invaders).</li>
+      </ul>
+    </div>
+
+    <h2>🔥 Motivación: racha, logros y baúl de código</h2>
+    <div class="panel">
+      <ul style="margin-top: 0;">
+        <li><strong>Racha:</strong> el encabezado muestra cuántos días seguidos lleva programando el alumno.</li>
+        <li><strong>Logros:</strong> medallitas que <em>no dan XP</em> (el XP del curso no cambió) y celebran hábitos:
+          primer error, primera pista, primer ciclo infinito, respaldar la partida, rachas… Se ven en Mi progreso.</li>
+        <li><strong><a href="../baul.html">🧰 Mi baúl de código</a>:</strong> junta todo lo que el alumno ha escrito,
+          con botones para ir al ejercicio, abrirlo en grande, copiarlo o descargarlo como archivo.
+          Es un gran momento para que muestre su trabajo en clase o a su familia.</li>
+        <li>En cada nivel se ven ✅ en las lecciones hechas, y cada lección dice "Lección 3 de 6".</li>
+      </ul>
+    </div>
+
     <h2>🌐 Publicar el curso con GitHub Pages (resumen del README)</h2>
     <div class="panel">
       <ol style="margin-top: 0;">
@@ -149,6 +196,6 @@ git push -u origin main</code></pre></li>
   </main>
 
   <script>window.CQ_BASE = "../";</script>
-  <script src="../assets/js/progress.js"></script>
+  <script src="../assets/js/progress.js?v=2"></script>
 </body>
 </html>

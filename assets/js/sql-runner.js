@@ -19,6 +19,12 @@
 
   var dbPromesa = null;
 
+  // Funciones nuevas de progress.js, con respaldo por si el navegador
+  // todavía trae guardada una versión vieja de ese archivo.
+  function cq(nombre) {
+    return typeof CodeQuest[nombre] === "function" ? CodeQuest[nombre] : function () { return Promise.resolve(null); };
+  }
+
   var DATOS_INICIALES =
     "CREATE TABLE jugadores (" +
     "  id INTEGER PRIMARY KEY," +
@@ -85,8 +91,12 @@
     var codigoInicial = fuente ? fuente.textContent.replace(/^\n/, "") : "SELECT * FROM jugadores;";
     caja.innerHTML = "";
 
+    var ejercicio = caja.getAttribute("data-guardar") || "sql" + indice;
     var clave = CodeQuest.claveEjercicio("sql", indice, caja.getAttribute("data-guardar"));
     var guardadoPrevio = CodeQuest.codigoGuardado(clave);
+    var info = { titulo: titulo, modo: "sql" };
+    cq("registrarInfoCodigo")(clave, info);
+    cq("anclarEjercicio")(caja, ejercicio);
 
     var marco = document.createElement("div");
     marco.className = "pg-marco";
@@ -99,6 +109,7 @@
     var btnCorrer = document.createElement("button");
     btnCorrer.className = "pg-btn";
     btnCorrer.textContent = "▶ Consultar";
+    btnCorrer.title = "Consultar (⌘+Enter en Mac · Ctrl+Enter en Windows)";
     var btnReiniciar = document.createElement("button");
     btnReiniciar.className = "pg-btn secundario";
     btnReiniciar.textContent = "🔄 Reiniciar";
@@ -113,7 +124,7 @@
       clearTimeout(timerGuardar);
       timerGuardar = null;
       var actual = editor.valor();
-      CodeQuest.guardarCodigo(clave, actual === codigoInicial ? null : actual);
+      CodeQuest.guardarCodigo(clave, actual === codigoInicial ? null : actual, info);
       if (actual !== codigoInicial) {
         aviso.textContent = "💾 guardado";
         aviso.classList.add("visible");
@@ -137,6 +148,7 @@
     area.spellcheck = false;
     area.style.cssText = "width:100%;min-height:90px;background:#0d0d22;color:#eaeaf5;border:none;padding:12px;font-family:Menlo,monospace;font-size:14px;resize:vertical;";
     area.addEventListener("input", programarGuardado);
+    cq("atajoEjecutar")(area, correrAMano);
     zonaEditor.appendChild(area);
 
     var editor = { valor: function () { return area.value; }, poner: function (v) { area.value = v; } };
@@ -145,7 +157,8 @@
         mode: "text/x-sql",
         theme: "material-darker",
         lineNumbers: true,
-        viewportMargin: Infinity
+        viewportMargin: Infinity,
+        extraKeys: { "Cmd-Enter": correrAMano, "Ctrl-Enter": correrAMano }
       });
       editor.valor = function () { return cm.getValue(); };
       editor.poner = function (v) { cm.setValue(v); };
@@ -174,8 +187,11 @@
                 "<div class='suave' style='font-size:0.8rem'>" + s.values.length + " fila(s)</div>";
             });
           } catch (err) {
-            resultado.innerHTML = "<span style='color:var(--rojo)'>❌ " + String(err.message || err) +
-              "</span><div class='suave'>🚑 Revisa: ¿escribiste bien el nombre de la tabla y las columnas? ¿Cerraste las comillas?</div>";
+            cq("evento")("error");
+            resultado.innerHTML = "<span style='color:var(--rojo)'></span>" +
+              "<div class='suave'>🚑 Revisa: ¿escribiste bien el nombre de la tabla y las columnas? ¿Cerraste las comillas?</div>";
+            resultado.firstChild.textContent = "❌ " + String(err.message || err);
+            cq("pistaDetective")(resultado, "sql", String(err.message || err));
           }
         })
         .catch(function () {
@@ -183,10 +199,13 @@
         });
     }
 
-    btnCorrer.addEventListener("click", function () {
+    function correrAMano() {
       guardarAhora();
+      cq("evento")("ejecutar");
       ejecutar();
-    });
+    }
+
+    btnCorrer.addEventListener("click", correrAMano);
 
     btnReiniciar.addEventListener("click", function () {
       if (editor.valor() === codigoInicial) return;

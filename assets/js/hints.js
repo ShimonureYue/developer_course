@@ -43,6 +43,7 @@
       if (mostradas >= pistas.length) return;
       pistas[mostradas].classList.add("visible");
       mostradas++;
+      if (typeof CodeQuest.evento === "function") CodeQuest.evento("pista");
       boton.textContent = etiqueta();
       if (mostradas >= pistas.length) boton.disabled = true;
     });
