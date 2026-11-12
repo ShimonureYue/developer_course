@@ -28,6 +28,7 @@
     }
 
     preguntas.forEach(function (pregunta) {
+      revolver(pregunta);
       var opciones = pregunta.querySelectorAll(".opcion");
       var explicacion = pregunta.querySelector(".explicacion");
       var resuelta = false;
@@ -56,6 +57,32 @@
           }
         });
       });
+    });
+  }
+
+  // Revuelve las opciones cada vez que se abre la página, para que la
+  // respuesta correcta no esté siempre en el mismo lugar. Si una pregunta
+  // necesita su orden (por ejemplo "todas las anteriores"), ponle
+  // data-orden="fijo" a su <div class="pregunta">.
+  function revolver(pregunta) {
+    if (pregunta.getAttribute("data-orden") === "fijo") return;
+    var opciones = [].slice.call(pregunta.querySelectorAll(".opcion"));
+    if (opciones.length < 3) return;
+    // Cada opción deja una marca en su lugar; luego las marcas se
+    // reemplazan por las opciones ya barajadas.
+    var marcas = opciones.map(function (opcion) {
+      var marca = document.createComment("opcion");
+      opcion.parentNode.replaceChild(marca, opcion);
+      return marca;
+    });
+    for (var i = opciones.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temporal = opciones[i];
+      opciones[i] = opciones[j];
+      opciones[j] = temporal;
+    }
+    marcas.forEach(function (marca, k) {
+      marca.parentNode.replaceChild(opciones[k], marca);
     });
   }
 

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/main.css?v=2">
+  <link rel="stylesheet" href="../assets/css/main.css?v=3">
 
   <!-- ============================================================
        ESTILOS DEL JUEGO (solo de esta página)
@@ -28,6 +28,32 @@
       flex-wrap: wrap;
       margin: 22px 0 30px;
     }
+
+    /* Controles para jugar con el dedo: solo aparecen en celulares y
+       tabletas (pantallas táctiles), donde no hay teclado. */
+    .tactil {
+      display: none;
+      gap: 10px;
+      justify-content: center;
+      margin: 16px auto 0;
+    }
+    .tactil button {
+      width: 84px;
+      height: 64px;
+      font-size: 1.6rem;
+      background: var(--panel);
+      border: 2px solid var(--panel-borde);
+      border-radius: 12px;
+      color: inherit;
+      touch-action: none;           /* el dedo controla el juego, no la página */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .tactil button:active { border-color: var(--morado); }
+    @media (pointer: coarse) {
+      .tactil { display: flex; }
+      .solo-teclado { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -44,7 +70,14 @@
     <!-- El campo de batalla -->
     <canvas id="lienzo" width="480" height="560"></canvas>
 
-    <p class="suave" style="font-size: 0.9rem; margin-top: 12px;">
+    <!-- Botones para pantallas táctiles (cada uno "mantiene presionada" una tecla) -->
+    <div class="tactil" aria-label="Controles táctiles">
+      <button type="button" data-tecla="ArrowLeft" aria-label="Izquierda">⬅️</button>
+      <button type="button" data-tecla=" " aria-label="Disparar">🔥</button>
+      <button type="button" data-tecla="ArrowRight" aria-label="Derecha">➡️</button>
+    </div>
+
+    <p class="suave solo-teclado" style="font-size: 0.9rem; margin-top: 12px;">
       ⌨️ ← → para mover · ESPACIO para disparar · P para pausa<br>
       💡 Si el teclado no responde, <strong>haz clic en el juego</strong> primero.
       🔊 Sube el volumen: hay sonidos retro.
@@ -158,6 +191,7 @@
     let invulnerable = 0;        // frames de escudo tras recibir un golpe
     let tiempoMensaje = 0;       // frames que queda visible el aviso de oleada
     let textoMensaje = "";
+    let esperaGameOver = 0;      // frames antes de poder jugar otra vez tras perder
 
     const teclas = {};           // qué teclas están presionadas AHORA MISMO
 
@@ -169,8 +203,10 @@
     let audio = null;
 
     function asegurarAudio() {
+      const Audio = window.AudioContext || window.webkitAudioContext;
+      if (!Audio) return; // navegador sin sonido: se juega en silencio
       if (!audio) {
-        audio = new (window.AudioContext || window.webkitAudioContext)();
+        audio = new Audio();
       }
       if (audio.state === "suspended") {
         audio.resume(); // algunos navegadores lo pausan hasta que hay interacción
@@ -363,6 +399,9 @@
     // ---------- 10. GAME OVER ----------
     function perderJuego() {
       estado = "gameover";
+      // Un segundo de espera: si venías disparando como loco, el ESPACIO
+      // no reinicia la partida antes de que veas tus puntos.
+      esperaGameOver = 60;
       if (puntos > record) {
         record = puntos;
         localStorage.setItem(CLAVE_RECORD, String(record));
@@ -458,7 +497,6 @@
 
     // ---------- 12. PANTALLA DE TÍTULO ----------
     function dibujarTitulo() {
-      cuadro++;
       ctx.fillStyle = "#07071a";
       ctx.fillRect(0, 0, ANCHO, ALTO);
 
@@ -544,31 +582,53 @@
         ctx.fillStyle = "#39ff8e";
         ctx.fillText("¡NUEVO RECORD! 🏆", ANCHO / 2, 340);
       }
-      if (Math.floor(cuadro / 30) % 2 === 0) {
+      // El aviso aparece cuando ya se puede reiniciar (y parpadea)
+      if (esperaGameOver <= 0 && Math.floor(cuadro / 30) % 2 === 0) {
         ctx.fillStyle = "#a3a3c8";
         ctx.font = '11px "Press Start 2P", monospace';
         ctx.fillText("ESPACIO PARA JUGAR OTRA VEZ", ANCHO / 2, 400);
       }
-      cuadro++; // para que el texto siga parpadeando
     }
 
     // ---------- 14. EL GAME LOOP ----------
     // requestAnimationFrame le pide al navegador: "llámame en el próximo
-    // refresco de pantalla" (~60 veces por segundo). El loop corre SIEMPRE
-    // y decide qué hacer según el estado. Un solo loop = cero duplicados.
-    function bucle() {
-      if (estado === "titulo") {
-        dibujarTitulo();
-      } else if (estado === "jugando") {
-        actualizar();
-        // actualizar() puede cambiar el estado (game over); revisamos de nuevo
-        if (estado === "jugando") { dibujar(); }
-        else { dibujarGameOver(); }
-      } else if (estado === "pausa") {
-        dibujarPausa();
-      } else if (estado === "gameover") {
-        dibujarGameOver();
+    // refresco de pantalla". Casi siempre son 60 veces por segundo, pero
+    // hay pantallas de 120 o 144: ahí el juego correría AL DOBLE. 😱
+    // El truco de los juegos de verdad: medir el tiempo que pasó y avanzar
+    // el mundo en pasos fijos de 1/60 de segundo. Una pantalla rápida
+    // DIBUJA más veces, pero el juego avanza igual para todos.
+    const PASO = 1000 / 60;    // milisegundos que dura un paso del mundo
+    let tiempoAnterior = null; // cuándo fue el frame pasado
+    let tiempoGuardado = 0;    // tiempo que falta por "gastar" en pasos
+
+    // Un paso del mundo (lo que antes pasaba "una vez por frame")
+    function avanzar() {
+      if (estado === "jugando") {
+        actualizar(); // aquí adentro se cuenta el cuadro
+      } else if (estado !== "pausa") {
+        cuadro++;     // título y game over: solo corren las animaciones
+        if (esperaGameOver > 0) { esperaGameOver--; }
       }
+    }
+
+    // El loop corre SIEMPRE y decide qué hacer según el estado.
+    // Un solo loop = cero duplicados.
+    function bucle(ahora) {
+      if (tiempoAnterior === null) { tiempoAnterior = ahora; }
+      // Si la pestaña estuvo escondida, "ahora" llega con un salto enorme:
+      // lo limitamos para que el juego no avance de golpe.
+      tiempoGuardado += Math.min(ahora - tiempoAnterior, 100);
+      tiempoAnterior = ahora;
+      while (tiempoGuardado >= PASO) {
+        tiempoGuardado -= PASO;
+        avanzar();
+      }
+
+      if (estado === "titulo") { dibujarTitulo(); }
+      else if (estado === "jugando") { dibujar(); }
+      else if (estado === "pausa") { dibujarPausa(); }
+      else if (estado === "gameover") { dibujarGameOver(); }
+
       requestAnimationFrame(bucle); // ¡y nos volvemos a apuntar para el siguiente!
     }
 
@@ -577,41 +637,65 @@
     // movimiento es suave: el loop pregunta cada frame "¿sigue presionada?"
     document.addEventListener("keydown", function (evento) {
       // Que las flechas y el espacio no hagan scroll a la página
-      if (["ArrowLeft", "ArrowRight", " "].includes(evento.key)) {
+      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "].includes(evento.key)) {
         evento.preventDefault();
       }
-
-      // Primera interacción del usuario: ya podemos encender el audio 🔊
-      asegurarAudio();
-
-      teclas[evento.key] = true;
 
       // Si dejas la tecla presionada, el sistema "repite" el evento muchas
       // veces por segundo. Para cambiar de pantalla o pausar solo nos
       // interesa la PRIMERA presión, no las repeticiones automáticas.
-      if (evento.repeat) return;
-
-      // ESPACIO también arranca el juego desde el título o el game over
-      if (evento.key === " ") {
-        if (estado === "titulo" || estado === "gameover") {
-          empezarJuego();
-        }
-      }
-
-      // P alterna la pausa (solo tiene sentido durante la partida)
-      if (evento.key === "p" || evento.key === "P") {
-        if (estado === "jugando") { estado = "pausa"; }
-        else if (estado === "pausa") { estado = "jugando"; }
-      }
+      presionar(evento.key, evento.repeat);
     });
 
     document.addEventListener("keyup", function (evento) {
       teclas[evento.key] = false;
     });
 
+    // Lo que pasa al presionar una tecla. Está en su propia función para
+    // que los botones táctiles puedan "presionar" las mismas teclas.
+    function presionar(tecla, esRepeticion) {
+      // Primera interacción del usuario: ya podemos encender el audio 🔊
+      asegurarAudio();
+
+      teclas[tecla] = true;
+      if (esRepeticion) return;
+
+      // ESPACIO también arranca el juego desde el título o el game over
+      // (tras perder hay que esperar un segundito: ver perderJuego)
+      if (tecla === " ") {
+        if (estado === "titulo" || (estado === "gameover" && esperaGameOver <= 0)) {
+          empezarJuego();
+        }
+      }
+
+      // P alterna la pausa (solo tiene sentido durante la partida)
+      if (tecla === "p" || tecla === "P") {
+        if (estado === "jugando") { estado = "pausa"; }
+        else if (estado === "pausa") { estado = "jugando"; }
+      }
+    }
+
+    // Controles táctiles 📱: mientras el dedo esté sobre un botón, su tecla
+    // cuenta como presionada; al levantarlo (o salirse), se suelta.
+    document.querySelectorAll(".tactil button").forEach(function (boton) {
+      const tecla = boton.getAttribute("data-tecla");
+      boton.addEventListener("pointerdown", function (evento) {
+        evento.preventDefault();
+        presionar(tecla, false);
+      });
+      ["pointerup", "pointercancel", "pointerleave"].forEach(function (nombre) {
+        boton.addEventListener(nombre, function () { teclas[tecla] = false; });
+      });
+    });
+
     // Clic en el lienzo = recuperar el foco del teclado
+    // (y, con el dedo, empezar la partida desde el título o el game over)
     lienzo.addEventListener("click", function () {
       window.focus();
+      if (estado !== "jugando" && estado !== "pausa") {
+        presionar(" ", false);
+        teclas[" "] = false; // fue un toque, no una tecla que sigue abajo
+      }
     });
 
     // ---------- 16. ¡A JUGAR! ----------
@@ -620,6 +704,6 @@
   </script>
 
   <script>window.CQ_BASE = "../";</script>
-  <script src="../assets/js/progress.js?v=2"></script>
+  <script src="../assets/js/progress.js?v=3"></script>
 </body>
 </html>

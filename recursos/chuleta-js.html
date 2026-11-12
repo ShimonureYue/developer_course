@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/main.css?v=2">
+  <link rel="stylesheet" href="../assets/css/main.css?v=3">
   <style>
     .tabla td:first-child { white-space: nowrap; }
 
@@ -42,6 +42,10 @@
       <tr><th>Sintaxis</th><th>¿Qué hace?</th><th>Mini-ejemplo</th></tr>
       <tr><td><code>let vidas = 3;</code></td><td>Variable que PUEDE cambiar</td><td><code>let puntos = 0;</code></td></tr>
       <tr><td><code>const MAX = 5;</code></td><td>Constante: NO puede cambiar</td><td><code>const CELDA = 20;</code></td></tr>
+      <tr><td><code>var vidas = 3;</code></td><td>El hermano mayor de <code>let</code>: la forma antigua de crear variables (la verás en mucho código)</td><td><code>var puntos = 0;</code></td></tr>
+      <tr><td><code>condición ? a : b</code></td><td>Un <code>if / else</code> chiquito en una línea: si es verdad vale <code>a</code>; si no, <code>b</code></td><td><code>turno = turno === "X" ? "O" : "X";</code></td></tr>
+      <tr><td><code>Math.random()</code></td><td>Un número al azar entre 0 y 1 (sin llegar a 1)</td><td><code>if (Math.random() &lt; 0.2) { ... }</code></td></tr>
+      <tr><td><code>Math.floor(n)</code></td><td>Le quita los decimales. Con <code>Math.random()</code>: un entero al azar</td><td><code>Math.floor(Math.random() * 20)</code> → de 0 a 19</td></tr>
       <tr><td><code>console.log(...)</code></td><td>Escribe en la consola (F12 en Windows, Cmd+Option+J en Mac)</td><td><code>console.log("hola");</code></td></tr>
       <tr><td><code>// nota</code></td><td>Comentario de una línea</td><td><code>// arreglar luego</code></td></tr>
       <tr><td><code>===</code> / <code>!==</code></td><td>¿Es igual? / ¿Es diferente? (en JS usa SIEMPRE el triple <code>===</code>)</td><td><code>vidas === 0</code></td></tr>
@@ -91,6 +95,7 @@ while (vidas &gt; 0) {             // repite MIENTRAS sea verdad
       <tr><td><code>setInterval(fn, ms)</code></td><td>Ejecuta la función CADA tantos milisegundos (¡el corazón de Snake!)</td><td><code>const id = setInterval(paso, 150);</code></td></tr>
       <tr><td><code>clearInterval(id)</code></td><td>Detiene ese intervalo (guárdalo en una variable para poder pararlo)</td><td><code>clearInterval(id);</code></td></tr>
       <tr><td><code>setTimeout(fn, ms)</code></td><td>Ejecuta la función UNA vez, después de esperar</td><td><code>setTimeout(explotar, 500);</code></td></tr>
+      <tr><td><code>requestAnimationFrame(fn)</code></td><td>"Llama a esta función justo antes del siguiente cuadro" (unas 60 veces por segundo): el game loop de canvas</td><td><code>requestAnimationFrame(cicloDeJuego);</code></td></tr>
     </table>
 
     <h2>📋 Arreglos y objetos</h2>
@@ -100,6 +105,11 @@ while (vidas &gt; 0) {             // repite MIENTRAS sea verdad
       <tr><td><code>lista[0]</code></td><td>Primer elemento (desde 0, como en Python)</td><td><code>balas[0]</code></td></tr>
       <tr><td><code>lista.length</code></td><td>Cuántos elementos tiene</td><td><code>balas.length</code></td></tr>
       <tr><td><code>lista.push(x)</code></td><td>Agrega al final</td><td><code>balas.push(nueva);</code></td></tr>
+      <tr><td><code>lista.pop()</code></td><td>Quita el ÚLTIMO elemento</td><td><code>serpiente.pop();</code></td></tr>
+      <tr><td><code>lista.unshift(x)</code></td><td>Agrega al PRINCIPIO</td><td><code>serpiente.unshift(cabeza);</code></td></tr>
+      <tr><td><code>lista.filter(fn)</code></td><td>Una lista nueva solo con los que cumplen la condición</td><td><code>balas.filter(function (b) { return b.y &gt; 0; })</code></td></tr>
+      <tr><td><code>lista.sort(fn)</code></td><td>Ordena comparando por pares (<code>b - a</code>: de mayor a menor)</td><td><code>lista.sort(function (a, b) { return b.puntos - a.puntos; });</code></td></tr>
+      <tr><td><code>lista.slice(0, n)</code></td><td>Una copia con los primeros <code>n</code> elementos</td><td><code>let top5 = lista.slice(0, 5);</code></td></tr>
       <tr><td><code>{ clave: valor }</code></td><td>Objeto: una "ficha" con datos nombrados</td><td><code>let nave = { x: 240, vidas: 3 };</code></td></tr>
       <tr><td><code>objeto.clave</code></td><td>Lee o cambia un dato del objeto</td><td><code>nave.x = nave.x + 5;</code></td></tr>
     </table>
@@ -164,6 +174,6 @@ const ctx = lienzo.getContext("2d");    // ctx = tu "pincel"</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../";</script>
-  <script src="../assets/js/progress.js?v=2"></script>
+  <script src="../assets/js/progress.js?v=3"></script>
 </body>
 </html>

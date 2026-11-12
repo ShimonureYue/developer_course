@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #00e5ff;">
@@ -33,7 +33,7 @@
     <!-- ============ 🧠 CONCEPTO ============ -->
     <div class="bloque concepto">
       <p class="titulo-bloque">🧠 EL CONCEPTO: LOS JUEGOS GRANDES SE COMEN POR ETAPAS</p>
-      <p>¿Cómo construiste Space Invaders, un juego de 400 líneas? <strong>Nunca lo hiciste de
+      <p>¿Cómo construiste Space Invaders, un juego de más de 500 líneas? <strong>Nunca lo hiciste de
         golpe</strong>: nave → balas → invasión → choques → vidas → pantallas. Seis etapas, y en
         cada una tenías algo que FUNCIONABA. Ese es el método, y hoy te lo llevas de por vida:</p>
       <div class="analogia">
@@ -85,7 +85,172 @@ jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)</code></p
 
       <div class="playground" data-mode="html" data-titulo="fisica_de_salto.html" data-alto="330">
 <pre class="codigo-inicial" hidden>
-@@CODE:n10l1-demo@@
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #05050f; margin: 0; }
+    canvas { background: #0a0a1f; display: block; margin: 0 auto; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="480" height="300"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // ============================================================
+    //  LOS DATOS
+    // ============================================================
+    var jugador = {
+      x: 40,
+      y: 250,
+      ancho: 26,
+      alto: 30,
+      velocidad: 4,      // al caminar (píxeles por cuadro)
+      velocidadY: 0,     // vertical: la gravedad la cambia en CADA cuadro
+      enPiso: false      // ¿está pisando algo? (la regla anti-trampa)
+    };
+
+    // El nivel es puro DATO: cada plataforma es un rectángulo más
+    var plataformas = [
+      { x: 0,   y: 280, ancho: 480, alto: 20 },   // el piso
+      { x: 150, y: 210, ancho: 120, alto: 14 },
+      { x: 320, y: 140, ancho: 110, alto: 14 }
+    ];
+
+    // ============================================================
+    //  EL TECLADO  (el tablero de teclas de Space Invaders)
+    // ============================================================
+    var teclas = {};
+
+    document.addEventListener("keydown", function (e) {
+      teclas[e.key] = true;
+      // Que las flechas y ESPACIO no muevan la página mientras juegas
+      if (e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight" ||
+          e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("keyup", function (e) {
+      teclas[e.key] = false;
+    });
+
+    // Si la ventana pierde el foco, soltamos todas las teclas
+    window.addEventListener("blur", function () {
+      teclas = {};
+    });
+
+    // ============================================================
+    //  LAS REGLAS DEL MUNDO
+    // ============================================================
+    // Tu vieja amiga de Space Invaders: ¿se tocan los rectángulos a y b?
+    function chocan(a, b) {
+      var aEstaALaIzquierda = a.x + a.ancho &lt; b.x;
+      var aEstaALaDerecha   = a.x &gt; b.x + b.ancho;
+      var aEstaArriba       = a.y + a.alto &lt; b.y;
+      var aEstaAbajo        = a.y &gt; b.y + b.alto;
+
+      if (aEstaALaIzquierda || aEstaALaDerecha || aEstaArriba || aEstaAbajo) {
+        return false;
+      }
+      return true;
+    }
+
+    function actualizar() {
+      // 1) Caminar (con sus paredes invisibles)
+      if (teclas["ArrowLeft"])  jugador.x = jugador.x - jugador.velocidad;
+      if (teclas["ArrowRight"]) jugador.x = jugador.x + jugador.velocidad;
+      if (jugador.x &lt; 0) jugador.x = 0;
+      if (jugador.x &gt; canvas.width - jugador.ancho) {
+        jugador.x = canvas.width - jugador.ancho;
+      }
+
+      // 2) La gravedad JALA en cada cuadro: le suma un poquito a la velocidad
+      jugador.velocidadY = jugador.velocidadY + 0.5;
+
+      // 3) Saltar con ⬆️ o ESPACIO… pero SOLO si estás pisando algo
+      if ((teclas["ArrowUp"] || teclas[" "]) &amp;&amp; jugador.enPiso) {
+        jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)
+      }
+
+      // 4) La velocidad mueve al jugador
+      jugador.y = jugador.y + jugador.velocidadY;
+
+      // 5) Aterrizar. Dos condiciones además de chocan():
+      //    · venías cayendo (velocidadY &gt;= 0), y
+      //    · hace un cuadro tus pies estaban ARRIBA de la plataforma.
+      //    Sin ellas te pegarías a las plataformas al saltar por debajo.
+      jugador.enPiso = false;
+      var piesAntes = jugador.y + jugador.alto - jugador.velocidadY;
+      for (var i = 0; i &lt; plataformas.length; i++) {
+        var p = plataformas[i];
+        if (chocan(jugador, p) &amp;&amp; jugador.velocidadY &gt;= 0 &amp;&amp; piesAntes &lt;= p.y) {
+          jugador.y = p.y - jugador.alto;   // parado justo encima
+          jugador.velocidadY = 0;
+          jugador.enPiso = true;
+        }
+      }
+    }
+
+    // ============================================================
+    //  EL DIBUJO
+    // ============================================================
+    function dibujar() {
+      // La goma 🧽: borrar todo y pintar de nuevo
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Las plataformas
+      ctx.fillStyle = "#39ff8e";
+      for (var i = 0; i &lt; plataformas.length; i++) {
+        var p = plataformas[i];
+        ctx.fillRect(p.x, p.y, p.ancho, p.alto);
+      }
+
+      // El jugador (con sus dos ojitos)
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillRect(jugador.x, jugador.y, jugador.ancho, jugador.alto);
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(jugador.x + 6, jugador.y + 8, 4, 4);
+      ctx.fillRect(jugador.x + 16, jugador.y + 8, 4, 4);
+
+      // El chismógrafo: mira cómo cambia la velocidad durante el salto
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = "13px monospace";
+      ctx.fillText("velocidadY: " + jugador.velocidadY + "   enPiso: " + jugador.enPiso, 150, 20);
+    }
+
+    // ============================================================
+    //  EL GAME LOOP  (el mismo motor de tu Space Invaders)
+    // ============================================================
+    // El mundo avanza en PASOS de 1/60 de segundo, aunque la pantalla
+    // repinte 120 veces por segundo: así el salto mide lo mismo en todas.
+    var PASO = 1000 / 60;     // lo que dura un paso, en milisegundos
+    var horaAnterior = 0;     // hasta qué hora ya avanzó el mundo
+
+    function cuadro(hora) {
+      var pasos = Math.round((hora - horaAnterior) / PASO);
+      horaAnterior = horaAnterior + pasos * PASO;
+      if (pasos &gt; 5) {        // el arranque, o la pestaña estuvo dormida:
+        pasos = 1;            // no intentamos recuperar el tiempo perdido
+        horaAnterior = hora;
+      }
+
+      for (var i = 0; i &lt; pasos; i++) {
+        actualizar();
+      }
+      dibujar();
+      requestAnimationFrame(cuadro);   // "llámame en el siguiente repintado"
+    }
+
+    requestAnimationFrame(cuadro);     // ¡enciende el motor!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
       </div>
 
@@ -105,7 +270,194 @@ jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)</code></p
 
       <div class="playground" data-mode="html" data-titulo="mi_plataformero.html" data-alto="330">
 <pre class="codigo-inicial" hidden>
-@@CODE:n10l1-turno@@
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #05050f; margin: 0; }
+    canvas { background: #0a0a1f; display: block; margin: 0 auto; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="480" height="300"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // ============================================================
+    //  LOS DATOS
+    // ============================================================
+    var jugador = {
+      x: 40,
+      y: 250,
+      ancho: 26,
+      alto: 30,
+      velocidad: 4,      // al caminar (píxeles por cuadro)
+      velocidadY: 0,     // vertical: la gravedad la cambia en CADA cuadro
+      enPiso: false      // ¿está pisando algo? (la regla anti-trampa)
+    };
+
+    // El nivel es puro DATO: cada plataforma es un rectángulo más
+    var plataformas = [
+      { x: 0,   y: 280, ancho: 480, alto: 20 },   // el piso
+      { x: 150, y: 210, ancho: 120, alto: 14 },
+      { x: 320, y: 140, ancho: 110, alto: 14 }
+      // TODO 1: agrega aquí una plataforma-escalón para alcanzar la ⭐.
+      //         (No olvides la coma al final de la plataforma de arriba.)
+    ];
+
+    // La meta ⭐ y el interruptor de la victoria
+    var meta = { x: 40, y: 44, ancho: 24, alto: 24 };
+    var ganaste = false;
+
+    // ============================================================
+    //  EL TECLADO  (el tablero de teclas de Space Invaders)
+    // ============================================================
+    var teclas = {};
+
+    document.addEventListener("keydown", function (e) {
+      teclas[e.key] = true;
+      // Que las flechas y ESPACIO no muevan la página mientras juegas
+      if (e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight" ||
+          e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("keyup", function (e) {
+      teclas[e.key] = false;
+    });
+
+    // Si la ventana pierde el foco, soltamos todas las teclas
+    window.addEventListener("blur", function () {
+      teclas = {};
+    });
+
+    // ============================================================
+    //  LAS REGLAS DEL MUNDO
+    // ============================================================
+    // Tu vieja amiga de Space Invaders: ¿se tocan los rectángulos a y b?
+    function chocan(a, b) {
+      var aEstaALaIzquierda = a.x + a.ancho &lt; b.x;
+      var aEstaALaDerecha   = a.x &gt; b.x + b.ancho;
+      var aEstaArriba       = a.y + a.alto &lt; b.y;
+      var aEstaAbajo        = a.y &gt; b.y + b.alto;
+
+      if (aEstaALaIzquierda || aEstaALaDerecha || aEstaArriba || aEstaAbajo) {
+        return false;
+      }
+      return true;
+    }
+
+    function actualizar() {
+      // 1) Caminar (con sus paredes invisibles)
+      if (teclas["ArrowLeft"])  jugador.x = jugador.x - jugador.velocidad;
+      if (teclas["ArrowRight"]) jugador.x = jugador.x + jugador.velocidad;
+      if (jugador.x &lt; 0) jugador.x = 0;
+      if (jugador.x &gt; canvas.width - jugador.ancho) {
+        jugador.x = canvas.width - jugador.ancho;
+      }
+
+      // 2) La gravedad JALA en cada cuadro: le suma un poquito a la velocidad
+      jugador.velocidadY = jugador.velocidadY + 0.5;
+
+      // 3) Saltar con ⬆️ o ESPACIO… pero SOLO si estás pisando algo
+      if ((teclas["ArrowUp"] || teclas[" "]) &amp;&amp; jugador.enPiso) {
+        jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)
+      }
+
+      // 4) La velocidad mueve al jugador
+      jugador.y = jugador.y + jugador.velocidadY;
+
+      // 5) Aterrizar. Dos condiciones además de chocan():
+      //    · venías cayendo (velocidadY &gt;= 0), y
+      //    · hace un cuadro tus pies estaban ARRIBA de la plataforma.
+      //    Sin ellas te pegarías a las plataformas al saltar por debajo.
+      jugador.enPiso = false;
+      var piesAntes = jugador.y + jugador.alto - jugador.velocidadY;
+      for (var i = 0; i &lt; plataformas.length; i++) {
+        var p = plataformas[i];
+        if (chocan(jugador, p) &amp;&amp; jugador.velocidadY &gt;= 0 &amp;&amp; piesAntes &lt;= p.y) {
+          jugador.y = p.y - jugador.alto;   // parado justo encima
+          jugador.velocidadY = 0;
+          jugador.enPiso = true;
+        }
+      }
+
+      // TODO 2: si el jugador toca la meta (pregúntale a chocan),
+      //         pon ganaste en true.
+    }
+
+    // ============================================================
+    //  EL DIBUJO
+    // ============================================================
+    function dibujar() {
+      // La goma 🧽: borrar todo y pintar de nuevo
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Las plataformas
+      ctx.fillStyle = "#39ff8e";
+      for (var i = 0; i &lt; plataformas.length; i++) {
+        var p = plataformas[i];
+        ctx.fillRect(p.x, p.y, p.ancho, p.alto);
+      }
+
+      // La meta
+      ctx.font = "24px sans-serif";
+      ctx.fillText("⭐", meta.x, meta.y + 22);
+
+      // El jugador (con sus dos ojitos)
+      ctx.fillStyle = "#ffe95c";
+      ctx.fillRect(jugador.x, jugador.y, jugador.ancho, jugador.alto);
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(jugador.x + 6, jugador.y + 8, 4, 4);
+      ctx.fillRect(jugador.x + 16, jugador.y + 8, 4, 4);
+
+      // El chismógrafo: mira cómo cambia la velocidad durante el salto
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = "13px monospace";
+      ctx.fillText("velocidadY: " + jugador.velocidadY + "   enPiso: " + jugador.enPiso, 150, 20);
+
+      // El letrero de la victoria (aparece cuando ganaste es true)
+      if (ganaste) {
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#ffe95c";
+        ctx.font = "bold 34px monospace";
+        ctx.fillText("¡GANASTE! 🏆", canvas.width / 2, 110);
+        ctx.textAlign = "left";    // regresar el pincel a la normalidad
+      }
+    }
+
+    // ============================================================
+    //  EL GAME LOOP  (el mismo motor de tu Space Invaders)
+    // ============================================================
+    // El mundo avanza en PASOS de 1/60 de segundo, aunque la pantalla
+    // repinte 120 veces por segundo: así el salto mide lo mismo en todas.
+    var PASO = 1000 / 60;     // lo que dura un paso, en milisegundos
+    var horaAnterior = 0;     // hasta qué hora ya avanzó el mundo
+
+    function cuadro(hora) {
+      var pasos = Math.round((hora - horaAnterior) / PASO);
+      horaAnterior = horaAnterior + pasos * PASO;
+      if (pasos &gt; 5) {        // el arranque, o la pestaña estuvo dormida:
+        pasos = 1;            // no intentamos recuperar el tiempo perdido
+        horaAnterior = hora;
+      }
+
+      for (var i = 0; i &lt; pasos; i++) {
+        actualizar();
+      }
+      dibujar();
+      requestAnimationFrame(cuadro);   // "llámame en el siguiente repintado"
+    }
+
+    requestAnimationFrame(cuadro);     // ¡enciende el motor!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
       </div>
 
@@ -114,7 +466,7 @@ jugador.velocidadY = -10;   // empujón hacia arriba (negativo = sube)</code></p
           <span class="pista-titulo">PISTA 1</span>
           Una plataforma es solo un objeto más en el arreglo:
           <code>{ x: 20, y: 190, ancho: 100, alto: 14 }</code>. Cuidado con la altura: tu salto
-          sube máximo 100 píxeles, así que el escalón debe estar a 100px o menos de donde
+          sube unos 100 píxeles, así que el escalón debe estar a 100px o menos de donde
           despegas (el piso está en y = 280).
         </div>
         <div class="pista">
@@ -153,7 +505,7 @@ if (chocan(jugador, meta)) {
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n10l1">Tengo 13 años, ya construí un Space Invaders completo en JavaScript con canvas, y ahora quiero construir mi siguiente juego yo solo (estoy decidiendo entre Tetris y un plataformero tipo Mario). Ya tengo un plan por etapas. Quiero que seas mi mentor de proyecto: cuando te pegue el código de una etapa, ayúdame SOLO con pistas y preguntas, nunca me escribas el juego completo. Empecemos: te voy a contar mi etapa actual y lo que ya funciona.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -265,9 +617,9 @@ if (chocan(jugador, meta)) {
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

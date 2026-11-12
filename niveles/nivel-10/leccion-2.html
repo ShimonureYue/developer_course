@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #00e5ff;">
@@ -116,7 +116,9 @@ def recibir_dano(golpe):
 
 for i in range(3):
     recibir_dano(1)</code></pre></td>
-          <td><pre class="bloque-codigo" style="margin:0;"><code>var vidas = 3
+          <td><pre class="bloque-codigo" style="margin:0;"><code>extends Node
+
+var vidas = 3
 var velocidad = 300
 
 func recibir_dano(golpe):
@@ -126,10 +128,16 @@ func recibir_dano(golpe):
     else:
         print("quedan ", vidas)
 
-for i in range(3):
-    recibir_dano(1)</code></pre></td>
+func _ready():
+    for i in range(3):
+        recibir_dano(1)</code></pre></td>
         </tr>
       </table>
+      <p class="suave">🔍 Las dos diferencias de fondo: el script empieza con
+        <code>extends Node</code> ("soy un nodo") y, en GDScript, las instrucciones no
+        pueden ir sueltas hasta abajo como en Python: lo que quieres que pase al arrancar
+        va dentro de <code>func _ready():</code>, una función que Godot llama solito cuando
+        el nodo está listo.</p>
 
       <p>El diccionario completo para traducirte a GDScript:</p>
       <table class="tabla">
@@ -151,13 +159,20 @@ extends CharacterBody2D          # "soy un personaje con física"
 
 var velocidad = 300
 
-func _process(delta):            # ¡EL GAME LOOP! Godot la llama cada cuadro
+func _physics_process(delta):    # ¡EL GAME LOOP! Godot la llama en cada paso de física
     var direccion = Input.get_axis("ui_left", "ui_right")   # ← → como tu objeto teclas
     velocity.x = direccion * velocidad
-    move_and_slide()             # mover + chocar contra paredes… ¡en UNA línea!
+    move_and_slide()             # mover + chocar contra paredes… ¡en UNA línea!</code></pre>
+      <p>Y las señales se escuchan así, en el script del nodo que detecta el toque (por
+        ejemplo, una moneda, que es un nodo <code>Area2D</code>: una zona que avisa cuando
+        alguien entra):</p>
+      <pre class="bloque-codigo"><code># moneda.gd — pegado a un nodo Area2D
+extends Area2D                   # "soy una zona que detecta toques"
 
-func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
-    print("¡choqué con algo!")   # (tu chocan() ahora es automática)</code></pre>
+func _on_body_entered(body):     # una SEÑAL: alguien entró a mi zona 📣
+    print("¡me agarraron!")      # (tu chocan() ahora es automática)</code></pre>
+      <p class="suave">(La señal <code>body_entered</code> se conecta a esa función con un
+        par de clics en el editor de Godot, en la pestaña "Nodo".)</p>
       <p>¿Viste la línea <code>move_and_slide()</code>? Movimiento + colisiones + resbalar por
         paredes: todo lo que programaste a mano en el Nivel 9, en una llamada. ESO regala un
         motor. Y tú, a diferencia de quien empieza ahí, <strong>sabes qué hace por dentro</strong>. 🧠</p>
@@ -166,7 +181,7 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
     <!-- ============ ✏️ TU TURNO ============ -->
     <div class="bloque tu-turno">
       <p class="titulo-bloque">✏️ TU TURNO: INSTALA TU NUEVA CONSOLA</p>
-      <p>El mismo ritual del Nivel 0, ya eres veterano en esto. Marca cada paso al completarlo
+      <p>Instalar un programa es puro seguir pasos, y eso ya lo dominas. Marca cada paso al completarlo
         (se guardan en tu partida 💾):</p>
       <ul class="checklist">
         <li>
@@ -179,18 +194,21 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
         <li>
           <input type="checkbox" data-check="n10-godot-2">
           <div class="paso-texto"><strong>Instálalo:</strong> descomprime el ZIP (doble clic).
-            En <strong>Mac</strong>: arrastra Godot a la carpeta Aplicaciones 📁 — el mismo
-            ritual de arrastrar que hiciste con VS Code en el Nivel 0. En <strong>Windows</strong>:
-            mueve la carpeta descomprimida a Documentos; adentro está <code>Godot.exe</code>,
-            que se abre con doble clic (no necesita instalación).</div>
+            En <strong>Mac</strong>: arrastra Godot a la carpeta Aplicaciones 📁 (así se
+            instalan casi todas las apps en Mac). En <strong>Windows</strong>:
+            mueve la carpeta descomprimida a Documentos; adentro hay dos archivos con nombres
+            como <code>Godot_v4.x-stable_win64.exe</code> y otro igual que termina en
+            <code>_console.exe</code>: abre con doble clic <strong>el que NO dice
+            console</strong> (no necesita instalación).</div>
         </li>
         <li>
           <input type="checkbox" data-check="n10-godot-3">
-          <div class="paso-texto"><strong>Ábrelo:</strong> primera vez en <strong>Mac</strong> →
-            clic derecho sobre Godot → <strong>Abrir</strong> → Abrir (el guardián de seguridad
-            de macOS, ya lo conoces 🛡️). En <strong>Windows</strong>, si aparece el aviso azul
+          <div class="paso-texto"><strong>Ábrelo:</strong> en <strong>Mac</strong>, doble clic
+            normal; la primera vez macOS pregunta si de verdad quieres abrir una app
+            descargada de internet → <strong>Abrir</strong> (es su guardián de seguridad 🛡️
+            haciendo su chamba). En <strong>Windows</strong>, si aparece el aviso azul
             "Windows protegió tu equipo" → clic en <strong>Más información</strong> →
-            <strong>Ejecutar de todas formas</strong> (es el mismo guardián, versión Windows).
+            <strong>Ejecutar de todas formas</strong> (es el guardián de Windows).
             Debe aparecer el Gestor de Proyectos.</div>
         </li>
         <li>
@@ -206,18 +224,20 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
             <strong>Otro Nodo</strong> → busca y elige <code>Label</code> (un nodo de texto) →
             en el Inspector (derecha), escribe en su propiedad <strong>Text</strong>:
             <code>¡Hola, Godot! Vengo de Code Quest 👾</code>. Guarda la escena (⌘S / Ctrl+S) y presiona
-            <strong>▶</strong> (arriba a la derecha) para ejecutar. ¡Tu primer proyecto de
-            Godot corre! 🎉</div>
+            <strong>▶</strong> (arriba a la derecha) para ejecutar. La primera vez Godot te
+            pregunta cuál es la escena principal → elige <strong>Seleccionar actual</strong>.
+            ¡Tu primer proyecto de Godot corre! 🎉</div>
         </li>
       </ul>
 
       <div class="pistas">
         <div class="pista">
           <span class="pista-titulo">PISTA 1</span>
-          ¿macOS dice <em>"no se puede abrir porque proviene de un desarrollador no
-          identificado"</em>? No es un error tuyo: es el guardián del Nivel 0. Clic
-          <strong>derecho</strong> sobre la app → Abrir → Abrir. Solo la primera vez.
-          ¿Windows muestra "Windows protegió tu equipo"? Mismo guardián: <strong>Más
+          ¿macOS pregunta <em>"Godot es una app descargada de internet. ¿Seguro que quieres
+          abrirla?"</em>? No es un error tuyo: es el guardián de seguridad de tu Mac. Como
+          bajaste Godot de su página oficial, dile <strong>Abrir</strong> con confianza.
+          Solo pregunta la primera vez.
+          ¿Windows muestra "Windows protegió tu equipo"? Es su propio guardián: <strong>Más
           información → Ejecutar de todas formas</strong>. Solo la primera vez también.
         </div>
         <div class="pista">
@@ -249,7 +269,7 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n10l2">Tengo 13 años, sé Python y JavaScript (acabo de terminar mi propio Space Invaders con canvas), y estoy empezando con Godot 4 en mi computadora [ESCRIBE: Mac o Windows]. Explícame como a alguien de mi edad: 1) qué es un nodo, una escena y una señal, usando una analogía de teatro; 2) en qué se parece GDScript a Python con un ejemplo cortito de cada uno; 3) qué pasos sigo para hacer que un sprite se mueva con las flechas. Si te pregunto errores del editor, pídeme capturas o el texto exacto del error antes de responder.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -317,8 +337,8 @@ func _on_area_entered(area):     # una SEÑAL: alguien me tocó 📣
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
 </body>
 </html>

@@ -43,14 +43,17 @@
     "('Camila', 'Snake', 640, 'Tijuana')," +
     "('Leonardo', 'Space Invaders', 990, 'Guadalajara');";
 
+  var motorSQL = null;
+
   function conseguirDB(avisar) {
     if (!dbPromesa) {
       avisar("💾 Preparando tu base de datos…");
       dbPromesa = CodeQuest.cargarScript(SQLJS_BASE + "sql-wasm.min.js")
         .then(function () {
-          return initSqlJs({ locateFile: function (f) { return SQLJS_BASE + f; } });
+          return motorSQL || initSqlJs({ locateFile: function (f) { return SQLJS_BASE + f; } });
         })
         .then(function (SQL) {
+          motorSQL = SQL;
           var db = new SQL.Database();
           db.run(DATOS_INICIALES);
           return db;
@@ -70,14 +73,29 @@
       .then(function () { return CodeQuest.cargarScript(CM_BASE + "mode/sql/sql.min.js"); });
   }
 
+  // Tira la base de datos actual y arma una nueva con los jugadores de
+  // ejemplo (por si un DROP TABLE o muchos INSERT la dejaron irreconocible).
+  function restaurarDB() {
+    var vieja = dbPromesa;
+    dbPromesa = null;
+    if (vieja) vieja.then(function (db) { db.close(); }).catch(function () { /* nunca se creó */ });
+    return conseguirDB(function () { /* sin aviso: es rápido */ });
+  }
+
+  // Los datos pueden traer símbolos como < o &: se muestran tal cual,
+  // no como etiquetas HTML.
+  function escapar(texto) {
+    return String(texto).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
   function tablaHTML(columnas, filas) {
     var html = '<table class="tabla"><thead><tr>';
-    columnas.forEach(function (c) { html += "<th>" + c + "</th>"; });
+    columnas.forEach(function (c) { html += "<th>" + escapar(c) + "</th>"; });
     html += "</tr></thead><tbody>";
     filas.forEach(function (fila) {
       html += "<tr>";
       fila.forEach(function (celda) {
-        html += "<td>" + (celda === null ? "<span class='suave'>—</span>" : String(celda)) + "</td>";
+        html += "<td>" + (celda === null ? "<span class='suave'>—</span>" : escapar(celda)) + "</td>";
       });
       html += "</tr>";
     });
@@ -113,8 +131,13 @@
     var btnReiniciar = document.createElement("button");
     btnReiniciar.className = "pg-btn secundario";
     btnReiniciar.textContent = "🔄 Reiniciar";
+    var btnRestaurar = document.createElement("button");
+    btnRestaurar.className = "pg-btn secundario";
+    btnRestaurar.textContent = "🔄 Restaurar base";
+    btnRestaurar.title = "Deja la tabla jugadores como al principio (no borra tu consulta)";
     barra.appendChild(btnCorrer);
     barra.appendChild(btnReiniciar);
+    barra.appendChild(btnRestaurar);
     marco.appendChild(barra);
 
     // Autoguardado: espera a que dejes de escribir y guarda tu consulta
@@ -176,9 +199,18 @@
       conseguirDB(function (msg) { resultado.textContent = msg; })
         .then(function (db) {
           try {
-            var salidas = db.exec(editor.valor());
+            var consulta = editor.valor();
+            var salidas = db.exec(consulta);
             if (salidas.length === 0) {
-              resultado.innerHTML = "<span style='color:var(--verde)'>✅ Listo. La base de datos cambió (prueba un SELECT para verla).</span>";
+              // Sin los comentarios, ¿la consulta cambia datos o solo pregunta?
+              var limpia = consulta.replace(/--.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+              if (!limpia.trim()) {
+                resultado.textContent = "✏️ Escribe una consulta y dale ▶ Consultar.";
+              } else if (/\b(insert|update|delete|create|drop|alter|replace)\b/i.test(limpia)) {
+                resultado.innerHTML = "<span style='color:var(--verde)'>✅ Listo. La base de datos cambió (prueba un SELECT para verla).</span>";
+              } else {
+                resultado.innerHTML = "<span style='color:var(--amarillo)'>🔍 Tu consulta funcionó, pero ninguna fila cumple lo que pediste (0 filas).</span>";
+              }
               return;
             }
             resultado.innerHTML = "";
@@ -206,6 +238,15 @@
     }
 
     btnCorrer.addEventListener("click", correrAMano);
+
+    btnRestaurar.addEventListener("click", function () {
+      restaurarDB().then(function () {
+        resultado.textContent = "▸ el resultado de tu consulta aparecerá aquí…";
+        CodeQuest.toast("🔄 La tabla jugadores volvió a como estaba al principio");
+      }).catch(function () {
+        resultado.innerHTML = "<span style='color:var(--rojo)'>❌ No se pudo descargar el motor de base de datos. ¿Hay internet?</span>";
+      });
+    });
 
     btnReiniciar.addEventListener("click", function () {
       if (editor.valor() === codigoInicial) return;

@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #00e5ff;">
@@ -101,7 +101,7 @@
           </tr>
           <tr>
             <td>📱 <strong>Apps</strong></td>
-            <td>Aplicaciones para iPhone/iPad (¡ya tienes Mac!)</td>
+            <td>Aplicaciones para iPhone/iPad (para programarlas se necesita una Mac)</td>
             <td><a href="https://developer.apple.com/tutorials/swiftui" target="_blank" rel="noopener">Tutoriales de SwiftUI de Apple</a> — Swift te resultará familiar: variables, funciones y ciclos son los mismos amigos</td>
           </tr>
         </tbody>
@@ -109,12 +109,13 @@
 
       <h2>🐙 GitHub: tu vitrina de trofeos</h2>
       <p>Los programadores no guardan sus proyectos en un cajón: los <strong>presumen</strong>.
-        GitHub es la red social del código — y ya la conoces, ¡de ahí descargaste este curso!</p>
+        GitHub es la red social del código: ahí guardan y comparten sus proyectos millones de
+        programadores de todo el mundo.</p>
       <ol class="pasos">
         <li>Crea tu cuenta gratis en <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (pídele ayuda a tu profe si te pide verificación).</li>
         <li>Crea un <strong>repositorio</strong> (= carpeta pública de proyecto) llamado <code>mi-space-invaders</code>.</li>
-        <li>Sube tu archivo del juego con el botón <strong>"Add file → Upload files"</strong> (la ruta fácil; la ruta pro con <code>git</code> la aprenderás sola después 😉).</li>
-        <li>Actívale <strong>GitHub Pages</strong> (Settings → Pages → Deploy from a branch → main) y en un minuto tu juego tendrá su propia dirección en internet, para mandársela a quien quieras. 🌍</li>
+        <li>Cámbiale el nombre a tu archivo del juego: debe llamarse <code>index.html</code> (así se llama la página que un sitio muestra primero; con otro nombre, tu dirección daría error 404). Luego súbelo con el botón <strong>"Add file → Upload files"</strong> (la ruta fácil; la ruta pro con <code>git</code> la aprenderás después 😉).</li>
+        <li>Actívale <strong>GitHub Pages</strong> (Settings → Pages → Deploy from a branch → main → Save) y en un par de minutos tu juego tendrá su propia dirección en internet, <code>https://TU-USUARIO.github.io/mi-space-invaders/</code>, para mandársela a quien quieras. 🌍</li>
       </ol>
       <p>Ese enlace es tu primer <strong>portafolio</strong>. Cada proyecto que subas es un trofeo más en la vitrina. 🏆</p>
 
@@ -151,7 +152,7 @@ PANTALLAS: título → jugando → game over (con récord en localStorage)
       <p class="titulo-bloque">✏️ RETO JEFE 👑: EL PLAN DE TU SIGUIENTE PROYECTO</p>
       <p>Elige TU siguiente proyecto (uno que te emocione de verdad) y escribe su plan de
         diseño como el del ejemplo: <strong>objetos y sus datos, pantallas, y qué piezas ya
-        sabes hacer</strong>. Puede ser en papel, en notas, o en un archivo de VS Code.
+        sabes hacer</strong>. Puede ser en papel, en notas, o en un archivo de texto en tu compu.
         Ideas si no se te ocurre: clon de Flappy Bird 🐤, un quiz de tu banda o equipo favorito 🎵⚽,
         una página para tu familia 👨‍👩‍👧, un Pong para dos jugadores 🏓, o tu primer juego en Godot.</p>
       <div class="pistas">
@@ -186,7 +187,7 @@ PANTALLAS: título → jugando → game over (con récord en localStorage)
         <li>Pídele ideas a tu tutor de IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n10l3">Tengo entre 13 y 15 años y acabo de terminar un curso donde construí un Space Invaders con JavaScript y canvas, además de aprender Python, HTML, CSS y localStorage. Sugiéreme 5 ideas de siguiente proyecto a mi nivel (ni muy fácil ni imposible), y para la que yo elija, ayúdame a escribir su plan de diseño: objetos con sus datos, pantallas y qué habilidades ya tengo. No me des el código resuelto.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n10l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -261,8 +262,8 @@ PANTALLAS: título → jugando → game over (con récord en localStorage)
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
 </body>
 </html>

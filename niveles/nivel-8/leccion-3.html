@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #39ff8e;">
@@ -83,7 +83,9 @@
           es tocar UN solo número. 🚀</li>
         <li><strong><code>evento.preventDefault()</code>:</strong> las flechas también
           mueven la página (scroll). Esta línea le dice al navegador "yo me encargo,
-          no muevas nada tú". 🙅</li>
+          no muevas nada tú". 🙅 Se lo decimos <strong>solo a las flechas</strong>
+          (con un <code>if</code>): si se lo dijéramos a TODAS las teclas, dejarían de
+          servir atajos como <code>F5</code> o <code>Tab</code> mientras juegas.</li>
       </ul>
       <p class="suave">🖱️ Importante en TODOS los ejemplos de hoy: <strong>haz clic dentro
         de la vista previa primero, para que escuche tu teclado</strong>. El teclado solo
@@ -133,7 +135,12 @@
       if (evento.key === "ArrowLeft")  x = x - VELOCIDAD;
       if (evento.key === "ArrowRight") x = x + VELOCIDAD;
 
-      evento.preventDefault();  // que las flechas no muevan la página
+      // Solo a las flechas les quitamos su trabajo de siempre (mover la página).
+      // Las demás teclas (F5, Tab…) se quedan como están.
+      if (evento.key === "ArrowUp" || evento.key === "ArrowDown" ||
+          evento.key === "ArrowLeft" || evento.key === "ArrowRight") {
+        evento.preventDefault();
+      }
     });
 
     function dibujar() {
@@ -201,7 +208,11 @@
       // TODO 1: agrega los if de "ArrowLeft", "ArrowUp" y "ArrowDown".
       //         (Acuérdate: subir es RESTAR a la y)
 
-      evento.preventDefault();
+      // Solo las flechas: que no muevan la página
+      if (evento.key === "ArrowUp" || evento.key === "ArrowDown" ||
+          evento.key === "ArrowLeft" || evento.key === "ArrowRight") {
+        evento.preventDefault();
+      }
     });
 
     function dibujar() {
@@ -278,7 +289,7 @@ if (y &gt; canvas.height - TAM) y = canvas.height - TAM;</code></pre>
         <li>Pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n8l3">Tengo 13 años y estoy haciendo un juego en canvas con JavaScript. Muevo un cuadrito con addEventListener("keydown") y evento.key ("ArrowUp", "ArrowDown", etc.), y quiero evitar que se salga de la pantalla con ifs. Algo no me funciona. Hazme preguntas una por una para ayudarme a encontrar el error yo mismo (por ejemplo sobre el foco del teclado, los nombres exactos de las teclas y mis condiciones), en lugar de darme el código completo.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -296,7 +307,8 @@ if (y &gt; canvas.height - TAM) y = canvas.height - TAM;</code></pre>
       <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
       <p>1) <strong>Modo turbo:</strong> si presionan <code>" "</code> (la barra
         espaciadora), duplica la <code>VELOCIDAD</code> por un rato… o alterna entre
-        lenta y rápida. 2) <strong>Dos jugadores:</strong> agrega un segundo cuadro que
+        lenta y rápida (agrega <code>evento.key === " "</code> al <code>if</code> del
+        <code>preventDefault</code>, para que el espacio no baje la página). 2) <strong>Dos jugadores:</strong> agrega un segundo cuadro que
         se mueva con <code>"w"</code>, <code>"a"</code>, <code>"s"</code>,
         <code>"d"</code> — ¡su primer juego local para dos! 👯
         <strong>Jefe secreto:</strong> dibuja una "moneda" 🪙 (círculo amarillo) en un
@@ -350,9 +362,9 @@ if (y &gt; canvas.height - TAM) y = canvas.height - TAM;</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

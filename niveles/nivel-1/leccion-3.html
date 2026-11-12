@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ffb86c;">
@@ -99,8 +99,12 @@
     <!-- ============ 👀 EJEMPLO ============ -->
     <div class="bloque ejemplo">
       <p class="titulo-bloque">👀 MÍRALO FUNCIONAR</p>
-      <p>Ejecuta y prueba los dos enlaces (el segundo abre pestaña nueva 👀). La primera imagen
-        viene de internet (<code>placekitten</code> presta fotos de gatitos — si no carga o no hay
+      <p>Ejecuta y prueba los dos enlaces: el segundo, con <code>target="_blank"</code>, abre en
+        pestaña nueva 👀; el primero, sin <code>target</code>, se abre AQUÍ MISMO, dentro del
+        cuadrito de la vista previa (vuelve a presionar ▶ Ejecutar para regresar a tu página).
+        Ojo: algunos sitios, como YouTube, no dejan que los muestren dentro de otra página y
+        ahí se verían en blanco; para esos, <code>target="_blank"</code> es el camino. La primera imagen
+        viene de internet (<code>placecats.com</code> presta fotos de gatitos — si no carga o no hay
         internet, verás su texto <code>alt</code>: ¡para eso es!). La segunda "imagen" es un truco
         de emoji gigante que jamás falla:</p>
       <div class="playground" data-mode="html" data-titulo="portales.html" data-alto="320">
@@ -124,7 +128,7 @@
          alt="Foto de un gatito muy serio revisando código">
 
     <h2>Mi avatar (a prueba de fallas)</h2>
-    <p style="font-size: 80px; margin: 0;">🐱‍👤</p>
+    <p style="font-size: 80px; margin: 0;">🥷</p>
   </body>
 </html>
 </script>
@@ -177,18 +181,19 @@
         </div>
         <div class="pista solucion">
           <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
-          <pre class="bloque-codigo"><code>&lt;p&gt;Mis videos: &lt;a href="https://www.youtube.com"&gt;YouTube&lt;/a&gt;&lt;/p&gt;
+          <pre class="bloque-codigo"><code>&lt;p&gt;Para investigar: &lt;a href="https://es.wikipedia.org"&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Para investigar:
-   &lt;a href="https://es.wikipedia.org" target="_blank"&gt;
-     Wikipedia (pestaña nueva)
+&lt;p&gt;Mis videos:
+   &lt;a href="https://www.youtube.com" target="_blank"&gt;
+     YouTube (pestaña nueva)
    &lt;/a&gt;&lt;/p&gt;
 
 &lt;img src="https://placecats.com/200/200"
      alt="un gatito espía muy tierno"&gt;</code></pre>
           Punto por punto: <code>href</code> = a dónde va el portal; <code>target="_blank"</code> =
           ábrelo en pestaña nueva; <code>src</code> = de dónde sale la imagen; <code>alt</code> =
-          qué decir si la imagen no llega. Si tus 3 TODOs funcionan: ¡ya conectaste tu página con
+          qué decir si la imagen no llega. (YouTube va con <code>target="_blank"</code> porque
+          no se deja mostrar dentro de la vista previa.) Si tus 3 TODOs funcionan: ¡ya conectaste tu página con
           el mundo! 🌎🎉
         </div>
       </div>
@@ -203,7 +208,7 @@
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n1l3">Tengo 13 años y estoy aprendiendo HTML. Ya conozco la etiqueta a con href y target="_blank", y la etiqueta img con src y alt. Lo que más trabajo me cuesta son las RUTAS RELATIVAS (cuándo escribir solo el nombre del archivo, cuándo carpeta/archivo y cuándo ../archivo). Explícamelas con la analogía de las direcciones de una colonia o un edificio, con 3 ejemplos concretos de carpetas. Después dibújame en texto una estructura de carpetas pequeña y hazme 3 preguntas de qué ruta usaría, corrigiéndome con pistas. No me des las respuestas de inmediato.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n1l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -219,8 +224,9 @@
     <!-- ============ 🔥 RETO EXTRA ============ -->
     <div class="bloque reto">
       <p class="titulo-bloque">🔥 RETO EXTRA (OPCIONAL)</p>
-      <p>Detective de rutas 🕵️: abre esta misma lección en VS Code
-        (<code>niveles/nivel-1/leccion-3.html</code>) y busca los <code>href</code> de la miga de
+      <p>Detective de rutas 🕵️: espía el código de esta misma lección (clic derecho sobre la
+        página → <strong>Ver código fuente de la página</strong>; el archivo es
+        <code>niveles/nivel-1/leccion-3.html</code>) y busca los <code>href</code> de la miga de
         pan de hasta arriba. ¿Por qué el enlace al Mapa dice <code>../../index.html</code>
         (dos brincos de carpeta) y el del Nivel 1 solo <code>index.html</code>? Explícaselo a un
         compañero con la analogía de los edificios. Si puedes explicarlo, lo dominaste. 🧠✨</p>
@@ -270,9 +276,9 @@
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

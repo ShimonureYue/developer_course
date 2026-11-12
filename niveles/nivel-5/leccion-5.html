@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ffe95c;">
@@ -161,6 +161,7 @@
     document.getElementById("abuelita").addEventListener("click", function () {
       if (tacos &gt;= 50) {
         tacos = tacos - 50;
+        pintar();                  // que el contador baje YA, no hasta el próximo segundo
         setInterval(function () {  // el despertador ⏰
           tacos = tacos + 1;
           pintar();
@@ -219,11 +220,13 @@
     //          suma porClic a tacos y llama pintar().
 
     // PARTE 4a: escucha el clic de "salsa":
-    //          si tacos &gt;= 20 → resta 20 y súmale 2 a porClic.
+    //          si tacos &gt;= 20 → resta 20, súmale 2 a porClic y pinta.
+    //          si no alcanza (else) → avisa con alert("Te faltan tacos 😅").
 
     // PARTE 4b: escucha el clic de "abuelita":
-    //          si tacos &gt;= 50 → resta 50 y arranca un setInterval
+    //          si tacos &gt;= 50 → resta 50, pinta y arranca un setInterval
     //          que sume 1 taco y pinte, cada 1000 ms.
+    //          si no alcanza (else) → avisa con alert.
 
     // PARTE 5: dentro de pintar(), usa if / else if para cambiar
     //          el texto de "rango": 🧢 normal, 🔥 desde 100, 👑 desde 500.
@@ -276,6 +279,8 @@ document.getElementById("salsa").addEventListener("click", function () {
     tacos = tacos - 20;
     porClic = porClic + 2;
     pintar();
+  } else {
+    alert("Te faltan tacos 😅 La salsa cuesta 20.");
   }
 });
 
@@ -283,10 +288,13 @@ document.getElementById("salsa").addEventListener("click", function () {
 document.getElementById("abuelita").addEventListener("click", function () {
   if (tacos &gt;= 50) {
     tacos = tacos - 50;
+    pintar();                  // que el contador baje YA
     setInterval(function () {
       tacos = tacos + 1;
       pintar();
     }, 1000);
+  } else {
+    alert("Te faltan tacos 😅 La abuelita cuesta 50.");
   }
 });</code></pre>
           Lo más importante: <strong><code>pintar()</code> es la única que toca la pantalla</strong>.
@@ -306,7 +314,7 @@ document.getElementById("abuelita").addEventListener("click", function () {
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n5l5">Tengo 13 años y estoy construyendo un juego clicker en JavaScript (tipo Cookie Clicker pero de tacos): tengo un botón que suma tacos, mejoras que cuestan tacos y setInterval para producir tacos automáticos. Voy a pegarte mi código: ayúdame a encontrar por qué no funciona, pero guíame con preguntas paso a paso en lugar de darme el código corregido completo. Si te pido ideas de mejoras nuevas para el juego, dame opciones con su dificultad.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -324,9 +332,20 @@ document.getElementById("abuelita").addEventListener("click", function () {
       <ul>
         <li><strong>🛒 Nueva mejora:</strong> inventa la tuya. ¿Un 🚚 "food truck" que dé +5 por
           segundo y cueste 200? Copia el patrón de la abuelita y cámbiale los números.</li>
-        <li><strong>🔊 Sonido:</strong> ponle audio al clic con
-          <code>new Audio("https://actions.google.com/sounds/v1/cartoon/pop.ogg").play()</code>
-          adentro del evento del taco. ¡Pop! por cada taco.</li>
+        <li><strong>🔊 Sonido:</strong> ponle un "bip" al clic, fabricado con puro código
+          (no necesita ningún archivo de sonido). La primera línea va arriba, junto a tus
+          otras variables; lo demás, adentro del evento del taco:
+          <pre class="bloque-codigo"><code>let audio = null;                      // la bocina (todavía apagada)
+
+// …y esto adentro del evento del taco:
+if (audio === null) {
+  audio = new AudioContext();          // se enciende UNA vez, con tu primer clic
+}
+let nota = audio.createOscillator();   // un generador de tono
+nota.frequency.value = 660;            // qué tan agudo suena (prueba 440 o 1200)
+nota.connect(audio.destination);       // lo conectamos a la bocina
+nota.start();                          // ¡suena!
+nota.stop(audio.currentTime + 0.08);   // …y se calla casi de inmediato: ¡pop!</code></pre></li>
         <li><strong>🎨 Guarda tu diseño:</strong> personaliza el CSS (colores, fuentes, ¿modo
           neón?) y guarda tu archivo en tu carpeta de proyectos como
           <code>taco-clicker.html</code> — ábrelo con doble clic y preséntalo. Es TU primer
@@ -378,9 +397,9 @@ document.getElementById("abuelita").addEventListener("click", function () {
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

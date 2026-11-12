@@ -45,6 +45,9 @@ function listar(dir, base = '') {
       await page.waitForTimeout(1200);
       const ok = await page.evaluate(() => !!document.querySelector('.cq-header') || !!window.CodeQuest || document.title.length > 0);
       if (!ok) errs.push('sin header');
+      // Un marcador @@CODE:…@@ es código que nunca se pegó en la lección
+      const marcadores = (await page.content()).match(/@@CODE:[\w-]+@@/g);
+      if (marcadores) errs.push('código sin pegar: ' + [...new Set(marcadores)].join(', '));
     } catch (e) { errs.push('carga: ' + e.message.split('\n')[0]); }
     if (errs.length) { malas++; console.log('❌', p, errs.slice(0, 4)); }
     await page.close();

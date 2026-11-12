@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff5c7a;">
@@ -80,13 +80,38 @@
         <li><strong>Guardar:</strong> <code>localStorage.setItem("gato-records", JSON.stringify(lista))</code>
           (lección 2 💾).</li>
         <li><strong>Leer:</strong> <code>JSON.parse(localStorage.getItem("gato-records"))</code> —
-          y si viene <code>null</code>, empezamos con lista vacía <code>[]</code>.</li>
+          y si viene <code>null</code>, empezamos con lista vacía <code>[]</code>.
+          (En el código verás esa lectura envuelta en un <code>try / catch</code>: un
+          seguro por si lo guardado no se puede desempacar.)</li>
         <li><strong>El TOP 5:</strong> ordenar la lista de mayor a menor y quedarnos con 5.
           Dos herramientas nuevas chiquitas:
           <code>lista.sort(function (a, b) { return b.victorias - a.victorias; })</code>
           ordena comparando fichas por pares (si el resultado es positivo, <code>b</code> va primero),
           y <code>lista.slice(0, 5)</code> corta una copia con los primeros 5. ✂️</li>
       </ol>
+
+      <div class="analogia">
+        <strong>🆕 Cosas nuevas que verás en este código</strong> (este Gato viene ya armado
+        y está escrito con un estilo un poquito distinto al tuyo del nivel 6; que no te
+        espante, hace lo mismo):
+        <ul>
+          <li><code>var</code> es el <strong>hermano mayor de <code>let</code></strong>:
+            también crea una variable. Es la forma antigua y la vas a ver en muchísimo
+            código de internet; aquí puedes leer cada <code>var</code> como si dijera
+            <code>let</code>.</li>
+          <li><code>condición ? a : b</code> es un <strong><code>if / else</code> chiquito
+            en una sola línea</strong>: "si la condición es cierta, vale <code>a</code>; si
+            no, vale <code>b</code>". Por ejemplo,
+            <code>turno = turno === "X" ? "O" : "X";</code> se lee: "¿el turno es X?
+            entonces ahora es O; si no, X".</li>
+          <li><code>boton.onclick = function () { … };</code> es otra manera de escribir
+            <code>boton.addEventListener("click", function () { … });</code>: "cuando le
+            den clic, ejecuta esto".</li>
+          <li><code>if (algo) return;</code> sin llaves: cuando el <code>if</code> solo
+            tiene UNA instrucción, las llaves se pueden omitir. Aquí significa "si pasa
+            esto, salte de la función ya".</li>
+        </ul>
+      </div>
     </div>
 
     <!-- ============ 👀 EJEMPLO ============ -->
@@ -95,7 +120,10 @@
       <p>Aquí está el Gato completo con récords, listo para jugar. Presiona
         <strong>▶ Ejecutar</strong>, escribe los nombres, juega unas partidas… y luego vuelve
         a presionar <strong>▶ Ejecutar</strong> (la "recarga"): los récords siguen ahí 🤯.
-        Léelo con calma: reconocerás el Gato del nivel 6 + las funciones nuevas de récords:</p>
+        Léelo con calma: es un Gato nuevecito que ya viene armado (misma lógica que el
+        tuyo del nivel 6: tablero, turnos y <code>COMBOS</code>, pero con X y O de texto)
+        + las funciones nuevas de récords. Cuando venzas al jefe, puedes llevarte esas
+        funciones a tu <code>mi_gato_final.html</code>:</p>
 
       <div class="playground" data-mode="html" data-titulo="gato_con_records.html" data-alto="620" data-auto="no">
 <pre class="codigo-inicial" hidden>
@@ -133,12 +161,12 @@
     var nombreX = prompt("¿Quién juega con la X?") || "Jugador X";
     var nombreO = prompt("¿Quién juega con la O?") || "Jugador O";
 
-    // ---------- El Gato del nivel 6 (¡ya lo conoces!) ----------
+    // ---------- El Gato (misma lógica que el tuyo del nivel 6) ----------
     var tablero = ["", "", "", "", "", "", "", "", ""];
     var turno = "X";
     var terminado = false;
 
-    var LINEAS = [
+    var COMBOS = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],   // filas
       [0, 3, 6], [1, 4, 7], [2, 5, 8],   // columnas
       [0, 4, 8], [2, 4, 6]               // diagonales
@@ -149,43 +177,43 @@
 
     function pintarTablero() {
       zonaTablero.innerHTML = "";
-      for (var i = 0; i &lt; 9; i++) {
+      // OJO: aquí va "let i" a propósito (como en tu Gato del nivel 6):
+      // así cada botón recuerda SU propio número de casilla.
+      for (let i = 0; i &lt; 9; i++) {
         var celda = document.createElement("button");
         celda.className = "celda";
         celda.textContent = tablero[i];
-        celda.onclick = jugarEn(i);
+        celda.onclick = function () { jugarEn(i); };
         zonaTablero.appendChild(celda);
       }
     }
 
     function jugarEn(i) {
-      return function () {
-        if (terminado || tablero[i] !== "") return;
-        tablero[i] = turno;
-        var ganador = checarGanador();
-        if (ganador) {
-          terminado = true;
-          var nombre = ganador === "X" ? nombreX : nombreO;
-          estado.textContent = "🎉 ¡Ganó " + nombre + "!";
-          sumarVictoria(nombre);        // 💾 ¡aquí entra el nivel 7!
-        } else if (tableroLleno()) {
-          terminado = true;
-          estado.textContent = "😺 ¡Empate! (gato)";
-        } else {
-          turno = turno === "X" ? "O" : "X";
-          estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
-        }
-        pintarTablero();
-      };
+      if (terminado || tablero[i] !== "") return;
+      tablero[i] = turno;
+      var ganador = checarGanador();
+      if (ganador) {
+        terminado = true;
+        var nombre = ganador === "X" ? nombreX : nombreO;
+        estado.textContent = "🎉 ¡Ganó " + nombre + "!";
+        sumarVictoria(nombre);        // 💾 ¡aquí entra el nivel 7!
+      } else if (tableroLleno()) {
+        terminado = true;
+        estado.textContent = "😺 ¡Empate! (gato)";
+      } else {
+        turno = turno === "X" ? "O" : "X";
+        estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
+      }
+      pintarTablero();
     }
 
     function checarGanador() {
-      for (var i = 0; i &lt; LINEAS.length; i++) {
-        var l = LINEAS[i];
-        if (tablero[l[0]] !== "" &amp;&amp;
-            tablero[l[0]] === tablero[l[1]] &amp;&amp;
-            tablero[l[1]] === tablero[l[2]]) {
-          return tablero[l[0]];
+      for (var i = 0; i &lt; COMBOS.length; i++) {
+        var combo = COMBOS[i];
+        if (tablero[combo[0]] !== "" &amp;&amp;
+            tablero[combo[0]] === tablero[combo[1]] &amp;&amp;
+            tablero[combo[1]] === tablero[combo[2]]) {
+          return tablero[combo[0]];
         }
       }
       return null;
@@ -204,7 +232,16 @@
     function cargarRecords() {
       var crudo = localStorage.getItem("gato-records");
       if (crudo === null) return [];      // primera vez: nadie ha ganado
-      return JSON.parse(crudo);           // 📂 desempacar texto → lista de fichas
+
+      // try/catch = "intenta esto; si truena, haz lo otro". Si en el cajón
+      // quedó algo que NO es JSON (por ejemplo, si un día guardaste la lista
+      // sin JSON.stringify), JSON.parse truena… y en vez de que se rompa
+      // todo el juego, empezamos con lista vacía.
+      try {
+        return JSON.parse(crudo) || [];   // 📂 desempacar texto → lista de fichas
+      } catch (error) {
+        return [];
+      }
     }
 
     // Empacar la lista y guardarla en el cajón
@@ -237,10 +274,20 @@
       cuerpo.innerHTML = "";
       for (var i = 0; i &lt; top5.length; i++) {
         var fila = document.createElement("tr");
-        fila.innerHTML = "&lt;td&gt;" + (i + 1) + "&lt;/td&gt;&lt;td&gt;" + top5[i].nombre +
-          "&lt;/td&gt;&lt;td&gt;" + top5[i].victorias + "&lt;/td&gt;";
+        agregarCelda(fila, i + 1);
+        agregarCelda(fila, top5[i].nombre);
+        agregarCelda(fila, top5[i].victorias);
         cuerpo.appendChild(fila);
       }
+    }
+
+    // Crea una celda &lt;td&gt; con un texto y la mete en la fila.
+    // Usa textContent (no innerHTML): así el nombre SIEMPRE se pinta como
+    // texto, aunque alguien escriba etiquetas HTML como "nombre" 😏
+    function agregarCelda(fila, texto) {
+      var celda = document.createElement("td");
+      celda.textContent = texto;
+      fila.appendChild(celda);
     }
 
     document.getElementById("reiniciar").onclick = function () {
@@ -260,14 +307,15 @@
 &lt;/html&gt;
 </pre>
       </div>
-      <p class="suave">🌐 Recuerda: localStorage guarda de verdad cuando el sitio se abre por
-        internet o con Live Server (con doble clic / <code>file://</code> puede no guardar).</p>
+      <p class="suave">🌐 Recuerda: localStorage guarda de verdad cuando el curso se abre por
+        internet, con su dirección <code>https://</code> (con doble clic /
+        <code>file://</code> puede no guardar).</p>
     </div>
 
     <!-- ============ ✏️ TU TURNO ============ -->
     <div class="bloque tu-turno">
       <p class="titulo-bloque">✏️ TU TURNO: VENCE AL JEFE POR PARTES</p>
-      <p>Aquí tienes el mismo Gato, pero con las 4 funciones de récords <strong>vacías</strong>.
+      <p>Aquí tienes el mismo Gato, pero con las 4 funciones de récords <strong>sin terminar</strong>.
         El juego funciona… pero no recuerda nada. Tu misión: completar los TODO
         <strong>en orden</strong> y ejecutar después de cada parte. Guíate con las 5 estaciones
         del plan de batalla: 👇</p>
@@ -315,7 +363,7 @@
     var turno = "X";
     var terminado = false;
 
-    var LINEAS = [
+    var COMBOS = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],
       [0, 3, 6], [1, 4, 7], [2, 5, 8],
       [0, 4, 8], [2, 4, 6]
@@ -326,43 +374,43 @@
 
     function pintarTablero() {
       zonaTablero.innerHTML = "";
-      for (var i = 0; i &lt; 9; i++) {
+      // OJO: aquí va "let i" a propósito (como en tu Gato del nivel 6):
+      // así cada botón recuerda SU propio número de casilla.
+      for (let i = 0; i &lt; 9; i++) {
         var celda = document.createElement("button");
         celda.className = "celda";
         celda.textContent = tablero[i];
-        celda.onclick = jugarEn(i);
+        celda.onclick = function () { jugarEn(i); };
         zonaTablero.appendChild(celda);
       }
     }
 
     function jugarEn(i) {
-      return function () {
-        if (terminado || tablero[i] !== "") return;
-        tablero[i] = turno;
-        var ganador = checarGanador();
-        if (ganador) {
-          terminado = true;
-          var nombre = ganador === "X" ? nombreX : nombreO;
-          estado.textContent = "🎉 ¡Ganó " + nombre + "!";
-          sumarVictoria(nombre);
-        } else if (tableroLleno()) {
-          terminado = true;
-          estado.textContent = "😺 ¡Empate! (gato)";
-        } else {
-          turno = turno === "X" ? "O" : "X";
-          estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
-        }
-        pintarTablero();
-      };
+      if (terminado || tablero[i] !== "") return;
+      tablero[i] = turno;
+      var ganador = checarGanador();
+      if (ganador) {
+        terminado = true;
+        var nombre = ganador === "X" ? nombreX : nombreO;
+        estado.textContent = "🎉 ¡Ganó " + nombre + "!";
+        sumarVictoria(nombre);
+      } else if (tableroLleno()) {
+        terminado = true;
+        estado.textContent = "😺 ¡Empate! (gato)";
+      } else {
+        turno = turno === "X" ? "O" : "X";
+        estado.textContent = "Turno de " + (turno === "X" ? nombreX : nombreO) + " (" + turno + ")";
+      }
+      pintarTablero();
     }
 
     function checarGanador() {
-      for (var i = 0; i &lt; LINEAS.length; i++) {
-        var l = LINEAS[i];
-        if (tablero[l[0]] !== "" &amp;&amp;
-            tablero[l[0]] === tablero[l[1]] &amp;&amp;
-            tablero[l[1]] === tablero[l[2]]) {
-          return tablero[l[0]];
+      for (var i = 0; i &lt; COMBOS.length; i++) {
+        var combo = COMBOS[i];
+        if (tablero[combo[0]] !== "" &amp;&amp;
+            tablero[combo[0]] === tablero[combo[1]] &amp;&amp;
+            tablero[combo[1]] === tablero[combo[2]]) {
+          return tablero[combo[0]];
         }
       }
       return null;
@@ -378,9 +426,20 @@
     // ---------- TUS MISIONES 💾 ----------
 
     function cargarRecords() {
-      // TODO 2 (Estación 4): lee "gato-records" con localStorage.getItem.
-      //        Si es null, regresa []. Si no, regresa JSON.parse(loLeido).
-      return [];
+      // TODO 2 (Estación 4): lee "gato-records" con localStorage.getItem
+      //        (cambia el null de esta línea por esa lectura):
+      var crudo = null;
+      if (crudo === null) return [];   // cajón vacío → lista vacía
+
+      // try/catch = "intenta esto; si truena, haz lo otro". Si lo guardado
+      // no es JSON de verdad, JSON.parse truena y regresamos lista vacía
+      // en vez de que se rompa todo el juego.
+      try {
+        // TODO 2 (sigue): cambia el [] de abajo por JSON.parse(crudo) || []
+        return [];
+      } catch (error) {
+        return [];
+      }
     }
 
     function guardarRecords(lista) {
@@ -399,6 +458,15 @@
       // TODO 5 (Estación 5): carga la lista, ordénala de mayor a menor con
       //        sort, corta el top 5 con slice(0, 5) y pinta una fila &lt;tr&gt;
       //        por cada ficha dentro de la tabla (tbody con id "records").
+      //        Para cada celda usa el ayudante de abajo: agregarCelda(fila, texto)
+    }
+
+    // Ayudante (ya hecho): crea una celda &lt;td&gt; con un texto y la mete en
+    // la fila. Usa textContent: el nombre siempre se pinta como texto.
+    function agregarCelda(fila, texto) {
+      var celda = document.createElement("td");
+      celda.textContent = texto;
+      fila.appendChild(celda);
     }
 
     document.getElementById("reiniciar").onclick = function () {
@@ -423,8 +491,11 @@
           <span class="pista-titulo">PISTA 1</span>
           Los TODO 1, 2 y 3 son casi copiar del plan de batalla:
           <code>var nombreX = prompt("¿Quién juega con la X?") || "Jugador X";</code> —
-          y las funciones de cargar/guardar son las mismas 3 líneas de la lección 2,
-          con la clave <code>"gato-records"</code>.
+          y las funciones de cargar/guardar son las mismas líneas de la lección 2,
+          con la clave <code>"gato-records"</code>. En <code>cargarRecords</code> solo
+          cambias dos cositas: el <code>null</code> por
+          <code>localStorage.getItem("gato-records")</code> y, dentro del
+          <code>try</code>, el <code>[]</code> por <code>JSON.parse(crudo) || []</code>.
         </div>
         <div class="pista">
           <span class="pista-titulo">PISTA 2</span>
@@ -439,7 +510,11 @@
           <pre class="bloque-codigo"><code>function cargarRecords() {
   var crudo = localStorage.getItem("gato-records");
   if (crudo === null) return [];   // cajón vacío → lista vacía
-  return JSON.parse(crudo);        // 📂 desempacar
+  try {
+    return JSON.parse(crudo) || [];  // 📂 desempacar
+  } catch (error) {
+    return [];                     // lo guardado no era JSON → lista vacía
+  }
 }
 
 function guardarRecords(lista) {
@@ -469,11 +544,17 @@ function pintarRecords() {
   cuerpo.innerHTML = "";
   for (var i = 0; i &lt; top5.length; i++) {
     var fila = document.createElement("tr");
-    fila.innerHTML = "&lt;td&gt;" + (i + 1) + "&lt;/td&gt;&lt;td&gt;" + top5[i].nombre +
-      "&lt;/td&gt;&lt;td&gt;" + top5[i].victorias + "&lt;/td&gt;";
+    agregarCelda(fila, i + 1);               // el lugar
+    agregarCelda(fila, top5[i].nombre);      // quién
+    agregarCelda(fila, top5[i].victorias);   // cuántas
     cuerpo.appendChild(fila);
   }
 }</code></pre>
+          El <code>try / catch</code> de <code>cargarRecords</code> es un seguro: "intenta
+          desempacar; si truena, regresa lista vacía". Sin él, un solo guardado mal hecho
+          dejaría tu juego roto en cada recarga. Y <code>agregarCelda</code> pinta con
+          <code>textContent</code>, así un nombre tramposo con etiquetas HTML se ve como
+          simple texto.
           Detalle fino del <code>sort</code>: le pasas una función que compara DOS fichas.
           <code>b.victorias - a.victorias</code> ordena de mayor a menor (si lo volteas a
           <code>a - b</code>, queda de menor a mayor). Y como <code>ficha</code> apunta a la
@@ -491,12 +572,17 @@ function pintarRecords() {
           así sabes exactamente dónde se rompió.</li>
         <li>¿La tabla sale vacía? Casi seguro <code>pintarRecords</code> no se está llamando,
           o <code>cargarRecords</code> sigue regresando <code>[]</code> siempre.</li>
+        <li>¿Guardaste algo raro (por ejemplo, la lista sin <code>JSON.stringify</code>) y
+          desde entonces la tabla sale vacía o con datos locos? Vacía el cajón y empieza
+          limpio: pega esta línea al inicio de tu <code>&lt;script&gt;</code>, ejecuta UNA
+          vez y luego bórrala:
+          <code>localStorage.removeItem("gato-records");</code> 🧹</li>
         <li>Compara tu código con el <strong>ejemplo completo</strong> de arriba: está ahí
           justo para eso.</li>
         <li>Pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n7l4">Tengo 13 años y estoy haciendo un juego de Gato (tres en línea) en JavaScript con tabla de récords: guardo un arreglo de objetos {nombre, victorias} en localStorage con JSON.stringify y JSON.parse, lo ordeno con sort y muestro el top 5 con slice. Estoy atorado en una parte. Hazme preguntas para ayudarme a encontrar el error yo mismo, en lugar de darme el código completo. Explícame despacio cómo funciona sort con una función comparadora.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -505,7 +591,7 @@ function pintarRecords() {
           <a href="../../recursos/como-usar-ia.html">¿Cómo usar la IA para aprender? 🎓</a>
         </div>
       </div>
-      <p>5. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
+      <p>6. Y siempre puedes <strong>preguntarle al profe o a un compañero</strong> 🧑‍🏫 —
         los jefes se vencen mejor en equipo.</p>
     </div>
 
@@ -568,9 +654,9 @@ function pintarRecords() {
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

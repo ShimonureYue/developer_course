@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #a78bfa;">
@@ -112,10 +112,11 @@ import random
 
 # ---- LAS PIEZAS (las recetas) ----
 def lanzar_moneda():
-    return random.choice(["águila", "sol"])   # ENTREGA el resultado
+    return random.choice(["aguila", "sol"])   # ENTREGA el resultado
 
 def pedir_apuesta():
-    return input("¿águila o sol? ")           # ENTREGA lo que escribas
+    # .lower() pasa lo que escribas a minúsculas: "Sol" y "SOL" también valen
+    return input("¿aguila o sol? (sin acento) ").lower()   # ENTREGA tu apuesta
 
 # ---- EL JUEGO (el chef que las llama) ----
 print("🪙 EL VOLADO 🪙")
@@ -130,6 +131,10 @@ else:
 </script>
       </div>
 
+      <p class="suave">🔍 Detalle: escribimos <code>"aguila"</code> sin acento y usamos
+        <code>.lower()</code> (¿te acuerdas del Nivel 3?) para que <code>==</code> no te
+        haga perder por una mayúscula o una tilde. Usa el mismo truco en tus juegos de
+        abajo cuando compares textos.</p>
       <p>¿Ves la jugada? Las funciones <strong>retornan</strong> valores, y el juego los
         <strong>guarda y compara</strong>. Ese mismo esqueleto, con más piezas,
         es un juego completo. Ahora sí: 👑</p>
@@ -286,7 +291,7 @@ import random
 print("✂️ PIEDRA, PAPEL O TIJERA — al mejor de 3 ✂️")
 # TODO: puntos_jugador = 0   y   puntos_compu = 0
 # TODO: while puntos_jugador < 2 and puntos_compu < 2:
-#           jugador = input("piedra, papel o tijera: ")
+#           jugador = input("piedra, papel o tijera: ").lower()
 #           compu = jugada_computadora()
 #           imprime lo que sacó la compu
 #           resultado = decidir_ganador(jugador, compu)
@@ -353,7 +358,7 @@ puntos_jugador = 0
 puntos_compu = 0
 
 while puntos_jugador &lt; 2 and puntos_compu &lt; 2:
-    jugador = input("piedra, papel o tijera: ")
+    jugador = input("piedra, papel o tijera: ").lower()
     compu = jugada_computadora()
     print("La compu sacó:", compu)
 
@@ -402,7 +407,7 @@ else:
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n4l4">Tengo 13 años y estoy construyendo en Python dos juegos con funciones: "Adivina el número" (con generar_secreto usando random.randint, pedir_intento con int(input()) y dar_pista que retorna "más arriba"/"más abajo"/"ganaste") y "Piedra, papel o tijera" al mejor de 3 (con jugada_computadora usando random.choice y decidir_ganador que retorna quién ganó). Si te enseño mi código: 1) ayúdame a encontrar los bugs dándome pistas en vez de reescribirlo todo, 2) explícame por qué conviene que dar_pista y decidir_ganador RETORNEN el resultado en vez de imprimirlo, 3) revisa conmigo mi ciclo principal para evitar ciclos infinitos. No me des el juego resuelto: quiero armarlo yo.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n4l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -482,9 +487,9 @@ else:
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/python-runner.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/python-runner.js?v=3"></script>
 </body>
 </html>

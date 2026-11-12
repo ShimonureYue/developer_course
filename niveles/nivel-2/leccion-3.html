@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff4dd8;">
@@ -49,7 +49,7 @@
         <li><code>justify-content</code> → cómo repartirlos A LO LARGO:
           <code>center</code> (juntitos al centro), <code>space-between</code> (en las orillas y
           espacio en medio), <code>space-around</code> (espacio parejo alrededor).</li>
-        <li><code>align-items: center;</code> → centrados A LO ANCHO del otro eje (que ningún taco
+        <li><code>align-items: center;</code> → centrados A LO ALTO, que es el otro eje (que ningún taco
           quede chueco).</li>
         <li><code>gap: 16px;</code> → espacio fijo ENTRE tacos, sin andar poniendo margins. 👌</li>
       </ul>
@@ -89,7 +89,7 @@
       <pre class="bloque-codigo"><code>.plato {
   display: flex;
   justify-content: center;   /* centrado a lo largo  ↔ */
-  align-items: center;       /* centrado a lo ancho  ↕ */
+  align-items: center;       /* centrado a lo alto   ↕ */
 }</code></pre>
       <p>Y la <strong>magia</strong> 🪄: hasta ahora tus páginas se quedan quietas. Con dos poderes
         nuevos, reaccionan al mouse:</p>
@@ -123,7 +123,7 @@
       .menu {
         display: flex;              /* ¡el plato es flexible! */
         justify-content: center;    /* centrado a lo largo ↔ */
-        align-items: center;        /* centrado a lo ancho ↕ */
+        align-items: center;        /* centrado a lo alto  ↕ */
         gap: 20px;                  /* espacio entre botones */
         height: 220px;              /* alto para ver el centrado */
       }
@@ -255,7 +255,7 @@
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n2l3">Tengo 13 años y estoy aprendiendo flexbox en CSS con la analogía de acomodar tacos en un plato (el contenedor es el plato con display: flex y los elementos son los tacos). Ya conozco flex-direction, justify-content, align-items y gap, pero a veces confundo justify-content con align-items. Explícame la diferencia con dibujos de texto (ASCII) de un plato horizontal, y luego descríbeme 3 acomodos ("todo centrado", "uno en cada orilla", "torre vertical centrada") y pregúntame qué propiedades usaría, corrigiéndome con pistas. No me des las respuestas de inmediato.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -323,9 +323,9 @@
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

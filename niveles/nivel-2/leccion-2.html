@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff4dd8;">
@@ -36,11 +36,11 @@
       <p>Haz clic derecho en CUALQUIER página web y elige "Inspeccionar": vas a ver que cada título,
         cada foto, cada botón… es un <strong>rectángulo</strong>. La web entera son cajas dentro de
         cajas dentro de cajas. 🤯 Y toda caja tiene 3 capas alrededor de su contenido, que se
-        entienden perfecto con una torta de cumpleaños:</p>
+        entienden perfecto con un pastel de cumpleaños:</p>
       <div class="analogia">
-        Piensa en una <strong>torta en su caja de regalo 🎂</strong>:
-        el <strong>contenido</strong> es la torta;
-        el <strong>padding</strong> es el espacio de aire entre la torta y la caja (para que no se
+        Piensa en un <strong>pastel en su caja de regalo 🎂</strong>:
+        el <strong>contenido</strong> es el pastel;
+        el <strong>padding</strong> es el espacio de aire entre el pastel y la caja (para que no se
         embarre el betún);
         el <strong>border</strong> es la caja/el papel de regalo que se ve por fuera;
         y el <strong>margin</strong> es el espacio personal ENTRE tu caja y las demás — como en el
@@ -61,7 +61,7 @@
           <!-- contenido -->
           <g class="anim-pulso">
             <rect x="195" y="122" width="150" height="48" rx="6" fill="#39ff8e"/>
-            <text x="270" y="152" text-anchor="middle" font-size="16" fill="#0a0a1a">la torta 🎂</text>
+            <text x="270" y="152" text-anchor="middle" font-size="16" fill="#0a0a1a">el pastel 🎂</text>
           </g>
           <text x="270" y="290" text-anchor="middle" font-size="13" fill="#a3a3c8">Toda caja: contenido → padding → border → margin (de adentro hacia afuera)</text>
         </svg>
@@ -80,7 +80,7 @@
 }</code></pre>
       <ul>
         <li><code>border: 4px solid #ff4dd8;</code> pide 3 datos juntos: qué tan gruesa la línea,
-          de qué tipo (<code>solid</code> = continua, <code>dashed</code> = punteada) y su color.</li>
+          de qué tipo (<code>solid</code> = continua, <code>dashed</code> = de rayitas) y su color.</li>
         <li><code>border-radius</code> redondea esquinas: poquito (<code>8px</code>) = tarjeta
           elegante; mucho (<code>50%</code>) = ¡círculo completo!</li>
         <li><code>box-shadow: 0 0 20px color;</code> dibuja una sombra: los dos primeros números la
@@ -181,7 +181,7 @@
       <div class="pistas">
         <div class="pista">
           <span class="pista-titulo">PISTA 1</span>
-          Recuerda la torta 🎂: de adentro hacia afuera es <code>padding</code> → <code>border</code>
+          Recuerda el pastel 🎂: de adentro hacia afuera es <code>padding</code> → <code>border</code>
           → <code>margin</code>. Cada línea es <code>propiedad: valor;</code>, por ejemplo:
           <code>padding: 16px;</code>. Ejecuta después de CADA una para ver qué cambia.
         </div>
@@ -211,13 +211,13 @@
     <div class="bloque atorado">
       <p class="titulo-bloque">🚑 ¿ATORADO? ASÍ TE DESATORAS</p>
       <ol>
-        <li>Vuelve al <strong>diagrama de la torta</strong> 🎂: padding adentro, margin afuera.</li>
+        <li>Vuelve al <strong>diagrama del pastel</strong> 🎂: padding adentro, margin afuera.</li>
         <li>Usa las <strong>💡 pistas</strong> del ejercicio (no pierdes nada).</li>
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
-        <div class="prompt-ia" id="prompt-ia-n2l2">Tengo 13 años y estoy aprendiendo CSS. Hoy vi el modelo de caja: padding, border y margin, con la analogía de una torta en su caja de regalo (padding = aire entre torta y caja, border = el papel, margin = espacio personal en el metro). Lo que todavía confundo es cuándo usar padding y cuándo usar margin. Explícamelo con 3 ejemplos visuales de una página real (un botón, una tarjeta, una lista) y luego descríbeme 3 situaciones ("el texto está pegado al borde", etc.) y pregúntame cuál propiedad arregla cada una, dándome pistas si me equivoco. No me des las respuestas de inmediato.</div>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
+        <div class="prompt-ia" id="prompt-ia-n2l2">Tengo 13 años y estoy aprendiendo CSS. Hoy vi el modelo de caja: padding, border y margin, con la analogía de un pastel en su caja de regalo (padding = aire entre pastel y caja, border = el papel, margin = espacio personal en el metro). Lo que todavía confundo es cuándo usar padding y cuándo usar margin. Explícamelo con 3 ejemplos visuales de una página real (un botón, una tarjeta, una lista) y luego descríbeme 3 situaciones ("el texto está pegado al borde", etc.) y pregúntame cuál propiedad arregla cada una, dándome pistas si me equivoco. No me des las respuestas de inmediato.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n2l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
           <a href="https://chatgpt.com" target="_blank" rel="noopener">Abrir ChatGPT ↗</a>
@@ -247,7 +247,7 @@
       <div class="quiz" data-quiz="n2-l2" data-xp="20">
         <div class="pregunta">
           <p class="enunciado">1. El texto de tu tarjeta se ve PEGADO al borde. ¿Qué le falta?</p>
-          <button class="opcion" data-ok><code>padding</code>: el aire entre la torta y su caja 🎂</button>
+          <button class="opcion" data-ok><code>padding</code>: el aire entre el pastel y su caja 🎂</button>
           <button class="opcion"><code>margin</code>: espacio hacia las otras cajas</button>
           <button class="opcion">Más <code>border</code>, para tapar el problema</button>
           <div class="explicacion">Apretado por DENTRO = <code>padding</code>. Amontonado por FUERA
@@ -264,10 +264,10 @@
         <div class="pregunta">
           <p class="enunciado">3. En <code>border: 4px solid #ff4dd8;</code>, ¿qué significa <code>solid</code>?</p>
           <button class="opcion">Que el borde es resistente a los golpes</button>
-          <button class="opcion" data-ok>Que la línea es continua (a diferencia de <code>dashed</code>, punteada)</button>
+          <button class="opcion" data-ok>Que la línea es continua (a diferencia de <code>dashed</code>, de rayitas)</button>
           <button class="opcion">Que el color no se puede cambiar</button>
           <div class="explicacion">El borde pide 3 datos: grosor (<code>4px</code>), estilo de línea
-            (<code>solid</code> continua, <code>dashed</code> punteada, <code>dotted</code> de
+            (<code>solid</code> continua, <code>dashed</code> de rayitas, <code>dotted</code> de
             puntitos) y color. 🎁</div>
         </div>
       </div>
@@ -284,9 +284,9 @@
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

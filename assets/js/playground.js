@@ -118,9 +118,10 @@
       "var __CQ_LINEAS = 0;\n" +
       "function __linea(txt, clase){var d=document.createElement('div');if(clase)d.className=clase;" +
       "d.textContent=txt;document.body.appendChild(d);}\n" +
-      "console.log=function(){var a=[].slice.call(arguments).map(function(x){" +
-      "return (typeof x==='object'&&x!==null)?JSON.stringify(x):String(x);});__linea(a.join(' '));};\n" +
-      "console.error=function(){__linea([].slice.call(arguments).join(' '),'err');};\n" +
+      "function __texto(x){if(typeof x==='object'&&x!==null){try{return JSON.stringify(x);}catch(e){return String(x);}}return String(x);}\n" +
+      "console.log=function(){__linea([].slice.call(arguments).map(__texto).join(' '));};\n" +
+      "console.info=console.log;console.warn=console.log;\n" +
+      "console.error=function(){__linea([].slice.call(arguments).map(__texto).join(' '),'err');};\n" +
       "window.onerror=function(m,s,l){__linea('❌ '+m+(l>__CQ_LINEAS?'  (línea '+(l-__CQ_LINEAS)+')':''),'err');" +
       "__linea('🚑 Lee el error: es una pista, no un regaño.','res');};\n" +
       "<\/script><script>\n";
@@ -204,7 +205,8 @@
     preview.className = "pg-preview" + (modo === "js" ? " oscuro" : "");
     preview.style.height = alto + "px";
     // allow-same-origin permite que los ejemplos usen localStorage (Nivel 7)
-    preview.setAttribute("sandbox", "allow-scripts allow-modals allow-same-origin");
+    // allow-popups deja que los enlaces con target="_blank" abran su pestaña (Nivel 1)
+    preview.setAttribute("sandbox", "allow-scripts allow-modals allow-same-origin allow-popups allow-popups-to-escape-sandbox");
     preview.setAttribute("title", "vista previa de tu código");
     marco.appendChild(preview);
 

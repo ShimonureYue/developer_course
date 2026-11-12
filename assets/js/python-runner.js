@@ -61,6 +61,7 @@
     "def __cq_quitar_guardia():",
     "    sys.settrace(None)",
     "def __cq_input(prompt=''):",
+    "    sys.stdout.flush()  # que lo impreso llegue a la consola antes de preguntar",
     "    respuesta = __cq_prompt(str(prompt))",
     "    if respuesta is None:",
     "        raise ProgramaDetenido('cancelaste la pregunta')",
@@ -73,6 +74,19 @@
 
   var pyodidePromesa = null;
 
+  // Lo último que imprimió el programa desde la pregunta anterior. Mientras
+  // la ventanita de input() está abierta, el navegador no alcanza a pintar
+  // la consola: por eso repetimos esas líneas dentro de la ventanita (así
+  // sí ves el "MÁS ARRIBA" de un juego antes de contestar otra vez).
+  var MAX_RECIENTES = 8;
+  var recientes = [];
+
+  function textoPregunta(mensaje) {
+    var antes = recientes.slice(-MAX_RECIENTES).join("\n");
+    recientes = [];
+    return antes ? antes + "\n\n" + mensaje : mensaje;
+  }
+
   function conseguirPyodide(avisar) {
     if (!pyodidePromesa) {
       avisar("🐍 Cargando el motor de Python… (solo tarda la primera vez)");
@@ -82,10 +96,15 @@
           // input() usa el cuadro de diálogo del navegador.
           // Si el alumno da "Cancelar" regresamos undefined (= None en Python)
           py.globals.set("__cq_prompt", function (mensaje) {
-            var r = window.prompt(String(mensaje));
+            var r = window.prompt(textoPregunta(String(mensaje)));
             return r === null ? undefined : r;
           });
-          return py.runPythonAsync(PREPARAR_PYTHON).then(function () { return py; });
+          // Los ayudantes se compilan con su propio nombre de archivo
+          // ("<codequest>") para que el guardián y los números de línea
+          // de los errores solo cuenten el código del alumno ("<exec>").
+          py.globals.set("__cq_fuente", PREPARAR_PYTHON);
+          py.runPython("exec(compile(__cq_fuente, '<codequest>', 'exec'), globals())");
+          return py;
         })
         .catch(function (e) {
           pyodidePromesa = null; // permitir reintentar
@@ -211,6 +230,10 @@
     var lineasMostradas = 0;
     function salida(texto, clase) {
       lineasMostradas++;
+      if (!clase) {
+        recientes.push(texto);
+        if (recientes.length > MAX_RECIENTES) recientes.shift();
+      }
       if (lineasMostradas > MAX_LINEAS) {
         if (lineasMostradas === MAX_LINEAS + 1) {
           linea("✂️ Tu programa imprimió más de " + MAX_LINEAS + " líneas; ya no las muestro todas.", "aviso");
@@ -233,14 +256,20 @@
       btnCorrer.disabled = true;
       btnCorrer.textContent = "⏳ …";
       var python = null;
+      var espacio = null;
       conseguirPyodide(function (msg) { linea(msg, "aviso"); })
         .then(function (py) {
           python = py;
           limpiarConsola();
+          recientes = [];
           py.setStdout({ batched: function (s) { salida(s); } });
           py.setStderr({ batched: function (s) { salida(s, "error"); } });
+          // Cada ejecución estrena su propia "caja de variables". Así un
+          // programa no hereda variables de otro, y si alguien escribe
+          // print = 5 por accidente, basta borrar esa línea para arreglarlo.
+          espacio = py.runPython("{'__name__': '__main__'}");
           py.runPython("__cq_armar_guardia()");
-          return py.runPythonAsync(editor.valor());
+          return py.runPythonAsync(editor.valor(), { globals: espacio });
         })
         .then(function () {
           linea("✦ programa terminado ✦", "aviso");
@@ -283,6 +312,10 @@
           if (python) {
             try { python.runPython("__cq_quitar_guardia()"); } catch (e) { /* ya estaba quitada */ }
           }
+          if (espacio && typeof espacio.destroy === "function") {
+            try { espacio.destroy(); } catch (e) { /* ya se había soltado */ }
+          }
+          recientes = [];
           corriendo = false;
           btnCorrer.disabled = false;
           btnCorrer.textContent = "▶ Ejecutar";
