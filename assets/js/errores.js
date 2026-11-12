@@ -181,6 +181,13 @@
 
   var JS = [
     {
+      busca: /Ciclo infinito:/,
+      pista: function () {
+        return "Tu ciclo nunca termina: su condición siempre es verdadera. Revisa que ADENTRO del while o del for " +
+          "cambie algo (un contador que sube, una variable que se vuelve false) para que algún día se detenga.";
+      }
+    },
+    {
       busca: /ReferenceError: ([\w$]+) is not defined|ReferenceError: Can't find variable: ([\w$]+)/,
       pista: function (m) {
         var nombre = m[1] || m[2];

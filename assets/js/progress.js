@@ -1112,7 +1112,7 @@
   // lenguaje: "python" | "js" | "sql". Regresa una promesa con la pista
   // en español, o null si no conocemos ese error.
   function explicarError(lenguaje, mensaje) {
-    return cargarScript(BASE + "assets/js/errores.js?v=3")
+    return cargarScript(BASE + "assets/js/errores.js?v=4")
       .then(function () {
         return window.CodeQuestErrores ? window.CodeQuestErrores.explicar(lenguaje, String(mensaje || "")) : null;
       })

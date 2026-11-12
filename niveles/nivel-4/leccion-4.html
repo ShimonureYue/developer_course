@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=4">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=4">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=4">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #a78bfa;">
@@ -112,11 +112,14 @@ import random
 
 # ---- LAS PIEZAS (las recetas) ----
 def lanzar_moneda():
-    return random.choice(["aguila", "sol"])   # ENTREGA el resultado
+    return random.choice(["águila", "sol"])   # ENTREGA el resultado
 
 def pedir_apuesta():
     # .lower() pasa lo que escribas a minúsculas: "Sol" y "SOL" también valen
-    return input("¿aguila o sol? (sin acento) ").lower()   # ENTREGA tu apuesta
+    apuesta = input("¿águila o sol? ").lower()
+    if apuesta == "aguila":     # ¿sin acento? También vale: la corregimos
+        apuesta = "águila"
+    return apuesta              # ENTREGA tu apuesta
 
 # ---- EL JUEGO (el chef que las llama) ----
 print("🪙 EL VOLADO 🪙")
@@ -131,10 +134,11 @@ else:
 </script>
       </div>
 
-      <p class="suave">🔍 Detalle: escribimos <code>"aguila"</code> sin acento y usamos
-        <code>.lower()</code> (¿te acuerdas del Nivel 3?) para que <code>==</code> no te
-        haga perder por una mayúscula o una tilde. Usa el mismo truco en tus juegos de
-        abajo cuando compares textos.</p>
+      <p class="suave">🔍 Detalle: <code>==</code> es muy estricto, así que la función
+        <code>pedir_apuesta()</code> "limpia" lo que escribes antes de entregarlo:
+        <code>.lower()</code> (¿te acuerdas del Nivel 3?) quita las mayúsculas, y un
+        <code>if</code> acepta <code>"aguila"</code> sin acento. Así no pierdes por una
+        mayúscula o una tilde. Usa el mismo truco en tus juegos de abajo cuando compares textos.</p>
       <p>¿Ves la jugada? Las funciones <strong>retornan</strong> valores, y el juego los
         <strong>guarda y compara</strong>. Ese mismo esqueleto, con más piezas,
         es un juego completo. Ahora sí: 👑</p>
@@ -487,9 +491,9 @@ else:
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=3"></script>
-  <script src="../../assets/js/hints.js?v=3"></script>
-  <script src="../../assets/js/quiz.js?v=3"></script>
-  <script src="../../assets/js/python-runner.js?v=3"></script>
+  <script src="../../assets/js/progress.js?v=4"></script>
+  <script src="../../assets/js/hints.js?v=4"></script>
+  <script src="../../assets/js/quiz.js?v=4"></script>
+  <script src="../../assets/js/python-runner.js?v=4"></script>
 </body>
 </html>

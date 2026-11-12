@@ -106,6 +106,139 @@
     return codigo.replace(/<\/script/gi, "<\\/script");
   }
 
+  // ---------- El guardián de ciclos infinitos (JavaScript) ----------
+  // Un while que nunca termina congela toda la pestaña. Para evitarlo,
+  // antes de ejecutar metemos una llamada chiquita, __cqc(línea), al
+  // principio de cada ciclo for / while / do. Esa función mira el reloj:
+  // si el programa lleva más de LIMITE_CICLO milisegundos sin soltar el
+  // control, lanza un error y el ciclo se detiene. El código que el
+  // alumno ve y guarda NO cambia: esto solo pasa en la copia que corre.
+  var LIMITE_CICLO = 3000;
+
+  // Va dentro de la vista previa (en una sola línea, para no mover los
+  // números de línea). El reloj se reinicia cada vez que el programa
+  // termina su turno, y no cuenta el tiempo de un alert() o prompt().
+  var GUARDIA_JS =
+    "(function(){var t=0,n=0,L=" + LIMITE_CICLO + ",soltar=function(){setTimeout(function(){t=0;},0);};" +
+    "try{var c=new MessageChannel();c.port1.onmessage=function(){t=0;};soltar=function(){c.port2.postMessage(0);};}catch(e){}" +
+    "window.__cqc=function(l){if(t===0){t=Date.now();soltar();}" +
+    "if((++n&1023)===0&&Date.now()-t>L){throw new Error('Ciclo infinito: el ciclo de la línea '+l+" +
+    "' lleva más de '+(L/1000)+' segundos sin terminar');}};" +
+    "['alert','prompt','confirm'].forEach(function(f){var o=window[f];if(typeof o!=='function')return;" +
+    "window[f]=function(){var r=o.apply(window,arguments);if(t!==0){t=Date.now();}return r;};});" +
+    "})();";
+
+  function sintaxisValida(js) {
+    try { new Function(js); return true; } catch (e) { return false; }
+  }
+
+  // Regresa el JavaScript con el guardián puesto en cada ciclo con llaves.
+  // lineaBase = cuántas líneas hay antes de este código en la página.
+  // Ante cualquier duda regresa el código tal cual (sin protección).
+  function protegerCiclos(js, lineaBase) {
+    var n = js.length;
+    var salida = "";
+    var i = 0;
+    var linea = (lineaBase || 0) + 1;
+    var puestos = 0;
+
+    function esDeNombre(c) { return /[A-Za-z0-9_$]/.test(c || ""); }
+    function saltos(texto) { return texto.split("\n").length - 1; }
+    function saltarEspacios(k) {
+      while (k < n && /\s/.test(js[k])) k++;
+      return k;
+    }
+    // Si en k empieza un texto o un comentario, regresa dónde termina
+    // (-1 si nunca cierra). Si no, regresa k.
+    function finDeNoCodigo(k) {
+      var c = js[k];
+      var fin;
+      if (c === '"' || c === "'" || c === "`") {
+        for (fin = k + 1; fin < n; fin++) {
+          if (js[fin] === "\\") { fin++; continue; }
+          if (js[fin] === c) return fin + 1;
+          if (js[fin] === "\n" && c !== "`") return -1;
+        }
+        return -1;
+      }
+      if (c === "/" && js[k + 1] === "/") {
+        fin = js.indexOf("\n", k);
+        return fin === -1 ? n : fin;
+      }
+      if (c === "/" && js[k + 1] === "*") {
+        fin = js.indexOf("*/", k + 2);
+        return fin === -1 ? -1 : fin + 2;
+      }
+      return k;
+    }
+    // k apunta a un "(": regresa la posición después de su ")" (-1 si no cierra)
+    function finParentesis(k) {
+      var hondo = 0;
+      while (k < n) {
+        var fin = finDeNoCodigo(k);
+        if (fin === -1) return -1;
+        if (fin > k) { k = fin; continue; }
+        if (js[k] === "(") hondo++;
+        else if (js[k] === ")") { hondo--; if (hondo === 0) return k + 1; }
+        k++;
+      }
+      return -1;
+    }
+
+    while (i < n) {
+      var fin = finDeNoCodigo(i);
+      if (fin === -1) return js;
+      if (fin > i) {
+        var trozo = js.slice(i, fin);
+        salida += trozo;
+        linea += saltos(trozo);
+        i = fin;
+        continue;
+      }
+      var c = js[i];
+      if ((c === "f" || c === "w" || c === "d") && !esDeNombre(js[i - 1]) && js[i - 1] !== ".") {
+        var m = /^(for|while|do)(?![A-Za-z0-9_$])/.exec(js.substr(i, 6));
+        if (m) {
+          var j = i + m[1].length;
+          if (m[1] !== "do") {
+            j = saltarEspacios(j);
+            j = js[j] === "(" ? finParentesis(j) : -2;
+            if (j === -1) return js;
+          }
+          if (j > 0) {
+            var llave = saltarEspacios(j);
+            if (js[llave] === "{") {
+              var ciclo = js.slice(i, llave + 1);
+              salida += ciclo + "__cqc(" + linea + ");";
+              linea += saltos(ciclo);
+              i = llave + 1;
+              puestos++;
+              continue;
+            }
+          }
+        }
+      }
+      if (c === "\n") linea++;
+      salida += c;
+      i++;
+    }
+    if (!puestos) return js;
+    // Si el código original está bien escrito y el protegido no, algo
+    // entendimos mal: mejor correr el original.
+    return sintaxisValida(js) && sintaxisValida(salida) ? salida : js;
+  }
+
+  // Lo mismo para una página completa: protege cada <script> con JavaScript
+  function protegerPagina(html) {
+    return html.replace(/(<script\b([^>]*)>)([\s\S]*?)(<\/script\s*>)/gi, function (todo, abre, atributos, js, cierra, donde) {
+      if (/\bsrc\s*=/i.test(atributos)) return todo;
+      var tipo = /\btype\s*=\s*["']?([^"'\s>]+)/i.exec(atributos);
+      if (tipo && !/^(text|application)\/javascript$/i.test(tipo[1])) return todo;
+      var lineasAntes = html.slice(0, donde + abre.length).split("\n").length - 1;
+      return abre + protegerCiclos(js, lineasAntes) + cierra;
+    });
+  }
+
   // Página-consola para el modo "js": muestra los console.log bonito.
   // Regresa la página y en qué línea empieza el código del alumno.
   function docConsolaJS(codigoUsuario) {
@@ -114,7 +247,7 @@
       "body{background:#050510;color:#39ff8e;font-family:Menlo,Consolas,monospace;" +
       "font-size:14px;padding:12px;margin:0;white-space:pre-wrap;word-break:break-word;line-height:1.6}" +
       ".err{color:#ff5c7a}.res{color:#a3a3c8}" +
-      "</style><script>" + escudo + REPORTERO + "<\/script></head><body><script>\n" +
+      "</style><script>" + escudo + REPORTERO + GUARDIA_JS + "<\/script></head><body><script>\n" +
       "var __CQ_LINEAS = 0;\n" +
       "function __linea(txt, clase){var d=document.createElement('div');if(clase)d.className=clase;" +
       "d.textContent=txt;document.body.appendChild(d);}\n" +
@@ -128,7 +261,7 @@
     var desfase = antes.split("\n").length - 1;
     antes = antes.replace("var __CQ_LINEAS = 0;", "var __CQ_LINEAS = " + desfase + ";");
     return {
-      html: antes + escaparScript(codigoUsuario) + "\n<\/script></body></html>",
+      html: antes + escaparScript(protegerCiclos(codigoUsuario, 0)) + "\n<\/script></body></html>",
       desfase: desfase
     };
   }
@@ -252,7 +385,9 @@
         preview.srcdoc = doc.html;
       } else {
         desfase = 0;
-        preview.srcdoc = CodeQuest.conEscudo ? CodeQuest.conEscudo(codigo, REPORTERO) : codigo;
+        preview.srcdoc = CodeQuest.conEscudo
+          ? CodeQuest.conEscudo(protegerPagina(codigo), REPORTERO + GUARDIA_JS)
+          : codigo;
       }
     }
 
@@ -272,12 +407,16 @@
         if (cuentaRepetidos) cuentaRepetidos.textContent = "(se repitió " + erroresEnEstaCorrida + " veces)";
         return;
       }
-      if (aMano) cq("evento")("error");
-      var linea = e.data.linea - desfase;
+      // El guardián de ciclos avisa con su propio mensaje (ya trae la línea)
+      var esCiclo = /Ciclo infinito:/.test(e.data.cqError);
+      if (aMano) cq("evento")(esCiclo ? "ciclo-infinito" : "error");
+      var linea = esCiclo ? 0 : e.data.linea - desfase;
       zonaError.hidden = false;
       var titulo = document.createElement("div");
       titulo.className = "pg-error-titulo";
-      titulo.textContent = "🐞 Tu JavaScript tiene un error" + (linea > 0 ? " en la línea " + linea : "") + ":";
+      titulo.textContent = esCiclo
+        ? "🛑 ¡El guardián detuvo tu programa!"
+        : "🐞 Tu JavaScript tiene un error" + (linea > 0 ? " en la línea " + linea : "") + ":";
       var mensaje = document.createElement("code");
       mensaje.textContent = e.data.cqError;
       cuentaRepetidos = document.createElement("span");
