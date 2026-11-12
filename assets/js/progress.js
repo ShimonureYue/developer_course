@@ -179,10 +179,11 @@
   // Revisa que algo parezca partida y completa los cajones que falten
   function normalizar(p) {
     if (!p || typeof p !== "object" || typeof p.xp !== "number") return null;
-    p.lecciones = p.lecciones || {};
-    p.quizzes = p.quizzes || {};
-    p.checklist = p.checklist || {};
-    p.extra = p.extra || {};
+    // Un archivo editado a mano puede traer un cajón con otra forma (un
+    // texto, una lista…): lo cambiamos por uno vacío para que nada truene.
+    ["lecciones", "quizzes", "checklist", "extra"].forEach(function (cajon) {
+      if (!p[cajon] || typeof p[cajon] !== "object" || Array.isArray(p[cajon])) p[cajon] = {};
+    });
     return p;
   }
 
@@ -1111,7 +1112,7 @@
   // lenguaje: "python" | "js" | "sql". Regresa una promesa con la pista
   // en español, o null si no conocemos ese error.
   function explicarError(lenguaje, mensaje) {
-    return cargarScript(BASE + "assets/js/errores.js?v=2")
+    return cargarScript(BASE + "assets/js/errores.js?v=3")
       .then(function () {
         return window.CodeQuestErrores ? window.CodeQuestErrores.explicar(lenguaje, String(mensaje || "")) : null;
       })
