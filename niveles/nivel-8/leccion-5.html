@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #39ff8e;">
@@ -111,6 +111,14 @@
         transparente encima del juego + textos con <code>fillText</code>. La tecla
         <code>R</code> llama a <code>iniciar()</code>, que regresa todo a su estado
         inicial. Fin del plan. A pelear. ⚔️</p>
+      <p class="suave">🔍 Tres retoques que verás en el código respecto a la lección 4:
+        la función <code>actualizar()</code> ahora se llama <code>paso()</code> (es un
+        paso de la serpiente, y al final ella misma llama a <code>dibujar()</code>);
+        las flechas ya no cambian <code>direccion</code> al instante, sino que dejan su
+        pedido en <code>proximaDireccion</code> y <code>paso()</code> lo aplica — si no,
+        dos flechas muy rápidas (⬆️ y luego ⬅️) te darían la vuelta sobre tu propio
+        cuello antes de avanzar, y ahora eso mata 💀; y la serpiente espera quieta a que
+        pulses la primera flecha, para que no te estrelles antes de estar listo.</p>
     </div>
 
     <!-- ============ 👀 EJEMPLO ============ -->
@@ -118,7 +126,8 @@
       <p class="titulo-bloque">👀 ASÍ SE VE EL JEFE VENCIDO</p>
       <p>El Snake completo, jugable y con récord. Presiona <strong>▶ Ejecutar</strong>…</p>
       <p><strong>🖱️ Haz clic dentro de la vista previa primero, para que escuche tu
-        teclado.</strong> Maneja con ⬆️⬇️⬅️➡️, muere con estilo, y presiona
+        teclado.</strong> La serpiente arranca con tu primera flecha: maneja con
+        ⬆️⬇️⬅️➡️, muere con estilo, y presiona
         <code>R</code> para reintentar. Tu récord seguirá ahí aunque vuelvas mañana 💾
         (léelo con calma: reconocerás CADA pieza de las lecciones anteriores):</p>
 
@@ -148,7 +157,8 @@
     var COLUMNAS = canvas.width / CELDA;
     var FILAS = canvas.height / CELDA;
 
-    var serpiente, direccion, manzana, puntos, velocidad, vivo, temporizador;
+    var serpiente, direccion, proximaDireccion, manzana;
+    var puntos, velocidad, vivo, enMarcha, temporizador;
 
     // 💾 MISIÓN 5: el récord vive en localStorage (¡nivel 7 aplicado!)
     // getItem devuelve TEXTO (o null la primera vez) → parseInt lo vuelve número
@@ -156,34 +166,61 @@
 
     function iniciar() {
       serpiente = [ { x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 } ];
-      direccion = { x: 1, y: 0 };
+      direccion = { x: 1, y: 0 };        // hacia dónde va AHORA
+      proximaDireccion = direccion;      // hacia dónde irá en el SIGUIENTE paso
       puntos = 0;
       velocidad = 150;              // ms entre pasos: menos = más rápido
       vivo = true;
+      enMarcha = false;             // quieta hasta que pulses una flecha 🕹️
       nuevaManzana();
       clearInterval(temporizador);  // apaga el reloj anterior (si había)
-      temporizador = setInterval(paso, velocidad);
       pintarMarcador();
+      dibujar();
     }
 
+    // 🍎 Manzana educada: sortea celdas hasta que caiga en una LIBRE
+    // (si naciera debajo de la serpiente, ni la verías)
     function nuevaManzana() {
-      manzana = {
-        x: Math.floor(Math.random() * COLUMNAS),
-        y: Math.floor(Math.random() * FILAS)
-      };
+      var ocupada = true;
+      while (ocupada) {
+        manzana = {
+          x: Math.floor(Math.random() * COLUMNAS),
+          y: Math.floor(Math.random() * FILAS)
+        };
+        ocupada = false;
+        for (var i = 0; i &lt; serpiente.length; i++) {
+          if (serpiente[i].x === manzana.x &amp;&amp; serpiente[i].y === manzana.y) {
+            ocupada = true;   // cayó sobre la serpiente: otra vuelta al while
+          }
+        }
+      }
     }
 
     document.addEventListener("keydown", function (evento) {
-      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
-      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
-      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
-      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+      // Las flechas ya no cambian "direccion" al instante: dejan un PEDIDO en
+      // proximaDireccion, y paso() lo aplica cuando le toca. Así, dos flechas
+      // rapidísimas ya no pueden darte la vuelta sobre tu propio cuello.
+      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  proximaDireccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) proximaDireccion = { x: 0, y: 1 };
+      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  proximaDireccion = { x: -1, y: 0 };
+      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) proximaDireccion = { x: 1, y: 0 };
+
+      if (evento.key === "ArrowUp" || evento.key === "ArrowDown" ||
+          evento.key === "ArrowLeft" || evento.key === "ArrowRight") {
+        evento.preventDefault();       // solo las flechas: que no muevan la página
+        if (vivo &amp;&amp; !enMarcha) {       // ¡la primera flecha arranca el reloj! ⏱️
+          enMarcha = true;
+          temporizador = setInterval(paso, velocidad);
+        }
+      }
+
       if (!vivo &amp;&amp; (evento.key === "r" || evento.key === "R")) iniciar();  // 🔄
-      evento.preventDefault();
     });
 
     function paso() {
       if (!vivo) return;   // muerta no camina 💀
+
+      direccion = proximaDireccion;   // ahora sí: aplica el giro que pediste
 
       var cabeza = {
         x: serpiente[0].x + direccion.x,
@@ -196,6 +233,16 @@
         return gameOver();
       }
 
+      // ¿En este paso come? Lo anotamos en una variable (true o false)
+      var comio = (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y);
+
+      // Si NO comió, sale la cola (si comió, se queda: así crece 🐍).
+      // Va ANTES de revisar la mordida: la celda que la cola deja libre
+      // sí se puede pisar (perseguir tu propia cola es legal 😉)
+      if (!comio) {
+        serpiente.pop();
+      }
+
       // 💀 MISIÓN 2: ¿se mordió? (compara la cabeza con CADA segmento)
       for (var i = 0; i &lt; serpiente.length; i++) {
         if (serpiente[i].x === cabeza.x &amp;&amp; serpiente[i].y === cabeza.y) {
@@ -205,7 +252,7 @@
 
       serpiente.unshift(cabeza);
 
-      if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
+      if (comio) {
         puntos = puntos + 1;               // 🍎 MISIÓN 3: ¡punto!
         nuevaManzana();
         if (velocidad &gt; 60) {              // 🚀 MISIÓN 4: acelerar
@@ -214,8 +261,6 @@
           temporizador = setInterval(paso, velocidad);  // …reloj más rápido dentro
         }
         pintarMarcador();
-      } else {
-        serpiente.pop();
       }
 
       dibujar();
@@ -261,17 +306,26 @@
         ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
         ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
       }
+
+      // Antes de la primera flecha: un letrero de espera
+      if (vivo &amp;&amp; !enMarcha) {
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#eaeaf5";
+        ctx.font = "17px monospace";
+        ctx.fillText("pulsa una flecha para empezar", canvas.width / 2, 150);
+        ctx.textAlign = "left";
+      }
     }
 
-    iniciar();
-    dibujar();
+    iniciar();   // deja todo listo… y espera tu primera flecha
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 </pre>
       </div>
       <p class="suave">🌐 Recuerda del nivel 7: localStorage guarda de verdad cuando el
-        sitio se abre por internet o con Live Server. Y cuando venzas al jefe, compárate
+        curso se abre por internet (con su dirección <code>https://</code>); si lo abres
+        con doble clic desde una carpeta, puede que no guarde. Y cuando venzas al jefe, compárate
         con la versión del arcade: <a href="../../arcade/snake.html">👾 Snake del
         arcade</a> — ¿en qué se parece a la tuya?</p>
     </div>
@@ -280,10 +334,12 @@
     <div class="bloque tu-turno">
       <p class="titulo-bloque">✏️ TU TURNO: VENCE AL JEFE POR MISIONES</p>
       <p>Aquí está tu Snake de la lección 4, ya con marcador, aceleración y tecla R
-        conectados… pero es <strong>inmortal</strong>: atraviesa paredes, se atraviesa a
-        sí mismo y jamás guarda récord. Completa las 3 misiones EN ORDEN, ejecutando
-        después de cada una. <strong>🖱️ Haz clic dentro de la vista previa primero,
-        para que escuche tu teclado.</strong></p>
+        conectados (las misiones 3 y 4 ya vienen hechas)… pero es
+        <strong>inmortal</strong>: atraviesa paredes, se atraviesa a sí mismo y jamás
+        guarda récord. Te tocan las <strong>misiones 1, 2 y 5</strong>: complétalas EN
+        ORDEN, ejecutando después de cada una. <strong>🖱️ Haz clic dentro de la vista
+        previa primero, para que escuche tu teclado</strong>, y pulsa una flecha para
+        que la serpiente arranque.</p>
 
       <div class="playground" data-mode="html" data-titulo="mi_snake_final.html" data-alto="560">
 <pre class="codigo-inicial" hidden>
@@ -311,21 +367,24 @@
     var COLUMNAS = canvas.width / CELDA;
     var FILAS = canvas.height / CELDA;
 
-    var serpiente, direccion, manzana, puntos, velocidad, vivo, temporizador;
+    var serpiente, direccion, proximaDireccion, manzana;
+    var puntos, velocidad, vivo, enMarcha, temporizador;
 
-    // El récord ya se LEE del cajón (guardarlo es tu Misión 3 💾)
+    // El récord ya se LEE del cajón (guardarlo es tu Misión 5 💾)
     var record = parseInt(localStorage.getItem("snake-record") || "0", 10);
 
     function iniciar() {
       serpiente = [ { x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 } ];
-      direccion = { x: 1, y: 0 };
+      direccion = { x: 1, y: 0 };        // hacia dónde va AHORA
+      proximaDireccion = direccion;      // hacia dónde irá en el SIGUIENTE paso
       puntos = 0;
       velocidad = 150;
       vivo = true;
+      enMarcha = false;                  // quieta hasta que pulses una flecha 🕹️
       nuevaManzana();
       clearInterval(temporizador);
-      temporizador = setInterval(paso, velocidad);
       pintarMarcador();
+      dibujar();
     }
 
     function nuevaManzana() {
@@ -336,16 +395,29 @@
     }
 
     document.addEventListener("keydown", function (evento) {
-      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  direccion = { x: 0, y: -1 };
-      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) direccion = { x: 0, y: 1 };
-      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  direccion = { x: -1, y: 0 };
-      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) direccion = { x: 1, y: 0 };
+      // Las flechas dejan un PEDIDO en proximaDireccion; paso() lo aplica
+      // cuando le toca (así dos flechas rapidísimas no te voltean de golpe)
+      if (evento.key === "ArrowUp"    &amp;&amp; direccion.y !== 1)  proximaDireccion = { x: 0, y: -1 };
+      if (evento.key === "ArrowDown"  &amp;&amp; direccion.y !== -1) proximaDireccion = { x: 0, y: 1 };
+      if (evento.key === "ArrowLeft"  &amp;&amp; direccion.x !== 1)  proximaDireccion = { x: -1, y: 0 };
+      if (evento.key === "ArrowRight" &amp;&amp; direccion.x !== -1) proximaDireccion = { x: 1, y: 0 };
+
+      if (evento.key === "ArrowUp" || evento.key === "ArrowDown" ||
+          evento.key === "ArrowLeft" || evento.key === "ArrowRight") {
+        evento.preventDefault();       // solo las flechas: que no muevan la página
+        if (vivo &amp;&amp; !enMarcha) {       // la primera flecha arranca el reloj ⏱️
+          enMarcha = true;
+          temporizador = setInterval(paso, velocidad);
+        }
+      }
+
       if (!vivo &amp;&amp; (evento.key === "r" || evento.key === "R")) iniciar();
-      evento.preventDefault();
     });
 
     function paso() {
       if (!vivo) return;
+
+      direccion = proximaDireccion;   // aplica el giro que pediste
 
       var cabeza = {
         x: serpiente[0].x + direccion.x,
@@ -360,23 +432,30 @@
       if (cabeza.y &lt; 0) cabeza.y = FILAS - 1;
       if (cabeza.y &gt;= FILAS) cabeza.y = 0;
 
+      // ¿En este paso come? Lo anotamos en una variable (true o false)
+      var comio = (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y);
+
+      // Si NO comió, sale la cola (si comió, se queda: así crece 🐍).
+      // Va ANTES de la mordida: la celda que la cola deja libre sí se puede pisar
+      if (!comio) {
+        serpiente.pop();
+      }
+
       // MISIÓN 2 💀: la mordida. Recorre "serpiente" con un for y, si algún
       // segmento tiene la MISMA x y la MISMA y que la cabeza nueva
       // → return gameOver();
 
       serpiente.unshift(cabeza);
 
-      if (cabeza.x === manzana.x &amp;&amp; cabeza.y === manzana.y) {
-        puntos = puntos + 1;
+      if (comio) {
+        puntos = puntos + 1;           // 🍎 Misión 3: ya viene hecha
         nuevaManzana();
-        if (velocidad &gt; 60) {
+        if (velocidad &gt; 60) {          // 🚀 Misión 4: ya viene hecha
           velocidad = velocidad - 5;
           clearInterval(temporizador);
           temporizador = setInterval(paso, velocidad);
         }
         pintarMarcador();
-      } else {
-        serpiente.pop();
       }
 
       dibujar();
@@ -385,7 +464,7 @@
     function gameOver() {
       vivo = false;
 
-      // MISIÓN 3 💾: si puntos &gt; record → actualiza record y guárdalo en
+      // MISIÓN 5 💾: si puntos &gt; record → actualiza record y guárdalo en
       // localStorage con la clave "snake-record" (recuerda: setItem guarda texto)
 
       pintarMarcador();
@@ -418,10 +497,18 @@
         ctx.fillStyle = (i === 0) ? "#ffe95c" : "#39ff8e";
         ctx.fillRect(serpiente[i].x * CELDA, serpiente[i].y * CELDA, CELDA - 1, CELDA - 1);
       }
+
+      // Antes de la primera flecha: un letrero de espera
+      if (vivo &amp;&amp; !enMarcha) {
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#eaeaf5";
+        ctx.font = "17px monospace";
+        ctx.fillText("pulsa una flecha para empezar", canvas.width / 2, 150);
+        ctx.textAlign = "left";
+      }
     }
 
-    iniciar();
-    dibujar();
+    iniciar();   // deja todo listo… y espera tu primera flecha
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
@@ -441,7 +528,7 @@
           Misión 2: es el mismo patrón de "buscar en un arreglo" que usaste en la tabla de
           récords del nivel 7: <code>for (var i = 0; i &lt; serpiente.length; i++)</code>
           y adentro un <code>if</code> que compara <code>serpiente[i].x === cabeza.x
-          &amp;&amp; serpiente[i].y === cabeza.y</code>. Misión 3: son 2 líneas dentro de
+          &amp;&amp; serpiente[i].y === cabeza.y</code>. Misión 5: son 2 líneas dentro de
           un <code>if (puntos &gt; record)</code> — mira cómo se LEE el récord arriba y
           haz el viaje de regreso con <code>setItem</code>.
         </div>
@@ -460,15 +547,16 @@ for (var i = 0; i &lt; serpiente.length; i++) {
   }
 }
 
-// MISIÓN 3 💾 (dentro de gameOver):
+// MISIÓN 5 💾 (dentro de gameOver):
 if (puntos &gt; record) {
   record = puntos;
   localStorage.setItem("snake-record", String(record));
 }</code></pre>
           Detalles finos: la muerte se revisa con la <strong>cabeza nueva ANTES del
           unshift</strong> — preguntamos "¿PUEDO pisar esa celda?" antes de pisarla.
-          El <code>for</code> de la mordida compara contra TODO el cuerpo actual; con que
-          UN segmento coincida en x y en y, adiós 💀. Y el récord es el mismo viaje del
+          El <code>for</code> de la mordida compara contra TODO el cuerpo que queda
+          (la cola ya salió con el <code>pop</code> de arriba, por eso su celda sí se
+          puede pisar); con que UN segmento coincida en x y en y, adiós 💀. Y el récord es el mismo viaje del
           nivel 7: <code>getItem</code> al nacer (texto → <code>parseInt</code>),
           <code>setItem</code> al morir con gloria. Por eso tu récord sigue ahí mañana. 🏆
         </div>
@@ -488,12 +576,12 @@ if (puntos &gt; record) {
           <code>||</code> en vez de <code>&amp;&amp;</code> — debe coincidir la x
           <strong>Y</strong> la y del MISMO segmento.</li>
         <li>¿El récord no sobrevive? Verifica la clave exacta <code>"snake-record"</code>
-          en <code>getItem</code> y <code>setItem</code>, y que estés probando con Live
-          Server. 💾</li>
+          en <code>getItem</code> y <code>setItem</code>, y que estés usando el curso
+          desde su dirección de internet (no con doble clic a un archivo). 💾</li>
         <li>Pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n8l5">Tengo 13 años y estoy terminando mi juego de Snake en canvas con JavaScript. La serpiente es un arreglo de objetos {x, y} en celdas; muere al salir del tablero o al tocar su propio cuerpo (lo reviso con un for comparando la cabeza nueva con cada segmento), acelera con clearInterval + setInterval, y guarda el récord en localStorage. Estoy atorado en una parte. Hazme preguntas una por una para que yo mismo encuentre el error (no me des el juego resuelto), y si te lo pido, explícame despacio cómo se revisa la colisión de la serpiente consigo misma.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n8l5').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -515,8 +603,10 @@ if (puntos &gt; record) {
         juego distinto y muy divertido!);
         2) <strong>Manzana dorada</strong> ✨: de vez en cuando (por ejemplo, si
         <code>Math.random() &lt; 0.2</code>) haz la manzana amarilla y que valga 5 puntos;
-        3) <strong>Manzana educada</strong> 🍎: evita que nazca sobre la serpiente
-        (después de sortearla, recorre el cuerpo; si cae encima, sortéala de nuevo).
+        3) <strong>Manzana educada</strong> 🍎: en tu versión, a veces la manzana nace
+        escondida debajo de la serpiente. Evítalo: después de sortearla, recorre el
+        cuerpo; si cae encima, sortéala de nuevo (el jefe vencido de arriba ya lo hace:
+        espía su <code>nuevaManzana()</code> si te atoras).
         <strong>Jefe secreto:</strong> ¿un TOP 5 de récords con nombres, como el del
         nivel 7? Tienes TODO para hacerlo. Y luego ve a comparar con
         <a href="../../arcade/snake.html">el Snake del arcade 👾</a>. 😏</p>
@@ -568,9 +658,9 @@ if (puntos &gt; record) {
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

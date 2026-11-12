@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff5c7a;">
@@ -156,7 +156,7 @@ let copia = JSON.parse(texto);       // 📂 desempacar → el objeto de vuelta,
       </div>
 
       <p class="suave">🌐 <strong>Nota rápida:</strong> los ejemplos de localStorage funcionan
-        cuando el sitio se abre por internet o con Live Server. Si abres el archivo con doble
+        cuando el curso se abre por internet, con su dirección <code>https://</code>. Si abres el archivo con doble
         clic (la barra dice <code>file://</code>), el navegador puede negarse a guardar.
         Si "no te guarda", esa es la razón, no tu código. 😉</p>
     </div>
@@ -237,7 +237,7 @@ localStorage.setItem("mi-nota", caja.value);</code></pre>
         <li>Pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n7l2">Tengo 13 años y estoy aprendiendo JavaScript. Hoy vi localStorage (setItem, getItem, removeItem) y JSON.stringify / JSON.parse. Explícame con una analogía sencilla: 1) por qué las variables se borran al recargar la página, 2) por qué localStorage solo guarda texto y para qué sirve JSON, 3) qué es null y cómo revisarlo con if. Después hazme 2 preguntas para ver si entendí. No me resuelvas mis ejercicios completos.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -308,9 +308,9 @@ localStorage.setItem("mi-nota", caja.value);</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

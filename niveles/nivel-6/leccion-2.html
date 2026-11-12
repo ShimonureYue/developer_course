@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #00e5ff;">
@@ -348,7 +348,7 @@ function jugar(i) {
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n6l2">Tengo 13 años y estoy programando el juego del gato (tres en línea) en JavaScript. Guardo el tablero en un arreglo de 9 textos y tengo una variable turno que alterna entre "❌" y "⭕". Ya sé listas de Python. Explícame cómo se relacionan los índices 0 a 8 del arreglo con las casillas del tablero 3x3, y por qué se usa un if con return para no sobrescribir casillas ocupadas. Voy a pegarte mi código si algo falla: guíame con preguntas en vez de darme la solución completa.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n6l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -415,9 +415,9 @@ function jugar(i) {
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>

@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ff5c7a;">
@@ -156,6 +156,8 @@ SELECT nombre, juego, puntos FROM jugadores ORDER BY puntos DESC;
 
 -- TODO 2: escribe aquí abajo un SELECT que muestre toda la tabla
 --         ordenada por puntos de mayor a menor. ¿Quedaste en 1er lugar? 🏆
+--         (OJO: cada ▶ repite el INSERT. Cuando ya te hayas agregado,
+--          vuelve a ponerle sus guiones -- para no salir repetido)
 
 </script>
       </div>
@@ -171,8 +173,12 @@ SELECT nombre, juego, puntos FROM jugadores ORDER BY puntos DESC;
           <span class="pista-titulo">PISTA 2</span>
           El SELECT del TODO 2 combina los pasos 1 y 4 del ejemplo:
           empieza con <code>SELECT * FROM jugadores</code> y agrégale el
-          <code>ORDER BY … DESC</code> antes del punto y coma. Puedes dejar el INSERT arriba:
-          se ejecutan los dos en orden.
+          <code>ORDER BY … DESC</code> antes del punto y coma. Ojo con el INSERT de arriba:
+          cada vez que presionas ▶ Consultar se vuelve a ejecutar y te mete
+          <strong>otra copia</strong> de tu registro. Así que ejecútalo UNA vez y luego
+          vuelve a ponerle sus <code>--</code> (tu registro ya quedó guardado en la tabla).
+          ¿Ya te salieron gemelos? El botón <strong>🔄 Restaurar base</strong> del editor
+          (o recargar la página) deja la tabla como al principio.
         </div>
         <div class="pista solucion">
           <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
@@ -183,7 +189,9 @@ SELECT * FROM jugadores ORDER BY puntos DESC;</code></pre>
           El <code>INSERT</code> dice: "en la tabla jugadores, en estas 4 columnas, mete estos
           4 valores" (¡en el mismo orden!). El <code>id</code> no se lo damos: la base se lo
           inventa sola, en automático. Y el <code>SELECT … ORDER BY puntos DESC</code> muestra
-          la tabla de líderes con tu registro nuevo hasta arriba. 🥇
+          la tabla de líderes con tu registro nuevo hasta arriba. 🥇 Recuerda: después de
+          la primera ejecución, comenta el <code>INSERT</code> con <code>--</code> para no
+          agregarte dos veces (y si pasó, <strong>🔄 Restaurar base</strong> lo arregla).
         </div>
       </div>
     </div>
@@ -199,7 +207,7 @@ SELECT * FROM jugadores ORDER BY puntos DESC;</code></pre>
         <li>Pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n7l3">Tengo 13 años y hoy aprendí mis primeras consultas SQL en una tabla llamada jugadores con columnas id, nombre, juego, puntos y ciudad. Ya probé SELECT, WHERE, ORDER BY e INSERT INTO. Explícame con una analogía sencilla qué hace cada una, y por qué los textos van entre comillas simples. Después ponme 3 mini-retos de consultas sobre esa misma tabla (sin darme las respuestas de inmediato).</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n7l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -268,9 +276,9 @@ SELECT * FROM jugadores ORDER BY puntos DESC;</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/sql-runner.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/sql-runner.js?v=3"></script>
 </body>
 </html>

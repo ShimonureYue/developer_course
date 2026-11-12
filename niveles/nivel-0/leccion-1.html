@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ffe95c;">
@@ -113,7 +113,8 @@
           seguridad haciendo su trabajo. El instalador robot hace todo y al final Chrome
           se abre solo. 🎉</li>
         <li>Para abrirlo después: 🍎 <strong>Launchpad</strong> (el cohete 🚀 del Dock o junta
-          4 dedos en el trackpad), busca <strong>Chrome</strong> — la primera vez preguntará
+          4 dedos en el trackpad; si no lo encuentras, pulsa <strong>⌘ + Espacio</strong> y
+          escribe el nombre), busca <strong>Chrome</strong> — la primera vez preguntará
           si quieres abrirlo: dile que <strong>Abrir</strong>. 🪟 <strong>Menú Inicio</strong>
           (el logo de ventana de la esquina) y escribe "Chrome".</li>
       </ol>
@@ -221,7 +222,7 @@
       <p><strong>🔵 RUTA PRO (opcional, para valientes):</strong> usa la
         <strong>terminal</strong>: una app donde le hablas a tu computadora <em>escribiendo
         comandos</em> en vez de hacer clics. Se ve como pantalla de hacker 🕶️.
-        🍎 En Mac se llama <strong>Terminal</strong> (Launchpad → busca "Terminal") y antes de
+        🍎 En Mac se llama <strong>Terminal</strong> (Launchpad → busca "Terminal", o búscala con ⌘ + Espacio) y antes de
         clonar escribe <code>xcode-select --install</code> (instala las herramientas de
         programador de Apple; acepta el aviso y espera unos minutos).
         🪟 En Windows instala primero <strong>Git</strong> desde <code>git-scm.com</code>
@@ -343,7 +344,7 @@ C) GitHub del curso → botón verde Code → Download ZIP
       </ol>
       <p>¿Nada de esto fue tu problema? Pregúntale a una IA, describe lo que ves en pantalla: 👇</p>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n0l1">Tengo 13 años, mi computadora es [ESCRIBE AQUÍ: Mac o Windows] y estoy instalando Google Chrome y Visual Studio Code por primera vez para un curso de programación. Me atoré en este paso: [DESCRIBE AQUÍ QUÉ VES EN TU PANTALLA]. Explícame qué hacer con pasos muy simples, uno por uno, sin palabras técnicas.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n0l1').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -374,12 +375,12 @@ C) GitHub del curso → botón verde Code → Download ZIP
       <div class="quiz" data-quiz="n0-l1" data-xp="20">
         <div class="pregunta">
           <p class="enunciado">1. ¿Para qué te servirá <strong>Google Chrome</strong> en este curso?</p>
-          <button class="opcion">Para escribir el código de mis programas</button>
+          <button class="opcion">Para apagar la computadora más rápido</button>
           <button class="opcion" data-ok>Para VER las páginas web y juegos que yo construya</button>
           <button class="opcion">Para descomprimir archivos .zip</button>
           <div class="explicacion">Chrome es tu "tele" 📺: ahí se muestran (y cobran vida) las
-            páginas que escribas. Y el código lo escribirás en los editores que cada lección
-            trae adentro — tu taller viaja contigo. 🔧</div>
+            páginas que escribas. Y también es tu taller: el código lo escribirás en los
+            editores que cada lección trae adentro, sin salir de Chrome. 🔧</div>
         </div>
         <div class="pregunta">
           <p class="enunciado">2. ¿Cómo se instala un programa que descargaste de internet?</p>
@@ -396,7 +397,8 @@ C) GitHub del curso → botón verde Code → Download ZIP
           <button class="opcion" data-ok>Es el aviso normal de seguridad: si la bajaste de su página oficial, dale "Abrir"</button>
           <button class="opcion">Que tu computadora es demasiado vieja para ese programa</button>
           <div class="explicacion">Es el guardia de la puerta 💂 preguntando "¿lo conoces?". Como
-            descargaste VS Code de su página oficial, puedes decirle "Abrir" con confianza.</div>
+            descargaste el programa (por ejemplo, Chrome) de su página oficial, puedes decirle
+            "Abrir" con confianza.</div>
         </div>
       </div>
     </div>
@@ -412,8 +414,8 @@ C) GitHub del curso → botón verde Code → Download ZIP
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
 </body>
 </html>

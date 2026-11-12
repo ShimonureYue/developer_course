@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #39ff8e;">
@@ -170,12 +170,13 @@ print("Te tocó:", random.choice(premios))
 # PARTE 2: bienvenida y primera pregunta
 print("🔮 EL ORÁCULO 🔮")
 print("Pregúntame sobre tu futuro (o escribe 'salir' para terminar)")
-# TODO: pregunta = input("Tu pregunta: ")
+# TODO: pregunta = input("Tu pregunta: ").lower()
+#       (el .lower() la pasa a minúsculas: así "Salir" y "SALIR" también salen)
 
 # PARTE 3: el ciclo del oráculo
 # TODO: while pregunta != "salir":
 #           responde con print y random.choice(respuestas)
-#           vuelve a pedir: pregunta = input("Tu pregunta: ")   ← ¡ADENTRO del ciclo!
+#           vuelve a pedir: pregunta = input("Tu pregunta: ").lower()   ← ¡ADENTRO del ciclo!
 
 # PARTE 4: despedida
 # TODO: print("El oráculo se desvanece en la niebla... 🌫️")
@@ -195,7 +196,7 @@ print("Pregúntame sobre tu futuro (o escribe 'salir' para terminar)")
           Parte 3, el corazón del jefe:
           <pre class="bloque-codigo"><code>while pregunta != "salir":
     print("El oráculo responde:", random.choice(respuestas))
-    pregunta = input("Tu pregunta: ")</code></pre>
+    pregunta = input("Tu pregunta: ").lower()</code></pre>
           El truco: se pide la pregunta ANTES del ciclo (para tener algo que revisar)
           y se vuelve a pedir ADENTRO (para que la respuesta pueda cambiar y el ciclo pueda terminar).
           ¿Te suena? ¡Es la regla anti-ciclo-infinito de la lección 5!
@@ -216,11 +217,11 @@ respuestas = [                         # la sabiduría del oráculo
 print("🔮 EL ORÁCULO 🔮")
 print("Pregúntame sobre tu futuro (o escribe 'salir' para terminar)")
 
-pregunta = input("Tu pregunta: ")      # primera pregunta, ANTES del ciclo
+pregunta = input("Tu pregunta: ").lower()      # primera pregunta, ANTES del ciclo
 
 while pregunta != "salir":             # mientras no quieras salir...
     print("El oráculo responde:", random.choice(respuestas))
-    pregunta = input("Tu pregunta: ")  # nueva pregunta, ADENTRO del ciclo
+    pregunta = input("Tu pregunta: ").lower()  # nueva pregunta, ADENTRO del ciclo
 
 print("El oráculo se desvanece en la niebla... 🌫️")</code></pre>
           Mira todo lo que usaste: variables, input, while, comparaciones, listas y random.
@@ -235,8 +236,9 @@ print("El oráculo se desvanece en la niebla... 🌫️")</code></pre>
       <ol>
         <li>¿<code>NameError: name 'random' is not defined</code>? Te faltó el
           <code>import random</code> hasta arriba.</li>
-        <li>¿El oráculo nunca se calla aunque escribas salir? Revisa que sea EXACTO:
-          <code>"salir"</code> en minúsculas, sin espacios. Y que el input de adentro
+        <li>¿El oráculo nunca se calla aunque escribas salir? Revisa que en tu código diga
+          <code>"salir"</code> en minúsculas y sin espacios, que tus dos
+          <code>input</code> lleven su <code>.lower()</code>, y que el input de adentro
           guarde en la MISMA variable <code>pregunta</code>.</li>
         <li>¿Página congelada? Te faltó el input ADENTRO del ciclo. ⌘R / Ctrl+R y a revisarlo.</li>
         <li>¿<code>IndexError</code>? Pediste un piso que el edificio no tiene: recuerda que el último
@@ -244,7 +246,7 @@ print("El oráculo se desvanece en la niebla... 🌫️")</code></pre>
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n3l6">Tengo 13 años y estoy construyendo en Python una bola 8 mágica: una lista de respuestas, random.choice y un while que se repite hasta que escriba "salir". Explícame: 1) por qué los índices de las listas empiezan en 0 (con la analogía de la planta baja de un edificio), 2) cómo funciona mi ciclo del oráculo línea por línea, 3) qué significan IndexError y NameError. Si te enseño mi código con errores, dame pistas para arreglarlo yo mismo en vez de corregírmelo todo.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l6').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -315,9 +317,9 @@ print("El oráculo se desvanece en la niebla... 🌫️")</code></pre>
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/python-runner.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/python-runner.js?v=3"></script>
 </body>
 </html>

@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #39ff8e;">
@@ -112,6 +112,11 @@ print("¡Qué onda,", nombre, "!")</code></pre>
         te entrega <code>"13"</code> (¡con comillas invisibles!).
         Para convertirlo a número de verdad usa <code>int()</code>:</p>
       <pre class="bloque-codigo"><code>edad = int(input("¿Cuántos años tienes? "))  # ahora sí es un int</code></pre>
+      <p>💡 <strong>Truco de pro</strong>: para Python, <code>"Magia"</code> y
+        <code>"magia"</code> NO son iguales (una mayúscula basta para que <code>==</code>
+        diga que no). Si le pegas <code>.lower()</code> al input, la respuesta se convierte
+        a minúsculas antes de guardarse, y ya no importa cómo la escriban:</p>
+      <pre class="bloque-codigo"><code>poder = input("¿Qué poder eliges? ").lower()  # "MAGIA", "Magia"… todo llega como "magia"</code></pre>
     </div>
 
     <!-- ============ 👀 EJEMPLO VIVO ============ -->
@@ -192,7 +197,8 @@ if edad >= 12:
 <script type="text/plain">
 print("🎮 ¿QUÉ PERSONAJE DE VIDEOJUEGO ERES? 🎮")
 
-poder = input("Elige tu superpoder (velocidad / fuerza / magia): ")
+# .lower() pasa la respuesta a minúsculas: "Magia" y "MAGIA" también valen
+poder = input("Elige tu superpoder (velocidad / fuerza / magia): ").lower()
 
 # TODO 1: si poder == "velocidad" → print("⚡ Eres EL RAYO: corres antes de que carguen el nivel")
 # TODO 2: elif poder == "fuerza" → print("💪 Eres EL TITÁN: rompes paredes... y controles")
@@ -218,7 +224,7 @@ poder = input("Elige tu superpoder (velocidad / fuerza / magia): ")
           <span class="pista-titulo">SOLUCIÓN EXPLICADA</span>
           <pre class="bloque-codigo"><code>print("🎮 ¿QUÉ PERSONAJE DE VIDEOJUEGO ERES? 🎮")
 
-poder = input("Elige tu superpoder (velocidad / fuerza / magia): ")
+poder = input("Elige tu superpoder (velocidad / fuerza / magia): ").lower()
 
 if poder == "velocidad":
     print("⚡ Eres EL RAYO: corres antes de que carguen el nivel")
@@ -230,6 +236,7 @@ else:
     print("👾 Eres EL GLITCH: nadie sabe qué haces, pero funciona")</code></pre>
           Python prueba cada condición en orden y se queda con la <strong>primera</strong> cierta.
           El <code>else</code> atrapa cualquier otra respuesta (hasta "tacos" 🌮).
+          Y gracias al <code>.lower()</code>, escribir "Magia" o "MAGIA" también cuenta.
           ¡Órale, hiciste tu primer quiz interactivo! 🎉
         </div>
       </div>
@@ -248,7 +255,7 @@ else:
         <li>Pregúntale a una IA — es como tener un tutor 24/7: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n3l4">Tengo 13 años y estoy aprendiendo Python: elif, and/or/not e input(). Explícame: 1) cómo decide Python cuál camino tomar cuando hay if/elif/else (con la analogía de un menú de comida), 2) por qué input() siempre devuelve texto y qué hace int(input()), 3) qué significa el error TypeError: '>=' not supported between instances of 'str' and 'int'. Luego ayúdame a mejorar mi quiz de personalidad con una pregunta extra, dándome pistas paso a paso sin escribirme todo el código.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n3l4').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -314,9 +321,9 @@ else:
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/python-runner.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/python-runner.js?v=3"></script>
 </body>
 </html>

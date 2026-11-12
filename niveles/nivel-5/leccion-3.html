@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #ffe95c;">
@@ -118,8 +118,8 @@
     boton.addEventListener("click", function () {
       aplausos = aplausos + 1;                        // 1) cambia el dato
       contador.textContent = aplausos + " aplausos";  // 2) actualiza la pantalla
-      if (aplausos === 10) {
-        contador.style.color = "hotpink";             // 3) ¡premio a los 10! 🎉
+      if (aplausos &gt;= 10) {                           // &gt;= es "mayor o igual"
+        contador.style.color = "hotpink";             // 3) ¡premio desde los 10! 🎉
         contador.textContent = aplausos + " aplausos 🔥 ¡ERES LEYENDA!";
       }
     });
@@ -208,7 +208,7 @@ interruptor.addEventListener("click", function () {       // 2) escucha el clic
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n5l3">Tengo 13 años y estoy aprendiendo el DOM en JavaScript. Explícame con la analogía de un árbol qué es el DOM, y para qué sirven getElementById, textContent, style y classList, con ejemplos cortos. Luego reto: dime 3 cosas divertidas que podría cambiar de una página con esas herramientas y déjame intentar escribir el código yo solo. Revisa mis intentos sin darme la solución completa a la primera.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n5l3').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -273,9 +273,9 @@ interruptor.addEventListener("click", function () {       // 2) escucha el clic
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>
