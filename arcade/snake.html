@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/main.css?v=2">
+  <link rel="stylesheet" href="../assets/css/main.css?v=3">
 
   <!-- ============================================================
        ESTILOS DEL JUEGO (solo de esta página)
@@ -43,6 +43,32 @@
       flex-wrap: wrap;
       margin: 22px 0 30px;
     }
+
+    /* Controles para jugar con el dedo: solo aparecen en celulares y
+       tabletas (pantallas táctiles), donde no hay teclado de flechas. */
+    .tactil {
+      display: none;
+      grid-template-columns: repeat(3, 64px);
+      gap: 8px;
+      justify-content: center;
+      margin: 16px auto 0;
+    }
+    .tactil button {
+      height: 64px;
+      font-size: 1.6rem;
+      background: var(--panel);
+      border: 2px solid var(--panel-borde);
+      border-radius: 12px;
+      color: inherit;
+      touch-action: manipulation;   /* sin zoom por doble toque */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .tactil button:active { border-color: var(--verde); }
+    @media (pointer: coarse) {
+      .tactil { display: grid; }
+      .solo-teclado { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -65,7 +91,15 @@
     <!-- El lienzo: 440 ÷ 20 = 22 celdas de ancho y 22 de alto -->
     <canvas id="lienzo" width="440" height="440"></canvas>
 
-    <p class="suave" style="font-size: 0.9rem; margin-top: 12px;">
+    <!-- Botones para pantallas táctiles (cada uno "presiona" una tecla) -->
+    <div class="tactil" aria-label="Controles táctiles">
+      <span></span><button type="button" data-tecla="ArrowUp" aria-label="Arriba">⬆️</button><span></span>
+      <button type="button" data-tecla="ArrowLeft" aria-label="Izquierda">⬅️</button>
+      <button type="button" data-tecla="ArrowDown" aria-label="Abajo">⬇️</button>
+      <button type="button" data-tecla="ArrowRight" aria-label="Derecha">➡️</button>
+    </div>
+
+    <p class="suave solo-teclado" style="font-size: 0.9rem; margin-top: 12px;">
       ⌨️ Flechas ⬅️⬆️⬇️➡️ para moverte · ESPACIO para reintentar<br>
       💡 Si el teclado no responde, <strong>haz clic en el juego</strong> primero.
     </p>
@@ -335,7 +369,7 @@
       }
       ctx.fillStyle = "#a3a3c8";
       ctx.font = '10px "Press Start 2P", monospace';
-      ctx.fillText("ESPACIO PARA REINTENTAR", lienzo.width / 2, 330);
+      ctx.fillText("ESPACIO O TOCA PARA REINTENTAR", lienzo.width / 2, 330);
     }
 
     // Capa oscura semitransparente para que el texto se lea bien
@@ -354,16 +388,21 @@
     // Un ÚNICO listener para toda la vida de la página (registrarlo
     // dentro de "reintentar" duplicaría los controles: ¡bug clásico!).
     document.addEventListener("keydown", function (evento) {
-      const esFlecha = evento.key in DIRECCIONES;
-
       // Evitamos que las flechas y el espacio hagan scroll en la página
-      if (esFlecha || evento.key === " ") {
+      if (evento.key in DIRECCIONES || evento.key === " ") {
         evento.preventDefault();
       }
+      presionar(evento.key);
+    });
+
+    // Lo que pasa al presionar una tecla. Está en su propia función para
+    // que los botones táctiles puedan "presionar" las mismas teclas.
+    function presionar(tecla) {
+      const esFlecha = tecla in DIRECCIONES;
 
       // En la pantalla de inicio, la primera flecha ARRANCA el juego
       if (estado === "inicio" && esFlecha) {
-        const inicial = DIRECCIONES[evento.key];
+        const inicial = DIRECCIONES[tecla];
         // La serpiente nace mirando a la derecha, así que ⬅️ sería
         // reversa instantánea (moriría contra su propio cuerpo): la ignoramos.
         if (inicial.x + direccion.x === 0 && inicial.y + direccion.y === 0) return;
@@ -377,7 +416,7 @@
 
       // Durante el juego, las flechas cambian la dirección…
       if (estado === "jugando" && esFlecha) {
-        const nueva = DIRECCIONES[evento.key];
+        const nueva = DIRECCIONES[tecla];
         // …PERO está prohibida la reversa instantánea: si vas a la
         // derecha no puedes ir a la izquierda en el mismo instante.
         // Dos direcciones opuestas suman cero (1 + -1 = 0).
@@ -389,15 +428,26 @@
       }
 
       // En game over, ESPACIO prepara otra partida
-      if (estado === "gameover" && evento.key === " ") {
+      if (estado === "gameover" && tecla === " ") {
         prepararPartida();
       }
+    }
+
+    // Controles táctiles 📱: cada botón dice en data-tecla qué tecla es.
+    // Usamos "pointerdown" (y no "click") para que responda al instante.
+    document.querySelectorAll(".tactil button").forEach(function (boton) {
+      boton.addEventListener("pointerdown", function (evento) {
+        evento.preventDefault();
+        // En game over, cualquier botón sirve para reintentar
+        presionar(estado === "gameover" ? " " : boton.getAttribute("data-tecla"));
+      });
     });
 
     // Si el teclado "no responde", suele ser que la página perdió el foco.
-    // Hacer clic en el lienzo lo recupera.
+    // Hacer clic en el lienzo lo recupera (y en game over, reintenta).
     lienzo.addEventListener("click", function () {
       window.focus();
+      if (estado === "gameover") { presionar(" "); }
     });
 
     // ---------- 11. ARRANQUE ----------
@@ -405,6 +455,6 @@
   </script>
 
   <script>window.CQ_BASE = "../";</script>
-  <script src="../assets/js/progress.js?v=2"></script>
+  <script src="../assets/js/progress.js?v=3"></script>
 </body>
 </html>
