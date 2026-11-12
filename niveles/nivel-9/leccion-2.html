@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/main.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/lesson.css?v=2">
-  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=2">
+  <link rel="stylesheet" href="../../assets/css/main.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/lesson.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/diagramas.css?v=3">
 </head>
 <body>
   <main class="leccion" style="--color-nivel: #a78bfa;">
@@ -101,7 +101,177 @@
 
       <div class="playground" data-mode="html" data-titulo="invaders_etapa2.html" data-alto="545">
 <pre class="codigo-inicial" hidden>
-@@CODE:n9l2@@
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #05050f; margin: 0; }
+    canvas { background: #0a0a1f; display: block; margin: 0 auto; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="480" height="520"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // ============================================================
+    //  LOS DATOS  (la tabla de diseño, hecha código)
+    // ============================================================
+    // 🚀 La nave: UNA ficha con x, y, ancho, alto y velocidad
+    var nave = {
+      x: 210,            // su esquina IZQUIERDA (210 + 30 = 240: al centro)
+      y: 470,
+      ancho: 60,
+      alto: 20,
+      velocidad: 6       // píxeles que avanza en cada cuadro
+    };
+
+    // 🔸 Las balas: un arreglo que empieza vacío (se llena al disparar)
+    var balas = [];
+
+    // ============================================================
+    //  EL TECLADO
+    // ============================================================
+    // El tablero de teclas: apunta cuáles están presionadas AHORA.
+    // keydown apunta true, keyup apunta false, y el game loop lo consulta.
+    var teclas = {};
+
+    document.addEventListener("keydown", function (e) {
+      teclas[e.key] = true;
+
+      // ESPACIO dispara. !e.repeat quiere decir "solo si la tecla es NUEVA":
+      // si la dejas apretada, el teclado la repite solito (manguera de balas 🚿)
+      if (e.key === " " &amp;&amp; !e.repeat) disparar();
+
+      // Que las flechas y ESPACIO no muevan la página mientras juegas
+      if (e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight" ||
+          e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("keyup", function (e) {
+      teclas[e.key] = false;
+    });
+
+    // Si la ventana pierde el foco (te fuiste a otra pestaña), soltamos todas
+    // las teclas: así la nave no se queda caminando sola
+    window.addEventListener("blur", function () {
+      teclas = {};
+    });
+
+    // ============================================================
+    //  LAS REGLAS DEL MUNDO
+    // ============================================================
+    function moverNave() {
+      if (teclas["ArrowLeft"]) {
+        nave.x = nave.x - nave.velocidad;   // ← resta: hacia la izquierda
+      }
+      if (teclas["ArrowRight"]) {
+        nave.x = nave.x + nave.velocidad;   // → suma: hacia la derecha
+      }
+      // Pared izquierda: si se pasó de 0, la regresamos a 0
+      if (nave.x &lt; 0) nave.x = 0;
+      // Pared derecha: su esquina izquierda no puede pasar de
+      // canvas.width - nave.ancho (si no, se saldría media nave)
+      if (nave.x &gt; canvas.width - nave.ancho) {
+        nave.x = canvas.width - nave.ancho;
+      }
+    }
+
+    // ESPACIO → nace una bala nueva en la punta del cañón
+    function disparar() {
+      balas.push({
+        x: nave.x + nave.ancho / 2 - 3,   // centrada (la bala mide 6 de ancho)
+        y: nave.y - 14,                   // justo arriba de la nave
+        ancho: 6,
+        alto: 14,
+        velocidad: 8
+      });
+    }
+
+    function moverBalas() {
+      // 1) TODAS las balas suben un poquito en cada cuadro
+      for (var i = 0; i &lt; balas.length; i++) {
+        balas[i].y = balas[i].y - balas[i].velocidad;
+      }
+      // 2) 🧹 El barrido: me quedo SOLO con las que siguen visibles
+      balas = balas.filter(function (bala) {
+        return bala.y + bala.alto &gt; 0;
+      });
+    }
+
+    // Todo lo que cambia en un cuadro
+    function actualizar() {
+      moverNave();
+      moverBalas();
+    }
+
+    // ============================================================
+    //  EL DIBUJO
+    // ============================================================
+    function dibujarNave() {
+      ctx.fillStyle = "#00e5ff";
+      ctx.fillRect(nave.x, nave.y + 8, nave.ancho, nave.alto - 8);    // el cuerpo
+      ctx.fillRect(nave.x + nave.ancho / 2 - 5, nave.y, 10, 8);       // el cañón
+    }
+
+    function dibujarBalas() {
+      ctx.fillStyle = "#ffe95c";
+      for (var i = 0; i &lt; balas.length; i++) {
+        ctx.fillRect(balas[i].x, balas[i].y, balas[i].ancho, balas[i].alto);
+      }
+    }
+
+    function dibujar() {
+      // La goma 🧽: borrar todo y pintar de nuevo
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      dibujarBalas();
+      dibujarNave();
+
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = "13px monospace";
+      ctx.fillText("← → moverte · ESPACIO disparar", 12, 24);
+      // El espía 🕵️: cuántas balas siguen vivas en memoria
+      ctx.fillText("🕵️ balas en memoria: " + balas.length, 12, 510);
+    }
+
+    // ============================================================
+    //  EL GAME LOOP: actualizar → dibujar → repetir
+    // ============================================================
+    // requestAnimationFrame nos llama cada vez que la pantalla se repinta y
+    // nos pasa la HORA en milisegundos. Casi todas las pantallas repintan 60
+    // veces por segundo, pero las "gamer" repintan 120 o más: ahí tu juego
+    // correría al doble de velocidad. 😵 El remedio: el mundo avanza en
+    // PASOS de 1/60 de segundo, y en cada repintado damos solo los pasos
+    // que caben en el tiempo que pasó (casi siempre 1; a veces 0 o 2).
+    var PASO = 1000 / 60;     // lo que dura un paso, en milisegundos
+    var horaAnterior = 0;     // hasta qué hora ya avanzó el mundo
+
+    function cuadro(hora) {
+      var pasos = Math.round((hora - horaAnterior) / PASO);
+      horaAnterior = horaAnterior + pasos * PASO;
+      if (pasos &gt; 5) {        // el arranque, o la pestaña estuvo dormida:
+        pasos = 1;            // no intentamos recuperar el tiempo perdido
+        horaAnterior = hora;
+      }
+
+      for (var i = 0; i &lt; pasos; i++) {
+        actualizar();
+      }
+      dibujar();
+      requestAnimationFrame(cuadro);   // "llámame en el siguiente repintado"
+    }
+
+    requestAnimationFrame(cuadro);   // ¡enciende el motor!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
       </div>
 
@@ -120,7 +290,175 @@
 
       <div class="playground" data-mode="html" data-titulo="mi_invaders_etapa2.html" data-alto="545">
 <pre class="codigo-inicial" hidden>
-@@CODE:n9l2-turno@@
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;style&gt;
+    body { background: #05050f; margin: 0; }
+    canvas { background: #0a0a1f; display: block; margin: 0 auto; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id="lienzo" width="480" height="520"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var canvas = document.getElementById("lienzo");
+    var ctx = canvas.getContext("2d");
+
+    // ============================================================
+    //  LOS DATOS  (la tabla de diseño, hecha código)
+    // ============================================================
+    // 🚀 La nave: UNA ficha con x, y, ancho, alto y velocidad
+    var nave = {
+      x: 210,            // su esquina IZQUIERDA (210 + 30 = 240: al centro)
+      y: 470,
+      ancho: 60,
+      alto: 20,
+      velocidad: 6       // píxeles que avanza en cada cuadro
+    };
+
+    // 🔸 Las balas: un arreglo que empieza vacío (se llena al disparar)
+    var balas = [];
+
+    // ============================================================
+    //  EL TECLADO
+    // ============================================================
+    // El tablero de teclas: apunta cuáles están presionadas AHORA.
+    // keydown apunta true, keyup apunta false, y el game loop lo consulta.
+    var teclas = {};
+
+    document.addEventListener("keydown", function (e) {
+      teclas[e.key] = true;
+
+      // ESPACIO dispara. !e.repeat quiere decir "solo si la tecla es NUEVA":
+      // si la dejas apretada, el teclado la repite solito (manguera de balas 🚿)
+      if (e.key === " " &amp;&amp; !e.repeat) disparar();
+
+      // Que las flechas y ESPACIO no muevan la página mientras juegas
+      if (e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight" ||
+          e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener("keyup", function (e) {
+      teclas[e.key] = false;
+    });
+
+    // Si la ventana pierde el foco (te fuiste a otra pestaña), soltamos todas
+    // las teclas: así la nave no se queda caminando sola
+    window.addEventListener("blur", function () {
+      teclas = {};
+    });
+
+    // ============================================================
+    //  LAS REGLAS DEL MUNDO
+    // ============================================================
+    function moverNave() {
+      if (teclas["ArrowLeft"]) {
+        nave.x = nave.x - nave.velocidad;   // ← resta: hacia la izquierda
+      }
+      if (teclas["ArrowRight"]) {
+        nave.x = nave.x + nave.velocidad;   // → suma: hacia la derecha
+      }
+      // Pared izquierda: si se pasó de 0, la regresamos a 0
+      if (nave.x &lt; 0) nave.x = 0;
+      // Pared derecha: su esquina izquierda no puede pasar de
+      // canvas.width - nave.ancho (si no, se saldría media nave)
+      if (nave.x &gt; canvas.width - nave.ancho) {
+        nave.x = canvas.width - nave.ancho;
+      }
+    }
+
+    // ESPACIO → nace una bala nueva en la punta del cañón
+    function disparar() {
+      balas.push({
+        x: nave.x + nave.ancho / 2 - 3,   // centrada (la bala mide 6 de ancho)
+        y: nave.y - 14,                   // justo arriba de la nave
+        ancho: 6,
+        alto: 14,
+        velocidad: 8
+      });
+    }
+
+    function moverBalas() {
+      // TODO 1: que TODAS las balas suban. Recorre el arreglo con un for
+      //         y a cada balas[i].y réstale balas[i].velocidad.
+
+      // TODO 2: el barrido 🧹. Quédate solo con las balas que siguen en
+      //         pantalla:  balas = balas.filter(function (bala) { ... });
+      //         Una bala sigue visible mientras bala.y + bala.alto &gt; 0.
+    }
+
+    // Todo lo que cambia en un cuadro
+    function actualizar() {
+      moverNave();
+      moverBalas();
+    }
+
+    // ============================================================
+    //  EL DIBUJO
+    // ============================================================
+    function dibujarNave() {
+      ctx.fillStyle = "#00e5ff";
+      ctx.fillRect(nave.x, nave.y + 8, nave.ancho, nave.alto - 8);    // el cuerpo
+      ctx.fillRect(nave.x + nave.ancho / 2 - 5, nave.y, 10, 8);       // el cañón
+    }
+
+    function dibujarBalas() {
+      ctx.fillStyle = "#ffe95c";
+      for (var i = 0; i &lt; balas.length; i++) {
+        ctx.fillRect(balas[i].x, balas[i].y, balas[i].ancho, balas[i].alto);
+      }
+    }
+
+    function dibujar() {
+      // La goma 🧽: borrar todo y pintar de nuevo
+      ctx.fillStyle = "#0a0a1f";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      dibujarBalas();
+      dibujarNave();
+
+      ctx.fillStyle = "#a3a3c8";
+      ctx.font = "13px monospace";
+      ctx.fillText("← → moverte · ESPACIO disparar", 12, 24);
+      // El espía 🕵️: cuántas balas siguen vivas en memoria
+      ctx.fillText("🕵️ balas en memoria: " + balas.length, 12, 510);
+    }
+
+    // ============================================================
+    //  EL GAME LOOP: actualizar → dibujar → repetir
+    // ============================================================
+    // requestAnimationFrame nos llama cada vez que la pantalla se repinta y
+    // nos pasa la HORA en milisegundos. Casi todas las pantallas repintan 60
+    // veces por segundo, pero las "gamer" repintan 120 o más: ahí tu juego
+    // correría al doble de velocidad. 😵 El remedio: el mundo avanza en
+    // PASOS de 1/60 de segundo, y en cada repintado damos solo los pasos
+    // que caben en el tiempo que pasó (casi siempre 1; a veces 0 o 2).
+    var PASO = 1000 / 60;     // lo que dura un paso, en milisegundos
+    var horaAnterior = 0;     // hasta qué hora ya avanzó el mundo
+
+    function cuadro(hora) {
+      var pasos = Math.round((hora - horaAnterior) / PASO);
+      horaAnterior = horaAnterior + pasos * PASO;
+      if (pasos &gt; 5) {        // el arranque, o la pestaña estuvo dormida:
+        pasos = 1;            // no intentamos recuperar el tiempo perdido
+        horaAnterior = hora;
+      }
+
+      for (var i = 0; i &lt; pasos; i++) {
+        actualizar();
+      }
+      dibujar();
+      requestAnimationFrame(cuadro);   // "llámame en el siguiente repintado"
+    }
+
+    requestAnimationFrame(cuadro);   // ¡enciende el motor!
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 </pre>
       </div>
 
@@ -167,7 +505,7 @@
         <li>Usa las <strong>💡 pistas</strong> y luego pregúntale a una IA: 👇</li>
       </ol>
       <div class="bloque-ia">
-        <p><strong>🤖 Pregúntale a ChatGPT o Claude (son gratis):</strong> copia este mensaje y pégalo ahí:</p>
+        <p><strong>🤖 Pregúntale a una IA (ChatGPT o Claude), con tu profe o con permiso de tus papás:</strong> copia este mensaje y pégalo ahí:</p>
         <div class="prompt-ia" id="prompt-ia-n9l2">Tengo 13 años y estoy haciendo Space Invaders en JavaScript con canvas. Mis balas son un arreglo de objetos que creo con push cuando presiono espacio, las muevo restando su velocidad a y, y las elimino con filter cuando salen de la pantalla. Voy a pegarte mi función moverBalas(): revísala conmigo con preguntas guiadas, sin darme la solución de golpe. Explícame también, con un ejemplo cortito, cómo funciona filter y por qué hay que eliminar los objetos que ya no se usan en un juego.</div>
         <button class="pg-btn" onclick="navigator.clipboard.writeText(document.getElementById('prompt-ia-n9l2').textContent).then(function(){CodeQuest.toast('📋 ¡Copiado! Pégalo en la IA')})">📋 Copiar mensaje</button>
         <div class="enlaces-ia">
@@ -239,9 +577,9 @@
   </main>
 
   <script>window.CQ_BASE = "../../";</script>
-  <script src="../../assets/js/progress.js?v=2"></script>
-  <script src="../../assets/js/hints.js?v=2"></script>
-  <script src="../../assets/js/quiz.js?v=2"></script>
-  <script src="../../assets/js/playground.js?v=2"></script>
+  <script src="../../assets/js/progress.js?v=3"></script>
+  <script src="../../assets/js/hints.js?v=3"></script>
+  <script src="../../assets/js/quiz.js?v=3"></script>
+  <script src="../../assets/js/playground.js?v=3"></script>
 </body>
 </html>
